@@ -19,6 +19,8 @@ import { remote } from 'electron';
 
 const app = remote.app;
 
+const { dialog } = require('electron').remote
+
 export default class App extends React.Component {
   
   constructor() {
@@ -47,16 +49,15 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div 
-        id="Layout" 
-        style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <div id="Layout" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         
         <Navbar>
           <NavbarGroup align={Alignment.LEFT}>
             <Tooltip content="Open project" position={Position.BOTTOM}>
               <Button 
                 className={Classes.MINIMAL} 
-                icon="folder-open" 
+                icon="folder-open"
+                onClick={() => console.log(dialog.showOpenDialog({ properties: ['openDirectory'] }))}
               />
             </Tooltip>
           </NavbarGroup>
