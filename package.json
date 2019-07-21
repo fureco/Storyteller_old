@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-app",
-  "productName": "electron-react-app",
+  "name": "Storyteller",
+  "productName": "Storyteller",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "A writing application build with Electron and React",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -12,7 +12,7 @@
     "lint": "eslint --cache --color --ext .jsx,.js src"
   },
   "keywords": [],
-  "author": "melan",
+  "author": "Melanie Mende",
   "license": "MIT",
   "config": {
     "forge": {
@@ -32,7 +32,7 @@
         "packageManager": "npm"
       },
       "electronWinstallerConfig": {
-        "name": "electron_react_app"
+        "name": "Storyteller"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
@@ -42,11 +42,12 @@
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "electronreactapp"
+        "name": "Storyteller"
       }
     }
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.17.1",
     "electron-compile": "^6.4.4",
     "electron-devtools-installer": "^2.2.4",
     "electron-squirrel-startup": "^1.0.0",
