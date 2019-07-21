@@ -28,6 +28,7 @@ export default class App extends React.Component {
     super();
 
     this.state = {
+      path_to_open_project: 'No project selected.',
       statistic: {
         words: 0,
         chars: 0,
@@ -57,7 +58,12 @@ export default class App extends React.Component {
               <Button 
                 className={Classes.MINIMAL} 
                 icon="folder-open"
-                onClick={() => console.log(dialog.showOpenDialog({ properties: ['openDirectory'] }))}
+                onClick={() => {
+                  var result = dialog.showOpenDialog({ properties: ['openDirectory']});
+                  if(result) {
+                    this.setState({ path_to_open_project: result[0] }) 
+                  } 
+                }}
               />
             </Tooltip>
           </NavbarGroup>
@@ -73,8 +79,20 @@ export default class App extends React.Component {
           </NavbarGroup>
         </Navbar>
 
+        <div
+          id="path_to_open_project"
+          style={{
+            backgroundColor: Colors.LIGHT_GRAY5,
+            borderBottom: `1px solid ${Colors.LIGHT_GRAY1}`,
+            height: '50px',
+            padding: 12,
+          }}
+        >
+          {this.state.path_to_open_project}
+        </div>
+
         <div id="Main" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-          <h2>Welcome to Storyteller!</h2>
+
           <textarea
             id="TextField"
             style={{
