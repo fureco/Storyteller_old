@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  Alignment,
   Button,
   Classes,
   Menu,
@@ -22,15 +23,15 @@ export default class App extends React.Component {
     return (
       <div id="Layout">
         <Navbar>
-          <NavbarGroup>
-
+          <NavbarGroup align={Alignment.LEFT}>
             <Tooltip content="Open project" position={Position.BOTTOM}>
               <Button 
                 className={Classes.MINIMAL} 
                 icon="folder-open" 
               />
             </Tooltip>
-
+          </NavbarGroup>
+          <NavbarGroup align={Alignment.RIGHT}>
             <Tooltip content="Quit Storyteller" position={Position.BOTTOM}>
               <Button
                 className={Classes.MINIMAL}
