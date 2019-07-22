@@ -1,25 +1,12 @@
 import React from 'react';
 
 import {
-  Alignment,
-  Button,
-  Classes,
   Colors,
-  Menu,
-  MenuItem,
-  Navbar,
-  NavbarDivider,
-  NavbarGroup,
-  Popover,
-  Position,
-  Tooltip
 } from '@blueprintjs/core';
 
-import { remote } from 'electron';
+import FileTree from 'react-filetree-electron';
 
-const app = remote.app;
-
-const { dialog } = require('electron').remote
+import TopNavBar from './components/TopNavBar';
 
 export default class App extends React.Component {
   
@@ -28,7 +15,7 @@ export default class App extends React.Component {
     super();
 
     this.state = {
-      path_to_open_project: 'No project selected.',
+      path_to_project: 'No project selected.',
       statistic: {
         words: 0,
         chars: 0,
@@ -37,47 +24,28 @@ export default class App extends React.Component {
 
     this.onInput = this.onInput.bind(this);
   }
-
+    
   onInput() {
     const textField = document.querySelector('#TextField');
     const textBeforCaret = textField.value.slice(0, textField.selectionStart);
     const words = textBeforCaret.split(' ');
-    this.setState({ statistic: {
-      words: words.length,
-      chars: textField.value.length,
-    } });
+    this.setState({ 
+      statistic: {
+        words: words.length,
+        chars: textField.value.length,
+      } 
+    });
+  }
+
+  setPathToProject(value){
+    this.setState({path_to_project: value});
   }
 
   render() {
     return (
       <div id="Layout" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         
-        <Navbar>
-          <NavbarGroup align={Alignment.LEFT}>
-            <Tooltip content="Open project" position={Position.BOTTOM}>
-              <Button 
-                className={Classes.MINIMAL} 
-                icon="folder-open"
-                onClick={() => {
-                  var result = dialog.showOpenDialog({ properties: ['openDirectory']});
-                  if(result) {
-                    this.setState({ path_to_open_project: result[0] }) 
-                  } 
-                }}
-              />
-            </Tooltip>
-          </NavbarGroup>
-          <NavbarGroup align={Alignment.RIGHT}>
-            <Tooltip content="Quit Storyteller" position={Position.BOTTOM}>
-              <Button
-                className={Classes.MINIMAL}
-                icon="small-cross"
-                onClick={() => app.quit()}
-              />
-            </Tooltip>
-          
-          </NavbarGroup>
-        </Navbar>
+        <TopNavBar setPathToProject={this.setPathToProject.bind(this)}/>
 
         <div
           id="path_to_open_project"
@@ -91,10 +59,10 @@ export default class App extends React.Component {
           {this.state.path_to_open_project}
         </div>
 
-        <div id="Main" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        <div id="Main" style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
 
-          <textarea
-            id="TextField"
+          <div
+            id="DirectoryTreeView"
             style={{
               height: '100%',
               flexGrow: 1,
@@ -104,7 +72,23 @@ export default class App extends React.Component {
               outline: 'none',
             }}
             onKeyDown={this.onInput}
+          >
+            <FileTree directory={this.state.path_to_project} />
+          </div>
+
+          <textarea
+            id="TextField"
+            style={{
+              height: '100%',
+              flexGrow: 3,
+              overflow: 'auto',
+              border: '1px solid #ddd',
+              resize: 'none',
+              outline: 'none',
+            }}
+            onKeyDown={this.onInput}
           />
+        
         </div>
 
         <div
