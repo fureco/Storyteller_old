@@ -56,7 +56,7 @@ export default class App extends React.Component {
             padding: 12,
           }}
         >
-          {this.state.path_to_open_project}
+          {this.state.path_to_project}
         </div>
 
         <div id="Main" style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
