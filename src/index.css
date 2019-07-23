@@ -1,3 +1,11 @@
 #Main {
     padding: 10px;
 }
+
+.bp3-tab:focus {
+    outline: none;
+}
+
+._fileTree {
+    padding: 0;
+}

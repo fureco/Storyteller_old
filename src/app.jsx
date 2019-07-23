@@ -77,6 +77,7 @@ export default class App extends React.Component {
               border: '1px solid #ddd',
               resize: 'horizontal',
               outline: 'none',
+              padding: '0 10px',
             }}
             onKeyDown={this.onInput}
           >
