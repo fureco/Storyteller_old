@@ -2,6 +2,8 @@ import React from 'react';
 
 import {
   Colors,
+  Tab, 
+  Tabs
 } from '@blueprintjs/core';
 
 import FileTree from 'react-filetree-electron';
@@ -16,6 +18,7 @@ export default class App extends React.Component {
 
     this.state = {
       path_to_project: 'No project selected.',
+      selectedTabId: 'project',
       statistic: {
         words: 0,
         chars: 0,
@@ -38,8 +41,12 @@ export default class App extends React.Component {
   }
 
   setPathToProject(value){
-    this.setState({path_to_project: value});
+    this.setState({ path_to_project: value });
   }
+
+  handleTabChange(navbarTabId){
+    this.setState({ selectedTabId: navbarTabId });
+  } 
 
   render() {
     return (
@@ -65,15 +72,19 @@ export default class App extends React.Component {
             id="DirectoryTreeView"
             style={{
               height: '100%',
-              flexGrow: 1,
+              width: '300px',
               overflow: 'auto',
               border: '1px solid #ddd',
-              resize: 'none',
+              resize: 'horizontal',
               outline: 'none',
             }}
             onKeyDown={this.onInput}
           >
-            <FileTree directory={this.state.path_to_project} />
+            <Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true">
+              <Tab id="project" title="Project" panel={<FileTree directory={this.state.path_to_project + '/src/manuscript'} />} />
+              <Tab id="file_browser" title="File Browser" panel={<FileTree directory={this.state.path_to_project} />} />
+            </Tabs>
+
           </div>
 
           <textarea
