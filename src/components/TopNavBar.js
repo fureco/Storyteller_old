@@ -35,6 +35,36 @@ export default class TopNavBar extends React.Component {
                 }}
               />
             </Tooltip>
+            <Tooltip content="Save" position={Position.BOTTOM}>
+              <Button 
+                className={Classes.MINIMAL} 
+                icon="floppy-disk"
+              />
+            </Tooltip>
+            <Tooltip content="Write" position={Position.BOTTOM}>
+              <Button 
+                className={Classes.MINIMAL} 
+                icon="draw"
+              />
+            </Tooltip>
+            <Tooltip content="Characters" position={Position.BOTTOM}>
+              <Button 
+                className={Classes.MINIMAL} 
+                icon="people"
+              />
+            </Tooltip>
+            <Tooltip content="Places" position={Position.BOTTOM}>
+              <Button 
+                className={Classes.MINIMAL} 
+                icon="map-marker"
+              />
+            </Tooltip>
+            <Tooltip content="Timeline" position={Position.BOTTOM}>
+              <Button 
+                className={Classes.MINIMAL} 
+                icon="time"
+              />
+            </Tooltip>
           </NavbarGroup>
           <NavbarGroup align={Alignment.RIGHT}>
             <Tooltip content="Quit Storyteller" position={Position.BOTTOM}>
