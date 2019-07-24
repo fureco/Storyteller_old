@@ -18,7 +18,7 @@ export default class App extends React.Component {
 
     this.state = {
       path_to_project: 'No project selected.',
-      selectedTabId: 'project',
+      selectedTabId: 'script',
       statistic: {
         words: 0,
         chars: 0,
@@ -82,7 +82,7 @@ export default class App extends React.Component {
             onKeyDown={this.onInput}
           >
             <Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true">
-              <Tab id="project" title="Project" panel={<FileTree directory={this.state.path_to_project + '/src/manuscript'} />} />
+              <Tab id="script" title="Script" panel={<FileTree directory={this.state.path_to_project + '/src/manuscript'} />} />
               <Tab id="file_browser" title="File Browser" panel={<FileTree directory={this.state.path_to_project} />} />
             </Tabs>
 

@@ -6,8 +6,9 @@ import {
   Classes,
   Navbar,
   NavbarGroup,
+  NavbarDivider,
   Position,
-  Tooltip
+  Tooltip,
 } from '@blueprintjs/core';
 
 import { remote } from 'electron';
@@ -41,6 +42,7 @@ export default class TopNavBar extends React.Component {
                 icon="floppy-disk"
               />
             </Tooltip>
+            <NavbarDivider />
             <Tooltip content="Write" position={Position.BOTTOM}>
               <Button 
                 className={Classes.MINIMAL} 
