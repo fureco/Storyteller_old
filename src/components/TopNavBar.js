@@ -31,8 +31,13 @@ export default class TopNavBar extends React.Component {
       this.props.setPathToProject(path_to_project) 
   }
 
+  setSelectedMainArea(selectedTabId){
+    this.props.setSelectedMainArea(selectedTabId) 
+  }
+
   handleTabChange(navbarTabId){
     this.setState({ selectedTabId: navbarTabId });
+    this.setSelectedMainArea(navbarTabId);
   } 
 
   render() {

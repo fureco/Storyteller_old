@@ -16,6 +16,7 @@ export default class App extends React.Component {
     this.state = {
       path_to_project: 'No project selected.',
       selectedTabId: 'script',
+      selectedMainArea: 'write',
       statistic: {
         words: 0,
         chars: 0,
@@ -45,11 +46,17 @@ export default class App extends React.Component {
     this.setState({ selectedTabId: navbarTabId });
   } 
 
+  setSelectedMainArea(value){
+    this.setState({ selectedMainArea: value });
+  }
+
   render() {
     return (
       <div id="Layout" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         
-        <TopNavBar setPathToProject={this.setPathToProject.bind(this)}/>
+        <TopNavBar 
+          setPathToProject={this.setPathToProject.bind(this)}
+          setSelectedMainArea={this.setSelectedMainArea.bind(this)} />
 
         <div
           id="path_to_open_project"
@@ -63,7 +70,10 @@ export default class App extends React.Component {
           {this.state.path_to_project}
         </div>
 
-        <MainArea path_to_project={this.state.path_to_project} />
+        <MainArea 
+          path_to_project={this.state.path_to_project} 
+          selectedMainArea={this.state.selectedMainArea} 
+           />
 
         <div
           id="StatusBar"
