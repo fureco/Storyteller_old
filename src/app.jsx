@@ -6,7 +6,7 @@ import {
 } from '@blueprintjs/core';
 
 import TopNavBar from './components/TopNavBar';
-import Write from './components/MainAreaViews/Write';
+import Write from './views/Write';
 
 export default class App extends React.Component {
   
@@ -15,7 +15,7 @@ export default class App extends React.Component {
     super();
 
     this.state = {
-      path_to_project: 'No project selected.',
+      path_to_project: undefined,
       selectedTabId: 'script',
       selectedMainArea: 'write',
       statistic: {
@@ -75,7 +75,7 @@ export default class App extends React.Component {
               padding: 12,
             }}
           >
-            {this.state.path_to_project}
+            { this.state.path_to_project ? this.state.path_to_project : 'No project selected.' }
           </div>
 
           <div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
