@@ -9,9 +9,9 @@ import {
 
 export default class Write extends React.Component {
 
-  constructor() {
+  constructor(props) {
 
-    super();
+    super(props);
 
     this.state = {
         selectedTabId: 'script',
@@ -24,7 +24,7 @@ export default class Write extends React.Component {
 
   render() {
     return (
-        <div id="MainAreaViewWrite" style={{ display: 'flex', flexDirection: 'row' }}>
+        <div id="MainAreaViewWrite" style={{ display: 'flex', flexDirection: 'row', flexGrow: '1' }}>
 
           <div
             id="DirectoryTreeView"
@@ -39,7 +39,7 @@ export default class Write extends React.Component {
             }}
             onKeyDown={this.onInput}
           >
-            <Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true">
+            <Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" >
               <Tab id="script" title="Script" panel={<FileTree directory={this.props.path_to_project + '/src/manuscript'} />} />
               <Tab id="file_browser" title="File Browser" panel={<FileTree directory={this.props.path_to_project} />} />
             </Tabs>

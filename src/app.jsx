@@ -1,11 +1,12 @@
 import React from 'react';
+import { HashRouter as Router, Route } from "react-router-dom";
 
 import {
   Colors,
 } from '@blueprintjs/core';
 
 import TopNavBar from './components/TopNavBar';
-import MainArea from './components/MainArea';
+import Write from './components/MainAreaViews/Write';
 
 export default class App extends React.Component {
   
@@ -25,7 +26,7 @@ export default class App extends React.Component {
 
     this.onInput = this.onInput.bind(this);
   }
-    
+
   onInput() {
     const textField = document.querySelector('#TextField');
     const textBeforCaret = textField.value.slice(0, textField.selectionStart);
@@ -50,44 +51,54 @@ export default class App extends React.Component {
     this.setState({ selectedMainArea: value });
   }
 
+  renderWriteComponent() {
+    return <Write path_to_project={this.state.path_to_project} />
+  }
+
   render() {
     return (
-      <div id="Layout" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    
+      <Router>
+
+        <div id="Layout" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+
+          <TopNavBar 
+            setPathToProject={this.setPathToProject.bind(this)}
+            setSelectedMainArea={this.setSelectedMainArea.bind(this)} />
+
+          <div
+            id="path_to_open_project"
+            style={{
+              backgroundColor: Colors.LIGHT_GRAY5,
+              borderBottom: `1px solid ${Colors.LIGHT_GRAY1}`,
+              height: '50px',
+              padding: 12,
+            }}
+          >
+            {this.state.path_to_project}
+          </div>
+
+          <div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
+            <Route path="/" exact component={this.renderWriteComponent.bind(this)} />
+            <Route path="/characters" exact component={() => {return <h2>Characters</h2>}} />
+            <Route path="/locations" exact component={() => {return <h2>Locations</h2>}} />
+            <Route path="/timeline" exact component={() => {return <h2>Timeline</h2>}} />
+          </div>
+
+          <div
+            id="StatusBar"
+            style={{
+              backgroundColor: Colors.LIGHT_GRAY5,
+              borderTop: `1px solid ${Colors.LIGHT_GRAY1}`,
+              height: '50px',
+              padding: 12,
+            }}>
+            words: {this.state.statistic.words} - chars: {this.state.statistic.chars}
+          </div>
+         
+        </div>
+      </Router>
         
-        <TopNavBar 
-          setPathToProject={this.setPathToProject.bind(this)}
-          setSelectedMainArea={this.setSelectedMainArea.bind(this)} />
-
-        <div
-          id="path_to_open_project"
-          style={{
-            backgroundColor: Colors.LIGHT_GRAY5,
-            borderBottom: `1px solid ${Colors.LIGHT_GRAY1}`,
-            height: '50px',
-            padding: 12,
-          }}
-        >
-          {this.state.path_to_project}
-        </div>
-
-        <MainArea 
-          path_to_project={this.state.path_to_project} 
-          selectedMainArea={this.state.selectedMainArea} 
-           />
-
-        <div
-          id="StatusBar"
-          style={{
-            backgroundColor: Colors.LIGHT_GRAY5,
-            borderTop: `1px solid ${Colors.LIGHT_GRAY1}`,
-            height: '50px',
-            padding: 12,
-          }}
-        >
-          words: {this.state.statistic.words} - chars: {this.state.statistic.chars}
-        </div>
-
-      </div>
     );
   }
 }

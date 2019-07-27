@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import {
   Alignment,
@@ -69,16 +70,16 @@ export default class TopNavBar extends React.Component {
 
             <Tabs id="TopNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true">
               <Tab id="write">
-                <Icon icon="draw" /> Write
+                <Link to="/"><Icon icon="draw" /> Write</Link>
               </Tab>
               <Tab id="characters">
-                <Icon icon="people" /> Characters
+                <Link to="/characters"><Icon icon="people" /> Characters</Link>
               </Tab>
-              <Tab id="places">
-                <Icon icon="map-marker" /> Places
+              <Tab id="locations">
+                <Link to="/locations"><Icon icon="map-marker" /> Locations</Link>
               </Tab>
               <Tab id="timeline">
-                <Icon icon="time" /> Timeline
+              <Link to="/timeline"><Icon icon="time" /> Timeline</Link>
               </Tab>
             </Tabs>
 
