@@ -4,9 +4,11 @@ export default {
     listStyle: 'none'
   },
   directoryStyle: {
-    marginBottom: 3
+    marginBottom: 3,
+    whiteSpace: 'nowrap'
   },
   fileStyle: {
-    marginBottom: 3
+    marginBottom: 3,
+    whiteSpace: 'nowrap'
   }
 };

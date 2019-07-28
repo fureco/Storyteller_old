@@ -21,7 +21,7 @@ export default class Write extends React.Component {
 
   handleTabChange(navbarTabId){
     this.setState({ selectedTabId: navbarTabId });
-  } 
+  }
 
   render() {
     return (
@@ -41,8 +41,16 @@ export default class Write extends React.Component {
             onKeyDown={this.onInput}
           >
             <Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" >
-              <Tab id="script" title="Script" panel={<FileTree directory={this.props.path_to_project ? this.props.path_to_project + '/src/manuscript' : undefined} />} />
-              <Tab id="file_browser" title="File Browser" panel={<FileTree directory={this.props.path_to_project} />} />
+              <Tab id="script" title="Script" panel={
+                <FileTree 
+                  directory={this.props.path_to_project ? this.props.path_to_project + '/src/manuscript' : undefined} 
+                />
+              } />
+              <Tab id="file_browser" title="File Browser" panel={
+                <FileTree 
+                  directory={this.props.path_to_project} 
+                />
+              } />
             </Tabs>
 
           </div>
