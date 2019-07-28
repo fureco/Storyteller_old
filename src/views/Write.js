@@ -23,6 +23,23 @@ export default class Write extends React.Component {
     this.setState({ selectedTabId: navbarTabId });
   }
 
+  onFileClick(file) {
+    this.loadTextFromFile(file);
+  }
+
+  loadTextFromFile(file) {
+    const reader = new FileReader();
+    
+    reader.onload = e => {
+      this.content = e.target.result;
+      this.filename = file.filePath;
+
+      window.$('#TextField').html(this.content);
+    }
+
+    //reader.readAsText(file);
+  }
+
   render() {
     return (
         <div id="MainAreaViewWrite" style={{ display: 'flex', flexDirection: 'row', flexGrow: '1' }}>
@@ -44,11 +61,13 @@ export default class Write extends React.Component {
               <Tab id="script" title="Script" panel={
                 <FileTree 
                   directory={this.props.path_to_project ? this.props.path_to_project + '/src/manuscript' : undefined} 
+                  onFileClick={this.onFileClick.bind(this)}
                 />
               } />
               <Tab id="file_browser" title="File Browser" panel={
                 <FileTree 
-                  directory={this.props.path_to_project} 
+                  directory={this.props.path_to_project}
+                  onFileClick={this.onFileClick.bind(this)}
                 />
               } />
             </Tabs>

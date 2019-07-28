@@ -5,10 +5,12 @@ export default {
   },
   directoryStyle: {
     marginBottom: 3,
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    cursor: 'pointer'
   },
   fileStyle: {
     marginBottom: 3,
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    cursor: 'pointer'
   }
 };

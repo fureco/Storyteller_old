@@ -1,7 +1,7 @@
 import { createStore, applyMiddleWare } from 'redux';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import reducer from '../reducers';
+import rootReducer from '../reducers';
 
 let store;
 
@@ -16,7 +16,7 @@ if (process.NODE_ENV === 'development') {
   )
 } else {
   store = createStore(
-    reducer
+    rootReducer
   );
 }
 

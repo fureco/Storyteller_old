@@ -10,3 +10,7 @@ button:focus, .bp3-tab:focus {
 ._fileTree {
     padding: 0;
 }
+
+._file:hover, ._directory:hover {
+    background:rgba(100, 162, 208, 0.34);
+}
