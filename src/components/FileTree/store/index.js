@@ -5,14 +5,12 @@ import reducer from '../reducers';
 
 let store;
 
-if (process.NODE_ENV === 'development') {
+const isDevMode = process.execPath.match(/[\\/]electron/);
+
+if (isDevMode) {
   store = createStore(
     reducer,
-    composeWithDevTools(
-      applyMiddleWare(
-        createLogger({ collapsed: true })
-      )
-    )
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 } else {
   store = createStore(

@@ -1,11 +1,11 @@
 // @flow
 import { combineReducers } from 'redux';
-import { routerReducer as router } from 'react-router-redux';
-import script from './script.js';
+import { routerReducer } from 'react-router-redux';
+import projectReducer from './project.js';
 
 const rootReducer = combineReducers({
-  router,
-  script
+  router: routerReducer,
+  project: projectReducer
 });
 
 export default rootReducer;

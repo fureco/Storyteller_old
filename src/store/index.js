@@ -1,21 +1,21 @@
-import { createStore, applyMiddleWare } from 'redux';
-import { createLogger } from 'redux-logger';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore } from 'redux';
 import rootReducer from '../reducers';
+
+const isDevMode = process.execPath.match(/[\\/]electron/);
 
 let store;
 
-if (process.NODE_ENV === 'development') {
+if (isDevMode) {
+  console.log("dev");
   store = createStore(
-    reducer,
-    composeWithDevTools(
-      applyMiddleWare(
-        createLogger({ collapsed: true })
-      )
-    )
+    rootReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
-} else {
-  store = createStore(
+  console.log(store.getState())
+} 
+else {
+  console.log("prod");
+  store = createStore( 
     rootReducer
   );
 }

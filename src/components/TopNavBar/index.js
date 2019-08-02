@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { openProject } from "../../reducers";
 
 import {
   Alignment,
@@ -17,6 +18,8 @@ import {
 import { remote } from 'electron';
 const { dialog } = require('electron').remote;
 
+import store from '../../store';
+
 export default class TopNavBar extends React.Component {
 
   constructor() {
@@ -26,10 +29,13 @@ export default class TopNavBar extends React.Component {
     this.state = {
       selectedTabId: 'write',
     };
+
+    console.log(store.getState())
   }
-  
+
   setPathToProject(path_to_project){
       this.props.setPathToProject(path_to_project) 
+      // this.props.openProject(path_to_project)
   }
 
   setSelectedMainArea(selectedTabId){

@@ -28,16 +28,11 @@ export default class Write extends React.Component {
   }
 
   loadTextFromFile(file) {
-    const reader = new FileReader();
-    
-    reader.onload = e => {
-      this.content = e.target.result;
-      this.filename = file.filePath;
+    console.log("loading content from file: " + file.filePath);
 
-      window.$('#TextField').html(this.content);
-    }
-
-    //reader.readAsText(file);
+    fetch(file.filePath)
+      .then( r => r.text() )
+      .then( text => document.getElementById('TextField').value = text )
   }
 
   render() {
