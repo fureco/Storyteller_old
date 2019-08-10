@@ -1,5 +1,5 @@
 {
-  "name": "Storyteller",
+  "name": "storyteller",
   "productName": "Storyteller",
   "version": "1.0.0",
   "description": "A writing application build with Electron and React",
@@ -56,6 +56,7 @@
     "react-hot-loader": "^3.1.3"
   },
   "devDependencies": {
+    "@electron-forge/plugin-webpack": "^6.0.0-beta.43",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-preset-env": "^1.7.0",

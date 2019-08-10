@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { openProjectAction } from "../../actions";
+import { createProjectAction, openProjectAction } from "../../reducers/project";
 
 import {
   Alignment,
@@ -57,6 +57,18 @@ class TopNavBar extends React.Component {
                 }}
               />
             </Tooltip>
+            <Tooltip content="Create new project" position={Position.BOTTOM}>
+              <Button 
+                minimal={true}
+                icon="folder-new"
+                onClick={() => {
+                  var result = dialog.showOpenDialog({ properties: ['openDirectory']});
+                  if(result) {
+                    this.props.createProject(result[0])
+                  } 
+                }}
+              />
+            </Tooltip>
             <Tooltip content="Save" position={Position.BOTTOM}>
               <Button 
                 minimal={true}
@@ -106,6 +118,7 @@ function mapStateToProps () {
 function mapDispatchToProps (dispatch) {
   return {
     openProject: (filePath) => dispatch(openProjectAction(filePath)),
+    createProject: (filePath) => dispatch(createProjectAction(filePath)),
   };
 }
 
