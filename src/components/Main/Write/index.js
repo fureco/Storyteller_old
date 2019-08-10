@@ -1,21 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 // import FileTree from 'react-filetree-electron';
-import FileTree from '../components/FileTree';
+import FileTree from '../../FileTree';
 
 import {
   Tab, 
   Tabs,
 } from '@blueprintjs/core';
 
-export default class Write extends React.Component {
+class Write extends React.Component {
 
   constructor(props) {
 
     super(props);
 
     this.state = {
-        selectedTabId: 'script',
+      selectedTabId: 'script',
     };
   }
 
@@ -55,13 +56,13 @@ export default class Write extends React.Component {
             <Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" >
               <Tab id="script" title="Script" panel={
                 <FileTree 
-                  directory={this.props.path_to_project ? this.props.path_to_project + '/src/manuscript' : undefined} 
+                  directory={this.props.project.path ? this.props.project.path + '/src/manuscript' : undefined} 
                   onFileClick={this.onFileClick.bind(this)}
                 />
               } />
               <Tab id="file_browser" title="File Browser" panel={
                 <FileTree 
-                  directory={this.props.path_to_project}
+                  directory={this.props.project.path}
                   onFileClick={this.onFileClick.bind(this)}
                 />
               } />
@@ -86,3 +87,15 @@ export default class Write extends React.Component {
     );
   }
 }
+
+  
+function mapStateToProps ({ projectReducer }) {
+  return {
+    project: projectReducer,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Write)

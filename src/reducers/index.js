@@ -4,8 +4,8 @@ import { routerReducer } from 'react-router-redux';
 import projectReducer from './project.js';
 
 const rootReducer = combineReducers({
-  router: routerReducer,
-  project: projectReducer
+  routerReducer,
+  projectReducer
 });
 
 export default rootReducer;

@@ -21,8 +21,7 @@ export default class FileTree extends React.Component {
   }
 
   componentDidMount() {
-    console.log("directory: " + this.props.directory);
-
+    
     if(this.props.directory == undefined)
       return;
 

@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { openProject } from "../../reducers";
+import { openProjectAction } from "../../actions";
 
 import {
   Alignment,
@@ -18,24 +19,15 @@ import {
 import { remote } from 'electron';
 const { dialog } = require('electron').remote;
 
-import store from '../../store';
+class TopNavBar extends React.Component {
 
-export default class TopNavBar extends React.Component {
+  constructor(props) {
 
-  constructor() {
-
-    super();
+    super(props);
 
     this.state = {
       selectedTabId: 'write',
     };
-
-    console.log(store.getState())
-  }
-
-  setPathToProject(path_to_project){
-      this.props.setPathToProject(path_to_project) 
-      // this.props.openProject(path_to_project)
   }
 
   setSelectedMainArea(selectedTabId){
@@ -60,7 +52,7 @@ export default class TopNavBar extends React.Component {
                 onClick={() => {
                   var result = dialog.showOpenDialog({ properties: ['openDirectory']});
                   if(result) {
-                    this.setPathToProject(result[0]) 
+                    this.props.openProject(result[0])
                   } 
                 }}
               />
@@ -105,3 +97,19 @@ export default class TopNavBar extends React.Component {
     );
   }
 }
+
+function mapStateToProps () {
+  return {
+  };
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    openProject: (filePath) => dispatch(openProjectAction(filePath)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TopNavBar)

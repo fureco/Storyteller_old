@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from "react-router-dom";
 
 import {
@@ -6,16 +7,15 @@ import {
 } from '@blueprintjs/core';
 
 import TopNavBar from '../TopNavBar';
-import Write from '../../views/Write';
+import Write from './Write';
 
-export default class Main extends React.Component {
+class Main extends React.Component {
   
     constructor(props) {
   
       super(props);
   
       this.state = {
-        path_to_project: undefined,
         selectedTabId: 'script',
         selectedMainArea: 'write',
         statistic: {
@@ -25,10 +25,6 @@ export default class Main extends React.Component {
       };
   
       this.onInput = this.onInput.bind(this);
-
-      console.log(props)
-
-      props.openProject("test")
     }
   
     onInput() {
@@ -41,10 +37,6 @@ export default class Main extends React.Component {
           chars: textField.value.length,
         } 
       });
-    }
-  
-    setPathToProject(value){
-      this.setState({ path_to_project: value });
     }
   
     handleTabChange(navbarTabId){
@@ -61,8 +53,7 @@ export default class Main extends React.Component {
           <div id="Layout" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
 
               <TopNavBar 
-              setPathToProject={this.setPathToProject.bind(this)}
-              setSelectedMainArea={this.setSelectedMainArea.bind(this)} />
+                setSelectedMainArea={this.setSelectedMainArea.bind(this)} />
 
               <div
               id="path_to_open_project"
@@ -73,7 +64,7 @@ export default class Main extends React.Component {
                   padding: 12,
               }}
               >
-              { this.state.path_to_project ? this.state.path_to_project : 'No project selected.' }
+              { this.props.project.path ? this.props.project.path : 'No project selected.' }
               </div>
 
               <div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
@@ -100,3 +91,13 @@ export default class Main extends React.Component {
     }
   }
   
+  function mapStateToProps ({ projectReducer }) {
+    return {
+      project: projectReducer,
+    };
+  }
+  
+  export default connect(
+    mapStateToProps,
+    null
+  )(Main)

@@ -6,15 +6,12 @@ const isDevMode = process.execPath.match(/[\\/]electron/);
 let store;
 
 if (isDevMode) {
-  console.log("dev");
   store = createStore(
     rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
-  console.log(store.getState())
 } 
 else {
-  console.log("prod");
   store = createStore( 
     rootReducer
   );
