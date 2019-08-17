@@ -28,6 +28,20 @@ const getAllFiles = (dir) => {
   });
 };
 
+const storytellerProjectFileExists = (dir) => {
+  return fs.readdirAsync(dir).then(fileNamesArr => {
+
+    let fileNameExists = false;
+
+    fileNamesArr.forEach(fileName => {
+      fileNameExists =  fileName == "project.st";
+    })
+    
+    return fileNameExists;
+  });
+};
+
 module.exports = {
-  getAllFiles
+  getAllFiles,
+  storytellerProjectFileExists
 };

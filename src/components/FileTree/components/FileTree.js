@@ -2,7 +2,7 @@ import React from 'react';
 
 import Directory from './Directory';
 import File from './File';
-import { getAllFiles } from './../utils/file-functions';
+import { getAllFiles } from '../../../utils/file-functions';
 import { mergeStyleObjects } from './../utils/helpers';
 import defaultStyles from './../utils/defaultStyles';
 

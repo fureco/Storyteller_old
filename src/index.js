@@ -2,19 +2,23 @@ import { app, BrowserWindow } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
 
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
 
-if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
+if (isDevMode) enableLiveReload();
 
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
 
   // and load the index.html of the app.
@@ -24,7 +28,13 @@ const createWindow = async () => {
   if (isDevMode) {
     await installExtension(REACT_DEVELOPER_TOOLS);
     await installExtension(REDUX_DEVTOOLS);
-    mainWindow.webContents.openDevTools();
+    
+    mainWindow.webContents.on("did-frame-finish-load", () => {
+      mainWindow.webContents.once("devtools-opened", () => {
+        mainWindow.focus();
+      });
+      mainWindow.webContents.openDevTools();
+    });
   }
 
   // Emitted when the window is closed.

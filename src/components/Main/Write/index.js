@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 
 // import FileTree from 'react-filetree-electron';
 import FileTree from '../../FileTree';
+import ScriptTree from '../../ScriptTree';
 
 import {
+  Button,
   Tab, 
   Tabs,
 } from '@blueprintjs/core';
@@ -18,6 +20,12 @@ class Write extends React.Component {
     this.state = {
       selectedTabId: 'script',
     };
+  }
+
+  componentDidMount() {
+    // $("#DirectoryTreeView").resizable({
+    //    handles: 'e, w'
+    // })
   }
 
   handleTabChange(navbarTabId){
@@ -55,10 +63,7 @@ class Write extends React.Component {
           >
             <Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" >
               <Tab id="script" title="Script" panel={
-                <FileTree 
-                  directory={this.props.project.path ? this.props.project.path + '/src/manuscript' : undefined} 
-                  onFileClick={this.onFileClick.bind(this)}
-                />
+                <ScriptTree />
               } />
               <Tab id="file_browser" title="File Browser" panel={
                 <FileTree 

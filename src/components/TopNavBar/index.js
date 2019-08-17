@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { createProjectAction, openProjectAction } from "../../reducers/project";
+import { createProjectAction, openProjectAction } from "../../reducers/projectReducer";
 
 import {
   Alignment,
@@ -78,20 +78,22 @@ class TopNavBar extends React.Component {
             
             <NavbarDivider />
 
-            <Tabs id="TopNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true">
-              <Tab id="write">
-                <Link to="/"><Icon icon="draw" /> Write</Link>
-              </Tab>
-              <Tab id="characters">
-                <Link to="/characters"><Icon icon="people" /> Characters</Link>
-              </Tab>
-              <Tab id="locations">
-                <Link to="/locations"><Icon icon="map-marker" /> Locations</Link>
-              </Tab>
-              <Tab id="timeline">
-              <Link to="/timeline"><Icon icon="time" /> Timeline</Link>
-              </Tab>
-            </Tabs>
+            { this.props.project.path &&
+              <Tabs id="TopNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true">
+                <Tab id="write">
+                  <Link to="/"><Icon icon="draw" /> Write</Link>
+                </Tab>
+                <Tab id="characters">
+                  <Link to="/characters"><Icon icon="people" /> Characters</Link>
+                </Tab>
+                <Tab id="locations">
+                  <Link to="/locations"><Icon icon="map-marker" /> Locations</Link>
+                </Tab>
+                <Tab id="timeline">
+                <Link to="/timeline"><Icon icon="time" /> Timeline</Link>
+                </Tab>
+              </Tabs>
+            }
 
           </NavbarGroup>
 
@@ -110,8 +112,9 @@ class TopNavBar extends React.Component {
   }
 }
 
-function mapStateToProps () {
+function mapStateToProps ({ projectReducer }) {
   return {
+    project: projectReducer,
   };
 }
 

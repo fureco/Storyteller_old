@@ -1,4 +1,5 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import rootReducer from '../reducers';
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
@@ -6,23 +7,21 @@ const isDevMode = process.execPath.match(/[\\/]electron/);
 let store;
 
 if (isDevMode) {
+  
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
   store = createStore(
     rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+    composeEnhancers(
+      applyMiddleware(ReduxThunk)
+    )
+  );
 } 
 else {
   store = createStore( 
-    rootReducer
+    rootReducer,
+    applyMiddleware(ReduxThunk)
   );
-}
-
-if (module.hot) {
-  // Enable Webpack hot module replacement for reducers
-  module.hot.accept('../reducers', () => {
-    const nextRootReducer = require('../reducers/index');
-    store.replaceReducer(nextRootReducer);
-  });
 }
 
 export default store;

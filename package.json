@@ -51,9 +51,11 @@
     "electron-compile": "^6.4.4",
     "electron-devtools-installer": "^2.2.4",
     "electron-squirrel-startup": "^1.0.0",
+    "jquery": "^3.4.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-hot-loader": "^3.1.3"
+    "react-hot-loader": "^3.1.3",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@electron-forge/plugin-webpack": "^6.0.0-beta.43",
