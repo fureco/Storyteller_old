@@ -50,22 +50,22 @@ class Project extends React.Component {
     render() {
 
       return (
-        <div id="Layout" style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        <div id="Project" style={styles.container}>
             <TopNavBar setSelectedMainArea={this.setSelectedMainArea.bind(this)} />
 
             <div id="path_to_open_project"
-            style={{
-                backgroundColor: Colors.LIGHT_GRAY5,
-                borderBottom: `1px solid ${Colors.LIGHT_GRAY1}`,
-                height: '50px',
-                padding: 12,
-            }}>
-            { this.props.project.path ? this.props.project.path : 'No project selected.' }
+                style={{
+                    backgroundColor: Colors.LIGHT_GRAY5,
+                    borderBottom: `1px solid ${Colors.LIGHT_GRAY1}`,
+                    height: '50px',
+                    padding: 12,
+                }}>
+                { this.props.project.path ? this.props.project.path : 'No project selected.' }
             </div>
 
             <div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
             <div style={{ display: 'flex', height: '100vh', flexGrow: '1'}}>
-                <Route path="/" exact component={() => {return <Write path_to_project={props.project.path} />}} />
+                <Route path="/" exact component={() => {return <Write path_to_project={this.props.project.path} />}} />
                 <Route path="/characters" exact component={() => {return <h2>Characters</h2>}} />
                 <Route path="/locations" exact component={() => {return <h2>Locations</h2>}} />
                 <Route path="/timeline" exact component={() => {return <h2>Timeline</h2>}} />
@@ -73,27 +73,35 @@ class Project extends React.Component {
             </div>
 
             <div
-            id="StatusBar"
-            style={{
-                backgroundColor: Colors.LIGHT_GRAY5,
-                borderTop: `1px solid ${Colors.LIGHT_GRAY1}`,
-                height: '50px',
-                padding: 12,
-            }}>
-            words: {this.state.statistic.words} - chars: {this.state.statistic.chars}
+                id="StatusBar"
+                style={{
+                    backgroundColor: Colors.LIGHT_GRAY5,
+                    borderTop: `1px solid ${Colors.LIGHT_GRAY1}`,
+                    height: '50px',
+                    padding: 12,
+                }}>
+                words: {this.state.statistic.words} - chars: {this.state.statistic.chars}
             </div>
         </div>
       );
     }
-  }
+}
+
+const styles = {
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh'
+    }
+}
   
-  function mapStateToProps ({ projectReducer }) {
+function mapStateToProps ({ projectReducer }) {
     return {
-      project: projectReducer,
+        project: projectReducer,
     };
-  }
-  
-  export default connect(
+}
+
+export default connect(
     mapStateToProps,
     null
-  )(Project)
+)(Project)

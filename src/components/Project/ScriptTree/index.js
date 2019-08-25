@@ -13,7 +13,7 @@ class ScriptTree extends React.Component {
     super(props);
 
     this.state = {
-      showPartCreationDialog: false
+        showPartCreationDialog: false
     };
   }
 
@@ -22,7 +22,8 @@ class ScriptTree extends React.Component {
     let partCreation;
 
     if(this.state.showPartCreationDialog) {
-      partCreation = <PartCreationDialog/>;
+      partCreation = <PartCreationDialog
+                        togglePartCreationDialog={togglePartCreationDialog.bind(this)} />;
     }
     else {
       partCreation = <Button 
@@ -46,11 +47,20 @@ class ScriptTree extends React.Component {
 }
 
 function togglePartCreationDialog() {
-  this.setState({ showPartCreationDialog: !this.state.showPartCreationDialog });
+    this.setState({ showPartCreationDialog: !this.state.showPartCreationDialog });
 }
 
 function PartCreationDialog(props) {
-  return(<InputGroup/>);
+    return(
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <InputGroup/>
+            <Button 
+                minimal={false}
+                icon="floppy-disk"
+                onClick={props.togglePartCreationDialog.bind(this)}
+            />
+        </div>
+    );
 }
   
 function mapStateToProps ({ projectReducer }) {

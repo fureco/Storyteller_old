@@ -50,6 +50,7 @@
     "@blueprintjs/core": "^3.17.1",
     "electron-compile": "^6.4.4",
     "electron-devtools-installer": "^2.2.4",
+    "electron-json-storage": "^4.1.7",
     "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.4.1",
     "react": "^16.4.0",

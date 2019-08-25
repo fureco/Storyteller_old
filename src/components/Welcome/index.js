@@ -22,7 +22,9 @@ class Welcome extends React.Component {
         return (
             <div id="Welcome" style={styles.container}>
 
-                <div className="app_name">Storyteller</div>
+                <div className="app_name" style={styles.app_name}>
+                    Storyteller
+                </div>
 
                 <Button
                     minimal={false}
@@ -56,9 +58,12 @@ const styles = {
     container: {
         display: 'flex',
         flexDirection: 'column',
-        flexGrow: '1',
-        justifyContent: 'center',
+        height: '10em',
+        justifyContent: 'space-evenly',
         alignItems: 'center'
+    },
+    app_name: {
+        fontSize: '2em'
     }
 }
 

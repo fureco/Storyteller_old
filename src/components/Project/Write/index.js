@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 // import FileTree from 'react-filetree-electron';
 import FileTree from '../../FileTree';
-import ScriptTree from '../../ScriptTree';
+import ScriptTree from '../ScriptTree';
 
 import {
   Button,
@@ -65,12 +65,12 @@ class Write extends React.Component {
               <Tab id="script" title="Script" panel={
                 <ScriptTree />
               } />
-              <Tab id="file_browser" title="File Browser" panel={
+              {/* <Tab id="file_browser" title="File Browser" panel={
                 <FileTree 
                   directory={this.props.project.path}
                   onFileClick={this.onFileClick.bind(this)}
                 />
-              } />
+              } /> */}
             </Tabs>
 
           </div>

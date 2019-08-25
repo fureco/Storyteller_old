@@ -3,14 +3,16 @@ import { storytellerProjectFileExists } from '../utils/file-functions';
 
 var electronFs = remote.require('fs');
 
+const storage = require('electron-json-storage');
+
 const CREATE_PROJECT = 'CREATE_PROJECT';
 const OPEN_PROJECT = 'OPEN_PROJECT';
 const CREATE_PART = 'CREATE_PART';
 
 const initialState = {
-  path: "",
-  parts: [],
-  chapters: []
+    path: "",
+    parts: [],
+    chapters: []
 };
 
 const projectReducer = (state = initialState, action) => {
@@ -18,20 +20,27 @@ const projectReducer = (state = initialState, action) => {
   switch (action.type) {
     
     case CREATE_PROJECT:
-      console.log("CREATE_PROJECT");
-      return createProject(action.filePath);
+        console.log("CREATE_PROJECT");
+        return createProject(action.filePath);
 
     case OPEN_PROJECT:
-      console.log("OPEN_PROJECT");
-      return Object.assign({}, { path: action.filePath });
+        console.log("OPEN_PROJECT");
+        storage.set('current_project', { path: action.filePath }, function(error) {
+            if (error) throw error;
+        });
+        storage.get('current_project', function(error, data) {
+            if (error) throw error;
+            console.log(data);
+        });
+        return Object.assign({}, { path: action.filePath });
 
     case CREATE_PART:
-      console.log("CREATE_PART");
-      createNewPart();
-      return state;
+        console.log("CREATE_PART");
+        createNewPart();
+        return state;
 
     default:
-      return state;
+        return state;
   }
 
 };
