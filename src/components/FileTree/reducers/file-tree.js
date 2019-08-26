@@ -9,22 +9,22 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  const newState = Object.assign({}, state);
-  switch (action.type) {
-    case TOGGLE_VISIBILITY:
-      newState.isVisible = Object.assign({}, newState.isVisible);
-      newState.isVisible[action.filePath] = !newState.isVisible[action.filePath];
-      break;
-    case OPEN_DIRECTORY:
-      newState.openedDirectories = Object.assign({}, newState.openedDirectories, { [action.filePath]: action.files });
-      break;
-    case OPEN_FILE:
-      newState.openedFile = Object.assign({}, newState.openedFile);
-      break;
-    default:
-      return state;
-  }
-  return newState;
+    const newState = Object.assign({}, state);
+    switch (action.type) {
+        case TOGGLE_VISIBILITY:
+            newState.isVisible = Object.assign({}, newState.isVisible);
+            newState.isVisible[action.filePath] = !newState.isVisible[action.filePath];
+            break;
+        case OPEN_DIRECTORY:
+            newState.openedDirectories = Object.assign({}, newState.openedDirectories, { [action.filePath]: action.files });
+            break;
+        case OPEN_FILE:
+            newState.openedFile = Object.assign({}, newState.openedFile);
+            break;
+        default:
+            return state;
+    }
+    return newState;
 };
 
 export default reducer;

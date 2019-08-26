@@ -26,7 +26,7 @@ class TopNavBar extends React.Component {
     super(props);
 
     this.state = {
-      selectedTabId: 'write',
+      selectedTabId: 'script',
     };
   }
 
@@ -80,8 +80,8 @@ class TopNavBar extends React.Component {
 
             { this.props.project.path &&
               <Tabs id="TopNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true">
-                <Tab id="write">
-                  <Link to="/"><Icon icon="draw" /> Write</Link>
+                <Tab id="script">
+                  <Link to="/"><Icon icon="draw" /> Script</Link>
                 </Tab>
                 <Tab id="characters">
                   <Link to="/characters"><Icon icon="people" /> Characters</Link>

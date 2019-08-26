@@ -15,7 +15,7 @@ class Layout extends React.Component {
 
         // console.log("tmpdir: " + storage.getDefaultDataPath());
 
-        storage.get('current_project', function(error, data) {
+        storage.get('storyteller', function(error, data) {
             if (error) throw error;
             console.log("current_project: " + data.path);
             props.openProject(data.path)

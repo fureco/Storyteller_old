@@ -11,7 +11,7 @@ import {
   Tabs,
 } from '@blueprintjs/core';
 
-class Write extends React.Component {
+class Script extends React.Component {
 
   constructor(props) {
 
@@ -65,12 +65,12 @@ class Write extends React.Component {
               <Tab id="script" title="Script" panel={
                 <ScriptTree />
               } />
-              {/* <Tab id="file_browser" title="File Browser" panel={
+              <Tab id="file_browser" title="File Browser" panel={
                 <FileTree 
                   directory={this.props.project.path}
                   onFileClick={this.onFileClick.bind(this)}
                 />
-              } /> */}
+              } />
             </Tabs>
 
           </div>
@@ -103,4 +103,4 @@ function mapStateToProps ({ projectReducer }) {
 export default connect(
   mapStateToProps,
   null
-)(Write)
+)(Script)

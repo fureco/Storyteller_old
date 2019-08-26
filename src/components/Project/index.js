@@ -7,7 +7,7 @@ import {
 } from '@blueprintjs/core';
 
 import TopNavBar from '../TopNavBar';
-import Write from './Write';
+import Script from './Script';
 
 class Project extends React.Component {
   
@@ -65,7 +65,7 @@ class Project extends React.Component {
 
             <div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
             <div style={{ display: 'flex', height: '100vh', flexGrow: '1'}}>
-                <Route path="/" exact component={() => {return <Write path_to_project={this.props.project.path} />}} />
+                <Route path="/" exact component={() => {return <Script path_to_project={this.props.project.path} />}} />
                 <Route path="/characters" exact component={() => {return <h2>Characters</h2>}} />
                 <Route path="/locations" exact component={() => {return <h2>Locations</h2>}} />
                 <Route path="/timeline" exact component={() => {return <h2>Timeline</h2>}} />

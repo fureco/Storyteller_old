@@ -25,10 +25,10 @@ const projectReducer = (state = initialState, action) => {
 
     case OPEN_PROJECT:
         console.log("OPEN_PROJECT");
-        storage.set('current_project', { path: action.filePath }, function(error) {
+        storage.set('storyteller', { path: action.filePath }, function(error) {
             if (error) throw error;
         });
-        storage.get('current_project', function(error, data) {
+        storage.get('storyteller', function(error, data) {
             if (error) throw error;
             console.log(data);
         });
