@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { HashRouter as Router } from "react-router-dom";
 import { openProjectAction } from "../../reducers/projectReducer";
 
-import Welcome from '../Welcome';
+import Welcome from '../../routes/Welcome';
 import Project from '../Project';
 
 const storage = require('electron-json-storage');
@@ -12,8 +12,6 @@ class Layout extends React.Component {
   
     constructor(props) {
         super(props);
-
-        // console.log("tmpdir: " + storage.getDefaultDataPath());
 
         storage.get('storyteller', function(error, data) {
             if (error) throw error;

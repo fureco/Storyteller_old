@@ -4,13 +4,21 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 
+const storage = require('electron-json-storage');
+
 export default class App extends React.Component {
 
-  render() {
-    return (
-      <Provider store={store}>
-          <Layout/>
-      </Provider>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        console.log("locale storage directory: " + storage.getDefaultDataPath());
+    }
+
+    render() {
+        return (
+        <Provider store={store}>
+            <Layout/>
+        </Provider>
+        );
+    }
 }

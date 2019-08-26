@@ -7,6 +7,8 @@ const storage = require('electron-json-storage');
 
 const CREATE_PROJECT = 'CREATE_PROJECT';
 const OPEN_PROJECT = 'OPEN_PROJECT';
+const CLOSE_PROJECT = 'CLOSE_PROJECT';
+
 const CREATE_PART = 'CREATE_PART';
 
 const initialState = {
@@ -30,9 +32,15 @@ const projectReducer = (state = initialState, action) => {
         });
         storage.get('storyteller', function(error, data) {
             if (error) throw error;
-            console.log(data);
         });
         return Object.assign({}, { path: action.filePath });
+
+    case CLOSE_PROJECT:
+        console.log("CLOSE_PROJECT");
+        storage.clear('storyteller', (error) => {
+            if (error) throw error;
+        });
+        return Object.assign({}, { path: '' });
 
     case CREATE_PART:
         console.log("CREATE_PART");
@@ -50,6 +58,8 @@ export default projectReducer;
 export const createProjectAction = (filePath) => ({ type: CREATE_PROJECT, filePath });
 
 export const openProjectAction = (filePath) => ({ type: OPEN_PROJECT, filePath });
+
+export const closeProjectAction = () => ({ type: CLOSE_PROJECT });
 
 export const createPartAction = () => ({ type: CREATE_PART });
 
