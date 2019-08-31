@@ -55,6 +55,7 @@ const projectReducer = (state = initialState, action) => {
                 parts: [
                     ...state.parts,
                     {
+                        id: getNewID(state.parts),
                         position: state.parts.length + 1,
                         name: action.partName 
                     }
@@ -117,4 +118,10 @@ function createNewStorytellerProjectFile(filePath) {
 function createNewPart(partName) {
     console.log("creating new part in script: " + partName);
     return true;
+}
+
+function getNewID(array_of_objects_in_state) {
+
+    let max_id = array_of_objects_in_state.reduce(function(prev, current) { return (prev.id > current.id) ? prev.id : current.id }, 0)
+    return max_id + 1;
 }
