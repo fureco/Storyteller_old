@@ -45,13 +45,6 @@ class TopNavBar extends React.Component {
           
                 <NavbarGroup align={Alignment.LEFT}>
             
-                <Tooltip content="Close project" position={Position.BOTTOM}>
-                    <Button 
-                        minimal={true}
-                        icon="disable"
-                        onClick={ () => {this.props.closeProject()} }
-                    />
-                </Tooltip>
                 <Tooltip content="Open project" position={Position.BOTTOM}>
                     <Button 
                         minimal={true}
@@ -62,6 +55,13 @@ class TopNavBar extends React.Component {
                             this.props.openProject(result[0])
                         } 
                     }}/>
+                </Tooltip>
+                <Tooltip content="Close project" position={Position.BOTTOM}>
+                    <Button 
+                        minimal={true}
+                        icon="folder-close"
+                        onClick={ () => {this.props.closeProject()} }
+                    />
                 </Tooltip>
                 <Tooltip content="Create new project" position={Position.BOTTOM}>
                     <Button 

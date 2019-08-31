@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { createScriptPartAction } from  "../../../reducers/projectReducer";
+import ScriptPartCreationDialog from  "./ScriptPartCreationDialog";
 
 import {
   Button,
@@ -19,27 +21,22 @@ class ScriptTree extends React.Component {
 
   render() {
 
-    let partCreation;
-
-    if(this.state.showPartCreationDialog) {
-      partCreation = <PartCreationDialog
-                        togglePartCreationDialog={togglePartCreationDialog.bind(this)} />;
-    }
-    else {
-      partCreation = <Button 
-                        minimal={false}
-                        icon="plus"
-                        text="Add a new part"
-                        onClick={togglePartCreationDialog.bind(this)}
-                      />;
-    }
-
     return (
         <div id="ScriptTree">
 
                 <h1>Parts</h1>
+                { 
+                    this.state.showPartCreationDialog ? 
 
-                {partCreation}
+                        <ScriptPartCreationDialog />
+
+                    :   <Button 
+                            minimal={false}
+                            icon="plus"
+                            text="Add a new part"
+                            onClick={togglePartCreationDialog.bind(this)}
+                        />
+                }
         
         </div>
     );
@@ -49,27 +46,18 @@ class ScriptTree extends React.Component {
 function togglePartCreationDialog() {
     this.setState({ showPartCreationDialog: !this.state.showPartCreationDialog });
 }
-
-function PartCreationDialog(props) {
-    return(
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <InputGroup/>
-            <Button 
-                minimal={false}
-                icon="floppy-disk"
-                onClick={props.togglePartCreationDialog.bind(this)}
-            />
-        </div>
-    );
-}
   
 function mapStateToProps ({ projectReducer }) {
-  return {
-    project: projectReducer,
-  };
+    return {
+    };
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+    };
 }
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(ScriptTree)

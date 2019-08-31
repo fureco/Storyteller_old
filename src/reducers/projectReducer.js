@@ -23,29 +23,47 @@ const projectReducer = (state = initialState, action) => {
     
     case CREATE_PROJECT:
         console.log("CREATE_PROJECT");
-        return createProject(action.filePath);
+        if(createProject(action.filePath))
+            return Object.assign({}, state, { 
+                path: action.filePath 
+            });
+        else 
+            return state;
 
     case OPEN_PROJECT:
         console.log("OPEN_PROJECT");
         storage.set('storyteller', { path: action.filePath }, function(error) {
             if (error) throw error;
         });
-        storage.get('storyteller', function(error, data) {
-            if (error) throw error;
+        return Object.assign({}, state, { 
+            path: action.filePath 
         });
-        return Object.assign({}, { path: action.filePath });
 
     case CLOSE_PROJECT:
         console.log("CLOSE_PROJECT");
         storage.clear('storyteller', (error) => {
             if (error) throw error;
         });
-        return Object.assign({}, { path: '' });
+        return Object.assign({}, state, { 
+            path: '' 
+        });
 
     case CREATE_PART:
         console.log("CREATE_PART");
-        createNewPart();
-        return state;
+        if(createNewPart(action.partName)) {
+            return Object.assign({}, state, {
+                parts: [
+                    ...state.parts,
+                    {
+                        position: state.parts.length + 1,
+                        name: action.partName 
+                    }
+                ]
+            });
+        }
+        else {
+            return state;
+        }
 
     default:
         return state;
@@ -56,12 +74,10 @@ const projectReducer = (state = initialState, action) => {
 export default projectReducer;
 
 export const createProjectAction = (filePath) => ({ type: CREATE_PROJECT, filePath });
-
 export const openProjectAction = (filePath) => ({ type: OPEN_PROJECT, filePath });
-
 export const closeProjectAction = () => ({ type: CLOSE_PROJECT });
 
-export const createPartAction = () => ({ type: CREATE_PART });
+export const createScriptPartAction = (partName) => ({ type: CREATE_PART, partName });
 
 
 function createProject(filePath) {
@@ -84,7 +100,7 @@ function createProject(filePath) {
     });
   }
 
-  return Object.assign({}, { path: filePath });
+  return true;
 }
 
 function createNewStorytellerProjectFile(filePath) {
@@ -98,6 +114,7 @@ function createNewStorytellerProjectFile(filePath) {
   });
 }
 
-function createNewPart() {
-  console.log("creating new part in script...");
+function createNewPart(partName) {
+    console.log("creating new part in script: " + partName);
+    return true;
 }
