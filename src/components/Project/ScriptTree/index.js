@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createScriptPartAction } from  "../../../reducers/projectReducer";
 import ScriptPartCreationDialog from  "./ScriptPartCreationDialog";
+import ChapterCreationDialog from  "./ChapterCreationDialog";
 
 import {
   Button,
-  InputGroup,
+  Tree,
+  ITreeNode,
 } from '@blueprintjs/core';
 
 class ScriptTree extends React.Component {

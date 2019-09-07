@@ -7,30 +7,30 @@ import {
   InputGroup,
 } from '@blueprintjs/core';
 
-class ScriptPartCreationDialog extends React.Component {
+class ChapterCreationDialog extends React.Component {
 
     constructor(props) {
 
         super(props);
 
         this.state = {
-            partName: ''
+            name: ''
         };
     }
 
     render() {
 
         return (
-            <div id="ScriptPartCreationDialog">
+            <div id="ChapterCreationDialog">
 
                 <InputGroup
-                    placeholder="title of new part..."
-                    onChange={() => this.setState( { partName : event.target.value } ) }
+                    placeholder="title of new chapter..."
+                    onChange={() => this.setState( { name : event.target.value } ) }
                     rightElement={
                         <Button 
                             minimal={false}
                             icon="floppy-disk"
-                            onClick={() => this.createScriptPart(this.state.partName).bind(this)}
+                            onClick={() => this.create(this.state.name).bind(this)}
                         />
                     }
                 />
@@ -39,8 +39,8 @@ class ScriptPartCreationDialog extends React.Component {
         );
     }
 
-    createScriptPart(partName) {
-        this.props.addScriptPart(partName);
+    create(name) {
+        this.props.addChapter(name);
         this.props.saveProject();
     }
 }
@@ -53,7 +53,7 @@ function mapStateToProps ({ projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        addScriptPart: partName => dispatch(addScriptPartAction(partName)),
+        addChapter: name => dispatch(addScriptPartAction(name)),
         saveProject: () => dispatch(saveProjectAction()),
     };
 }
@@ -61,4 +61,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ScriptPartCreationDialog)
+)(ChapterCreationDialog)
