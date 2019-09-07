@@ -14,6 +14,7 @@ class ScriptPartCreationDialog extends React.Component {
     super(props);
 
     this.state = {
+            partName: ''
     };
   }
 
@@ -23,6 +24,8 @@ class ScriptPartCreationDialog extends React.Component {
         <div id="ScriptPartCreationDialog">
 
             <InputGroup
+                    placeholder="title of new part..."
+                    onChange={() => this.setState( { partName : event.target.value } ) }
                 rightElement={
                     <Button 
                         minimal={false}

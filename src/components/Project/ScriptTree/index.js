@@ -25,6 +25,9 @@ class ScriptTree extends React.Component {
         <div id="ScriptTree">
 
                 <h1>Parts</h1>
+
+                <Tree contents={this.props.projectParts} />
+
                 { 
                     this.state.showPartCreationDialog ? 
 
@@ -48,7 +51,23 @@ function togglePartCreationDialog() {
 }
   
 function mapStateToProps ({ projectReducer }) {
+
+    let parts = [];
+
+    projectReducer.parts.forEach(part => {
+        let aPart = 
+        {
+            id: part.id,
+            hasCaret: true,
+            icon: "folder-close",
+            label: part.name,
+        };
+
+        parts.push(aPart);
+    });
+
     return {
+        projectParts: parts,
     };
 }
 
