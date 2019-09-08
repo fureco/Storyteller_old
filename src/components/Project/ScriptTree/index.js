@@ -4,9 +4,10 @@ import ScriptPartCreationDialog from  "./ScriptPartCreationDialog";
 import ChapterCreationDialog from  "./ChapterCreationDialog";
 
 import {
-  Button,
-  Tree,
-  ITreeNode,
+    Icon,
+    Tooltip,
+    Tree,
+    ITreeNode,
 } from '@blueprintjs/core';
 
 class ScriptTree extends React.Component {
@@ -25,46 +26,46 @@ class ScriptTree extends React.Component {
     return (
         <div id="ScriptTree">
 
-                <h1>Parts</h1>
-
                 <Tree contents={this.props.projectParts} />
 
-                { 
-                    this.state.showPartCreationDialog ? 
-
-                        <ScriptPartCreationDialog />
-
-                    :   <Button 
-                            minimal={false}
-                            icon="plus"
-                            text="Add a new part"
-                            onClick={togglePartCreationDialog.bind(this)}
-                        />
-                }
+                <div style={PartCreationStyle}>
+                    <ScriptPartCreationDialog />
+                </div>
         
         </div>
     );
   }
 }
 
-function togglePartCreationDialog() {
-    this.setState({ showPartCreationDialog: !this.state.showPartCreationDialog });
-}
+const PartCreationStyle = {
+    marginTop: '1em',
+};
   
 function mapStateToProps ({ projectReducer }) {
 
     let parts = [];
 
     projectReducer.parts.forEach(part => {
+
+        let children = [
+            {
+                id: 1,
+                label: ( <ChapterCreationDialog /> )
+            }
+        ];
+
         let aPart = 
         {
             id: part.id,
             hasCaret: true,
+            isExpanded: true,
             icon: "folder-close",
-            label: part.name,
+            label: "Part " + part.id + ": " + part.name,
+            secondaryLabel: "X",
+            childNodes: children
         };
 
-        parts.push(aPart);
+        parts[part.id] = aPart;
     });
 
     return {

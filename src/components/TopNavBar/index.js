@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { createProjectAction, openProjectAction, closeProjectAction } from "../../reducers/projectReducer";
+import { saveProject } from '../../utils/file-functions';
+import { createProjectAction, openProjectAction, closeProjectAction, selectMainAreaAction } from "../../reducers/projectReducer";
 
 import {
     Alignment,
@@ -26,17 +27,11 @@ class TopNavBar extends React.Component {
         super(props);
 
         this.state = {
-        selectedTabId: 'script',
         };
     }
 
-    setSelectedMainArea(selectedTabId){
-        this.props.setSelectedMainArea(selectedTabId) 
-    }
-
-    handleTabChange(navbarTabId){
-        this.setState({ selectedTabId: navbarTabId });
-        this.setSelectedMainArea(navbarTabId);
+    handleTabChange(navbarTabId) {
+        this.props.selectMainArea(navbarTabId);
     } 
 
     render() {
@@ -78,24 +73,25 @@ class TopNavBar extends React.Component {
                     <Button 
                         minimal={true}
                         icon="floppy-disk"
+                        onClick={ () => { saveProject(this.props.project.path + '/project.st', this.props.project) } }
                     />
                 </Tooltip>
             
                 <NavbarDivider />
 
                 { this.props.project.path &&
-                    <Tabs id="TopNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true">
+                    <Tabs id="TopNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.project.appState.selectedMainArea} animate="true">
                         <Tab id="script">
-                        <Link to="/"><Icon icon="draw" /> Script</Link>
+                            <Link to="/"><Icon icon="draw" /> Script</Link>
                         </Tab>
                         <Tab id="characters">
-                        <Link to="/characters"><Icon icon="people" /> Characters</Link>
+                            <Link to="/characters"><Icon icon="people" /> Characters</Link>
                         </Tab>
                         <Tab id="locations">
-                        <Link to="/locations"><Icon icon="map-marker" /> Locations</Link>
+                            <Link to="/locations"><Icon icon="map-marker" /> Locations</Link>
                         </Tab>
                         <Tab id="timeline">
-                        <Link to="/timeline"><Icon icon="time" /> Timeline</Link>
+                            <Link to="/timeline"><Icon icon="time" /> Timeline</Link>
                         </Tab>
                     </Tabs>
                 }
@@ -119,12 +115,13 @@ class TopNavBar extends React.Component {
 
 function mapStateToProps ({ projectReducer }) {
     return {
-        project: projectReducer,
+        project: projectReducer
     };
 }
 
 function mapDispatchToProps (dispatch) {
     return {
+        selectMainArea: (navbarTabId) => dispatch(selectMainAreaAction(navbarTabId)),
         openProject: (filePath) => dispatch(openProjectAction(filePath)),
         createProject: (filePath) => dispatch(createProjectAction(filePath)),
         closeProject: () => dispatch(closeProjectAction()),

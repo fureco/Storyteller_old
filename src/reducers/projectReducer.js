@@ -8,12 +8,16 @@ const storage = require('electron-json-storage');
 const CREATE_PROJECT = 'CREATE_PROJECT';
 const OPEN_PROJECT = 'OPEN_PROJECT';
 const CLOSE_PROJECT = 'CLOSE_PROJECT';
-const SAVE_PROJECT = 'SAVE_PROJECT';
 
 const ADD_PART = 'ADD_PART';
 
+const SELECT_MAIN_AREA = 'SELECT_MAIN_AREA';
+
 const initialState = {
     path: "",
+    appState: {
+        selectedMainArea: 'script',
+    },
     parts: [],
     chapters: []
 };
@@ -50,6 +54,7 @@ const projectReducer = (state = initialState, action) => {
         
             return Object.assign({}, state, { 
                 path: action.filePath,
+                appState: jsonData.appState,
                 parts: jsonData.parts,
                 chapters: jsonData.chapters
             });
@@ -68,15 +73,6 @@ const projectReducer = (state = initialState, action) => {
             path: '' 
         });
 
-    case SAVE_PROJECT:
-        console.log("SAVE_PROJECT");
-        let content = JSON.stringify(state);
-        electronFs.writeFile(state.path + '/project.st', content, function (err) {
-            if (err) throw err;
-            console.log('Saved!');
-        });
-        return state;
-
     case ADD_PART:
         console.log("ADD_PART");
         return Object.assign({}, state, {
@@ -90,6 +86,14 @@ const projectReducer = (state = initialState, action) => {
             ]
         });
 
+    case SELECT_MAIN_AREA:
+        console.log("SELECT_MAIN_AREA");
+        return Object.assign({}, state, {
+            appState: { 
+                selectedMainArea: action.navbarTabId
+            }
+        });
+
     default:
         return state;
   }
@@ -98,13 +102,13 @@ const projectReducer = (state = initialState, action) => {
 
 export default projectReducer;
 
-export const saveProjectAction = () => ({ type: SAVE_PROJECT });
-
 export const createProjectAction = (filePath) => ({ type: CREATE_PROJECT, filePath });
 export const openProjectAction = (filePath) => ({ type: OPEN_PROJECT, filePath });
 export const closeProjectAction = () => ({ type: CLOSE_PROJECT });
 
 export const addScriptPartAction = (partName) => ({ type: ADD_PART, partName });
+
+export const selectMainAreaAction = (navbarTabId) => ({ type: SELECT_MAIN_AREA, navbarTabId });
 
 
 function createProject(filePath) {

@@ -14,6 +14,7 @@ class ScriptPartCreationDialog extends React.Component {
         super(props);
 
         this.state = {
+            showPartCreationDialogs: props.showChapterCreationDialog || false,
             partName: ''
         };
     }
@@ -23,17 +24,35 @@ class ScriptPartCreationDialog extends React.Component {
         return (
             <div id="ScriptPartCreationDialog">
 
-                <InputGroup
-                    placeholder="title of new part..."
-                    onChange={() => this.setState( { partName : event.target.value } ) }
-                    rightElement={
-                        <Button 
+                { 
+                    this.state.showPartCreationDialog ? 
+
+                    <InputGroup
+                        placeholder="title of new part..."
+                        onChange={() => this.setState( { partName : event.target.value } ) }
+                        rightElement={
+                            <div>
+                                <Button 
+                                    minimal={false}
+                                    icon="floppy-disk"
+                                    onClick={() => this.createScriptPart(this.state.partName).bind(this)}
+                                />
+                                <Button 
+                                    minimal={false}
+                                    icon="small-cross"
+                                    onClick={toggleDialog.bind(this)}
+                                />
+                            </div>
+                        }
+                    />
+
+                    :   <Button 
                             minimal={false}
-                            icon="floppy-disk"
-                            onClick={() => this.createScriptPart(this.state.partName).bind(this)}
+                            icon="plus"
+                            text="Add a new part"
+                            onClick={toggleDialog.bind(this)}
                         />
-                    }
-                />
+                }
             
             </div>
         );
@@ -43,6 +62,10 @@ class ScriptPartCreationDialog extends React.Component {
         this.props.addScriptPart(partName);
         this.props.saveProject();
     }
+}
+
+function toggleDialog() {
+    this.setState({ showPartCreationDialog: !this.state.showPartCreationDialog });
 }
   
 function mapStateToProps ({ projectReducer }) {

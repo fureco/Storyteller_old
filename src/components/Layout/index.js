@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router } from "react-router-dom";
+
 import { openProjectAction } from "../../reducers/projectReducer";
 
 import Welcome from '../../routes/Welcome';
@@ -33,9 +34,9 @@ class Layout extends React.Component {
 
       return (
         <Router>
-          <div id="Layout" style={styles.container}>
-              {content}
-          </div>
+            <div id="Layout" style={styles.container}>
+                {content}
+            </div>
         </Router>
       );
     }

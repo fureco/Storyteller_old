@@ -14,6 +14,7 @@ class ChapterCreationDialog extends React.Component {
         super(props);
 
         this.state = {
+            showChapterCreationDialog: props.showChapterCreationDialog || false,
             name: ''
         };
     }
@@ -23,17 +24,35 @@ class ChapterCreationDialog extends React.Component {
         return (
             <div id="ChapterCreationDialog">
 
-                <InputGroup
-                    placeholder="title of new chapter..."
-                    onChange={() => this.setState( { name : event.target.value } ) }
-                    rightElement={
-                        <Button 
+                {
+                    this.state.showChapterCreationDialog ? 
+
+                    <InputGroup
+                        placeholder="title of new chapter..."
+                        onChange={() => this.setState( { name : event.target.value } ) }
+                        rightElement={
+                            <div>
+                                <Button 
+                                    minimal={false}
+                                    icon="floppy-disk"
+                                    onClick={() => this.create(this.state.name)}
+                                />
+                                <Button 
+                                    minimal={false}
+                                    icon="small-cross"
+                                    onClick={toggleDialog.bind(this)}
+                                />
+                            </div>
+                        }
+                    />
+
+                    :   <Button 
                             minimal={false}
-                            icon="floppy-disk"
-                            onClick={() => this.create(this.state.name).bind(this)}
+                            icon="plus"
+                            text="Add a new chapter"
+                            onClick={toggleDialog.bind(this)}
                         />
-                    }
-                />
+                }
             
             </div>
         );
@@ -43,6 +62,10 @@ class ChapterCreationDialog extends React.Component {
         this.props.addChapter(name);
         this.props.saveProject();
     }
+}
+
+function toggleDialog() {
+    this.setState({ showChapterCreationDialog: !this.state.showChapterCreationDialog });
 }
   
 function mapStateToProps ({ projectReducer }) {

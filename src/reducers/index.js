@@ -5,9 +5,9 @@ import projectReducer from './projectReducer.js';
 import fileTreeReducer from './../components/FileTree/reducers';
 
 const rootReducer = combineReducers({
-  routerReducer,
-  projectReducer,
-  fileTreeReducer
+    routerReducer,
+    projectReducer,
+    fileTreeReducer
 });
 
 export default rootReducer;
