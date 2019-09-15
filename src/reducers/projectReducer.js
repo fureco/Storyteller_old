@@ -9,6 +9,8 @@ const CREATE_PROJECT = 'CREATE_PROJECT';
 const OPEN_PROJECT = 'OPEN_PROJECT';
 const CLOSE_PROJECT = 'CLOSE_PROJECT';
 
+const SET_TITLE = 'SET_TITLE';
+
 const ADD_PART = 'ADD_PART';
 const REMOVE_PART = 'REMOVE_PART';
 
@@ -17,8 +19,9 @@ const SELECT_MAIN_AREA = 'SELECT_MAIN_AREA';
 const initialState = {
     path: "",
     appState: {
-        selectedMainArea: 'script',
+        selectedMainArea: "script",
     },
+    title: "",
     parts: [],
     chapters: []
 };
@@ -47,6 +50,12 @@ const projectReducer = (state = initialState, action) => {
         });
         return Object.assign({}, state, { 
             path: '' 
+        });
+
+    case SET_TITLE:
+        console.log("SET_TITLE");
+        return Object.assign({}, state, {
+            title: action.title
         });
 
     case ADD_PART:
@@ -89,6 +98,8 @@ export default projectReducer;
 export const createProjectAction = (filePath) => ({ type: CREATE_PROJECT, filePath });
 export const openProjectAction = (filePath) => ({ type: OPEN_PROJECT, filePath });
 export const closeProjectAction = () => ({ type: CLOSE_PROJECT });
+
+export const setTitleAction = (title) => ({ type: SET_TITLE, title });
 
 export const addScriptPartAction = (partName) => ({ type: ADD_PART, partName });
 export const removeScriptPartAction = () => ({ type: REMOVE_PART });

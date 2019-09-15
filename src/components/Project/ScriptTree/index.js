@@ -1,47 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ScriptTitle from  "./../ScriptTitle";
 import ScriptPartCreationDialog from  "./ScriptPartCreationDialog";
 import ChapterCreationDialog from  "./ChapterCreationDialog";
 
 import {
     Button,
-    Icon,
-    Tooltip,
+    InputGroup,
     Tree,
-    ITreeNode,
 } from '@blueprintjs/core';
 
 class ScriptTree extends React.Component {
 
-  constructor(props) {
+    constructor(props) {
 
-    super(props);
+        super(props);
 
-    this.state = {
-        showPartCreationDialog: false
-    };
-  }
+        this.state = {
+            isInEditMode: false,
+            showPartCreationDialog: false
+        };
+    }
 
-  render() {
+    componentDidMount() {
+        if(!this.props.project.title || this.props.project.title <= 0) {
+            this.setState({ isInEditMode: true });
+        }
+    }
 
-    return (
-        <div id="ScriptTree">
+    render() {
+        return (
+            <div id="ScriptTree">
+
+                <ScriptTitle/>
 
                 <Tree contents={this.props.projectParts} />
 
                 <div style={PartCreationStyle}>
                     <ScriptPartCreationDialog />
                 </div>
-        
-        </div>
-    );
-  }
+            
+            </div>
+        );
+    }
 }
 
 const PartCreationStyle = {
     marginTop: '1em',
 };
-  
+
+function toggleEditMode() {
+    this.setState({ isInEditMode: !this.state.isInEditMode });
+}
+
+function deletePart(partID) {
+    console.log(partID)
+}
+
 function mapStateToProps ({ projectReducer }) {
 
     let parts = [];
@@ -76,12 +91,9 @@ function mapStateToProps ({ projectReducer }) {
     });
 
     return {
+        project: projectReducer,
         projectParts: parts,
     };
-}
-
-function deletePart(partID) {
-    console.log(partID)
 }
 
 function mapDispatchToProps (dispatch) {
@@ -90,6 +102,6 @@ function mapDispatchToProps (dispatch) {
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ScriptTree)

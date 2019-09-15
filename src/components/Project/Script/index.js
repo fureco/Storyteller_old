@@ -52,31 +52,30 @@ class Script extends React.Component {
                 <div
                     id="DirectoryTreeView"
                     style={{
-                    height: '100%',
-                    width: '300px',
-                    overflow: 'auto',
-                    border: '1px solid #ddd',
-                    resize: 'horizontal',
-                    outline: 'none',
-                    padding: '0 10px',
+                        height: '100%',
+                        width: '300px',
+                        overflow: 'auto',
+                        border: '1px solid #ddd',
+                        resize: 'horizontal',
+                        outline: 'none',
+                        padding: '0 10px',
                     }}
                     onKeyDown={this.onInput}
                 >
-                <Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" >
-                    <Tab id="script" title="Script" panel={
-                        <ScriptTree />
-                    } />
-                    <Tab id="file_browser" title="File Browser" panel={
-                        <FileTree 
-                        directory={this.props.project.path}
-                        onFileClick={this.onFileClick.bind(this)}
-                        />
-                    } />
-                </Tabs>
+                    <Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" >
+                        <Tab id="script" title="Script" panel={
+                            <ScriptTree />
+                        } />
+                        <Tab id="file_browser" title="File Browser" panel={
+                            <FileTree 
+                            directory={this.props.project.path}
+                            onFileClick={this.onFileClick.bind(this)}
+                            />
+                        } />
+                    </Tabs>
+                </div>
 
-            </div>
-
-            <ScriptTextArea />
+                <ScriptTextArea />
             
             </div>
         );

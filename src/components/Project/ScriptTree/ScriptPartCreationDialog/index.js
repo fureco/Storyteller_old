@@ -14,7 +14,7 @@ class ScriptPartCreationDialog extends React.Component {
         super(props);
 
         this.state = {
-            showPartCreationDialogs: props.showChapterCreationDialog || false,
+            isInEditMode: props.isInEditMode || false,
             partName: ''
         };
     }
@@ -25,7 +25,7 @@ class ScriptPartCreationDialog extends React.Component {
             <div id="ScriptPartCreationDialog">
 
                 { 
-                    this.state.showPartCreationDialog ? 
+                    this.state.isInEditMode ? 
 
                     <InputGroup
                         placeholder="title of new part..."
@@ -40,7 +40,7 @@ class ScriptPartCreationDialog extends React.Component {
                                 <Button 
                                     minimal={false}
                                     icon="small-cross"
-                                    onClick={toggleDialog.bind(this)}
+                                    onClick={toggleEditMode.bind(this)}
                                 />
                             </div>
                         }
@@ -50,7 +50,7 @@ class ScriptPartCreationDialog extends React.Component {
                             minimal={true}
                             icon="plus"
                             text="Add a new part"
-                            onClick={toggleDialog.bind(this)}
+                            onClick={toggleEditMode.bind(this)}
                         />
                 }
             
@@ -64,8 +64,8 @@ class ScriptPartCreationDialog extends React.Component {
     }
 }
 
-function toggleDialog() {
-    this.setState({ showPartCreationDialog: !this.state.showPartCreationDialog });
+function toggleEditMode() {
+    this.setState({ isInEditMode: !this.state.isInEditMode });
 }
   
 function mapStateToProps ({ projectReducer }) {
