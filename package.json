@@ -16,34 +16,34 @@
     "license": "MIT",
     "config": {
         "forge": {
-        "make_targets": {
-            "win32": [
-            "squirrel"
-            ],
-            "darwin": [
-            "zip"
-            ],
-            "linux": [
-            "deb",
-            "rpm"
-            ]
-        },
-        "electronPackagerConfig": {
-            "packageManager": "npm"
-        },
-        "electronWinstallerConfig": {
-            "name": "Storyteller"
-        },
-        "electronInstallerDebian": {},
-        "electronInstallerRedhat": {},
-        "github_repository": {
-            "owner": "Melanie Mende",
-            "name": "Storyteller"
-        },
-        "windowsStoreConfig": {
-            "packageName": "",
-            "name": "Storyteller"
-        }
+            "make_targets": {
+                "win32": [
+                    "squirrel"
+                ],
+                "darwin": [
+                    "zip"
+                ],
+                "linux": [
+                    "deb",
+                    "rpm"
+                ]
+            },
+            "electronPackagerConfig": {
+                "packageManager": "npm"
+            },
+            "electronWinstallerConfig": {
+                "name": "Storyteller"
+            },
+            "electronInstallerDebian": {},
+            "electronInstallerRedhat": {},
+            "github_repository": {
+                "owner": "Melanie Mende",
+                "name": "Storyteller"
+            },
+            "windowsStoreConfig": {
+                "packageName": "",
+                "name": "Storyteller"
+            }
         }
     },
     "dependencies": {

@@ -15,17 +15,41 @@ class ScriptTitle extends React.Component {
         super(props);
 
         this.state = {
-            isInEditMode: false,
+            isInEditMode: !this.props.project.title || this.props.project.title.length <= 0,
+            mouseOver: false,
             value: this.props.project.title,
         };
     }
 
+    onMouseEnter() {
+        this.setState({ mouseOver: true })
+    }
+
+    onMouseLeave() {
+        this.setState({ mouseOver: false })
+    }
+
+    openEditMode() {
+        this.setState({ isInEditMode: true })
+    }
+
+    closeEditMode() {
+        this.setState({ isInEditMode: false })
+    }
+
+    undoEditing() {
+        this.setState({ 
+            isInEditMode: !this.props.project.title || this.props.project.title.length <= 0,
+            value: this.props.project.title 
+        });
+    }
+
     render() {
         return (
-            <div id="ScriptTitle" style={Style}>
+            <div id="ScriptTitle" style={Style.container} onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
 
                 { 
-                    this.state.isInEditMode || !this.props.project.title || this.props.project.title <= 0 ?
+                    this.state.isInEditMode ?
 
                     <InputGroup
                         placeholder="title..."
@@ -37,22 +61,31 @@ class ScriptTitle extends React.Component {
                                     minimal={false}
                                     disabled={!this.state.value.length}
                                     icon="floppy-disk"
-                                    onClick={() => {
-                                        this.props.setTitle(this.state.value)
-                                        saveProject(this.props.project.path + '/project.st', this.props.project)
-                                    }}
+                                    onClick={() => {this.props.setTitle(this.state.value)}}
                                 />
                                 <Button 
                                     minimal={false}
                                     disabled={!this.state.value.length}
                                     icon="small-cross"
-                                    onClick={undoEditing.bind(this)}
+                                    onClick={this.undoEditing.bind(this)}
                                 />
                             </div>
                         }
                     />
 
-                    :   <h1>{this.props.project.title}</h1>
+                    :   <h1 style={Style.h1}>
+
+                            {this.props.project.title}
+
+                            {this.state.mouseOver &&
+                                <Button 
+                                    minimal={true}
+                                    disabled={!this.state.value.length}
+                                    icon="edit"
+                                    onClick={this.openEditMode.bind(this)}
+                                />
+                            }
+                        </h1>
                 }
      
             </div>
@@ -61,14 +94,13 @@ class ScriptTitle extends React.Component {
 }
 
 const Style = {
-    marginTop: '1em',
+    container: {
+    },
+    h1: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    }
 };
-
-function undoEditing() {
-    this.setState({ 
-        value: this.props.project.title,
-    });
-}
 
 function mapStateToProps ({ projectReducer }) {
     return {

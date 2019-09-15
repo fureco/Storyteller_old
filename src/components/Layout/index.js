@@ -17,7 +17,9 @@ class Layout extends React.Component {
         storage.get('storyteller', function(error, data) {
             if (error) throw error;
             console.log("current_project: " + data.path);
-            props.openProject(data.path)
+            if(data.path) {
+                props.openProject(data.path)
+            }
         });
     }
   
