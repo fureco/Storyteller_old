@@ -4,6 +4,7 @@ import ScriptPartCreationDialog from  "./ScriptPartCreationDialog";
 import ChapterCreationDialog from  "./ChapterCreationDialog";
 
 import {
+    Button,
     Icon,
     Tooltip,
     Tree,
@@ -61,7 +62,13 @@ function mapStateToProps ({ projectReducer }) {
             isExpanded: true,
             icon: "folder-close",
             label: "Part " + part.id + ": " + part.name,
-            secondaryLabel: "X",
+            secondaryLabel: (
+                <Button 
+                    minimal={true}
+                    icon="trash"
+                    onClick={deletePart.bind(this)}
+                />
+            ),
             childNodes: children
         };
 
@@ -71,6 +78,10 @@ function mapStateToProps ({ projectReducer }) {
     return {
         projectParts: parts,
     };
+}
+
+function deletePart(partID) {
+    console.log(partID)
 }
 
 function mapDispatchToProps (dispatch) {

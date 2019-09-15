@@ -85,12 +85,12 @@ class Script extends React.Component {
 
   
 function mapStateToProps ({ projectReducer }) {
-  return {
-    project: projectReducer,
-  };
+    return {
+        project: projectReducer,
+    };
 }
 
 export default connect(
-  mapStateToProps,
-  null
+    mapStateToProps,
+    null
 )(Script)

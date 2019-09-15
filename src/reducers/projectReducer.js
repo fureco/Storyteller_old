@@ -10,6 +10,7 @@ const OPEN_PROJECT = 'OPEN_PROJECT';
 const CLOSE_PROJECT = 'CLOSE_PROJECT';
 
 const ADD_PART = 'ADD_PART';
+const REMOVE_PART = 'REMOVE_PART';
 
 const SELECT_MAIN_AREA = 'SELECT_MAIN_AREA';
 
@@ -37,32 +38,7 @@ const projectReducer = (state = initialState, action) => {
 
     case OPEN_PROJECT:
         console.log("OPEN_PROJECT");
-
-        storage.set('storyteller', { path: action.filePath }, (error) => {
-            if (error) {
-                console.error(error);
-                return state;
-            }
-        });
-
-        let jsonData = state;
-        let rawData;
-
-        try {
-            rawData = electronFs.readFileSync(action.filePath + '/project.st')
-            jsonData = JSON.parse(rawData);
-        
-            return Object.assign({}, state, { 
-                path: action.filePath,
-                appState: jsonData.appState,
-                parts: jsonData.parts,
-                chapters: jsonData.chapters
-            });
-        }
-        catch (error) {
-            return state;
-        }
-        
+        return openProject(state, action.filePath);
 
     case CLOSE_PROJECT:
         console.log("CLOSE_PROJECT");
@@ -83,6 +59,14 @@ const projectReducer = (state = initialState, action) => {
                     position: state.parts.length + 1,
                     name: action.partName 
                 }
+            ]
+        });
+
+    case REMOVE_PART:
+        console.log("REMOVE_PART");
+        return Object.assign({}, state, {
+            parts: [
+ 
             ]
         });
 
@@ -107,31 +91,55 @@ export const openProjectAction = (filePath) => ({ type: OPEN_PROJECT, filePath }
 export const closeProjectAction = () => ({ type: CLOSE_PROJECT });
 
 export const addScriptPartAction = (partName) => ({ type: ADD_PART, partName });
+export const removeScriptPartAction = () => ({ type: REMOVE_PART });
 
 export const selectMainAreaAction = (navbarTabId) => ({ type: SELECT_MAIN_AREA, navbarTabId });
 
+function openProject(state, filePath) {
+
+    storage.set('storyteller', { path: filePath }, (error) => {
+        if (error) {
+            console.error(error);
+            return state;
+        }
+    });
+
+    let jsonData = state;
+    let rawData;
+
+    try {
+        rawData = electronFs.readFileSync(filePath + '/project.st')
+        jsonData = JSON.parse(rawData);
+
+        return Object.assign({}, state, jsonData);
+    }
+    catch (error) {
+        console.error(error);
+        return state;
+    }
+}
 
 function createProject(filePath) {
-  console.log("start creating a new project...");
-  const files = electronFs.readdirSync(filePath);
-  if (!files.length) { 
-    console.log("directory is empty, can be used to create new project: " + filePath);
-    createNewStorytellerProjectFile(filePath);
-  }
-  else { 
-    console.log("directory is NOT empty");
-    storytellerProjectFileExists(filePath).then((fileExists) => {
-      if(!fileExists) {
-        // TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for the new project
+    console.log("start creating a new project...");
+    const files = electronFs.readdirSync(filePath);
+    if (!files.length) { 
+        console.log("directory is empty, can be used to create new project: " + filePath);
         createNewStorytellerProjectFile(filePath);
-      }
-      else {
-        console.log("project.st file exists");
-      }
-    });
-  }
+    }
+    else { 
+        console.log("directory is NOT empty");
+        storytellerProjectFileExists(filePath).then((fileExists) => {
+        if(!fileExists) {
+            // TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for the new project
+            createNewStorytellerProjectFile(filePath);
+        }
+        else {
+            console.log("project.st file exists");
+        }
+        });
+    }
 
-  return true;
+    return true;
 }
 
 function createNewStorytellerProjectFile(filePath) {

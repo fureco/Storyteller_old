@@ -47,7 +47,7 @@ class ChapterCreationDialog extends React.Component {
                     />
 
                     :   <Button 
-                            minimal={false}
+                            minimal={true}
                             icon="plus"
                             text="Add a new chapter"
                             onClick={toggleDialog.bind(this)}

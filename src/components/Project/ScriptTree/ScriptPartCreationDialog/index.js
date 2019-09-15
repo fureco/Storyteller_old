@@ -47,7 +47,7 @@ class ScriptPartCreationDialog extends React.Component {
                     />
 
                     :   <Button 
-                            minimal={false}
+                            minimal={true}
                             icon="plus"
                             text="Add a new part"
                             onClick={toggleDialog.bind(this)}
