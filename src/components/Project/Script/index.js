@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import FileTree from '../../FileTree';
 import ScriptTree from '../ScriptTree';
 import ScriptTextArea from '../ScriptTextArea';
+import FileBrowserTextArea from '../FileBrowserTextArea';
 
 import {
     Tab, 
@@ -19,7 +20,6 @@ class Script extends React.Component {
         this.state = {
             selectedTabId: 'script',
             selectedFile: null,
-            text: ''
         };
     }
 
@@ -30,7 +30,9 @@ class Script extends React.Component {
     }
 
     handleTabChange(navbarTabId){
-        this.setState({ selectedTabId: navbarTabId });
+        this.setState({ 
+            selectedTabId: navbarTabId,
+        });
     }
 
     onFileClick(file) {
@@ -43,10 +45,20 @@ class Script extends React.Component {
     
         fetch(file.filePath)
             .then( r => r.text() )
-            .then( text => document.getElementById('ScriptTextArea').value = text )
+            .then( text => document.getElementById('FileBrowserTextArea').value = text )
     }
 
     render() {
+
+        let textAreaContent = '';
+
+        if(this.state.selectedTabId == 'script') {
+            textAreaContent = <ScriptTextArea/>;
+        }
+        else {
+            textAreaContent = <FileBrowserTextArea/>;
+        }
+        
         return (
             <div id="MainAreaViewWrite" style={{ display: 'flex', flexDirection: 'row', flexGrow: '1' }}>
 
@@ -76,7 +88,7 @@ class Script extends React.Component {
                     </Tabs>
                 </div>
 
-                <ScriptTextArea initialText={this.state.text} />
+                { textAreaContent }       
             
             </div>
         );
