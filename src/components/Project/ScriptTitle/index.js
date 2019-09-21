@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { saveProject } from  "../../../utils/file-functions.js";
 import { setTitleAction } from  "../../../reducers/projectReducer";
 
 import {
@@ -52,6 +51,7 @@ class ScriptTitle extends React.Component {
                     this.state.isInEditMode ?
 
                     <InputGroup
+                        className="bp3-intent-primary bp3-large"
                         placeholder="title..."
                         value={this.state.value}
                         onChange={() => this.setState( { value : event.target.value } ) }
@@ -95,6 +95,7 @@ class ScriptTitle extends React.Component {
 
 const Style = {
     container: {
+        height: '3.5em'
     },
     h1: {
         display: 'flex',

@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from './components/Layout';
+import Home from './routes/Home';
 import { Provider } from 'react-redux';
 
 import store from './store';
@@ -17,7 +17,7 @@ export default class App extends React.Component {
     render() {
         return (
         <Provider store={store}>
-            <Layout/>
+            <Home/>
         </Provider>
         );
     }

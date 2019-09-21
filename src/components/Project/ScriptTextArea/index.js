@@ -14,7 +14,7 @@ class ScriptTextArea extends React.Component {
         super(props);
 
         this.state = {
-            text: props.text
+            text: ''
         };
     }
 
@@ -30,7 +30,7 @@ class ScriptTextArea extends React.Component {
                     outline: 'none',
                 }}
                 onKeyDown={this.onInput}
-                value={this.state.text}
+                defaultValue={this.props.initialText}
             />
         );
     }

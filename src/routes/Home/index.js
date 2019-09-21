@@ -4,12 +4,12 @@ import { HashRouter as Router } from "react-router-dom";
 
 import { openProjectAction } from "../../reducers/projectReducer";
 
-import Welcome from '../../routes/Welcome';
-import Project from '../Project';
+import Welcome from '../Welcome';
+import Project from '../../components/Project';
 
 const storage = require('electron-json-storage');
 
-class Layout extends React.Component {
+class Home extends React.Component {
   
     constructor(props) {
         super(props);
@@ -68,4 +68,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Layout)
+)(Home)

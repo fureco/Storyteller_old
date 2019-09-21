@@ -18,7 +18,8 @@ class Script extends React.Component {
 
         this.state = {
             selectedTabId: 'script',
-            selectedFile: null
+            selectedFile: null,
+            text: ''
         };
     }
 
@@ -75,7 +76,7 @@ class Script extends React.Component {
                     </Tabs>
                 </div>
 
-                <ScriptTextArea />
+                <ScriptTextArea initialText={this.state.text} />
             
             </div>
         );
