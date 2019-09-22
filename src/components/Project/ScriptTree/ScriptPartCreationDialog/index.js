@@ -7,7 +7,7 @@ import {
   InputGroup,
 } from '@blueprintjs/core';
 
-class ScriptPartCreationDialog extends React.Component {
+export class ScriptPartCreationDialog extends React.Component {
 
     constructor(props) {
 
@@ -27,26 +27,30 @@ class ScriptPartCreationDialog extends React.Component {
                 { 
                     this.state.isInEditMode ? 
 
-                    <InputGroup
-                        placeholder="title of new part..."
-                        onChange={() => this.setState( { partName : event.target.value } ) }
-                        rightElement={
-                            <div>
-                                <Button 
-                                    minimal={false}
-                                    icon="floppy-disk"
-                                    onClick={() => this.createScriptPart(this.state.partName).bind(this)}
-                                />
-                                <Button 
-                                    minimal={false}
-                                    icon="small-cross"
-                                    onClick={toggleEditMode.bind(this)}
-                                />
-                            </div>
-                        }
-                    />
+                        <InputGroup
+                            id="ScriptPartCreationInputGroup"
+                            placeholder="title of new part..."
+                            onChange={(event) => this.setState( { partName : event.target.value } ) }
+                            rightElement={
+                                <div>
+                                    <Button 
+                                        id="ScriptPartCreationSaveButton"
+                                        minimal={false}
+                                        icon="floppy-disk"
+                                        onClick={() => this.createScriptPart(this.state.partName).bind(this)}
+                                    />
+                                    <Button 
+                                        id="CloseScriptPartEditModeButton"
+                                        minimal={false}
+                                        icon="small-cross"
+                                        onClick={toggleEditMode.bind(this)}
+                                    />
+                                </div>
+                            }
+                        />
 
                     :   <Button 
+                            id="OpenScriptPartEditModeButton"
                             minimal={true}
                             icon="plus"
                             text="Add a new part"
@@ -82,6 +86,6 @@ function mapDispatchToProps (dispatch) {
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ScriptPartCreationDialog)

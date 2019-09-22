@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router } from "react-router-dom";
 
-import { openProjectAction } from "../../reducers/projectReducer";
+import { openProjectAction } from "../actions/projectActions";
 
-import Welcome from '../Welcome';
-import Project from '../../components/Project';
+import Welcome from './Welcome';
+import Project from '../components/Project';
 
 const storage = require('electron-json-storage');
 
@@ -61,7 +61,7 @@ function mapStateToProps ({ projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        openProject: (filePath) => dispatch(openProjectAction(filePath)),
+        openProject: (filePath) => { dispatch(openProjectAction(filePath)) },
     };
 }
   
