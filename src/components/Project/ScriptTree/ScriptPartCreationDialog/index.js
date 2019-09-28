@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addScriptPartAction, saveProjectAction } from  "../../../../reducers/projectReducer";
+import { projectActions } from "../../../../actions";
 
 import {
   Button,
@@ -80,8 +80,8 @@ function mapStateToProps ({ projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        addScriptPart: partName => dispatch(addScriptPartAction(partName)),
-        saveProject: () => dispatch(saveProjectAction()),
+        addScriptPart: partName => dispatch(projectActions.addScriptPartAction(partName)),
+        saveProject: () => dispatch(projectActions.saveProjectAction()),
     };
 }
 

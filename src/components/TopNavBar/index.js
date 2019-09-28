@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { saveProject } from '../../utils/file-functions';
-import { createProjectAction, openProjectAction, closeProjectAction, selectMainAreaAction } from "../../reducers/projectReducer";
+import { projectActions } from "../../actions";
 
 import {
     Alignment,
@@ -20,7 +20,7 @@ import {
 import { remote } from 'electron';
 const { dialog } = require('electron').remote;
 
-class TopNavBar extends React.Component {
+export class TopNavBar extends React.Component {
 
     constructor(props) {
 
@@ -121,10 +121,10 @@ function mapStateToProps ({ projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        selectMainArea: (navbarTabId) => dispatch(selectMainAreaAction(navbarTabId)),
-        openProject: (filePath) => dispatch(openProjectAction(filePath)),
-        createProject: (filePath) => dispatch(createProjectAction(filePath)),
-        closeProject: () => dispatch(closeProjectAction()),
+        selectMainArea: (navbarTabId) => dispatch(projectActions.selectMainAreaAction(navbarTabId)),
+        openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
+        createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
+        closeProject: () => dispatch(projectActions.closeProjectAction()),
     };
 }
 

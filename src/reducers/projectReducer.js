@@ -6,6 +6,7 @@ const initialState = {
         selectedMainArea: "script",
     },
     title: "",
+    abstract: "",
     parts: [],
     chapters: []
 };
@@ -30,7 +31,7 @@ const projectReducer = (state = initialState, action) => {
       case projectActions.CLOSE_PROJECT:
         console.log("CLOSE_PROJECT");
         storage.clear('storyteller', (error) => {
-            if (error) throw error;
+            if (error) throw error; 
         });
         return Object.assign({}, state, { 
             path: '' 

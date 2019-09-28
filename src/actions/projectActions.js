@@ -74,6 +74,7 @@ export const setTitleAction = (title) => {
 export const setTitleSuccess = (title) => ({ type: SET_TITLE, title });
 
 export const addScriptPartAction = (partName) => ({ type: ADD_PART, partName });
+
 export const removeScriptPartAction = () => ({ type: REMOVE_PART });
 
 export const selectMainAreaAction = (navbarTabId) => ({ type: SELECT_MAIN_AREA, navbarTabId });

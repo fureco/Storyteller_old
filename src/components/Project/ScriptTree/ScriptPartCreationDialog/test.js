@@ -1,6 +1,22 @@
 import React from 'react';
-import { ScriptPartCreationDialog } from './../ScriptPartCreationDialog';
+import { ScriptPartCreationDialog } from '.';
 import { shallow, mount, render } from 'enzyme';
+
+import configureStore from 'redux-mock-store';
+
+const mockStore = configureStore();
+
+const initialState = {
+};
+
+let store = mockStore(initialState) //creates the store with any initial state or middleware needed
+
+const project = {
+    path: 'D:\\Dropbox\\Melle\\Writing\\Manuskripte\\Storyteller_Test',
+    appState: {
+        selectedMainArea: 'script'
+    }
+};
 
 test('ScriptPartCreationDialog - open edit mode', () => {
 
@@ -37,7 +53,7 @@ test('ScriptPartCreationDialog - close edit mode', () => {
 test('ScriptPartCreationDialog - create new script part', () => {
 
     const scriptPartCreationDialog = shallow(
-        <ScriptPartCreationDialog isInEditMode={true} />
+        <ScriptPartCreationDialog store={store} isInEditMode={true} />
     );
 
     // find input group
@@ -55,4 +71,7 @@ test('ScriptPartCreationDialog - create new script part', () => {
 
     // save
     scriptPartCreationSaveButton.simulate('click');
+
+    const actions = store.getActions();
+    expect(actions).toEqual([{ type: 'ADD_PART' }]);
 });
