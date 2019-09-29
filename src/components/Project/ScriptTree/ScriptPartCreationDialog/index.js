@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { projectActions } from "../../../../actions";
+// import { save as saveProject } from "../../../../reducers/projectReducer";
 
 import {
   Button,
@@ -37,7 +38,7 @@ export class ScriptPartCreationDialog extends React.Component {
                                         id="ScriptPartCreationSaveButton"
                                         minimal={false}
                                         icon="floppy-disk"
-                                        onClick={() => this.createScriptPart(this.state.partName).bind(this)}
+                                        onClick={() => this.createScriptPart(this.state.partName)}
                                     />
                                     <Button 
                                         id="CloseScriptPartEditModeButton"
@@ -64,7 +65,6 @@ export class ScriptPartCreationDialog extends React.Component {
 
     createScriptPart(partName) {
         this.props.addScriptPart(partName);
-        this.props.saveProject();
     }
 }
 
@@ -81,7 +81,6 @@ function mapStateToProps ({ projectReducer }) {
 function mapDispatchToProps (dispatch) {
     return {
         addScriptPart: partName => dispatch(projectActions.addScriptPartAction(partName)),
-        saveProject: () => dispatch(projectActions.saveProjectAction()),
     };
 }
 

@@ -1,8 +1,8 @@
-import { addScriptPartAction } from './../projectActions';
+import { addScriptPartActionSuccess } from './../projectActions';
 
 describe('Project actions', () => {
     it('should dispatch ADD_PART action', () => {
-        expect(addScriptPartAction("title")).toEqual({
+        expect(addScriptPartActionSuccess("title")).toEqual({
             partName: 'title',
             type: 'ADD_PART'
         });

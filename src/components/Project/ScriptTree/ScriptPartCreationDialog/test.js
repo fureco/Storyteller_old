@@ -2,6 +2,8 @@ import React from 'react';
 import { ScriptPartCreationDialog } from '.';
 import { shallow, mount, render } from 'enzyme';
 
+import { projectActions } from "../../../../actions";
+
 import configureStore from 'redux-mock-store';
 
 const mockStore = configureStore();
@@ -53,7 +55,11 @@ test('ScriptPartCreationDialog - close edit mode', () => {
 test('ScriptPartCreationDialog - create new script part', () => {
 
     const scriptPartCreationDialog = shallow(
-        <ScriptPartCreationDialog store={store} isInEditMode={true} />
+        <ScriptPartCreationDialog
+            store={store}
+            addScriptPart={projectActions.addScriptPartAction}
+            saveProject={projectActions.save}
+            isInEditMode={true} />
     );
 
     // find input group
@@ -71,7 +77,4 @@ test('ScriptPartCreationDialog - create new script part', () => {
 
     // save
     scriptPartCreationSaveButton.simulate('click');
-
-    const actions = store.getActions();
-    expect(actions).toEqual([{ type: 'ADD_PART' }]);
 });

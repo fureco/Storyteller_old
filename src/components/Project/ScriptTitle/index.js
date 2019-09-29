@@ -78,12 +78,19 @@ class ScriptTitle extends React.Component {
                             {this.props.project.title}
 
                             {this.state.mouseOver &&
-                                <Button 
-                                    minimal={true}
-                                    disabled={!this.state.value.length}
-                                    icon="edit"
-                                    onClick={this.openEditMode.bind(this)}
-                                />
+                                <div>
+                                    {/* <Button
+                                        minimal={true}
+                                        icon="eye-open"
+                                        onClick={this.openEditMode.bind(this)}
+                                    /> */}
+                                    <Button
+                                        minimal={true}
+                                        disabled={!this.state.value.length}
+                                        icon="edit"
+                                        onClick={this.openEditMode.bind(this)}
+                                    />
+                                </div>
                             }
                         </h1>
                 }

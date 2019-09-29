@@ -14,7 +14,7 @@ class ScriptTextArea extends React.Component {
         super(props);
 
         this.state = {
-            text: ''
+            text: props.project.abstract
         };
     }
 
@@ -25,6 +25,26 @@ class ScriptTextArea extends React.Component {
     }
 
     render() {
+
+        // const abstract = {
+        //     <div key={index} style={{
+        //         display: 'flex',
+        //         flexDirection: 'column',
+        //         overflow: 'auto',
+        //         resize: 'none',
+        //     }}>
+        //         <TextArea id="AbstractTextArea"
+        //             style={{
+        //                 height: '100%',
+        //                 margin: '1%',
+        //                 overflow: 'auto',
+        //                 border: '1px solid #ddd',
+        //                 resize: 'none',
+        //             }}
+        //             onKeyDown={this.onInput}
+        //             value={this.state.text}
+        //         />
+        //     </div >};
 
         var parts = this.props.project.parts
             .sort((a, b) => a.position > b.position)
@@ -60,16 +80,33 @@ class ScriptTextArea extends React.Component {
                 flexGrow: 1,
                 overflow: 'auto',
                 border: '1px solid #ddd',
-                resize: 'none',
+                padding: '0 1%'
             }}>
-                <h1 style={{textAlign: 'center'}}>{this.props.project.title}</h1>
 
-                <Tabs id="ScriptNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" >
+                <Tabs id="ScriptNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" style={{
+                    'display': 'flex',
+                    'justifyContent': 'center',
+                    backgroundColor: 'blue'
+                }}>
                     <Tab id="abstract" title="Abstract" panel={
-                        <div></div>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}>
+                            <TextArea id="AbstractTextArea"
+                                style={{
+                                    height: '100%',
+                                    overflow: 'auto',
+                                    border: '1px solid #ddd',
+                                    resize: 'none',
+                                }}
+                                onChange={() => this.setState({ text: event.target.value })}
+                                value={this.state.text}
+                            />
+                        </div>
                     } />
                     <Tab id="parts" title="Parts" panel={
-                        <div></div>
+                        <div>{parts}</div>
                     } />
                     <Tab id="chapters" title="Chapters" panel={
                         <div></div>
@@ -79,12 +116,10 @@ class ScriptTextArea extends React.Component {
                     } />
                 </Tabs>
 
-                {parts}
             </div>
         );
     }
 }
-
   
 function mapStateToProps ({ projectReducer }) {
   return {
