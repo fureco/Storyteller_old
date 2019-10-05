@@ -14,10 +14,6 @@ const initialState = {
 let store = mockStore(initialState) //creates the store with any initial state or middleware needed
 
 const project = {
-    path: 'D:\\Dropbox\\Melle\\Writing\\Manuskripte\\Storyteller_Test',
-    appState: {
-        selectedMainArea: 'script'
-    }
 };
 
 test('ScriptPartCreationDialog - open edit mode', () => {

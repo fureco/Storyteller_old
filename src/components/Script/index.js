@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import FileTree from '../../FileTree';
-import ScriptTree from '../ScriptTree';
-import ScriptTextArea from '../ScriptTextArea';
-import FileBrowserTextArea from '../FileBrowserTextArea';
+import FileTree from './../FileTree';
+import ScriptTree from '../Project/ScriptTree';
+import ScriptTextArea from '../Project/ScriptTextArea';
+import FileBrowserTextArea from '../Project/FileBrowserTextArea';
 
 import {
     Tab, 

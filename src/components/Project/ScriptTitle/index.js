@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setTitleAction } from  "../../../reducers/projectReducer";
+import { projectActions } from './../../../actions';
 
 import {
     Button,
     InputGroup,
 } from '@blueprintjs/core';
 
-class ScriptTitle extends React.Component {
+export class ScriptTitle extends React.Component {
 
     constructor(props) {
 
@@ -50,12 +50,13 @@ class ScriptTitle extends React.Component {
                 { 
                     this.state.isInEditMode ?
 
-                    <InputGroup
-                        className="bp3-intent-primary bp3-large"
-                        placeholder="title..."
-                        value={this.state.value}
-                        onChange={() => this.setState( { value : event.target.value } ) }
-                        rightElement={
+						<InputGroup
+							id="ScriptTitleInputGroup"
+							className="bp3-intent-primary bp3-large"
+							placeholder="title..."
+							value={this.state.value}
+							onChange={() => this.setState( { value : event.target.value } ) }
+							rightElement={
                             <div>
                                 <Button 
                                     minimal={false}
@@ -84,12 +85,13 @@ class ScriptTitle extends React.Component {
                                         icon="eye-open"
                                         onClick={this.openEditMode.bind(this)}
                                     /> */}
-                                    <Button
-                                        minimal={true}
-                                        disabled={!this.state.value.length}
-                                        icon="edit"
-                                        onClick={this.openEditMode.bind(this)}
-                                    />
+									<Button
+										id="OpenScriptTitleEditModeButton"
+										minimal={true}
+										disabled={!this.state.value.length}
+										icon="edit"
+										onClick={this.openEditMode.bind(this)}
+									/>
                                 </div>
                             }
                         </h1>
@@ -118,7 +120,7 @@ function mapStateToProps ({ projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        setTitle: title => dispatch(setTitleAction(title)),
+		setTitle: title => dispatch(projectActions.setTitleAction(title)),
     };
 }
 

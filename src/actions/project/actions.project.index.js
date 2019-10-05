@@ -43,7 +43,7 @@ export const createProjectAction = (directoryPath, data) => {
                 // createNewStorytellerProjectFile(directoryPath, data);
             }
             else {
-                console.log("project.st file exists");
+                console.log("project.json file exists");
             }
         });
     }
@@ -173,7 +173,7 @@ export const save = (state) => {
             let content = JSON.stringify(state);
             // console.log("content: " + content);
 
-            fs.writeFile(data.path + "/project.st", content, (err) => {
+            fs.writeFile(data.path + "/project.json", content, (err) => {
                 if (err) {
                     reject("FAILURE: ", err)
                 }
@@ -192,7 +192,7 @@ function storytellerProjectFileExists(directoryPath) {
     return fs.readdirAsync(directoryPath).then(fileNamesArr => {
         let fileNameExists = false;
 
-        fileNamesArr.forEach(fileName => {
+		fileNamesArr.forEach(fileName => {
             fileNameExists = fileName == "project.json";
         })
 

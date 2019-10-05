@@ -5,7 +5,7 @@ import { HashRouter as Router } from "react-router-dom";
 import { projectActions } from "../actions";
 
 import Welcome from './WelcomeRoute';
-import Project from '../components/Project';
+import Project from './ProjectRoute';
 
 const storage = require('electron-json-storage');
 
