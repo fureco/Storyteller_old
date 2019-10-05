@@ -45,7 +45,7 @@ class ScriptTextArea extends React.Component {
         //             value={this.state.text}
         //         />
         //     </div >};
-
+ 
         var parts = this.props.project.parts
             .sort((a, b) => a.position > b.position)
             .map((name, index) => {
@@ -56,7 +56,8 @@ class ScriptTextArea extends React.Component {
                         overflow: 'auto',
                         resize: 'none',
                     }}>
-                        <h2 style={{textAlign: 'center'}}>Part {this.props.project.parts[index].position}: {this.props.project.parts[index].name}</h2>
+                        <h2 style={{ textAlign: 'center' }}>Part {this.props.project.parts[index].position}: </h2>
+                        {/* <h2 style={{ textAlign: 'center' }}>Part {this.props.project.parts[index].position}: {this.props.project.parts[index].name}</h2> */}
                         <TextArea id="ScriptTextArea"
                             style={{
                                 height: '100%',
@@ -71,6 +72,8 @@ class ScriptTextArea extends React.Component {
                     </div>
                 );
             });
+        
+        console.log(parts);
 
         return (
             <div style={{

@@ -1,5 +1,9 @@
 // import actions from other files (modules)
-import * as projectActions from './projectActions'
+import * as appStateActions from './appState'
+import * as projectActions from './project/actions.project.index.js'
 
 // export all actions as modules
-export { projectActions }
+export {
+    appStateActions,
+    projectActions
+}

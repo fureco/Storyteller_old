@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router } from "react-router-dom";
 
-import { openProjectAction } from "../actions/projectActions";
+import { projectActions } from "../actions";
 
-import Welcome from './Welcome';
+import Welcome from './WelcomeRoute';
 import Project from '../components/Project';
 
 const storage = require('electron-json-storage');
@@ -25,22 +25,22 @@ class Home extends React.Component {
   
     render() {
 
-      let content;
+        let content;
 
-      if(this.props.project.path) {
-        content = <Project project={this.props.project} />;
-      }
-      else {
-        content = <Welcome/>;
-      }
+        if(this.props.appState.path) {
+            content = <Project project={this.props.project} />;
+        }
+        else {
+            content = <Welcome/>;
+        }
 
-      return (
-        <Router>
-            <div id="Layout" style={styles.container}>
-                {content}
-            </div>
-        </Router>
-      );
+        return (
+            <Router>
+                <div id="Layout" style={styles.container}>
+                    {content}
+                </div>
+            </Router>
+        );
     }
 }
 
@@ -53,15 +53,16 @@ const styles = {
     }
 }
   
-function mapStateToProps ({ projectReducer }) {
+function mapStateToProps ({ appStateReducer, projectReducer }) {
     return {
+        appState: appStateReducer,
         project: projectReducer,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        openProject: (filePath) => { dispatch(openProjectAction(filePath)) },
+        openProject: (filePath) => { dispatch(projectActions.openProjectAction(filePath)) },
     };
 }
   

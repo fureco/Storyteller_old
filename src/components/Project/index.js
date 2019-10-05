@@ -60,12 +60,12 @@ class Project extends React.Component {
                     height: '50px',
                     padding: 12,
                 }}>
-                { this.props.project.path ? this.props.project.path : 'No project selected.' }
+                    {this.props.appState.path ? this.props.appState.path : 'No project selected.' }
             </div>
 
             <div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
                 <div style={{ display: 'flex', flexGrow: '1'}}>
-                    <Route path="/" exact component={() => {return <Script path_to_project={this.props.project.path} />}} />
+                    <Route path="/" exact component={() => { return <Script path_to_project={this.props.appState.path} />}} />
                     <Route path="/characters" exact component={() => {return <h2>Characters</h2>}} />
                     <Route path="/locations" exact component={() => {return <h2>Locations</h2>}} />
                     <Route path="/timeline" exact component={() => {return <h2>Timeline</h2>}} />
@@ -95,9 +95,9 @@ const styles = {
     }
 }
   
-function mapStateToProps ({ projectReducer }) {
+function mapStateToProps({ appStateReducer }) {
     return {
-        project: projectReducer,
+        appState: appStateReducer,
     };
 }
 

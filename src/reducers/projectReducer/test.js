@@ -8,10 +8,8 @@ describe('Project reducer', () => {
     it('should return the initial state', () => {
         expect(reducer(undefined, {})).toEqual({
             abstract: "",
-            appState: { "selectedMainArea": "script" },
             chapters: [],
             parts: [],
-            path: "",
             title: ""
         })
     })
@@ -24,10 +22,8 @@ describe('Project reducer', () => {
             })
         ).toEqual({
             abstract: "",
-            appState: { "selectedMainArea": "script" },
             chapters: [],
             parts: [{ "id": 1, "name": "test", "position": 1 }],
-            path: "",
             title: ""
         })
     })

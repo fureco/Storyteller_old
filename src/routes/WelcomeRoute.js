@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createProjectAction, openProjectAction } from "../../reducers/projectReducer";
+import { projectActions } from "../actions";
 
 import {
     Button,
@@ -44,7 +44,7 @@ class Welcome extends React.Component {
                     onClick={() => {
                         var result = dialog.showOpenDialog({ properties: ['openDirectory'] });
                         if (result) {
-                            this.props.createProject(result[0])
+                            this.props.createProject(result[0], JSON.stringify(this.props.project))
                         }
                     }}
                 />
@@ -76,8 +76,8 @@ function mapStateToProps({ projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        openProject: (filePath) => dispatch(openProjectAction(filePath)),
-        createProject: (filePath) => dispatch(createProjectAction(filePath)),
+        openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
+        createProject: (filePath, data) => dispatch(projectActions.createProjectAction(filePath, data)),
     };
 }
 

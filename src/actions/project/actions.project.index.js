@@ -1,3 +1,5 @@
+import { appStateActions } from '..';
+
 const Promise = require('bluebird');
 const storage = require('electron-json-storage');
 
@@ -11,22 +13,49 @@ Promise.config({
 const fs = Promise.promisifyAll(require('fs'));
 
 // ############## ACTION TYPES #################
-
-export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const OPEN_PROJECT = 'OPEN_PROJECT';
-export const CLOSE_PROJECT = 'CLOSE_PROJECT';
 
-export const SET_PATH = 'SET_PATH';
 export const SET_TITLE = 'SET_TITLE';
 
 export const ADD_PART = 'ADD_PART';
 export const REMOVE_PART = 'REMOVE_PART';
 
-export const SELECT_MAIN_AREA = 'SELECT_MAIN_AREA';
-
 // ############## ACTIONS #################
+export const createProjectAction = (directoryPath, data) => {
 
-export const createProjectAction = (filePath) => ({ type: CREATE_PROJECT, filePath });
+	console.log("start creating a new project...");
+	
+    const fs = require('fs');
+	const files = fs.readdirSync(directoryPath);
+	
+    if (!files.length) {
+        console.log("directory is empty, can be used to create new project: " + directoryPath);
+		createNewStorytellerProjectFile(directoryPath, data);
+		return (dispatch, getState) => {
+			return dispatch(openProjectSuccess(directoryPath, JSON.parse(data)));
+		}
+    }
+    else {
+        console.log("directory is NOT empty");
+        storytellerProjectFileExists(directoryPath).then((fileExists) => {
+            if (!fileExists) {
+                // TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for the new project
+                // createNewStorytellerProjectFile(directoryPath, data);
+            }
+            else {
+                console.log("project.st file exists");
+            }
+        });
+    }
+
+    storage.set('storyteller', { path: directoryPath }, (error) => {
+        if (error) {
+            console.error(error);
+        }
+    });
+
+    return true;
+};
 
 export const openProjectAction = (directoryPath) => {
 
@@ -45,34 +74,51 @@ export const openProjectAction = (directoryPath) => {
         return storytellerProjectFileExists(directoryPath).then((fileExists) => {
             if (!fileExists) {
                 // TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for the new project
-                console.log("project.st file does not exist");
-                let newState = Object.assign({}, getState().projectReducer, {
-                    path: directoryPath
-                });
+                console.log("project.json file does not exist");
 
-                return save(newState).then(
-                    () => dispatch(setPath(directoryPath)),
-                    (err) => console.log(err)
-                );
+                // dispatch(appStateActions.setPath(directoryPath));
+
+                // return save(getState().projectReducer).then(
+                //     () => dispatch(setPath(directoryPath)),
+                //     (err) => console.log(err)
+                // );
             }
             else {
-                console.log("project.st file exists");
+                console.log("project.json file exists");
+
                 const fs = require('fs');
-                let rawData = fs.readFileSync(directoryPath + '/project.st');
-                return dispatch(openProjectSuccess(JSON.parse(rawData)));
+                let rawData = fs.readFileSync(directoryPath + '/project.json');
+                return dispatch(openProjectSuccess(directoryPath, JSON.parse(rawData)));
             }
         });
     };
 }
 
-export const setPath = (path) => ({ type: SET_PATH, path });
-
-function openProjectSuccess(jsonData) {
+function openProjectSuccess(directoryPath, jsonData) {
     console.log("openProjectSuccess");
-    return { type: OPEN_PROJECT, jsonData }
+    return (dispatch, getState) => { 
+        dispatch(appStateActions.setPath(directoryPath));
+        dispatch(setTitleSuccess(jsonData.title));
+        jsonData.parts.forEach(part => {
+            dispatch(addScriptPartActionSuccess(part));
+        })
+        // jsonData.chapters.forEach(chapter => {
+        //     dispatch(addChapterActionSuccess(chapter));
+        // })
+    }
 }
 
-export const closeProjectAction = () => ({ type: CLOSE_PROJECT });
+export const closeProjectAction = () => {
+
+	console.log("closeProjectAction");
+
+	return (dispatch, getState) => {
+		storage.clear('storyteller', (error) => {
+			if (error) throw error;
+			dispatch(appStateActions.setPath(""));
+		});
+	}
+}
 
 export const setTitleAction = (title) => {
     console.log("setTitleAction");
@@ -110,54 +156,6 @@ export const addScriptPartActionSuccess = (partName) => ({ type: ADD_PART, partN
 
 export const removeScriptPartAction = () => ({ type: REMOVE_PART });
 
-export const selectMainAreaAction = (navbarTabId) => ({ type: SELECT_MAIN_AREA, navbarTabId });
-
-function createProject(directoryPath) {
-    console.log("start creating a new project...");
-    const fs = require('fs');
-    const files = fs.readdirSync(directoryPath);
-    if (!files.length) {
-        console.log("directory is empty, can be used to create new project: " + directoryPath);
-        createNewStorytellerProjectFile(directoryPath);
-    }
-    else {
-        console.log("directory is NOT empty");
-        storytellerProjectFileExists(directoryPath).then((fileExists) => {
-            if (!fileExists) {
-                // TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for the new project
-                createNewStorytellerProjectFile(directoryPath);
-            }
-            else {
-                console.log("project.st file exists");
-            }
-        });
-    }
-
-    storage.set('storyteller', { path: directoryPath }, (error) => {
-        if (error) {
-            console.error(error);
-        }
-    });
-
-    return true;
-}
-
-function storytellerProjectFileExists(dir) {
-    const Promise = require('bluebird');
-    const fs = Promise.promisifyAll(require('fs'));
-
-    return fs.readdirAsync(dir).then(fileNamesArr => {
-
-        let fileNameExists = false;
-
-        fileNamesArr.forEach(fileName => {
-            fileNameExists = fileName == "project.st";
-        })
-
-        return fileNameExists;
-    });
-};
-
 export const save = (state) => {
 
     console.log("saving project...")
@@ -186,3 +184,24 @@ export const save = (state) => {
         });
     });
 };
+
+function storytellerProjectFileExists(directoryPath) {
+    const Promise = require('bluebird');
+    const fs = Promise.promisifyAll(require('fs'));
+
+    return fs.readdirAsync(directoryPath).then(fileNamesArr => {
+        let fileNameExists = false;
+
+        fileNamesArr.forEach(fileName => {
+            fileNameExists = fileName == "project.json";
+        })
+
+        return fileNameExists;
+    });
+};
+
+function createNewStorytellerProjectFile(directoryPath, data) {
+
+	console.log("creating new project file...");
+	return fs.writeFileSync(directoryPath + "/project.json", data);
+}

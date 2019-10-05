@@ -88,7 +88,7 @@ class Script extends React.Component {
                     </Tabs>
                 </div>
 
-                { textAreaContent }       
+                { textAreaContent }
             
             </div>
         );
