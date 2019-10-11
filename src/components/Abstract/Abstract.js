@@ -37,6 +37,11 @@ class Abstract extends React.Component {
 					className="AbstractTextArea"
 					onChange={() => this.setState({ "text": event.target.value })}
 					value={this.state.text}
+					style={{
+						height: '100%',
+						overflow: 'auto',
+						resize: 'vertical'
+					}}
 				/>
 				<div style={{
 					display: 'flex',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopNavBar } from '.';
+import { TopNavBar } from './TopNavBar';
 import { shallow, mount, render } from 'enzyme';
 
 import { initialState as appState } from './../../reducers/appStateReducer'

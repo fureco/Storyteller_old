@@ -1,7 +1,9 @@
 'use strict'
 
 // Import parts of electron to use
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+
 const path = require('path')
 const url = require('url')
 
@@ -13,64 +15,74 @@ let mainWindow
 let dev = false
 
 if (process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) || /[\\/]electron[\\/]/.test(process.execPath)) {
-  dev = true
+  	dev = true
 }
 
 // Temporary fix broken high-dpi scale factor on Windows (125% scaling)
 // info: https://github.com/electron/electron/issues/9691
 if (process.platform === 'win32') {
-  app.commandLine.appendSwitch('high-dpi-support', 'true')
-  app.commandLine.appendSwitch('force-device-scale-factor', '1')
+	app.commandLine.appendSwitch('high-dpi-support', 'true')
+	app.commandLine.appendSwitch('force-device-scale-factor', '1')
 }
 
 function createWindow() {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 768,
-    show: false,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
+	// Create the browser window.
+	mainWindow = new BrowserWindow({
+		width: 1024,
+		height: 768,
+		show: false,
+		webPreferences: {
+		nodeIntegration: true
+		}
+	})
 
-  // and load the index.html of the app.
-  let indexPath
+	// and load the index.html of the app.
+	let indexPath
 
-  if (dev && process.argv.indexOf('--noDevServer') === -1) {
-    indexPath = url.format({
-      protocol: 'http:',
-      host: 'localhost:8080',
-      pathname: 'index.html',
-      slashes: true
-    })
-  } else {
-    indexPath = url.format({
-      protocol: 'file:',
-      pathname: path.join(__dirname, 'dist', 'index.html'),
-      slashes: true
-    })
-  }
+	if (dev && process.argv.indexOf('--noDevServer') === -1) {
+		indexPath = url.format({
+			protocol: 'http:',
+			host: 'localhost:8080',
+			pathname: 'index.html',
+			slashes: true
+		})
+	} else {
+		indexPath = url.format({
+			protocol: 'file:',
+			pathname: path.join(__dirname, 'dist', 'index.html'),
+			slashes: true
+		})
+	}
 
-  mainWindow.loadURL(indexPath)
+  	mainWindow.loadURL(indexPath)
 
-  // Don't show until we are ready and loaded
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show()
+	// Don't show until we are ready and loaded
+	mainWindow.once('ready-to-show', () => {
 
-    // Open the DevTools automatically if developing
-    if (dev) {
-      mainWindow.webContents.openDevTools()
-    }
-  })
+		mainWindow.show()
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-  })
+		// Open the DevTools automatically if developing
+		if (dev) {
+
+			installExtension(REACT_DEVELOPER_TOOLS)
+				.then((name) => console.log(`Added Extension:  ${name}`))
+				.catch((err) => console.log('An error occurred: ', err));
+
+			installExtension(REDUX_DEVTOOLS)
+				.then((name) => console.log(`Added Extension:  ${name}`))
+				.catch((err) => console.log('An error occurred: ', err));
+
+			mainWindow.webContents.openDevTools()
+		}
+	})
+
+	// Emitted when the window is closed.
+	mainWindow.on('closed', function() {
+		// Dereference the window object, usually you would store windows
+		// in an array if your app supports multi windows, this is the time
+		// when you should delete the corresponding element.
+		mainWindow = null
+	})
 }
 
 // This method will be called when Electron has finished

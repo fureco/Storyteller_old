@@ -6,7 +6,7 @@ import {
 	Colors,
 } from '@blueprintjs/core';
 
-import TopNavBar from './../components/TopNavBar';
+import TopNavBar from './../components/TopNavBar.js';
 import Script from './../components/Script';
 
 class Project extends React.Component {
