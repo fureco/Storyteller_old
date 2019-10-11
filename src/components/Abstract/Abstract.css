@@ -1,0 +1,6 @@
+.AbstractTextArea {
+	height: '100%';
+	overflow: 'auto';
+	border: '1px solid #ddd';
+	resize: 'none';
+}
