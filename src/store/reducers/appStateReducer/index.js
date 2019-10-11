@@ -18,9 +18,7 @@ const appStateReducer = (state = initialState, action) => {
         case appStateActions.SELECT_MAIN_AREA:
             console.log("SELECT_MAIN_AREA");
             return Object.assign({}, state, {
-                appState: {
-                    selectedMainArea: action.navbarTabId
-                }
+                selectedMainArea: action.navbarTabId
             });
 
         default:
