@@ -41,7 +41,12 @@ export class ScriptTitle extends React.Component {
             isInEditMode: !this.props.project.title || this.props.project.title.length <= 0,
             value: this.props.project.title
         });
-    }
+	}
+
+	save() {
+		this.props.setTitle(this.state.value);
+		this.props.saveProject();
+	}
 
     render() {
         return (
@@ -62,7 +67,7 @@ export class ScriptTitle extends React.Component {
                                     minimal={false}
                                     disabled={!this.state.value.length}
                                     icon="floppy-disk"
-                                    onClick={() => {this.props.setTitle(this.state.value)}}
+										onClick={this.save.bind(this)}
                                 />
                                 <Button
                                     minimal={false}
@@ -120,7 +125,8 @@ function mapStateToProps ({ projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
     return {
-		setTitle: title => dispatch(projectActions.setTitleAction(title)),
+		setTitle: title => dispatch(projectActions.setTitle(title)),
+		saveProject: () => dispatch(projectActions.save()),
     };
 }
 

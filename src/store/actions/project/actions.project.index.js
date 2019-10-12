@@ -1,5 +1,6 @@
 import { appStateActions } from './../';
 import storage from 'electron-json-storage';
+import { initialState } from './../../models/projectModel';
 
 const fs = require('fs');
 
@@ -62,18 +63,29 @@ export const openProjectAction = (directoryPath) => {
 			// TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for the new project
 			console.log("project.json file does not exist");
 
-			// dispatch(appStateActions.setPath(directoryPath));
-
-			// return save(getState().projectReducer).then(
-			//     () => dispatch(setPath(directoryPath)),
-			//     (err) => console.log(err)
-			// );
+			data = JSON.stringify(initialState);
+			createNewStorytellerProjectFile(directoryPath, data);
 		}
 		else {
 			console.log("project.json file exists");
 
-			let rawData = fs.readFileSync(directoryPath + '/project.json');
-			return dispatch(openProjectSuccess(directoryPath, JSON.parse(rawData)));
+			return fs.readFile(directoryPath + '/project.json', (err, fileData) => {
+
+				if (err) {
+					console.error(err)
+					return
+				}
+
+				var data = fileData;
+
+				if (!fileData) {
+					console.log("project.json file exists - but is empty");
+					data = JSON.stringify(initialState);
+					createNewStorytellerProjectFile(directoryPath, data);
+				}
+
+				return dispatch(openProjectSuccess(directoryPath, JSON.parse(data)));
+			});
 		}
     };
 }
@@ -82,8 +94,8 @@ function openProjectSuccess(directoryPath, jsonData) {
     console.log("openProjectSuccess");
     return (dispatch, getState) => {
         dispatch(appStateActions.setPath(directoryPath));
-		dispatch(setTitleSuccess(jsonData.title));
-		dispatch(setAbstractSuccess(jsonData.abstract));
+		dispatch(setTitle(jsonData.title));
+		dispatch(setAbstract(jsonData.abstract));
         jsonData.parts.forEach(part => {
             dispatch(addScriptPartActionSuccess(part.name));
         })
@@ -105,36 +117,9 @@ export const closeProjectAction = () => {
 	}
 }
 
-export const setTitleAction = (title) => {
-    console.log("setTitleAction");
-    return (dispatch, getState) => {
-        let newState = Object.assign({}, getState().projectReducer, {
-            title
-        });
-        return save(newState).then(
-            () => dispatch(setTitleSuccess(title)),
-            (err) => console.log(err)
-        );
-    };
-};
+export const setTitle = (title) => ({ type: SET_TITLE, title });
 
-export const setTitleSuccess = (title) => ({ type: SET_TITLE, title });
-
-export const setAbstractAction = (abstract) => {
-	console.log("setAbstractAction", abstract);
-	return (dispatch, getState) => {
-		dispatch(setAbstractSuccess(abstract));
-		// let newState = Object.assign({}, getState().projectReducer, {
-		// 	abstract
-		// });
-		// return save(newState).then(
-		// 	() => dispatch(setAbstractSuccess(abstract)),
-		// 	(err) => console.log(err)
-		// );
-	};
-};
-
-export const setAbstractSuccess = (abstract) => ({ type: SET_ABSTRACT, abstract });
+export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
 
 export const addScriptPartAction = (partName) => {
 
@@ -157,33 +142,30 @@ export const addScriptPartActionSuccess = (partName) => ({ type: ADD_PART, partN
 
 export const removeScriptPartAction = () => ({ type: REMOVE_PART });
 
-export const save = (state) => {
+export const save = () => {
 
-    console.log("saving project...")
+	console.log("saving project...")
 
-    return new Promise((resolve, reject) => {
+	return (dispatch, getState) => {
 
-        return storage.get('storyteller', function (error, data) {
+		let content = JSON.stringify(getState().projectReducer);
+		// console.log("content: " + content);
 
-            if (error) {
-                reject("FAILURE: ", error)
-            }
-
-            // console.log("projectState.path: " + data.path)
-
-            let content = JSON.stringify(state);
-            // console.log("content: " + content);
-
-            fs.writeFile(data.path + "/project.json", content, (err) => {
-                if (err) {
-                    reject("FAILURE: ", err)
-                }
-                else {
-                    resolve("Saved!")
-                }
-            })
-        });
-    });
+		storage.get('storyteller', function (error, data) {
+			if (error) throw error;
+			console.log("current_project: " + data.path);
+			if (data.path) {
+				fs.writeFile(data.path + "/project.json", content, (err) => {
+					if (err) {
+						console.log("FAILURE: ", err)
+					}
+					else {
+						console.log("Saved!")
+					}
+				})
+			}
+		});
+	};
 };
 
 function storytellerProjectFileExists(directoryPath) {

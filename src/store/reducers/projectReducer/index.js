@@ -1,11 +1,5 @@
 import { projectActions } from './../../actions'
-
-export const initialState = {
-    title: "",
-    abstract: "",
-    parts: [],
-    chapters: []
-};
+import { initialState } from './../../models/projectModel'
 
 const projectReducer = (state = initialState, action) => {
 
@@ -13,10 +7,10 @@ const projectReducer = (state = initialState, action) => {
 
 		case projectActions.SET_TITLE:
 			console.log("SET_TITLE");
-			return Object.assign({}, state, { 
-				title: action.title 
+			return Object.assign({}, state, {
+				title: action.title
 			});
-		
+
 		case projectActions.SET_ABSTRACT:
 			console.log("SET_ABSTRACT");
 			return Object.assign({}, state, {
@@ -31,7 +25,7 @@ const projectReducer = (state = initialState, action) => {
 					{
 						id: getNewID(state.parts),
 						position: state.parts.length + 1,
-						name: action.partName 
+						name: action.partName
 					}
 				]
 			});

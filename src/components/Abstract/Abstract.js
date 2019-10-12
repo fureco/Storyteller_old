@@ -24,6 +24,11 @@ class Abstract extends React.Component {
 		});
 	}
 
+	save() {
+		this.props.setAbstract(this.state.text);
+		this.props.saveProject();
+	}
+
 	render() {
 
 		return (
@@ -52,7 +57,7 @@ class Abstract extends React.Component {
 						disabled={!this.state.text.length}
 						icon="floppy-disk"
 						text="Save"
-						onClick={() => { this.props.setTitle(this.state.value) }}
+						onClick={this.save.bind(this)}
 					/>
 					<Button
 						minimal={false}
@@ -76,6 +81,7 @@ function mapStateToProps({ projectReducer }) {
 function mapDispatchToProps(dispatch) {
 	return {
 		setAbstract: abstract => dispatch(projectActions.setAbstractAction(abstract)),
+		saveProject: () => dispatch(projectActions.save()),
 	};
 }
 
