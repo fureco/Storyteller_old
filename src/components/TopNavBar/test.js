@@ -1,8 +1,8 @@
 import React from 'react';
-import { TopNavBar } from './TopNavBar';
 import { shallow, mount, render } from 'enzyme';
 
-import { initialState as appState } from './../../reducers/appStateReducer'
+import { TopNavBar } from '.';
+import { initialState as appState } from './../../store/reducers/appStateReducer'
 
 test('TopNavBar - does not render tabs, when no path it set', () => {
 
@@ -21,7 +21,7 @@ test('TopNavBar - does not render tabs, when no path it set', () => {
 
 test('TopNavBar - does render tabs when path is set', () => {
 
-    appState.path = "D:\\Dropbox\\Melle\\Writing\\Manuskripte\\Storyteller_Test";
+    appState.path = "./../../../..config/test_project_path/";
 
     const topNavBar = shallow(
         <TopNavBar appState={appState} />

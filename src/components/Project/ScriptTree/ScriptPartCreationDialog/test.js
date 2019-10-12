@@ -2,7 +2,7 @@ import React from 'react';
 import { ScriptPartCreationDialog } from '.';
 import { shallow, mount, render } from 'enzyme';
 
-import { projectActions } from "../../../../actions";
+// import { projectActions } from "../../../../actions";
 
 import configureStore from 'redux-mock-store';
 

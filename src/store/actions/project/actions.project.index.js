@@ -1,10 +1,9 @@
-import { appStateActions } from '..';
+import { appStateActions } from './../';
 import storage from 'electron-json-storage';
 
-const remote = require('electron').remote;
-const fs = remote.require('fs');
+const fs = require('fs');
 
-// ############## ACTION TYPES #################
+// ############ ACTION TYPES ##############
 export const OPEN_PROJECT = 'OPEN_PROJECT';
 
 export const SET_TITLE = 'SET_TITLE';

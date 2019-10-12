@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { appStateActions, projectActions } from "./../store/actions";
+import { appStateActions, projectActions } from "./../../store/actions";
 
 import {
     Alignment,
@@ -99,11 +99,11 @@ export class TopNavBar extends React.Component {
 
                 <NavbarGroup id="TopNavBarGroupRight" align={Alignment.RIGHT}>
                     <Tooltip content="Quit Storyteller" position={Position.BOTTOM}>
-                    <Button
-                        minimal={true}
-                        icon="small-cross"
-                        onClick={() => remote.app.quit()}
-                    />
+						<Button
+							minimal={true}
+							icon="small-cross"
+							onClick={() => remote.app.quit()}
+						/>
                     </Tooltip>
                 </NavbarGroup>
 
