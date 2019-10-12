@@ -35,7 +35,8 @@ class Abstract extends React.Component {
 			<div id="Abstract"
 				style={{
 					display: 'flex',
-					flexDirection: 'column'
+					flexDirection: 'column',
+					height: '100%'
 				}}
 			>
 				<TextArea
@@ -43,9 +44,10 @@ class Abstract extends React.Component {
 					onChange={() => this.setState({ "text": event.target.value })}
 					value={this.state.text}
 					style={{
-						height: '100%',
+						// height: '100%',
 						overflow: 'auto',
-						resize: 'vertical'
+						resize: 'vertical',
+						flexGrow: 1,
 					}}
 				/>
 				<div style={{
@@ -80,7 +82,7 @@ function mapStateToProps({ projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		setAbstract: abstract => dispatch(projectActions.setAbstractAction(abstract)),
+		setAbstract: abstract => dispatch(projectActions.setAbstract(abstract)),
 		saveProject: () => dispatch(projectActions.save()),
 	};
 }

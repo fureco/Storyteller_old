@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import FileTree from './../FileTree';
 import ScriptTree from '../Project/ScriptTree';
-import ScriptTextArea from '../Project/ScriptTextArea';
+import ScriptTextArea from '../ScriptTextArea/ScriptTextArea';
 import FileBrowserTextArea from '../Project/FileBrowserTextArea';
 
 import {

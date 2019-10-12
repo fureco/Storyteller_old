@@ -1,11 +1,18 @@
-import { closeProjectAction, addScriptPartActionSuccess } from './actions.project.index.js';
+import * as projectActions from './actions.project.index.js';
 
 describe('Project actions', () => {
 
     it('should dispatch ADD_PART action', () => {
-        expect(addScriptPartActionSuccess("title")).toEqual({
+		expect(projectActions.addScriptPartActionSuccess("title")).toEqual({
             partName: 'title',
             type: 'ADD_PART'
         });
-    })
+	})
+
+	it('should dispatch SET_ABSTRACT action', () => {
+		expect(projectActions.setAbstract("test")).toEqual({
+			abstract: 'test',
+			type: 'SET_ABSTRACT'
+		});
+	})
 });

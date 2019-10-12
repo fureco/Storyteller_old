@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from './../../../store/actions';
+// import { projectActions } from './../../../store/actions';
 
-import Abstract from './../../Abstract/Abstract.js';
+import './ScriptTextArea.css';
+
+import Abstract from '../Abstract/Abstract.js';
 
 import {
 	Button,
@@ -57,21 +59,30 @@ class ScriptTextArea extends React.Component {
             });
 
         return (
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                height: '100%',
-                flexGrow: 1,
-                overflow: 'auto',
-                border: '1px solid #ddd',
-                padding: '0 1%'
-            }}>
+			<div
+				id="ScriptTextArea"
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					height: '100%',
+					flexGrow: 1,
+					overflow: 'auto',
+					border: '1px solid #ddd',
+					padding: '0 1%',
+				}}
+			>
 
-                <Tabs id="ScriptNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" style={{
-                    'display': 'flex',
-                    'justifyContent': 'center',
-                    backgroundColor: 'blue'
-                }}>
+				<Tabs id="ScriptNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true"
+					// style={{
+					// 	display: 'flex',
+					// 	flexDirection: 'column',
+					// 	height: '100%',
+					// 	flexGrow: 1,
+					// 	overflow: 'auto',
+					// 	border: '1px solid #ddd',
+					// 	padding: '0 1%'
+					// }}
+				>
                     <Tab id="abstract" title="Abstract" panel={
                         <Abstract/>
                     } />

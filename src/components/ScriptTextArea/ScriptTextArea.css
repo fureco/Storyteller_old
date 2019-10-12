@@ -1,0 +1,10 @@
+#ScriptTextArea .bp3-tabs {
+	display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#ScriptTextArea .bp3-tabs .bp3-tab-panel {
+	height: 100%;
+	padding: 0 0 20px 0;
+}
