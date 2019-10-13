@@ -69,13 +69,6 @@ export class TopNavBar extends React.Component {
                             }
                         }}/>
                     </Tooltip>
-                    <Tooltip content="Save" position={Position.BOTTOM}>
-                        <Button
-                            minimal={true}
-                            icon="floppy-disk"
-                            onClick={ () => { saveProject(this.props.project) } }
-                        />
-                    </Tooltip>
 
                     <NavbarDivider />
 
@@ -126,7 +119,6 @@ function mapDispatchToProps (dispatch) {
         openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
         createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
         closeProject: () => dispatch(projectActions.closeProjectAction()),
-		saveProject: () => dispatch(projectActions.save()),
 		saveAppState: () => dispatch(appStateActions.save()),
     };
 }

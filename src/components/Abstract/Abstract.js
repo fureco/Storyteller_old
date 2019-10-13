@@ -14,7 +14,7 @@ class Abstract extends React.Component {
 		super(props);
 
 		this.state = {
-			text: props.project.abstract
+			text: props.project.abstract,
 		};
 	}
 
@@ -56,7 +56,7 @@ class Abstract extends React.Component {
 				}}>
 					<Button
 						minimal={false}
-						disabled={!this.state.text.length}
+						disabled={this.state.text == this.props.project.abstract}
 						icon="floppy-disk"
 						text="Save"
 						onClick={this.save.bind(this)}

@@ -14,14 +14,13 @@ test('TopNavBar - does not render tabs, when no path it set', () => {
     expect(topNavBarContainer.length).toEqual(1);
     expect(topNavBarContainer.text()).toEqual("<Blueprint3.NavbarGroup /><Blueprint3.NavbarGroup />");
 
-    const topNavBarGroupLeft = topNavBarContainer.find('#TopNavBarGroupLeft');
-    expect(topNavBarGroupLeft.length).toEqual(1);
-    expect(topNavBarGroupLeft.dive().text()).toEqual("<Blueprint3.Tooltip /><Blueprint3.Tooltip /><Blueprint3.Tooltip /><Blueprint3.Tooltip /><Blueprint3.NavbarDivider />");
+	const TopNavTabs = topNavBarContainer.find('#TopNavTabs');
+	expect(TopNavTabs.length).toEqual(0);
 });
 
 test('TopNavBar - does render tabs when path is set', () => {
 
-    appState.path = "./../../../..config/test_project_path/";
+    appState.path = "./../../../test_projects/test_project_path/";
 
     const topNavBar = shallow(
         <TopNavBar appState={appState} />
@@ -31,7 +30,8 @@ test('TopNavBar - does render tabs when path is set', () => {
     expect(topNavBarContainer.length).toEqual(1);
     expect(topNavBarContainer.text()).toEqual("<Blueprint3.NavbarGroup /><Blueprint3.NavbarGroup />");
 
-    const topNavBarGroupLeft = topNavBarContainer.find('#TopNavBarGroupLeft');
-    expect(topNavBarGroupLeft.length).toEqual(1);
-    expect(topNavBarGroupLeft.dive().text()).toEqual("<Blueprint3.Tooltip /><Blueprint3.Tooltip /><Blueprint3.Tooltip /><Blueprint3.Tooltip /><Blueprint3.NavbarDivider /><Blueprint3.Tabs />");
+	const TopNavTabs = topNavBarContainer.find('#TopNavTabs');
+	expect(TopNavTabs.length).toEqual(1);
+
+	expect(TopNavTabs.dive().text()).toEqual("<Blueprint3.TabTitle /><Blueprint3.TabTitle /><Blueprint3.TabTitle /><Blueprint3.TabTitle />");
 });
