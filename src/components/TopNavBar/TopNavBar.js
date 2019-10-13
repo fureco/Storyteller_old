@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { appStateActions, projectActions } from "./../../store/actions";
+import { appStateActions, projectActions } from "../../store/actions";
 
 import {
     Alignment,
@@ -30,7 +30,8 @@ export class TopNavBar extends React.Component {
     }
 
     handleTabChange(navbarTabId) {
-        this.props.selectMainArea(navbarTabId);
+		this.props.selectMainArea(navbarTabId);
+		this.props.saveAppState();
     }
 
     render() {
@@ -125,7 +126,8 @@ function mapDispatchToProps (dispatch) {
         openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
         createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
         closeProject: () => dispatch(projectActions.closeProjectAction()),
-        saveProject: () => dispatch(projectActions.save(state)),
+		saveProject: () => dispatch(projectActions.save()),
+		saveAppState: () => dispatch(appStateActions.save()),
     };
 }
 

@@ -5,8 +5,6 @@ import { initialState } from './../../models/projectModel';
 const fs = require('fs');
 
 // ############ ACTION TYPES ##############
-export const OPEN_PROJECT = 'OPEN_PROJECT';
-
 export const SET_TITLE = 'SET_TITLE';
 export const SET_ABSTRACT = 'SET_ABSTRACT';
 
@@ -14,37 +12,36 @@ export const ADD_PART = 'ADD_PART';
 export const REMOVE_PART = 'REMOVE_PART';
 
 // ############## ACTIONS #################
-export const createProjectAction = (directoryPath, data) => {
+export const createProjectAction = (directoryPath) => {
 
-	console.log("start creating a new project...");
+	console.log("start creating a new project...", directoryPath);
 
-	const files = fs.readdirSync(directoryPath);
+	return (dispatch, getState) => {
 
-    if (!files.length) {
-        console.log("directory is empty, can be used to create new project: " + directoryPath);
-		createNewStorytellerProjectFile(directoryPath, data);
-		return (dispatch, getState) => {
-			return dispatch(openProjectSuccess(directoryPath, JSON.parse(data)));
-		}
-    }
-    else {
-        console.log("directory is NOT empty");
-		if (!storytellerProjectFileExists(directoryPath)) {
-			// TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for the new project
-			// createNewStorytellerProjectFile(directoryPath, data);
+		const files = fs.readdirSync(directoryPath);
+
+		if (!files.length) {
+			console.log("directory is empty, can be used to create new project");
+
+			return dispatch(createNewStorytellerProjectFile(directoryPath));
 		}
 		else {
-			console.log("project.json file exists");
+			console.log("directory is NOT empty");
+			if (!storytellerProjectFileExists(directoryPath)) {
+				// TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for a new project
+				// createNewStorytellerProjectFile(directoryPath, data);
+			}
+			else {
+				console.log("project.json file exists");
+			}
 		}
-    }
 
-    storage.set('storyteller', { path: directoryPath }, (error) => {
-        if (error) {
-            console.error(error);
-        }
-    });
-
-    return true;
+		storage.set('storyteller', { path: directoryPath }, (error) => {
+			if (error) {
+				console.error(error);
+			}
+		});
+	};
 };
 
 export const openProjectAction = (directoryPath) => {
@@ -54,34 +51,26 @@ export const openProjectAction = (directoryPath) => {
     return (dispatch, getState) => {
 
         storage.set('storyteller', { path: directoryPath }, (error) => {
-            if (error) {
-                console.error(error);
-            }
+			if (error) throw error;
         });
 
 		if (!storytellerProjectFileExists(directoryPath)) {
-			// TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for the new project
+			// TO DO: Show UI dialog that directory is not empty, ask user if it should be used for a new project
 			console.log("project.json file does not exist");
-
-			data = JSON.stringify(initialState);
-			createNewStorytellerProjectFile(directoryPath, data);
 		}
 		else {
 			console.log("project.json file exists");
 
 			return fs.readFile(directoryPath + '/project.json', (err, fileData) => {
 
-				if (err) {
-					console.error(err)
-					return
-				}
+				if (err) throw err;
 
 				var data = fileData;
 
 				if (!fileData) {
+
 					console.log("project.json file exists - but is empty");
-					data = JSON.stringify(initialState);
-					createNewStorytellerProjectFile(directoryPath, data);
+					return dispatch(createNewStorytellerProjectFile(directoryPath));
 				}
 
 				return dispatch(openProjectSuccess(directoryPath, JSON.parse(data)));
@@ -91,8 +80,11 @@ export const openProjectAction = (directoryPath) => {
 }
 
 function openProjectSuccess(directoryPath, jsonData) {
-    console.log("openProjectSuccess");
-    return (dispatch, getState) => {
+
+	console.log("openProjectSuccess");
+
+	return (dispatch, getState) => {
+
         dispatch(appStateActions.setPath(directoryPath));
 		dispatch(setTitle(jsonData.title));
 		dispatch(setAbstract(jsonData.abstract));
@@ -101,7 +93,9 @@ function openProjectSuccess(directoryPath, jsonData) {
         })
         // jsonData.chapters.forEach(chapter => {
         //     dispatch(addChapterActionSuccess(chapter));
-        // })
+		// })
+
+		dispatch(appStateActions.load());
     }
 }
 
@@ -179,9 +173,21 @@ function storytellerProjectFileExists(directoryPath) {
 	return fileNameExists;
 };
 
-function createNewStorytellerProjectFile(directoryPath, data) {
+function createNewStorytellerProjectFile(directoryPath) {
 
 	console.log("creating new project file...");
 
-	return fs.writeFileSync(directoryPath + "/project.json", data);
+	return (dispatch, getState) => {
+
+		fs.writeFile(directoryPath + "/project.json", JSON.stringify(initialState), (err) => {
+
+			if (err) throw err;
+
+			storage.set('storyteller', { path: directoryPath }, (error) => {
+				if (error) throw error;
+			});
+
+			dispatch(appStateActions.setPath(directoryPath));
+		});
+	};
 }

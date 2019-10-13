@@ -6,19 +6,16 @@ const projectReducer = (state = initialState, action) => {
     switch (action.type) {
 
 		case projectActions.SET_TITLE:
-			console.log("SET_TITLE");
 			return Object.assign({}, state, {
 				title: action.title
 			});
 
 		case projectActions.SET_ABSTRACT:
-			console.log("SET_ABSTRACT");
 			return Object.assign({}, state, {
 				abstract: action.abstract
 			});
 
 		case projectActions.ADD_PART:
-			console.log("ADD_PART");
 			return Object.assign({}, state, {
 				parts: [
 					...state.parts,
@@ -31,7 +28,6 @@ const projectReducer = (state = initialState, action) => {
 			});
 
 		case projectActions.REMOVE_PART:
-			console.log("REMOVE_PART");
 			return Object.assign({}, state, { parts: [] });
 
     default:

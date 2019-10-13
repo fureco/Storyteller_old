@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import { TopNavBar } from '.';
-import { initialState as appState } from './../../store/reducers/appStateReducer'
+import { TopNavBar } from './TopNavBar';
+import { initialState as appState } from '../../store/reducers/appStateReducer'
 
 test('TopNavBar - does not render tabs, when no path it set', () => {
 

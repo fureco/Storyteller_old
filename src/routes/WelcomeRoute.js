@@ -44,11 +44,12 @@ class Welcome extends React.Component {
                     minimal={false}
                     icon="folder-new"
                     text="Create new project"
-                    onClick={() => {
-                        var result = dialog.showOpenDialog({ properties: ['openDirectory'] });
-                        if (result) {
-                            this.props.createProject(result[0], JSON.stringify(this.props.project))
-                        }
+					onClick={() => {
+						dialog.showOpenDialog({ properties: ['openDirectory'] }, (result) => {
+							if (result) {
+								this.props.createProject(result[0])
+							}
+						});
                     }}
                 />
 
@@ -80,7 +81,7 @@ function mapStateToProps({ projectReducer }) {
 function mapDispatchToProps(dispatch) {
     return {
         openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
-        createProject: (filePath, data) => dispatch(projectActions.createProjectAction(filePath, data)),
+        createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
     };
 }
 
