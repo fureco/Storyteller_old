@@ -123,12 +123,9 @@ export const addScriptPartAction = (partName) => {
 
         dispatch(addScriptPartActionSuccess(partName));
 
-        console.log("state: " + JSON.stringify(getState().projectReducer));
+		console.log("state: " + JSON.stringify(getState().projectReducer));
 
-        return save(getState().projectReducer).then(
-            () => dispatch(setPath(directoryPath)),
-            (err) => console.log(err)
-        );
+		return dispatch(save());
     };
 }
 
@@ -143,7 +140,7 @@ export const save = () => {
 	return (dispatch, getState) => {
 
 		let content = JSON.stringify(getState().projectReducer);
-		// console.log("content: " + content);
+		console.log("content: " + content);
 
 		storage.get('storyteller', function (error, data) {
 			if (error) throw error;
