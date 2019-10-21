@@ -28,7 +28,7 @@ export class OpenProjectButton extends React.Component {
 			<Button
 				id="OpenProjectButton"
 				minimal={this.state.minimal}
-				icon="folder-new"
+				icon="folder-open"
 				text={text}
 				onClick={() => {
 					dialog.showOpenDialog({ properties: ['openDirectory'] }).then(result => {

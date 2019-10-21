@@ -1,9 +1,5 @@
 import { appStateActions } from './../../actions'
-
-export const initialState = {
-    path: "",
-    selectedMainArea: "script",
-};
+import { initialState } from './../../models/appStateModel'
 
 const appStateReducer = (state = initialState, action) => {
 

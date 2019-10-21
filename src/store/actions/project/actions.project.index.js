@@ -1,6 +1,8 @@
 import { appStateActions } from './../';
 import storage from 'electron-json-storage';
-import { initialState } from './../../models/projectModel';
+
+import { initialState as initialProjectState } from './../../models/projectModel';
+import { initialState as initialAppState } from './../../models/appStateModel';
 
 const fs = require('fs');
 
@@ -178,15 +180,22 @@ function createNewStorytellerProjectFile(directoryPath) {
 
 	return (dispatch, getState) => {
 
-		fs.writeFile(directoryPath + "/project.json", JSON.stringify(initialState), (err) => {
+		fs.writeFile(directoryPath + "/project.json", JSON.stringify(initialProjectState), (err) => {
 
 			if (err) throw err;
 
-			storage.set('storyteller', { path: directoryPath }, (error) => {
-				if (error) throw error;
-			});
+			console.log("creating new app state file...");
 
-			dispatch(appStateActions.setPath(directoryPath));
+			fs.writeFile(directoryPath + "/appState.json", JSON.stringify(initialAppState), (err) => {
+
+				if (err) throw err;
+
+				storage.set('storyteller', { path: directoryPath }, (error) => {
+					if (error) throw error;
+				});
+
+				return dispatch(openProjectAction(directoryPath));
+			});
 		});
 	};
 }
