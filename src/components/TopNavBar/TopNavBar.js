@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { appStateActions, projectActions } from "../../store/actions";
 
+import { ProjectCreationButton } from './../../components';
+
 import {
     Alignment,
     Button,
@@ -59,15 +61,7 @@ export class TopNavBar extends React.Component {
                         />
                     </Tooltip>
                     <Tooltip content="Create new project" position={Position.BOTTOM}>
-                        <Button
-                            minimal={true}
-                            icon="folder-new"
-                            onClick={() => {
-                            var result = dialog.showOpenDialog({ properties: ['openDirectory']});
-                            if(result) {
-                                this.props.createProject(result[0])
-                            }
-                        }}/>
+						<ProjectCreationButton minimal={true} />
                     </Tooltip>
 
                     <NavbarDivider />

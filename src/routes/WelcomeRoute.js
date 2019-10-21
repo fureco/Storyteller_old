@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { projectActions } from "./../store/actions";
 
+import { ProjectCreationButton } from './../components';
+
 import {
     Button,
 } from '@blueprintjs/core';
@@ -39,19 +41,8 @@ class Welcome extends React.Component {
 							}
 						});
                     }}
-                />
-                <Button
-                    minimal={false}
-                    icon="folder-new"
-                    text="Create new project"
-					onClick={() => {
-						dialog.showOpenDialog({ properties: ['openDirectory'] }, (result) => {
-							if (result) {
-								this.props.createProject(result[0])
-							}
-						});
-                    }}
-                />
+				/>
+				<ProjectCreationButton minimal={false} showText={true} />
 
             </div>
         );

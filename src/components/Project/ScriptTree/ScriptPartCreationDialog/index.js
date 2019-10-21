@@ -18,7 +18,7 @@ export class ScriptPartCreationDialog extends React.Component {
             isInEditMode: props.isInEditMode || false,
             partName: ''
         };
-    }
+	}
 
     render() {
 
@@ -29,9 +29,11 @@ export class ScriptPartCreationDialog extends React.Component {
                     this.state.isInEditMode ?
 
                         <InputGroup
-                            id="ScriptPartCreationInputGroup"
-                            placeholder="title of new part..."
-                            onChange={(event) => this.setState( { partName : event.target.value } ) }
+							id="ScriptPartCreationInputGroup"
+							ref={(input) => { this.ScriptPartCreationInputGroup = input; }}
+							placeholder="title of new part..."
+							autoFocus={true}
+							onChange={(event) => this.setState({ partName: event.target.value }) }
                             rightElement={
                                 <div>
                                     <Button

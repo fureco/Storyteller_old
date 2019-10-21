@@ -33,6 +33,8 @@ export const createProjectAction = (directoryPath) => {
 			}
 			else {
 				console.log("project.json file exists");
+				// TO DO: show UI dialog to inform user and ask if existing project should be opened
+				return dispatch(openProjectAction(directoryPath));
 			}
 		}
 
