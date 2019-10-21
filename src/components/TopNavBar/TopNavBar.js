@@ -60,7 +60,7 @@ export class TopNavBar extends React.Component {
                     { this.props.appState.path &&
                         <Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.selectedMainArea} animate="true">
                             <Tab id="script">
-                                <Link to="/"><Icon icon="draw" /> Script</Link>
+                                <Link to="/script/structure"><Icon icon="draw" /> Script</Link>
                             </Tab>
                             <Tab id="characters">
                                 <Link to="/characters"><Icon icon="people" /> Characters</Link>

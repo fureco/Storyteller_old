@@ -7,7 +7,7 @@ import storage from 'electron-json-storage';
 import { projectActions } from "./../store/actions";
 
 import Welcome from './WelcomeRoute';
-import Project from './ProjectRoute';
+import ProjectRoute from './ProjectRoute';
 
 class Home extends React.Component {
 
@@ -31,14 +31,14 @@ class Home extends React.Component {
         let content;
 
         if(this.props.appState.path) {
-            content = <Project project={this.props.project} />;
+			content = <ProjectRoute project={this.props.project} />;
         }
         else {
             content = <Welcome/>;
         }
 
         return (
-            <Router>
+			<Router>
                 <div id="Layout" style={styles.container}>
                     {content}
                 </div>

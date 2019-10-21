@@ -17,6 +17,10 @@ button:focus, .bp3-tab:focus {
   outline: none;
 }
 
+.bp3-navbar {
+	padding: 0;
+}
+
 .bp3-button.bp3-minimal:active, .bp3-button.bp3-minimal.bp3-active {
   background:rgba(100, 162, 208, 0.34);
 }

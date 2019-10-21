@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import {
 	Colors,
 } from '@blueprintjs/core';
 
 import TopNavBar from './../components/TopNavBar/TopNavBar';
-import Script from './../components/Script';
+import ScriptRoute from './ProjectRoutes/ScriptRoute';
 
 class Project extends React.Component {
 
@@ -51,6 +51,9 @@ class Project extends React.Component {
 
 		return (
 			<div id="Project" style={styles.container}>
+
+				{/* {window.location.hash} */}
+
 				<TopNavBar setSelectedMainArea={this.setSelectedMainArea.bind(this)} />
 
 				<div id="path_to_open_project"
@@ -65,10 +68,12 @@ class Project extends React.Component {
 
 				<div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
 					<div style={{ display: 'flex', flexGrow: '1' }}>
-						<Route path="/" exact component={() => { return <Script path_to_project={this.props.appState.path} /> }} />
-						<Route path="/characters" exact component={() => { return <h2>Characters</h2> }} />
-						<Route path="/locations" exact component={() => { return <h2>Locations</h2> }} />
-						<Route path="/timeline" exact component={() => { return <h2>Timeline</h2> }} />
+						<Switch>
+							<Route path="/script" component={() => { return <ScriptRoute path_to_project={this.props.appState.path} /> }} />
+							<Route path="/characters" component={() => { return <h2>Characters</h2> }} />
+							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />
+							<Route path="/timeline" component={() => { return <h2>Timeline</h2> }} />
+						</Switch>
 					</div>
 				</div>
 
