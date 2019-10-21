@@ -1,6 +1,8 @@
-import ProjectCreationButton from './ProjectCreationButton/ProjectCreationButton';
+import CreateProjectButton from './CreateProjectButton/CreateProjectButton';
+import OpenProjectButton from './OpenProjectButton/OpenProjectButton';
 
 // export all components as modules
 export {
-	ProjectCreationButton
+	CreateProjectButton,
+	OpenProjectButton
 }

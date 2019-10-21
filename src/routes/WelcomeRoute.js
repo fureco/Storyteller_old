@@ -1,12 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from "./../store/actions";
 
-import { ProjectCreationButton } from './../components';
-
-import {
-    Button,
-} from '@blueprintjs/core';
+import { CreateProjectButton, OpenProjectButton } from './../components';
 
 import { remote } from 'electron';
 
@@ -30,19 +25,8 @@ class Welcome extends React.Component {
                     Storyteller
                 </div>
 
-                <Button
-                    minimal={false}
-                    icon="folder-open"
-                    text="Open project"
-                    onClick={() => {
-						dialog.showOpenDialog({ properties: ['openDirectory'] }, (result) => {
-							if (result) {
-								this.props.openProject(result[0])
-							}
-						});
-                    }}
-				/>
-				<ProjectCreationButton minimal={false} showText={true} />
+				<OpenProjectButton minimal={false} showText={true} />
+				<CreateProjectButton minimal={false} showText={true} />
 
             </div>
         );
@@ -63,20 +47,19 @@ const styles = {
 }
 
 
-function mapStateToProps({ projectReducer }) {
-    return {
-        project: projectReducer,
-    };
-}
+// function mapStateToProps({ }) {
+//     return {
+//     };
+// }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
-        createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
-    };
-}
+// function mapDispatchToProps(dispatch) {
+//     return {
+//     };
+// }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    // mapStateToProps,
+	// mapDispatchToProps,
+	null,
+	null
 )(Welcome)

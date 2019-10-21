@@ -8,7 +8,7 @@ import {
 
 const { dialog } = require('electron').remote;
 
-export class ProjectCreationButton extends React.Component {
+export class CreateProjectButton extends React.Component {
 
 	constructor(props) {
 
@@ -26,7 +26,7 @@ export class ProjectCreationButton extends React.Component {
 
 		return (
 			<Button
-				id="ProjectCreationButton"
+				id="CreateProjectButton"
 				minimal={this.state.minimal}
 				icon="folder-new"
 				text={text}
@@ -58,4 +58,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(ProjectCreationButton)
+)(CreateProjectButton)

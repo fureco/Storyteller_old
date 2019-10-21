@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { appStateActions, projectActions } from "../../store/actions";
 
-import { ProjectCreationButton } from './../../components';
+import { CreateProjectButton, OpenProjectButton } from './../../components';
 
 import {
     Alignment,
@@ -19,7 +19,6 @@ import {
 } from '@blueprintjs/core';
 
 import { remote } from 'electron';
-const { dialog } = require('electron').remote;
 
 export class TopNavBar extends React.Component {
 
@@ -43,15 +42,7 @@ export class TopNavBar extends React.Component {
                 <NavbarGroup id="TopNavBarGroupLeft" align={Alignment.LEFT}>
 
                     <Tooltip content="Open project" position={Position.BOTTOM}>
-                        <Button
-                            minimal={true}
-                            icon="folder-open"
-                            onClick={() => {
-                            var result = dialog.showOpenDialog({ properties: ['openDirectory']});
-                            if(result) {
-                                this.props.openProject(result[0])
-                            }
-                        }}/>
+						<OpenProjectButton minimal={true} />
                     </Tooltip>
                     <Tooltip content="Close project" position={Position.BOTTOM}>
                         <Button
@@ -61,7 +52,7 @@ export class TopNavBar extends React.Component {
                         />
                     </Tooltip>
                     <Tooltip content="Create new project" position={Position.BOTTOM}>
-						<ProjectCreationButton minimal={true} />
+						<CreateProjectButton minimal={true} />
                     </Tooltip>
 
                     <NavbarDivider />
@@ -110,8 +101,6 @@ function mapStateToProps ({ appStateReducer, projectReducer }) {
 function mapDispatchToProps (dispatch) {
     return {
         selectMainArea: (navbarTabId) => dispatch(appStateActions.selectMainAreaAction(navbarTabId)),
-        openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
-        createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
         closeProject: () => dispatch(projectActions.closeProjectAction()),
 		saveAppState: () => dispatch(appStateActions.save()),
     };
