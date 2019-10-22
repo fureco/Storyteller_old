@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Route, withRouter, Switch } from "react-router-dom";
+import { Link, Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 import FileTree from '../../components/FileTree';
 import ScriptTree from '../../components/Project/ScriptTree';
@@ -82,6 +82,7 @@ class ScriptRoute extends React.Component {
 
 					<div>
 						<Switch>
+							<Redirect exact from="/script" to="/script/structure" />
 							<Route path="/script/structure" exact component={() => { return <ScriptTree /> }} />
 							<Route path="/script/files" exact component={() => {
 								return <FileTree

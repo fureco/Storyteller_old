@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import {
 	Colors,
@@ -69,6 +69,7 @@ class Project extends React.Component {
 				<div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
 					<div style={{ display: 'flex', flexGrow: '1' }}>
 						<Switch>
+							<Redirect exact from="/" to="/script" />
 							<Route path="/script" component={() => { return <ScriptRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/characters" component={() => { return <h2>Characters</h2> }} />
 							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />
