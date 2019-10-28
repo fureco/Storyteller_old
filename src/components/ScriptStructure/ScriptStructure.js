@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import ScriptTitle from  "./../ScriptTitle";
 import ScriptPartCreationDialog from  "./ScriptPartCreationDialog";
 import ChapterCreationDialog from  "./ChapterCreationDialog";
 
 import {
     Button,
-    InputGroup,
+	InputGroup,
+	Tab,
+	Tabs,
     Tree,
 } from '@blueprintjs/core';
 
-class ScriptTree extends React.Component {
+class ScriptStructure extends React.Component {
 
     constructor(props) {
 
@@ -18,35 +21,60 @@ class ScriptTree extends React.Component {
 
         this.state = {
             isInEditMode: false,
-            showPartCreationDialog: false
+			showPartCreationDialog: false,
+			selectedTabId: this.getTabId(),
         };
-    }
+	}
+
+	getTabId() {
+		let tabId = '/script/structure/abstract';
+		let splitted_location = window.location.hash.replace("#", "").split("/");
+		if (splitted_location[1] && splitted_location[2] && splitted_location[3]) {
+			tabId = "/" + splitted_location[1] + "/" + splitted_location[2] + "/" + splitted_location[3];
+		}
+		return tabId;
+	}
 
     componentDidMount() {
         if(!this.props.project.title || this.props.project.title <= 0) {
             this.setState({ isInEditMode: true });
         }
-    }
+	}
 
-    render() {
+	render() {
+
         return (
-            <div id="ScriptTree">
+            <div id="ScriptStructure">
 
-                <ScriptTitle/>
+				<ScriptTitle />
 
-                <Tree contents={this.props.projectParts} />
+				<Tabs id="ScriptStructureNav" selectedTabId={this.state.selectedTabId} animate="true" vertical="true">
+					<Tab id="/script/structure/abstract">
+						<Link to="/script/structure/abstract">Abstract</Link>
+					</Tab>
+					<Tab id="/script/structure/dedication">
+						<Link to="/script/structure/dedication">Dedication</Link>
+					</Tab>
+					<Tab id="/script/structure/parts">
+						<Link to="/script/structure/parts">Parts</Link>
+					</Tab>
+				</Tabs>
 
-                <div style={PartCreationStyle}>
+				<Tree contents={this.props.treeContent} />
+
+                <div style={Style.PartCreation}>
                     <ScriptPartCreationDialog />
                 </div>
-            
+
             </div>
         );
     }
 }
 
-const PartCreationStyle = {
-    marginTop: '1em',
+const Style = {
+	PartCreation: {
+		marginTop: '1em',
+	}
 };
 
 function toggleEditMode() {
@@ -59,7 +87,7 @@ function deletePart(partID) {
 
 function mapStateToProps ({ projectReducer }) {
 
-    let parts = [];
+	let content = [];
 
     projectReducer.parts.forEach(part => {
 
@@ -70,15 +98,15 @@ function mapStateToProps ({ projectReducer }) {
             }
         ];
 
-        let aPart = 
+        let aPart =
         {
-            id: part.id,
+			id: content.length,
             hasCaret: true,
-            isExpanded: true,
+            isExpanded: false,
             icon: "folder-close",
             label: "Part " + part.id + ": " + part.name,
             secondaryLabel: (
-                <Button 
+                <Button
                     minimal={true}
                     icon="trash"
                     onClick={deletePart.bind(this)}
@@ -87,12 +115,12 @@ function mapStateToProps ({ projectReducer }) {
             childNodes: children
         };
 
-        parts[part.id] = aPart;
+		content.push(aPart);
     });
 
     return {
         project: projectReducer,
-        projectParts: parts,
+		treeContent: content,
     };
 }
 
@@ -104,4 +132,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ScriptTree)
+)(ScriptStructure)

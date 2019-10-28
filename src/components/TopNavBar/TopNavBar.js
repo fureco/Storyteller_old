@@ -53,7 +53,7 @@ export class TopNavBar extends React.Component {
                     </Tooltip>
                     <Tooltip content="Create new project" position={Position.BOTTOM}>
 						<CreateProjectButton minimal={true} />
-                    </Tooltip>
+					</Tooltip>
 
                     <NavbarDivider />
 

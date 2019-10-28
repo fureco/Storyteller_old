@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from "../../../../store/actions";
+import { projectActions } from "../../../store/actions";
 // import { save as saveProject } from "../../../../reducers/projectReducer";
 
 import {

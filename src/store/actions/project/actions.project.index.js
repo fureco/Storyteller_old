@@ -9,6 +9,7 @@ const fs = require('fs');
 // ############ ACTION TYPES ##############
 export const SET_TITLE = 'SET_TITLE';
 export const SET_ABSTRACT = 'SET_ABSTRACT';
+export const SET_DEDICATION = 'SET_DEDICATION';
 
 export const ADD_PART = 'ADD_PART';
 export const REMOVE_PART = 'REMOVE_PART';
@@ -92,6 +93,7 @@ function openProjectSuccess(directoryPath, jsonData) {
         dispatch(appStateActions.setPath(directoryPath));
 		dispatch(setTitle(jsonData.title));
 		dispatch(setAbstract(jsonData.abstract));
+		dispatch(setDedication(jsonData.dedication));
         jsonData.parts.forEach(part => {
             dispatch(addScriptPartActionSuccess(part.name));
         })
@@ -116,8 +118,8 @@ export const closeProjectAction = () => {
 }
 
 export const setTitle = (title) => ({ type: SET_TITLE, title });
-
 export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
+export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
 
 export const addScriptPartAction = (partName) => {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ScriptPartCreationDialog from "./../Project/ScriptTree/ScriptPartCreationDialog";
+import { ScriptPartCreationDialog } from "./../../components";
 
 import {
 	Button,

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 import FileTree from '../../components/FileTree';
-import ScriptTree from '../../components/Project/ScriptTree';
+import { ScriptStructure } from '../../components';
 import ScriptTextArea from '../../components/ScriptTextArea/ScriptTextArea';
 import FileBrowserTextArea from '../../components/Project/FileBrowserTextArea';
 
@@ -19,10 +19,14 @@ class ScriptRoute extends React.Component {
 		super(props);
 
         this.state = {
-			selectedTabId: window.location.hash.replace("#","") || '/script/structure',
+			selectedTabId: this.getTabId(),
             selectedFile: null,
         };
-    }
+	}
+
+	getTabId() {
+		return "/" + window.location.hash.replace("#", "").split("/")[1] + "/" + window.location.hash.replace("#", "").split("/")[2] || '/script/structure'
+	}
 
     componentDidMount() {
         // $("#DirectoryTreeView").resizable({
@@ -72,7 +76,10 @@ class ScriptRoute extends React.Component {
 				>
 					<Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" >
 						<Tab id="/script/structure">
-							<Link to="/script/structure">Script</Link>
+							<Link to="/script/structure">Structure</Link>
+						</Tab>
+						<Tab id="/script/layout">
+							<Link to="/script/structure">Layout</Link>
 						</Tab>
 						<Tab id="/script/files">
 							<Link to="/script/files">File Browser</Link>
@@ -83,8 +90,8 @@ class ScriptRoute extends React.Component {
 					<div>
 						<Switch>
 							<Redirect exact from="/script" to="/script/structure" />
-							<Route path="/script/structure" exact component={() => { return <ScriptTree /> }} />
-							<Route path="/script/files" exact component={() => {
+							<Route path="/script/structure" component={() => { return <ScriptStructure /> }} />
+							<Route path="/script/files" component={() => {
 								return <FileTree
 									directory={this.props.project.path}
 									onFileClick={this.onFileClick.bind(this)}
@@ -95,8 +102,9 @@ class ScriptRoute extends React.Component {
 				</div>
 
 				<Switch>
-					<Route path="/script/structure" exact component={() => { return <ScriptTextArea /> }} />
-					<Route path="/script/files" exact component={() => { return <FileBrowserTextArea /> }} />
+					<Redirect exact from="/script" to="/script/structure" />
+					<Route path="/script/structure" component={() => { return <ScriptTextArea /> }} />
+					<Route path="/script/files" component={() => { return <FileBrowserTextArea /> }} />
 				</Switch>
 
             </div>
