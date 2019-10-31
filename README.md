@@ -18,7 +18,7 @@
 
 <p align="center">
   	<a href="https://www.linkedin.com/in/melanie-mende/">
-  		<img alt="Built by LANILEY" src="https://img.shields.io/badge/built%20by-DEVERO-brightgreen.svg?colorB=d30320">
+  		<img alt="Built by LANILEY" src="https://img.shields.io/badge/built%20by-LANILEY-brightgreen.svg?colorB=d30320">
 	</a>
   	<a href="https://github.com/laniley/Storyteller/releases">
 	  	<img alt="Current release" src="https://img.shields.io/github/release/laniley/Storyteller.svg">
