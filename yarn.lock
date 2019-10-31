@@ -3188,9 +3188,12 @@ hawk@~6.0.2:
   integrity sha512-miowhl2+U7Qle4vdLqDdPt9m09K6yZhkLDTWGoUiUzrQCn+mHHSmfJgAyGaLRZbPmTqfFFjRV1QWCW0VWUJBbQ==
   dependencies:
     boom "4.x.x"
-    cryptiles "4.1.2"
+    cryptiles "4.x.x"
     hoek "4.x.x"
     sntp "2.x.x"
+
+cryptiles@^4.1.2:
+  version "4.1.2"
 
 he@1.1.x:
   version "1.1.1"

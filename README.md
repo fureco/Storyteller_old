@@ -80,7 +80,7 @@ npm run test
 npm run test:watch
 ```
 
-#### Run the app in prod (after `npm run build` || `yarn run build`)
+#### Run the app in prod (after `npm run build`)
 ```
 npm run prod
 ```
