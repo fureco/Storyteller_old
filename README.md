@@ -5,9 +5,15 @@
 </p>
 
 <p align="center">
-  <a href="https://david-dm.org/alexdevero/electron-react-webpack-boilerplate"><img alt="Dependency Status" src="https://david-dm.org/alexdevero/electron-react-webpack-boilerplate.svg?style=flat"></a>
-  <a href="https://david-dm.org/alexdevero/electron-react-webpack-boilerplate?type=dev"><img alt="devDependency Status" src="https://david-dm.org/alexdevero/electron-react-webpack-boilerplate/dev-status.svg?style=flat"></a>
-  <a href="http://opensource.org/licenses/MIT"><img alt="MIT License" src="https://img.shields.io/npm/l/express.svg"></a>
+  	<a href="https://david-dm.org/laniley/Storyteller">
+  		<img alt="Dependency Status" src="https://david-dm.org/laniley/Storyteller.svg?style=flat">
+	</a>
+  	<a href="https://david-dm.org/laniley/Storyteller?type=dev">
+	  	<img alt="devDependency Status" src="https://david-dm.org/laniley/Storyteller/dev-status.svg?style=flat">
+	</a>
+  	<a href="http://opensource.org/licenses/MIT">
+	  	<img alt="MIT License" src="https://img.shields.io/npm/l/express.svg">
+	</a>
 </p>
 
 <p align="center">
@@ -15,9 +21,9 @@
   <a href="https://github.com/alexdevero/electron-react-webpack-boilerplate/releases"><img alt="Current release" src="https://img.shields.io/github/release/alexdevero/electron-react-webpack-boilerplate.svg"></a>
 </p>
 
-## Minimal Electron, React and Webpack boilerplate
+## A writing application build with Electron, React, PostCSS and Webpack.
 
-Minimal Electron, React, PostCSS and Webpack boilerplate to help you get started with building your next app.
+A writing application build with Electron, React, PostCSS and Webpack.
 
 ### Table of contents
 
@@ -31,17 +37,13 @@ Minimal Electron, React, PostCSS and Webpack boilerplate to help you get started
 #### Clone this repo
 
 ```
-git clone https://github.com/alexdevero/electron-react-webpack-boilerplate.git
+git clone https://github.com/laniley/Storyteller.git
 ```
 
 #### Install dependencies
 
 ```
 npm install
-```
-or
-```
-yarn
 ```
 
 ### Usage
@@ -51,19 +53,11 @@ yarn
 ```
 npm run start
 ```
-or
-```
-yarn start
-```
 
 #### Build the app (automatic)
 
 ```
 npm run package
-```
-or
-```
-yarn package
 ```
 
 #### Build the app (manual)
@@ -71,17 +65,20 @@ yarn package
 ```
 npm run build
 ```
-or
+
+#### Test the app
 ```
-yarn build
+npm run test
 ```
 
-#### Test the app (after `npm run build` || `yarn run build`)
+#### Test the app with auto-reload
+```
+npm run test:watch
+```
+
+#### Run the app in prod (after `npm run build` || `yarn run build`)
 ```
 npm run prod
-```
-```
-yarn prod
 ```
 
 ### Code of Conduct
@@ -90,4 +87,4 @@ yarn prod
 
 ### License
 
-MIT © [Alex Devero](https://alexdevero.com).
+MIT © [Melanie Mende](https://www.linkedin.com/in/melanie-mende-46597a174/).
