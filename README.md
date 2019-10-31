@@ -1,5 +1,3 @@
-<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-
 <p align="center">
   <img src="https://cdn.rawgit.com/alexdevero/electron-react-webpack-boilerplate/master/docs/images/electron-react-webpack-boilerplate.png" width="135" align="center">
   <br>
@@ -94,5 +92,3 @@ npm run prod
 ### License
 
 MIT © [Melanie Mende](https://www.linkedin.com/in/melanie-mende/).
-
-<div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="de_DE" data-type="horizontal" data-theme="light" data-vanity="melanie-mende"><a class="LI-simple-link" href='https://de.linkedin.com/in/melanie-mende?trk=profile-badge'>Melanie Mende</a></div>
