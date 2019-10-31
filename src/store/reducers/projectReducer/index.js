@@ -33,7 +33,20 @@ const projectReducer = (state = initialState, action) => {
 			});
 
 		case projectActions.REMOVE_PART:
-			return Object.assign({}, state, { parts: [] });
+
+			// console.log("REMOVE_PART: " + action.partID)
+
+			let filtered_parts = state.parts.filter(part => part.id != action.partID);
+
+			// console.log("filtered_parts: " + JSON.stringify(filtered_parts))
+
+			for (let i = 0; i < filtered_parts.length; i++) {
+				filtered_parts[i].position = i + 1;
+			}
+
+			return Object.assign({}, state, {
+				parts: filtered_parts
+			});
 
     default:
         return state;

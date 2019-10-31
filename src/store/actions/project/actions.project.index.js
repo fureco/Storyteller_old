@@ -137,7 +137,21 @@ export const addScriptPartAction = (partName) => {
 
 export const addScriptPartActionSuccess = (partName) => ({ type: ADD_PART, partName });
 
-export const removeScriptPartAction = () => ({ type: REMOVE_PART });
+export const deleteScriptPartAction = (partID) => {
+
+	// console.log("deleteScriptPartAction: " + partID);
+
+	return (dispatch, getState) => {
+
+		dispatch(removeScriptPartAction(partID));
+
+		// console.log("state: " + JSON.stringify(getState().projectReducer));
+
+		return dispatch(save());
+	};
+}
+
+const removeScriptPartAction = (partID) => ({ type: REMOVE_PART, partID });
 
 export const save = () => {
 

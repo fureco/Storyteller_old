@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import ScriptTitle from  "../ScriptTitle/ScriptTitle";
 import ScriptPartCreationDialog from  "./ScriptPartCreationDialog";
-import ChapterCreationDialog from  "./ChapterCreationDialog";
+import ChapterCreationDialog from "./ChapterCreationDialog";
+
+import { projectActions } from "../../store/actions";
 
 import {
     Button,
@@ -43,6 +45,37 @@ class ScriptStructure extends React.Component {
 
 	render() {
 
+		var treeContent = [];
+
+		this.props.project.parts.forEach(part => {
+
+			let children = [
+				{
+					id: 1,
+					label: (<ChapterCreationDialog />)
+				}
+			];
+
+			let aPart =
+			{
+				id: treeContent.length,
+				hasCaret: true,
+				isExpanded: false,
+				icon: "folder-close",
+				label: "Part " + part.id + ": " + part.name,
+				secondaryLabel: (
+					<Button
+						minimal={true}
+						icon="trash"
+						onClick={() => this.props.deletePart(part.id)}
+					/>
+				),
+				childNodes: children
+			};
+
+			treeContent.push(aPart);
+		});
+
         return (
             <div id="ScriptStructure">
 
@@ -60,7 +93,7 @@ class ScriptStructure extends React.Component {
 					</Tab>
 				</Tabs>
 
-				<Tree contents={this.props.treeContent} />
+				<Tree contents={treeContent} />
 
                 <div style={Style.PartCreation}>
                     <ScriptPartCreationDialog />
@@ -81,51 +114,15 @@ function toggleEditMode() {
     this.setState({ isInEditMode: !this.state.isInEditMode });
 }
 
-function deletePart(partID) {
-    console.log(partID)
-}
-
 function mapStateToProps ({ projectReducer }) {
-
-	let content = [];
-
-    projectReducer.parts.forEach(part => {
-
-        let children = [
-            {
-                id: 1,
-                label: ( <ChapterCreationDialog /> )
-            }
-        ];
-
-        let aPart =
-        {
-			id: content.length,
-            hasCaret: true,
-            isExpanded: false,
-            icon: "folder-close",
-            label: "Part " + part.id + ": " + part.name,
-            secondaryLabel: (
-                <Button
-                    minimal={true}
-                    icon="trash"
-                    onClick={deletePart.bind(this)}
-                />
-            ),
-            childNodes: children
-        };
-
-		content.push(aPart);
-    });
-
     return {
         project: projectReducer,
-		treeContent: content,
     };
 }
 
 function mapDispatchToProps (dispatch) {
-    return {
+	return {
+		deletePart: partID => dispatch(projectActions.deleteScriptPartAction(partID)),
     };
 }
 

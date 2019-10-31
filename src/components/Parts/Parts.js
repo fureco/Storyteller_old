@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Switch, Link, Route, Redirect } from "react-router-dom";
 import { ScriptPartCreationDialog } from "./../../components";
 
 import {
@@ -15,7 +16,10 @@ class Parts extends React.Component {
 
 		super(props);
 
+		let url_parts = window.location.hash.replace('#', '').split("/");
+
 		this.state = {
+			selectedPartIndex: url_parts[url_parts.length-1]
 		};
 	}
 
@@ -25,33 +29,53 @@ class Parts extends React.Component {
 			.sort((a, b) => a.position > b.position)
 			.map((name, index) => {
 				return (
-					<div key={index} style={{
-						display: 'flex',
-						flexDirection: 'column',
-						overflow: 'auto',
-						resize: 'none',
-					}}>
-						<h2 style={{ textAlign: 'center' }}>Part {this.props.project.parts[index].position}: </h2>
-						{/* <h2 style={{ textAlign: 'center' }}>Part {this.props.project.parts[index].position}: {this.props.project.parts[index].name}</h2> */}
-						<TextArea id="ScriptTextArea"
-							style={{
-								height: '100%',
-								margin: '1%',
-								overflow: 'auto',
-								border: '1px solid #ddd',
-								resize: 'none',
-							}}
-							onKeyDown={this.onInput}
-							value={this.state.text}
-						/>
-					</div>
+					<Link to={`/script/structure/parts/${index}`} key={this.props.project.parts[index].id}>Part {this.props.project.parts[index].position}: {this.props.project.parts[index].name}</Link>
 				);
 			});
 
+		var selectedPart = this.props.project.parts[this.state.selectedPartIndex];
+
 		return (
 			<div>
+
+				<div>{window.location.hash}</div>
+
 				{parts}
+
 				<ScriptPartCreationDialog />
+
+				<Switch>
+
+					<Redirect exact from="/script/structure/parts" to={`/script/structure/parts/0`} />
+
+					{selectedPart &&
+
+
+						<Route path={`/script/structure/parts/${this.state.selectedPartIndex}`} component={() => { return (
+							<div style={{
+								display: 'flex',
+								flexDirection: 'column',
+								overflow: 'auto',
+								resize: 'none',
+							}}>
+								<h2 style={{ textAlign: 'center' }}>
+									Part {this.props.project.parts[this.state.selectedPartIndex].position}: {this.props.project.parts[this.state.selectedPartIndex].name}
+								</h2>
+								<TextArea id="ScriptTextArea"
+									style={{
+										height: '100%',
+										margin: '1%',
+										overflow: 'auto',
+										border: '1px solid #ddd',
+										resize: 'none',
+									}}
+									onKeyDown={this.onInput}
+									value={this.state.text}
+								/>
+							</div>
+						)}} />
+					}
+				</Switch>
 			</div>
 		);
 	}
