@@ -5,6 +5,10 @@ import { CreateProjectButton, OpenProjectButton } from './../components';
 
 import { remote } from 'electron';
 
+import {
+	Icon,
+} from '@blueprintjs/core';
+
 const dialog = remote.dialog;
 
 class Welcome extends React.Component {
@@ -22,7 +26,7 @@ class Welcome extends React.Component {
             <div id="Welcome" style={styles.container}>
 
                 <div className="app_name" style={styles.app_name}>
-                    Storyteller
+					<Icon icon="draw" iconSize={55} style={{ marginRight: "0.2em"}} />Storyteller
                 </div>
 
 				<OpenProjectButton minimal={false} showText={true} />
@@ -39,10 +43,11 @@ const styles = {
         flexDirection: 'column',
         height: '10em',
         justifyContent: 'space-evenly',
-        alignItems: 'center'
+		alignItems: 'center',
     },
     app_name: {
-        fontSize: '2em'
+		fontSize: '4em',
+		marginBottom: '1em'
     }
 }
 
