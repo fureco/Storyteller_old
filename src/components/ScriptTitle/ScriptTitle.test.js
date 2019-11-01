@@ -28,6 +28,6 @@ test('ScriptTitle - edit mode is closed when project title is not empty', () => 
 	);
 
 	// find input group
-	const scriptTitleInputGroup = scriptTitle.find('#ScriptTitleInputGroup')
+	const scriptTitleInputGroup = scriptTitle.find('#ScriptTitleInput')
 	expect(scriptTitleInputGroup.length).toEqual(0);
 });
