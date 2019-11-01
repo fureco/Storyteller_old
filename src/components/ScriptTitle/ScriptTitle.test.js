@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScriptTitle } from '.';
+import { ScriptTitle } from './ScriptTitle.js';
 import { shallow, mount, render } from 'enzyme';
 
 test('ScriptTitle - edit mode is open when project title is empty', () => {
@@ -13,7 +13,7 @@ test('ScriptTitle - edit mode is open when project title is empty', () => {
 	);
 
 	// find input group
-	const scriptTitleInputGroup = scriptTitle.find('#ScriptTitleInputGroup')
+	const scriptTitleInputGroup = scriptTitle.find('#ScriptTitleInput')
 	expect(scriptTitleInputGroup.length).toEqual(1);
 });
 
