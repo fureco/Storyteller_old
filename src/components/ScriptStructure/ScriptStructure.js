@@ -8,10 +8,12 @@ import ChapterCreationDialog from "./ChapterCreationDialog";
 import { projectActions } from "../../store/actions";
 
 import {
-    Button,
-	InputGroup,
+	Alert,
+	Button,
+	Intent,
 	Tab,
 	Tabs,
+	Toaster,
     Tree,
 } from '@blueprintjs/core';
 
@@ -21,10 +23,18 @@ class ScriptStructure extends React.Component {
 
         super(props);
 
-        this.state = {
+		this.state = {
+
+			themeName: props.themeName || "bp3-body", // null || bp3-dark
+
             isInEditMode: false,
 			showPartCreationDialog: false,
 			selectedTabId: this.getTabId(),
+
+			canEscapeKeyCancel: false,
+			canOutsideClickCancel: false,
+			movePartToTrashIsOpen: false,
+			movePartToTrashPart: '',
         };
 	}
 
@@ -62,12 +72,12 @@ class ScriptStructure extends React.Component {
 				hasCaret: true,
 				isExpanded: false,
 				icon: "folder-close",
-				label: "Part " + part.id + ": " + part.name,
+				label: "Part " + part.position + ": " + part.name,
 				secondaryLabel: (
 					<Button
 						minimal={true}
 						icon="trash"
-						onClick={() => this.props.deletePart(part.id)}
+						onClick={ () => this.handleMovePartToTrashOpen(part) }
 					/>
 				),
 				childNodes: children
@@ -76,7 +86,8 @@ class ScriptStructure extends React.Component {
 			treeContent.push(aPart);
 		});
 
-        return (
+		return (
+
             <div id="ScriptStructure">
 
 				<ScriptTitle />
@@ -97,11 +108,49 @@ class ScriptStructure extends React.Component {
 
                 <div style={Style.PartCreation}>
                     <ScriptPartCreationDialog />
-                </div>
+				</div>
+
+				<Alert
+					className={this.state.themeName}
+					cancelButtonText="Cancel"
+					confirmButtonText="Move to Trash"
+					icon="trash"
+					intent={Intent.DANGER}
+					isOpen={this.state.movePartToTrashIsOpen}
+					onCancel={ () => this.handleMovePartToTrashCancel() }
+					onConfirm={ () => this.handleMovePartToTrashConfirm() }
+				>
+					<p>
+						Are you sure you want to move <b>Part {this.state.movePartToTrashPart.position}: {this.state.movePartToTrashPart.name}</b> to Trash?
+                    </p>
+				</Alert>
+
+				<Toaster ref={ref => (this.toaster = ref)} />
 
             </div>
         );
-    }
+	}
+
+	handleMovePartToTrashOpen(part) {
+		this.setState({ movePartToTrashIsOpen: true });
+		this.setState({ movePartToTrashPart: part });
+	}
+
+	handleMovePartToTrashConfirm() {
+		this.setState({ movePartToTrashIsOpen: false });
+		this.setState({ movePartToTrashPart: '' });
+		this.toaster.show({ className: this.state.themeName, message: <TOAST_MESSAGE part={this.state.movePartToTrashPart} /> });
+		this.props.deletePart(this.state.movePartToTrashPart.id);
+	}
+
+	handleMovePartToTrashCancel() {
+		this.setState({ movePartToTrashIsOpen: false });
+		this.setState({ movePartToTrashPart: '' });
+	}
+}
+
+function TOAST_MESSAGE(props) {
+	return <div><b>Part {props.part.position}: {props.part.name}</b> was moved to Trash.</div>
 }
 
 const Style = {
@@ -109,10 +158,6 @@ const Style = {
 		marginTop: '1em',
 	}
 };
-
-function toggleEditMode() {
-    this.setState({ isInEditMode: !this.state.isInEditMode });
-}
 
 function mapStateToProps ({ projectReducer }) {
     return {
