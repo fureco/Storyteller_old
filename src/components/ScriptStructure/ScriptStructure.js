@@ -63,7 +63,7 @@ class ScriptStructure extends React.Component {
 				{
 					id: 1,
 					label: (<ChapterCreationDialog />)
-				}
+				},
 			];
 
 			let aPart =
@@ -85,6 +85,17 @@ class ScriptStructure extends React.Component {
 
 			treeContent.push(aPart);
 		});
+
+		let trash =
+		{
+			id: treeContent.length,
+			hasCaret: true,
+			isExpanded: false,
+			icon: "trash",
+			label: "Trash",
+		};
+
+		treeContent.push(trash);
 
 		return (
 
