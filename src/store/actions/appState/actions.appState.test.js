@@ -1,4 +1,4 @@
-import { setPath, selectMainAreaAction } from '.';
+import { setPath, selectMainAreaAction } from './actions.appState.index.js';
 
 describe('App State actions', () => {
 
