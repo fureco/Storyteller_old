@@ -95,7 +95,7 @@ function openProjectSuccess(directoryPath, jsonData) {
 		dispatch(setAbstract(jsonData.abstract));
 		dispatch(setDedication(jsonData.dedication));
         jsonData.parts.forEach(part => {
-            dispatch(addScriptPartActionSuccess(part.name));
+            dispatch(addScriptPartActionSuccess(part.title));
         })
         // jsonData.chapters.forEach(chapter => {
         //     dispatch(addChapterActionSuccess(chapter));
@@ -121,13 +121,13 @@ export const setTitle = (title) => ({ type: SET_TITLE, title });
 export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
 export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
 
-export const addScriptPartAction = (partName) => {
+export const addScriptPartAction = (partTitle) => {
 
     console.log("addScriptPartAction");
 
     return (dispatch, getState) => {
 
-        dispatch(addScriptPartActionSuccess(partName));
+		dispatch(addScriptPartActionSuccess(partTitle));
 
 		console.log("state: " + JSON.stringify(getState().projectReducer));
 
@@ -135,7 +135,7 @@ export const addScriptPartAction = (partName) => {
     };
 }
 
-export const addScriptPartActionSuccess = (partName) => ({ type: ADD_PART, partName });
+export const addScriptPartActionSuccess = (partTitle) => ({ type: ADD_PART, partTitle });
 
 export const deleteScriptPartAction = (partID) => {
 

@@ -27,7 +27,7 @@ const projectReducer = (state = initialState, action) => {
 					{
 						id: getNewID(state.parts),
 						position: state.parts.length + 1,
-						name: action.partName
+						title: action.partTitle
 					}
 				]
 			});
