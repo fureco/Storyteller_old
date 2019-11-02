@@ -9,16 +9,18 @@
   src: url('./../fonts/Typewriter.ttf') format('truetype');
 }
 
-button {
-	margin: 5px;
-}
-
 button:focus, .bp3-tab:focus {
   outline: none;
 }
 
-.bp3-navbar {
-	padding: 0;
+.column {
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
 }
 
 .bp3-button.bp3-minimal:active, .bp3-button.bp3-minimal.bp3-active {

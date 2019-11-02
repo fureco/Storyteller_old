@@ -5,6 +5,8 @@ import { appStateActions, projectActions } from "../../store/actions";
 
 import { CreateProjectButton, OpenProjectButton } from './../../components';
 
+import './TopNavBar.css';
+
 import {
     Alignment,
     Button,
