@@ -65,23 +65,35 @@ export class TopNavBar extends React.Component {
 						<Button minimal={true} icon="settings" />
 					</Popover>
 
-                    <Tooltip content="Open project" position={Position.BOTTOM}>
-						<OpenProjectButton minimal={true} />
-					</Tooltip>
+					{this.props.appState.path &&
+						<NavbarDivider />
+					}
 
-                    <Tooltip content="Close project" position={Position.BOTTOM}>
-                        <Button
-                            minimal={true}
-                            icon="folder-close"
-                            onClick={ () => {this.props.closeProject()} }
-                        />
-					</Tooltip>
+					{this.props.appState.path &&
+						<Tooltip content="Open project" position={Position.BOTTOM}>
+							<OpenProjectButton minimal={true} />
+						</Tooltip>
+					}
 
-                    <Tooltip content="Create new project" position={Position.BOTTOM}>
-						<CreateProjectButton minimal={true} />
-					</Tooltip>
+					{this.props.appState.path &&
+						<Tooltip content="Close project" position={Position.BOTTOM}>
+							<Button
+								minimal={true}
+								icon="folder-close"
+								onClick={() => { this.props.closeProject() }}
+							/>
+						</Tooltip>
+					}
 
-                    <NavbarDivider />
+					{this.props.appState.path &&
+						<Tooltip content="Create new project" position={Position.BOTTOM}>
+							<CreateProjectButton minimal={true} />
+						</Tooltip>
+					}
+
+					{this.props.appState.path &&
+						<NavbarDivider />
+					}
 
                     { this.props.appState.path &&
 						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.selectedMainArea} animate="true">

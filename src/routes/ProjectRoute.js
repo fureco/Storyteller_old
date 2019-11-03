@@ -6,7 +6,10 @@ import {
 	Colors,
 } from '@blueprintjs/core';
 
-import TopNavBar from './../components/TopNavBar/TopNavBar';
+import {
+	TopNavBar
+} from './../components';
+
 import ScriptRoute from './ProjectRoutes/ScriptRoute';
 
 class Project extends React.Component {
@@ -43,10 +46,6 @@ class Project extends React.Component {
 		this.setState({ selectedTabId: navbarTabId });
 	}
 
-	setSelectedMainArea(value) {
-		this.setState({ selectedMainArea: value });
-	}
-
 	render() {
 
 		return (
@@ -54,7 +53,7 @@ class Project extends React.Component {
 
 				{/* {window.location.hash} */}
 
-				<TopNavBar setSelectedMainArea={this.setSelectedMainArea.bind(this)} />
+				<TopNavBar />
 
 				<div id="path_to_open_project"
 					style={{

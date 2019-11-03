@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { CreateProjectButton, OpenProjectButton } from './../components';
+import {
+	CreateProjectButton,
+	OpenProjectButton,
+	TopNavBar
+} from './../components';
 
 import { remote } from 'electron';
 
@@ -25,12 +29,16 @@ class Welcome extends React.Component {
         return (
 			<div id="Welcome" style={styles.container} className={this.props.appState.theme}>
 
-				<div className="app_name" style={styles.app_name}>
-					<Icon icon="draw" iconSize={55} style={{ marginRight: "0.2em"}} />Storyteller
-                </div>
+				<TopNavBar />
 
-				<OpenProjectButton style={styles.item} minimal={false} showText={true} />
-				<CreateProjectButton style={styles.item} minimal={false} showText={true} />
+				<div style={styles.content}>
+					<div className="app_name" style={styles.app_name}>
+						<Icon icon="draw" iconSize={55} style={{ marginRight: "0.2em"}} />Storyteller
+					</div>
+
+					<OpenProjectButton style={styles.item} minimal={false} showText={true} />
+					<CreateProjectButton style={styles.item} minimal={false} showText={true} />
+				</div>
 
             </div>
         );
@@ -41,8 +49,13 @@ const styles = {
     container: {
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
-        justifyContent: 'center',
+        height: '100vh',
+	},
+	content: {
+		display: 'flex',
+		flexDirection: 'column',
+		height: '100vh',
+		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	item: {
