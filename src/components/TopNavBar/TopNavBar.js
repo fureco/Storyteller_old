@@ -28,14 +28,14 @@ export class TopNavBar extends React.Component {
 
         super(props);
 
-        this.state = {
+		this.state = {
         };
     }
 
     handleTabChange(navbarTabId) {
-		this.props.selectMainArea(navbarTabId);
+		this.props.setRoute(window.location.hash);
 		this.props.saveAppState();
-    }
+	}
 
     render() {
         return (
@@ -60,17 +60,17 @@ export class TopNavBar extends React.Component {
                     <NavbarDivider />
 
                     { this.props.appState.path &&
-                        <Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.selectedMainArea} animate="true">
-                            <Tab id="script">
-                                <Link to="/script/structure"><Icon icon="draw" /> Script</Link>
+						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.selectedTabId} animate="true">
+                            <Tab id="/script">
+                                <Link to="/script"><Icon icon="draw" /> Script</Link>
                             </Tab>
-                            <Tab id="characters">
+                            <Tab id="/characters">
                                 <Link to="/characters"><Icon icon="people" /> Characters</Link>
                             </Tab>
-                            <Tab id="locations">
+                            <Tab id="/locations">
                                 <Link to="/locations"><Icon icon="map-marker" /> Locations</Link>
                             </Tab>
-                            <Tab id="timeline">
+                            <Tab id="/timeline">
                                 <Link to="/timeline"><Icon icon="time" /> Timeline</Link>
                             </Tab>
                         </Tabs>
@@ -93,16 +93,25 @@ export class TopNavBar extends React.Component {
     }
 }
 
-function mapStateToProps ({ appStateReducer, projectReducer }) {
+function mapStateToProps({ appStateReducer, projectReducer }) {
+
+	let tabId = '/script';
+	let splitted_location = appStateReducer.route.replace("#", "").split("/");
+
+	if (splitted_location[1]) {
+		tabId = "/" + splitted_location[1];
+	}
+
     return {
         appState: appStateReducer,
-        project: projectReducer
+		project: projectReducer,
+		selectedTabId: tabId,
     };
 }
 
 function mapDispatchToProps (dispatch) {
     return {
-        selectMainArea: (navbarTabId) => dispatch(appStateActions.selectMainAreaAction(navbarTabId)),
+		setRoute: (route) => dispatch(appStateActions.setRoute(route)),
         closeProject: () => dispatch(projectActions.closeProjectAction()),
 		saveAppState: () => dispatch(appStateActions.save()),
     };

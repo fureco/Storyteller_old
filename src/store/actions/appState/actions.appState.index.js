@@ -4,11 +4,11 @@ const fs = require('fs');
 
 // ############## ACTION TYPES #################
 export const SET_PATH = 'SET_PATH';
-export const SELECT_MAIN_AREA = 'SELECT_MAIN_AREA';
+export const SET_ROUTE = 'SET_ROUTE';
 
 // ############## ACTIONS #################
 export const setPath = (path) => ({ type: SET_PATH, path });
-export const selectMainAreaAction = (navbarTabId) => ({ type: SELECT_MAIN_AREA, navbarTabId });
+export const setRoute = (route) => ({ type: SET_ROUTE, route });
 
 export const load = (directoryPath) => {
 
@@ -33,8 +33,7 @@ export const load = (directoryPath) => {
 
 					var jsonData = JSON.parse(fileData);
 
-					dispatch(selectMainAreaAction(jsonData.selectedMainArea));
-
+					dispatch(setRoute(jsonData.route));
 				});
 			}
 		});

@@ -10,7 +10,10 @@ const appStateReducer = (state = initialState, action) => {
                 path: action.path
             });
 
-        case appStateActions.SELECT_MAIN_AREA:
+		case appStateActions.SET_ROUTE:
+			return Object.assign({}, state, {
+				route: action.route
+			});
             return Object.assign({}, state, {
                 selectedMainArea: action.navbarTabId
             });
