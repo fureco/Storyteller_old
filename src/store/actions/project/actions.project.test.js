@@ -4,7 +4,7 @@ describe('Project actions', () => {
 
     it('should dispatch ADD_PART action', () => {
 		expect(projectActions.addScriptPartActionSuccess("title")).toEqual({
-            partName: 'title',
+            partTitle: 'title',
             type: 'ADD_PART'
         });
 	})

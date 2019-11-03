@@ -18,12 +18,12 @@ describe('Project reducer', () => {
         expect(
             reducer(initialState, {
                 type: projectActions.ADD_PART,
-                partName: 'test'
+                partTitle: 'test'
             })
         ).toEqual({
             abstract: "",
             chapters: [],
-            parts: [{ "id": 1, "name": "test", "position": 1 }],
+            parts: [{ "id": 1, "title": "test", "position": 1 }],
             title: ""
         })
 	})
