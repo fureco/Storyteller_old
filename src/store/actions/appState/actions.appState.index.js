@@ -4,25 +4,54 @@ const fs = require('fs');
 
 // ############## ACTION TYPES #################
 export const SET_PATH = 'SET_PATH';
-export const SET_ROUTE = 'SET_ROUTE';
+export const SET_THEME = 'SET_THEME';
+export const SELECT_MAIN_AREA = 'SELECT_MAIN_AREA';
+export const SELECT_SCRIPT_AREA = 'SELECT_SCRIPT_AREA';
+export const SELECT_SCRIPT_STRUCTURE_AREA = 'SELECT_SCRIPT_STRUCTURE_AREA';
 
 // ############## ACTIONS #################
 export const setPath = (path) => ({ type: SET_PATH, path });
-export const setRoute = (route) => ({ type: SET_ROUTE, route });
+export const setTheme = (theme) => ({ type: SET_THEME, theme });
+export const selectMainArea = (navbarTabId) => ({ type: SELECT_MAIN_AREA, navbarTabId });
+export const selectScriptArea = (navbarTabId) => ({ type: SELECT_SCRIPT_AREA, navbarTabId });
+export const selectScriptStructureArea = (navbarTabId) => ({ type: SELECT_SCRIPT_STRUCTURE_AREA, navbarTabId });
+
+
+export const changeTheme = (theme) => {
+
+	return (dispatch, getState) => {
+
+		storage.get('storyteller', function (error, data) {
+			if (error) throw error;
+
+			if (data) {
+
+				var new_data = Object.assign({}, data, {
+					theme: theme
+				});
+
+				storage.set('storyteller', new_data, (error) => {
+					if (error) throw error;
+					dispatch(setTheme(theme));
+				});
+			}
+		});
+	}
+}
 
 export const load = (directoryPath) => {
 
 	return (dispatch, getState) => {
 
-		storage.get('storyteller', function (error, data) {
+		storage.get('storyteller', function (error, storageData) {
 
 			if (error) throw error;
 
-			console.log("load app state: " + data.path);
+			console.log("load app state: " + storageData.path);
 
-			if (data.path) {
+			if (storageData.path) {
 
-				return fs.readFile(data.path + '/appState.json', (err, fileData) => {
+				return fs.readFile(storageData.path + '/appState.json', (err, fileData) => {
 
 					if (err) throw err;
 
@@ -33,7 +62,8 @@ export const load = (directoryPath) => {
 
 					var jsonData = JSON.parse(fileData);
 
-					dispatch(setRoute(jsonData.route));
+					dispatch(selectMainArea(jsonData.selectedMainArea));
+					dispatch(selectScriptArea(jsonData.selectedScriptArea));
 				});
 			}
 		});

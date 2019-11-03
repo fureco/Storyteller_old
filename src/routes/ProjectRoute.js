@@ -50,7 +50,7 @@ class Project extends React.Component {
 	render() {
 
 		return (
-			<div id="Project" style={styles.container}>
+			<div id="Project" style={styles.container} className={this.props.appState.theme}>
 
 				{/* {window.location.hash} */}
 
@@ -58,7 +58,7 @@ class Project extends React.Component {
 
 				<div id="path_to_open_project"
 					style={{
-						backgroundColor: Colors.LIGHT_GRAY5,
+						// backgroundColor: Colors.LIGHT_GRAY5,
 						borderBottom: `1px solid ${Colors.LIGHT_GRAY1}`,
 						height: '50px',
 						padding: 12,

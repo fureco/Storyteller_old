@@ -1,4 +1,4 @@
-import { setPath, setRoute } from './actions.appState.index.js';
+import { setPath, setTheme } from './actions.appState.index.js';
 
 describe('App State actions', () => {
 
@@ -9,10 +9,10 @@ describe('App State actions', () => {
         });
     })
 
-    it('should dispatch SET_ROUTE action', () => {
-		expect(setRoute("#/this/is/the/current/route")).toEqual({
-			route: '#/this/is/the/current/route',
-            type: 'SET_ROUTE'
+    it('should dispatch SET_THEME action', () => {
+		expect(setTheme("bp3-dark")).toEqual({
+			theme: 'bp3-dark',
+            type: 'SET_THEME'
         });
     })
 

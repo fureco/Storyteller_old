@@ -4,7 +4,7 @@ import { HashRouter as Router } from "react-router-dom";
 
 import storage from 'electron-json-storage';
 
-import { projectActions } from "./../store/actions";
+import { appStateActions, projectActions } from "./../store/actions";
 
 import Welcome from './WelcomeRoute';
 import ProjectRoute from './ProjectRoute';
@@ -21,7 +21,11 @@ class Home extends React.Component {
             if (error) throw error;
             console.log("current_project: " + data.path);
             if(data.path) {
-                props.openProject(data.path)
+				props.openProject(data.path);
+			}
+			console.log("theme: " + data.theme);
+			if (data.theme) {
+				props.setTheme(data.theme);
             }
         });
     }
@@ -31,10 +35,10 @@ class Home extends React.Component {
         let content;
 
         if(this.props.appState.path) {
-			content = <ProjectRoute project={this.props.project} />;
+			content = <ProjectRoute className={this.props.appState.theme} project={this.props.project} />;
         }
         else {
-            content = <Welcome/>;
+			content = <Welcome />;
         }
 
         return (
@@ -65,7 +69,8 @@ function mapStateToProps ({ appStateReducer, projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        openProject: (filePath) => { dispatch(projectActions.openProjectAction(filePath)) },
+		openProject: (filePath) => { dispatch(projectActions.openProjectAction(filePath)) },
+		setTheme: (theme) => dispatch(appStateActions.setTheme(theme)),
     };
 }
 

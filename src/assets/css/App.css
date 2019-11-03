@@ -2,7 +2,6 @@
 
 @import './../../../node_modules/normalize.css/normalize.css';
 @import "./../../../node_modules/@blueprintjs/core/lib/css/blueprint.css";
-/* @import "./../../../node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css"; */
 
 @font-face {
   font-family: 'Storyteller';
@@ -21,6 +20,11 @@ button:focus, .bp3-tab:focus {
 .row {
 	display: flex;
 	flex-direction: row;
+}
+
+.bp3-dark {
+    color: #f5f8fa;
+    background-color: #394B59;
 }
 
 .bp3-button.bp3-minimal:active, .bp3-button.bp3-minimal.bp3-active {

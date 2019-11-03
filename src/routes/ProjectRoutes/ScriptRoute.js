@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Route, withRouter, Switch, Redirect } from "react-router-dom";
+import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 import FileTree from '../../components/FileTree';
-import { ScriptStructure } from '../../components';
+import { ScriptNav, ScriptStructure } from '../../components';
 import ScriptTextArea from '../../components/ScriptTextArea/ScriptTextArea';
 import FileBrowserTextArea from '../../components/Project/FileBrowserTextArea';
-
-import {
-    Tab,
-    Tabs,
-} from '@blueprintjs/core';
 
 class ScriptRoute extends React.Component {
 
@@ -19,26 +14,9 @@ class ScriptRoute extends React.Component {
 		super(props);
 
         this.state = {
-			selectedTabId: this.getTabId(),
             selectedFile: null,
         };
 	}
-
-	getTabId() {
-		return "/" + window.location.hash.replace("#", "").split("/")[1] + "/" + window.location.hash.replace("#", "").split("/")[2] || '/script/structure'
-	}
-
-    componentDidMount() {
-        // $("#DirectoryTreeView").resizable({
-        //    handles: 'e, w'
-        // })
-    }
-
-    handleTabChange(navbarTabId){
-        this.setState({
-            selectedTabId: navbarTabId,
-        });
-    }
 
     onFileClick(file) {
         this.loadTextFromFile(file);
@@ -74,18 +52,7 @@ class ScriptRoute extends React.Component {
                     }}
                     onKeyDown={this.onInput}
 				>
-					<Tabs id="LeftNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.state.selectedTabId} animate="true" >
-						<Tab id="/script/structure">
-							<Link to="/script/structure">Structure</Link>
-						</Tab>
-						<Tab id="/script/layout">
-							<Link to="/script/structure">Layout</Link>
-						</Tab>
-						<Tab id="/script/files">
-							<Link to="/script/files">File Browser</Link>
-						</Tab>
-					</Tabs>
-
+					<ScriptNav />
 
 					<div>
 						<Switch>

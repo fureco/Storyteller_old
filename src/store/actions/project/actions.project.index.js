@@ -41,9 +41,18 @@ export const createProjectAction = (directoryPath) => {
 			}
 		}
 
-		storage.set('storyteller', { path: directoryPath }, (error) => {
-			if (error) {
-				console.error(error);
+		storage.get('storyteller', function (error, data) {
+			if (error) throw error;
+
+			if (data) {
+
+				var new_data = Object.assign({}, data, {
+					path: directoryPath
+				});
+
+				storage.set('storyteller', new_data, (error) => {
+					if (error) throw error;
+				});
 			}
 		});
 	};
@@ -55,9 +64,20 @@ export const openProjectAction = (directoryPath) => {
 
     return (dispatch, getState) => {
 
-        storage.set('storyteller', { path: directoryPath }, (error) => {
+		storage.get('storyteller', function (error, data) {
 			if (error) throw error;
-        });
+
+			if (data) {
+
+				var new_data = Object.assign({}, data, {
+					path: directoryPath
+				});
+
+				storage.set('storyteller', new_data, (error) => {
+					if (error) throw error;
+				});
+			}
+		});
 
 		if (!storytellerProjectFileExists(directoryPath)) {
 			// TO DO: Show UI dialog that directory is not empty, ask user if it should be used for a new project
@@ -110,9 +130,21 @@ export const closeProjectAction = () => {
 	console.log("closeProjectAction");
 
 	return (dispatch, getState) => {
-		storage.clear('storyteller', (error) => {
+
+		storage.get('storyteller', function (error, data) {
 			if (error) throw error;
-			dispatch(appStateActions.setPath(""));
+
+			if (data) {
+
+				var new_data = Object.assign({}, data, {
+					path: ''
+				});
+
+				storage.set('storyteller', new_data, (error) => {
+					if (error) throw error;
+					dispatch(appStateActions.setPath(""));
+				});
+			}
 		});
 	}
 }
@@ -207,8 +239,19 @@ function createNewStorytellerProjectFile(directoryPath) {
 
 				if (err) throw err;
 
-				storage.set('storyteller', { path: directoryPath }, (error) => {
+				storage.get('storyteller', function (error, data) {
 					if (error) throw error;
+
+					if (data) {
+
+						var new_data = Object.assign({}, data, {
+							path: directoryPath
+						});
+
+						storage.set('storyteller', new_data, (error) => {
+							if (error) throw error;
+						});
+					}
 				});
 
 				return dispatch(openProjectAction(directoryPath));

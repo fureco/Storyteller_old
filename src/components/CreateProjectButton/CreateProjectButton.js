@@ -28,6 +28,7 @@ export class CreateProjectButton extends React.Component {
 			<Button
 				id="CreateProjectButton"
 				minimal={this.state.minimal}
+				style={this.props.style}
 				icon="folder-new"
 				text={text}
 				onClick={() => {
