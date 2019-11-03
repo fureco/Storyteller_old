@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { projectActions } from "../../../store/actions";
-// import { save as saveProject } from "../../../../reducers/projectReducer";
+
+import "./ScriptPartCreationDialog.css";
 
 import {
   Button,
@@ -23,7 +24,7 @@ export class ScriptPartCreationDialog extends React.Component {
     render() {
 
         return (
-            <div id="ScriptPartCreationDialog">
+			<div id="ScriptPartCreationDialog">
 
                 {
                     this.state.isInEditMode ?
@@ -41,7 +42,7 @@ export class ScriptPartCreationDialog extends React.Component {
                                         minimal={false}
 										icon="floppy-disk"
 										disabled={!this.state.partName.length}
-                                        onClick={() => this.createScriptPart(this.state.partName)}
+                                        onClick={() => this.createScriptPart(this.state.partName, this.props.position)}
                                     />
                                     <Button
                                         id="CloseScriptPartEditModeButton"
@@ -71,8 +72,8 @@ export class ScriptPartCreationDialog extends React.Component {
 		this.toggleEditMode();
 	}
 
-    createScriptPart(partName) {
-		this.props.addScriptPart(partName);
+    createScriptPart(partName, position) {
+		this.props.addScriptPart(partName, position);
 		this.setState({ "partName": ""});
 	}
 
@@ -89,7 +90,7 @@ function mapStateToProps ({ projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        addScriptPart: partName => dispatch(projectActions.addScriptPartAction(partName)),
+        addScriptPart: (partName, position) => dispatch(projectActions.addScriptPartAction(partName, position)),
     };
 }
 

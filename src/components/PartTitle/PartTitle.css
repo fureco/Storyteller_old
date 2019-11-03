@@ -1,0 +1,28 @@
+#PartTitle {
+	margin: 10px 0;
+	padding: 0 15px;
+	font-size: 20px;
+    font-weight: bold;
+}
+
+#PartTitleInput textarea {
+	font-size: 20px;
+	font-weight: bold;
+	resize: none;
+}
+
+#PartTitleText {
+	text-align: center;
+}
+
+#PartTitleInput, #PartTitleText:hover {
+	padding: 9px;
+	margin: -10px;
+	cursor: text;
+	border: 1px solid #2B95D6;
+	border-radius: 3px;
+}
+
+#PartTitleButtons {
+	text-align: center;
+}

@@ -20,6 +20,11 @@ const projectReducer = (state = initialState, action) => {
 				dedication: action.dedication
 			});
 
+		case projectActions.SET_PARTS:
+			return Object.assign({}, state, {
+				parts: action.parts
+			});
+
 		case projectActions.ADD_PART:
 			return Object.assign({}, state, {
 				parts: [

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Link, Route, Redirect } from "react-router-dom";
-import { ScriptPartCreationDialog } from "./../../components";
+import { PartTitle, ScriptPartCreationDialog } from "./../../components";
 
 import {
 	Button,
@@ -50,7 +50,6 @@ class Parts extends React.Component {
 
 					{selectedPart &&
 
-
 						<Route path={`/script/structure/parts/${this.state.selectedPartIndex}`} component={() => { return (
 							<div style={{
 								display: 'flex',
@@ -58,9 +57,7 @@ class Parts extends React.Component {
 								overflow: 'auto',
 								resize: 'none',
 							}}>
-								<h2 style={{ textAlign: 'center' }}>
-									Part {this.props.project.parts[this.state.selectedPartIndex].position}: {this.props.project.parts[this.state.selectedPartIndex].name}
-								</h2>
+								<PartTitle part={selectedPart} />
 								<TextArea id="ScriptTextArea"
 									style={{
 										height: '100%',

@@ -1,20 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import ScriptTitle from  "../ScriptTitle/ScriptTitle";
-import ScriptPartCreationDialog from  "./ScriptPartCreationDialog";
-import ChapterCreationDialog from "./ChapterCreationDialog";
+import ScriptTitle from "../ScriptTitle/ScriptTitle";
+import Parts from "./Parts/Parts";
+import Trash from "./Trash/Trash";
 
-import { projectActions } from "../../store/actions";
+import "./ScriptStructure.css";
 
 import {
-	Alert,
-	Button,
-	Intent,
 	Tab,
 	Tabs,
-	Toaster,
-    Tree,
 } from '@blueprintjs/core';
 
 class ScriptStructure extends React.Component {
@@ -30,11 +25,6 @@ class ScriptStructure extends React.Component {
             isInEditMode: false,
 			showPartCreationDialog: false,
 			selectedTabId: this.getTabId(),
-
-			canEscapeKeyCancel: false,
-			canOutsideClickCancel: false,
-			movePartToTrashIsOpen: false,
-			movePartToTrashPart: '',
         };
 	}
 
@@ -55,51 +45,9 @@ class ScriptStructure extends React.Component {
 
 	render() {
 
-		var treeContent = [];
-
-		this.props.project.parts.forEach(part => {
-
-			let children = [
-				{
-					id: 1,
-					label: (<ChapterCreationDialog />)
-				},
-			];
-
-			let aPart =
-			{
-				id: treeContent.length,
-				hasCaret: true,
-				isExpanded: false,
-				icon: "folder-close",
-				label: "Part " + part.position + ": " + part.name,
-				secondaryLabel: (
-					<Button
-						minimal={true}
-						icon="trash"
-						onClick={ () => this.handleMovePartToTrashOpen(part) }
-					/>
-				),
-				childNodes: children
-			};
-
-			treeContent.push(aPart);
-		});
-
-		let trash =
-		{
-			id: treeContent.length,
-			hasCaret: true,
-			isExpanded: false,
-			icon: "trash",
-			label: "Trash",
-		};
-
-		treeContent.push(trash);
-
 		return (
 
-            <div id="ScriptStructure">
+			<div id="ScriptStructure">
 
 				<ScriptTitle />
 
@@ -115,74 +63,27 @@ class ScriptStructure extends React.Component {
 					</Tab>
 				</Tabs>
 
-				<Tree contents={treeContent} />
+				<Parts />
 
-                <div style={Style.PartCreation}>
-                    <ScriptPartCreationDialog />
-				</div>
+				<Trash />
 
-				<Alert
-					className={this.state.themeName}
-					cancelButtonText="Cancel"
-					confirmButtonText="Move to Trash"
-					icon="trash"
-					intent={Intent.DANGER}
-					isOpen={this.state.movePartToTrashIsOpen}
-					onCancel={ () => this.handleMovePartToTrashCancel() }
-					onConfirm={ () => this.handleMovePartToTrashConfirm() }
-				>
-					<p>
-						Are you sure you want to move <b>Part {this.state.movePartToTrashPart.position}: {this.state.movePartToTrashPart.name}</b> to Trash?
-                    </p>
-				</Alert>
-
-				<Toaster ref={ref => (this.toaster = ref)} />
-
-            </div>
+			</div>
         );
 	}
-
-	handleMovePartToTrashOpen(part) {
-		this.setState({ movePartToTrashIsOpen: true });
-		this.setState({ movePartToTrashPart: part });
-	}
-
-	handleMovePartToTrashConfirm() {
-		this.setState({ movePartToTrashIsOpen: false });
-		this.setState({ movePartToTrashPart: '' });
-		this.toaster.show({ className: this.state.themeName, message: <TOAST_MESSAGE part={this.state.movePartToTrashPart} /> });
-		this.props.deletePart(this.state.movePartToTrashPart.id);
-	}
-
-	handleMovePartToTrashCancel() {
-		this.setState({ movePartToTrashIsOpen: false });
-		this.setState({ movePartToTrashPart: '' });
-	}
 }
 
-function TOAST_MESSAGE(props) {
-	return <div><b>Part {props.part.position}: {props.part.name}</b> was moved to Trash.</div>
-}
-
-const Style = {
-	PartCreation: {
-		marginTop: '1em',
-	}
-};
-
-function mapStateToProps ({ projectReducer }) {
+function mapStateToProps({ projectReducer }) {
     return {
-        project: projectReducer,
+		project: projectReducer,
     };
 }
 
 function mapDispatchToProps (dispatch) {
 	return {
-		deletePart: partID => dispatch(projectActions.deleteScriptPartAction(partID)),
     };
 }
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+	mapDispatchToProps
 )(ScriptStructure)

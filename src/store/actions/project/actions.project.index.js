@@ -10,7 +10,7 @@ const fs = require('fs');
 export const SET_TITLE = 'SET_TITLE';
 export const SET_ABSTRACT = 'SET_ABSTRACT';
 export const SET_DEDICATION = 'SET_DEDICATION';
-
+export const SET_PARTS = 'SET_PARTS';
 export const ADD_PART = 'ADD_PART';
 export const REMOVE_PART = 'REMOVE_PART';
 
@@ -120,6 +120,7 @@ export const closeProjectAction = () => {
 export const setTitle = (title) => ({ type: SET_TITLE, title });
 export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
 export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
+export const setParts = (parts) => ({ type: SET_PARTS, parts });
 
 export const addScriptPartAction = (partTitle) => {
 
