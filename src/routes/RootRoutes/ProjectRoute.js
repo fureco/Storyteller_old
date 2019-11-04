@@ -8,7 +8,7 @@ import {
 
 import {
 	TopNavBar
-} from './../components';
+} from '../../components';
 
 import ScriptRoute from './ProjectRoutes/ScriptRoute';
 
@@ -19,8 +19,6 @@ class Project extends React.Component {
 		super(props);
 
 		this.state = {
-			selectedMainArea: 'write',
-			selectedTabId: 'script',
 			statistic: {
 				words: 0,
 				chars: 0,
@@ -49,16 +47,24 @@ class Project extends React.Component {
 	render() {
 
 		return (
-			<div id="Project" style={styles.container} className={this.props.appState.theme}>
+			<div
+				id="Project"
+				className={this.props.appState.theme}
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					height: '100vh'
+				}}>
 
 				{/* {window.location.hash} */}
 
 				<TopNavBar />
 
-				<div id="path_to_open_project"
+				<div
+					id="path_to_open_project"
 					style={{
-						// backgroundColor: Colors.LIGHT_GRAY5,
-						borderBottom: `1px solid ${Colors.LIGHT_GRAY1}`,
+						backgroundColor: this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY4 : Colors.LIGHT_GRAY5,
+						borderBottom: `1px solid ${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
 						height: '50px',
 						padding: 12,
 					}}>
@@ -89,14 +95,6 @@ class Project extends React.Component {
 				</div>
 			</div>
 		);
-	}
-}
-
-const styles = {
-	container: {
-		display: 'flex',
-		flexDirection: 'column',
-		height: '100vh'
 	}
 }
 
