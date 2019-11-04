@@ -5,7 +5,7 @@ import {
 	CreateProjectButton,
 	OpenProjectButton,
 	TopNavBar
-} from './../components';
+} from './../../components';
 
 import { remote } from 'electron';
 
