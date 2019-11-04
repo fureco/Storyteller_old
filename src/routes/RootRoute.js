@@ -17,16 +17,21 @@ class Root extends React.Component {
 
 		console.log("locale storage directory: " + storage.getDefaultDataPath());
 
-        storage.get('storyteller', function(error, data) {
-            if (error) throw error;
-            console.log("current_project: " + data.path);
+		storage.get('storyteller', function (error, data) {
+
+			if (error) throw error;
+
+			console.log("theme: " + data.theme);
+
+			if (data.theme) {
+				props.setTheme(data.theme);
+			}
+
+			console.log("current_project: " + data.path);
+
             if(data.path) {
 				props.openProject(data.path);
 			}
-			console.log("theme: " + data.theme);
-			if (data.theme) {
-				props.setTheme(data.theme);
-            }
         });
     }
 
