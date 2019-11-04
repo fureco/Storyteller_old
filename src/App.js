@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './routes/HomeRoute';
+import Root from './routes/RootRoute';
 import { Provider } from 'react-redux';
 
 import store from './store';
@@ -15,7 +15,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<Home />
+				<Root />
 			</Provider>
 		);
 	}
