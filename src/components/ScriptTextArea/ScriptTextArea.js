@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Route, withRouter, Switch, Redirect } from "react-router-dom";
+import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import { appStateActions } from "./../../store/actions";
 
 import './ScriptTextArea.css';
+
+import Nav from './../ScriptStructure/Nav/Nav.js';
 
 import Abstract from '../Abstract/Abstract';
 import Dedication from '../Dedication/Dedication';
@@ -45,23 +47,7 @@ class ScriptTextArea extends React.Component {
 				}}
 			>
 
-				<Tabs
-					id="ScriptNav"
-					selectedTabId={this.props.selectedTabId}
-					onChange={this.handleTabChange.bind(this)}
-					animate="true">
-					<Tab id="abstract">
-						<Link to="/script/structure/abstract">Abstract</Link>
-					</Tab>
-					<Tab id="dedication">
-						<Link to="/script/structure/dedication">Dedication</Link>
-					</Tab>
-					<Tab id="parts">
-						<Link to="/script/structure/parts">Parts</Link>
-					</Tab>
-					<Tab id="chapters" title="Chapters" />
-					<Tab id="scenes" title="Scenes" />
-				</Tabs>
+				<Nav />
 
 				<div id="ScriptStructureContent">
 					<Switch>

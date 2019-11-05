@@ -27,7 +27,7 @@ class ScriptStructure extends React.Component {
 
 				<ScriptTitle />
 
-				<Nav />
+				<Nav vertical />
 
 				<Parts />
 

@@ -17,7 +17,7 @@ class Nav extends React.Component {
 		this.state = {
 
 			themeName: props.themeName || "bp3-body", // null || bp3-dark
-			vertical: props.vertical || true,
+			vertical: props.vertical || false,
 
 		};
 	}
