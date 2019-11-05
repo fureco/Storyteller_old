@@ -17,13 +17,13 @@ class Nav extends React.Component {
 		this.state = {
 
 			themeName: props.themeName || "bp3-body", // null || bp3-dark
+			vertical: props.vertical || true,
 
 		};
 	}
 
 	handleTabChange(navbarTabId) {
-		this.props.selectScriptStructureArea(navbarTabId);
-		this.props.setRoute(window.location.hash);
+		this.props.changeCurrentScriptStructureRoute(navbarTabId);
 		this.props.saveAppState();
 	}
 
@@ -35,9 +35,9 @@ class Nav extends React.Component {
 				id="ScriptStructureNav"
 				className={this.state.themeName}
 				onChange={this.handleTabChange.bind(this)}
-				selectedTabId={this.props.appState.selectedScriptStructureArea}
+				selectedTabId={this.props.selectedTabId}
 				animate="true"
-				vertical="true">
+				vertical={this.state.vertical}>
 
 				<Tab id="abstract">
 					<Link to="/script/structure/abstract">Abstract</Link>
@@ -57,13 +57,13 @@ class Nav extends React.Component {
 function mapStateToProps({ appStateReducer, }) {
 	return {
 		appState: appStateReducer,
+		selectedTabId: appStateReducer.route.script.structure ? appStateReducer.route.script.structure.current : 'abstract'
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		selectScriptStructureArea: (navbarTabId) => dispatch(appStateActions.selectScriptStructureArea(navbarTabId)),
-		setRoute: (route) => dispatch(appStateActions.setRoute(route)),
+		changeCurrentScriptStructureRoute: (navbarTabId) => dispatch(appStateActions.changeCurrentScriptStructureRoute(navbarTabId)),
 		saveAppState: () => dispatch(appStateActions.save()),
 	};
 }

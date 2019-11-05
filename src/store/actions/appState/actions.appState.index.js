@@ -1,21 +1,17 @@
 import storage from 'electron-json-storage';
+import { initialState } from './../../models/appStateModel'
 
 const fs = require('fs');
 
 // ############## ACTION TYPES #################
 export const SET_PATH = 'SET_PATH';
+export const SET_ROUTE = 'SET_ROUTE';
 export const SET_THEME = 'SET_THEME';
-export const SELECT_MAIN_AREA = 'SELECT_MAIN_AREA';
-export const SELECT_SCRIPT_AREA = 'SELECT_SCRIPT_AREA';
-export const SELECT_SCRIPT_STRUCTURE_AREA = 'SELECT_SCRIPT_STRUCTURE_AREA';
 
 // ############## ACTIONS #################
 export const setPath = (path) => ({ type: SET_PATH, path });
+export const setRoute = (route) => ({ type: SET_ROUTE, route });
 export const setTheme = (theme) => ({ type: SET_THEME, theme });
-export const selectMainArea = (navbarTabId) => ({ type: SELECT_MAIN_AREA, navbarTabId });
-export const selectScriptArea = (navbarTabId) => ({ type: SELECT_SCRIPT_AREA, navbarTabId });
-export const selectScriptStructureArea = (navbarTabId) => ({ type: SELECT_SCRIPT_STRUCTURE_AREA, navbarTabId });
-
 
 export const changeTheme = (theme) => {
 
@@ -39,6 +35,53 @@ export const changeTheme = (theme) => {
 	}
 }
 
+export const changeCurrentRootRoute = (navbarTabId) => {
+
+	return (dispatch, getState) => {
+
+		var route_copy = getState().appStateReducer.route || initialState.route;
+		route_copy.current = navbarTabId;
+
+		var route = Object.assign({}, getState().appStateReducer.route, route_copy);
+
+		dispatch(setRoute(route));
+	}
+}
+
+export const changeCurrentScriptRoute = (navbarTabId) => {
+
+	return (dispatch, getState) => {
+
+		var route_copy = getState().appStateReducer.route || initialState.route;
+		route_copy.script.current = navbarTabId;
+
+		var route = Object.assign({}, getState().appStateReducer.route, route_copy);
+
+		dispatch(setRoute(route));
+	}
+}
+
+export const changeCurrentScriptStructureRoute = (navbarTabId) => {
+
+	return (dispatch, getState) => {
+
+		var route_copy = getState().appStateReducer.route || initialState.route;
+
+		if ( route_copy.script.structure ) {
+			route_copy.script.structure.current = navbarTabId;
+		}
+		else {
+			route_copy.script.structure = { current: navbarTabId };
+		}
+
+		var route = Object.assign({}, getState().appStateReducer.route, route_copy);
+
+		console.log(route)
+
+		dispatch(setRoute(route));
+	}
+}
+
 export const load = (directoryPath) => {
 
 	return (dispatch, getState) => {
@@ -47,9 +90,9 @@ export const load = (directoryPath) => {
 
 			if (error) throw error;
 
-			console.log("load app state: " + storageData.path);
-
 			if (storageData.path) {
+
+				console.log("load app state: " + storageData.path);
 
 				return fs.readFile(storageData.path + '/appState.json', (err, fileData) => {
 
@@ -60,10 +103,9 @@ export const load = (directoryPath) => {
 						return;
 					}
 
-					var jsonData = JSON.parse(fileData);
+					let jsonData = JSON.parse(fileData);
 
-					dispatch(selectMainArea(jsonData.selectedMainArea));
-					dispatch(selectScriptArea(jsonData.selectedScriptArea));
+					dispatch(setRoute(jsonData.route || initialState.route));
 				});
 			}
 		});

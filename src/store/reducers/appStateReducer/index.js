@@ -10,24 +10,14 @@ const appStateReducer = (state = initialState, action) => {
                 path: action.path
 			});
 
+		case appStateActions.SET_ROUTE:
+			return Object.assign({}, state, {
+				route: action.route
+			});
+
 		case appStateActions.SET_THEME:
 			return Object.assign({}, state, {
 				theme: action.theme
-			});
-
-		case appStateActions.SELECT_MAIN_AREA:
-			return Object.assign({}, state, {
-				selectedMainArea: action.navbarTabId
-			});
-
-		case appStateActions.SELECT_SCRIPT_AREA:
-			return Object.assign({}, state, {
-				selectedScriptArea: action.navbarTabId
-			});
-
-		case appStateActions.SELECT_SCRIPT_STRUCTURE_AREA:
-			return Object.assign({}, state, {
-				selectedScriptStructureArea: action.navbarTabId
 			});
 
         default:

@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
-import FileTree from '../../components/FileTree';
-import { ScriptNav, ScriptStructure } from '../../components';
-import ScriptTextArea from '../../components/ScriptTextArea/ScriptTextArea';
-import FileBrowserTextArea from '../../components/Project/FileBrowserTextArea';
+import FileTree from '../../../components/FileTree';
+import ScriptLayout from './ScriptRoutes/LayoutRoute.js';
+import { ScriptNav, ScriptStructure } from '../../../components';
+import ScriptTextArea from '../../../components/ScriptTextArea/ScriptTextArea';
+import FileBrowserTextArea from '../../../components/Project/FileBrowserTextArea';
 
 class ScriptRoute extends React.Component {
 
@@ -37,7 +38,7 @@ class ScriptRoute extends React.Component {
 
 			<div id="MainAreaViewWrite" style={{ display: 'flex', flexDirection: 'row', flexGrow: '1' }}>
 
-				{/* {window.location.hash} */}
+				{/* {window.location.hash} -> {this.props.route} */}
 
                 <div
                     id="DirectoryTreeView"
@@ -56,8 +57,9 @@ class ScriptRoute extends React.Component {
 
 					<div>
 						<Switch>
-							<Redirect exact from="/script" to="/script/structure" />
+							<Redirect exact from="/script" to={this.props.route} />
 							<Route path="/script/structure" component={() => { return <ScriptStructure /> }} />
+							<Route path="/script/layout" component={() => { return <ScriptLayout /> }} />
 							<Route path="/script/files" component={() => {
 								return <FileTree
 									directory={this.props.project.path}
@@ -69,8 +71,9 @@ class ScriptRoute extends React.Component {
 				</div>
 
 				<Switch>
-					<Redirect exact from="/script" to="/script/structure" />
+					<Redirect exact from="/script" to={this.props.route} />
 					<Route path="/script/structure" component={() => { return <ScriptTextArea /> }} />
+					<Route path="/script/layout" component={() => { return <ScriptLayout /> }} />
 					<Route path="/script/files" component={() => { return <FileBrowserTextArea /> }} />
 				</Switch>
 
@@ -80,13 +83,17 @@ class ScriptRoute extends React.Component {
 }
 
 
-function mapStateToProps ({ projectReducer }) {
+function mapStateToProps({ appStateReducer, projectReducer }) {
+
+	var route = "/script/" + (appStateReducer.route.script.current || 'structure');
+
     return {
-        project: projectReducer,
+		project: projectReducer,
+		route,
     };
 }
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     null
-)(withRouter(ScriptRoute))
+)(ScriptRoute))

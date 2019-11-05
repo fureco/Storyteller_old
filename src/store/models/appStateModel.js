@@ -1,7 +1,22 @@
 export const initialState = {
 	path: "",
 	theme: "bp3-body",
-	selectedMainArea: "script",
-	selectedScriptArea: "structure",
-	selectedScriptStructureArea: "abstract"
+	route: {
+		current: "script",
+		script: {
+			current: "structure",
+			structure: {
+				current: 'abstract'
+			}
+		},
+		characters: {
+
+		},
+		locations: {
+
+		},
+		timeline: {
+
+		}
+	}
 };

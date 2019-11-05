@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, withRouter, Switch, Redirect } from "react-router-dom";
-// import { projectActions } from './../../../store/actions';
+import { appStateActions } from "./../../store/actions";
 
 import './ScriptTextArea.css';
 
@@ -10,10 +10,8 @@ import Dedication from '../Dedication/Dedication';
 import Parts from '../Parts/Parts';
 
 import {
-	Button,
 	Tab,
 	Tabs,
-	TextArea
 } from '@blueprintjs/core';
 
 class ScriptTextArea extends React.Component {
@@ -23,17 +21,12 @@ class ScriptTextArea extends React.Component {
         super(props);
 
 		this.state = {
-			selectedTabId: this.getTabId(),
         };
 	}
 
-	getTabId() {
-		let tabId = '/script/structure/abstract';
-		let splitted_location = window.location.hash.replace("#", "").split("/");
-		if (splitted_location[1] && splitted_location[2] && splitted_location[3]) {
-			tabId = "/" + splitted_location[1] + "/" + splitted_location[2] + "/" + splitted_location[3];
-		}
-		return tabId;
+	handleTabChange(navbarTabId) {
+		this.props.changeCurrentScriptStructureRoute(navbarTabId);
+		this.props.saveAppState();
 	}
 
     render() {
@@ -52,18 +45,22 @@ class ScriptTextArea extends React.Component {
 				}}
 			>
 
-				<Tabs id="ScriptNav" selectedTabId={this.state.selectedTabId} animate="true">
-					<Tab id="/script/structure/abstract">
+				<Tabs
+					id="ScriptNav"
+					selectedTabId={this.props.selectedTabId}
+					onChange={this.handleTabChange.bind(this)}
+					animate="true">
+					<Tab id="abstract">
 						<Link to="/script/structure/abstract">Abstract</Link>
 					</Tab>
-					<Tab id="/script/structure/dedication">
+					<Tab id="dedication">
 						<Link to="/script/structure/dedication">Dedication</Link>
 					</Tab>
-					<Tab id="/script/structure/parts">
+					<Tab id="parts">
 						<Link to="/script/structure/parts">Parts</Link>
 					</Tab>
-					<Tab id="/script/structure/chapters" title="Chapters" />
-					<Tab id="/script/structure/scenes" title="Scenes" />
+					<Tab id="chapters" title="Chapters" />
+					<Tab id="scenes" title="Scenes" />
 				</Tabs>
 
 				<div id="ScriptStructureContent">
@@ -81,15 +78,17 @@ class ScriptTextArea extends React.Component {
     }
 }
 
-function mapStateToProps ({ projectReducer }) {
+function mapStateToProps({ appStateReducer, projectReducer }) {
   return {
-    project: projectReducer,
+	  project: projectReducer,
+	  selectedTabId: appStateReducer.route.script.structure ? appStateReducer.route.script.structure.current : 'abstract'
   };
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		// setAbstract: abstract => dispatch(projectActions.setAbstractAction(abstract)),
+		changeCurrentScriptStructureRoute: (navbarTabId) => dispatch(appStateActions.changeCurrentScriptStructureRoute(navbarTabId)),
+		saveAppState: () => dispatch(appStateActions.save()),
 	};
 }
 

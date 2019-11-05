@@ -74,7 +74,7 @@ class Project extends React.Component {
 				<div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
 					<div style={{ display: 'flex', flexGrow: '1' }}>
 						<Switch>
-							<Redirect exact from="/" to="/script" />
+							<Redirect exact from="/" to={this.props.route} />
 							<Route path="/script" component={() => { return <ScriptRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/characters" component={() => { return <h2>Characters</h2> }} />
 							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />
@@ -101,6 +101,7 @@ class Project extends React.Component {
 function mapStateToProps({ appStateReducer }) {
 	return {
 		appState: appStateReducer,
+		route: "/" + (appStateReducer.route ? appStateReducer.route.current : 'script'),
 	};
 }
 

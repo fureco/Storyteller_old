@@ -19,14 +19,14 @@ class ScriptRoute extends React.Component {
 	}
 
 	handleTabChange(navbarTabId) {
-		this.props.selectScriptArea(navbarTabId);
+		this.props.changeCurrentScriptRoute(navbarTabId);
 		this.props.saveAppState();
 	}
 
 	render() {
 
 		return (
-			<Tabs id="ScriptNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.selectedScriptArea} animate="true" >
+			<Tabs id="ScriptNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.route.script.current} animate="true" >
 				<Tab id="structure">
 					<Link to="/script/structure">Structure</Link>
 				</Tab>
@@ -51,7 +51,7 @@ function mapStateToProps({ appStateReducer, projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		selectScriptArea: (navbarTabId) => dispatch(appStateActions.selectScriptArea(navbarTabId)),
+		changeCurrentScriptRoute: (navbarTabId) => dispatch(appStateActions.changeCurrentScriptRoute(navbarTabId)),
 		saveAppState: () => dispatch(appStateActions.save()),
 	};
 }

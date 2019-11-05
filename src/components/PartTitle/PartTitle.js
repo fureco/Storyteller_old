@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { partActions, projectActions } from '../../store/actions';
+import { projectActions } from '../../store/actions';
 
 import './PartTitle.css';
 
@@ -103,7 +103,7 @@ function mapStateToProps({ projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		setPartTitle: title => dispatch(partActions.setTitle(title)),
+		setPartTitle: title => dispatch(projectActions.setPartTitle(title)),
 		saveProject: () => dispatch(projectActions.save()),
 	};
 }

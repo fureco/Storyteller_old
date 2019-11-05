@@ -41,7 +41,7 @@ export class TopNavBar extends React.Component {
 	}
 
 	handleTabChange(navbarTabId) {
-		this.props.selectMainArea(navbarTabId);
+		this.props.changeCurrentRootRoute(navbarTabId);
 		this.props.saveAppState();
 	}
 
@@ -96,7 +96,7 @@ export class TopNavBar extends React.Component {
 					}
 
                     { this.props.appState.path &&
-						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.selectedMainArea} animate="true">
+						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.route.current} animate="true">
                             <Tab id="script">
                                 <Link to="/script"><Icon icon="draw" /> Script</Link>
                             </Tab>
@@ -139,7 +139,7 @@ function mapStateToProps({ appStateReducer, projectReducer }) {
 function mapDispatchToProps (dispatch) {
 	return {
 		closeProject: () => dispatch(projectActions.closeProjectAction()),
-		selectMainArea: (navbarTabId) => dispatch(appStateActions.selectMainArea(navbarTabId)),
+		changeCurrentRootRoute: (navbarTabId) => dispatch(appStateActions.changeCurrentRootRoute(navbarTabId)),
 		changeTheme: (theme) => dispatch(appStateActions.changeTheme(theme)),
 		saveAppState: () => dispatch(appStateActions.save()),
     };
