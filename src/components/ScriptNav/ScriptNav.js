@@ -26,17 +26,19 @@ class ScriptRoute extends React.Component {
 	render() {
 
 		return (
-			<Tabs id="ScriptNav" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.route.script.current} animate="true" >
-				<Tab id="structure">
-					<Link to="/script/structure">Structure</Link>
-				</Tab>
-				<Tab id="layout">
-					<Link to="/script/layout">Layout</Link>
-				</Tab>
-				<Tab id="files">
-					<Link to="/script/files">File Browser</Link>
-				</Tab>
-			</Tabs>
+			<div id="ScriptNav" style={{ marginBottom: '10px' }} >
+				<Tabs onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.route.script.current} animate="true" >
+					<Tab id="structure">
+						<Link to="/script/structure">Structure</Link>
+					</Tab>
+					<Tab id="layout">
+						<Link to="/script/layout">Layout</Link>
+					</Tab>
+					<Tab id="files">
+						<Link to="/script/files">File Browser</Link>
+					</Tab>
+				</Tabs>
+			</div>
 		);
 	}
 }

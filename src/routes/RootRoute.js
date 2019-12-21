@@ -48,7 +48,7 @@ class Root extends React.Component {
 
         return (
 			<Router>
-				<div id="Layout" style={styles.container}>
+				<div style={styles.container}>
 					{content}
 				</div>
             </Router>
