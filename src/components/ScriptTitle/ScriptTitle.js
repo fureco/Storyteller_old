@@ -6,6 +6,7 @@ import './ScriptTitle.css';
 
 import {
 	Button,
+	ButtonGroup,
 	EditableText,
 	InputGroup,
 	Text,
@@ -70,18 +71,20 @@ export class ScriptTitle extends React.Component {
 							onChange={() => this.setState({ value: event.target.value })} />
 
 						<div id="ScriptTitleButtons">
-							<Button
-								minimal={false}
-								disabled={!this.state.value.length}
-								icon="floppy-disk"
-								onClick={this.save.bind(this)}
-							/>
-							<Button
-								minimal={false}
-								disabled={!this.state.value.length}
-								icon="small-cross"
-								onClick={this.undoEditing.bind(this)}
-							/>
+							<ButtonGroup>
+								<Button
+									minimal={false}
+									disabled={!this.state.value.length}
+									icon="floppy-disk"
+									onClick={this.save.bind(this)}
+								/>
+								<Button
+									minimal={false}
+									disabled={!this.state.value.length}
+									icon="small-cross"
+									onClick={this.undoEditing.bind(this)}
+								/>
+							</ButtonGroup>
 						</div>
 
 					</div>
