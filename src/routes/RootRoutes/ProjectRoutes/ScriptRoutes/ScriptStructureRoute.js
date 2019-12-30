@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
-import { ScriptStructure } from '../../../../components';
-import ScriptTextArea from '../../../../components/ScriptTextArea/ScriptTextArea';
+import { ScriptStructure, Parts } from '../../../../components';
+import { Abstract, Dedication } from './ScriptStructureRoutes';
 
 import {
 	Colors,
@@ -30,7 +30,7 @@ class ScriptStructureRoute extends React.Component {
 
 		fetch(file.filePath)
 			.then(r => r.text())
-			.then(text => document.getElementById('FileBrowserTextArea').value = text)
+			.then(text => this.setState(text, text))
 	}
 
 	render() {
@@ -40,7 +40,7 @@ class ScriptStructureRoute extends React.Component {
 			<div id="ScriptStructureRoute" style={{ display: 'flex', flexDirection: 'row', height: '100%', marginBottom: '10px' }}>
 
 				<div
-					id="DirectoryTreeView"
+					id="TreeviewColumn"
 					style={{
 						width: '300px',
 						overflow: 'auto',
@@ -57,12 +57,27 @@ class ScriptStructureRoute extends React.Component {
 
 				</div>
 
-				<Switch>
-					<Redirect exact from="/script" to={this.props.route} />
-					<Route path="/script/structure" component={() => { return <ScriptTextArea /> }} />
-					<Route path="/script/layout" component={() => { return <ScriptLayout /> }} />
-					<Route path="/script/files" component={() => { return <FileBrowserTextArea /> }} />
-				</Switch>
+				<div
+					id="ContentColumn"
+					style={{
+						overflow: 'auto',
+						border: `1px solid ${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
+						resize: 'none',
+						outline: 'none',
+						padding: '10px',
+						flex: '1'
+					}}
+				>
+					<Switch>
+						<Redirect exact from="/script/structure" to="/script/structure/abstract" />
+						<Route path="/script/structure/abstract" component={() => { return <Abstract /> }} />
+						<Route path="/script/structure/dedication" component={() => { return <Dedication /> }} />
+						<Route path="/script/structure/parts" component={() => { return <Parts /> }} />
+						<Route path="/script/structure/chapters" component={() => { return "Chapters" }} />
+						<Route path="/script/structure/scenes" component={() => { return "Scenes" }} />
+					</Switch>
+
+				</div>
 
 			</div>
 		);

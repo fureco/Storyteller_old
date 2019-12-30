@@ -38,7 +38,7 @@ class Parts extends React.Component {
 		return (
 			<div>
 
-				<div>{window.location.hash}</div>
+				{/* <div>{window.location.hash}</div> */}
 
 				{parts}
 
