@@ -58,28 +58,17 @@ class Part extends React.Component {
 			hasCaret: true,
 			isExpanded: false,
 			icon: "folder-close",
-			label: <div>
-				<Link to={`/script/structure/parts/${this.props.part.position}`}>Part {this.props.part.position}: {this.props.part.title}</Link>
+			label: <Link to={`/script/structure/parts/${this.props.part.position}`}>Part {this.props.part.position}: {this.props.part.title}</Link>,
+			secondaryLabel:
 				<ButtonGroup>
 					<Button minimal icon="edit" />
+					<Button minimal icon="trash" onClick={() => this.handleOpenMovePartToTrashAlert()} />
 					<Button minimal icon="drag-handle-vertical" />
-				</ButtonGroup>
-			</div>,
+				</ButtonGroup>,
 			childNodes: children,
 		};
 
 		treeContent.push(aPart);
-
-		// let popoverContent = (
-		// 	<ButtonGroup vertical alignText={Alignment.LEFT}>
-		// 		<Button icon="add-row-top">Create part before</Button>
-		// 		<Button icon="add-row-bottom">Create part after</Button>
-		// 		<Button icon="trash"
-		// 			onClick={() => this.handleMovePartToTrashOpen(part)}>
-		// 			Move to trash
-		// 		</Button>
-		// 	</ButtonGroup>
-		// );
 
 		return (
 
@@ -97,20 +86,19 @@ class Part extends React.Component {
 		);
 	}
 
-	handleMovePartToTrashOpen(part) {
-		this.setState({ movePartToTrashIsOpen: true });
-		this.setState({ movePartToTrashPart: part });
+	handleOpenMovePartToTrashAlert() {
+		this.setState({ movePartToTrashAlertIsOpen: true });
 	}
 
 	handleMovePartToTrashConfirm() {
-		this.setState({ movePartToTrashIsOpen: false });
+		this.setState({ movePartToTrashAlertIsOpen: false });
 		this.setState({ movePartToTrashPart: '' });
 		this.toaster.show({ intent: Intent.SUCCESS, className: this.state.themeName, message: <TOAST_MESSAGE part={this.props.part} /> });
 		this.props.deletePart(this.state.movePartToTrashPart.id);
 	}
 
 	handleMovePartToTrashCancel() {
-		this.setState({ movePartToTrashIsOpen: false });
+		this.setState({ movePartToTrashAlertIsOpen: false });
 		this.setState({ movePartToTrashPart: '' });
 	}
 }

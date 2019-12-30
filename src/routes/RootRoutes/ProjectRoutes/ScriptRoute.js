@@ -31,9 +31,9 @@ class ScriptRoute extends React.Component {
 				{/* <ScriptNav /> */}
 
 				<Switch>
-						<Redirect exact from="/script" to={this.props.route} />
-						<Route path="/script/structure" component={() => { return <ScriptStructureRoute /> }} />
-						<Route path="/script/layout" component={() => { return <ScriptLayout /> }} />
+					<Redirect exact from="/script" to={this.props.route} />
+					<Route path="/script/structure" component={() => { return <ScriptStructureRoute /> }} />
+					<Route path="/script/layout" component={() => { return <ScriptLayout /> }} />
 					<Route path="/script/files" component={() => {
 						return <ScriptStructureRoute />
 							// return <FileTree
@@ -41,7 +41,7 @@ class ScriptRoute extends React.Component {
 							// 	onFileClick={this.onFileClick.bind(this)}
 							// />
 						}} />
-					</Switch>
+				</Switch>
             </div>
         );
     }

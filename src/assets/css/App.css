@@ -20,11 +20,16 @@ button:focus, .bp3-tab:focus {
 .row {
 	display: flex;
 	flex-direction: row;
+	padding: 10px 0;
 }
 
 .bp3-dark {
     color: #f5f8fa;
     background-color: #394B59;
+}
+
+.bp3-input-group:not(:last-child) {
+	padding-right: 10px;
 }
 
 .bp3-button.bp3-minimal:active, .bp3-button.bp3-minimal.bp3-active {

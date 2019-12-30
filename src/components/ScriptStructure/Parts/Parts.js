@@ -84,21 +84,6 @@ class Parts extends React.Component {
 				<Alert
 					className={this.state.themeName}
 					cancelButtonText="Cancel"
-					confirmButtonText="Add"
-					icon="plus"
-					intent={Intent.PRIMARY}
-					isOpen={this.state.addNewPartIsOpen}
-					onCancel={() => this.handleAddNewPartCancel()}
-					onConfirm={() => this.handleAddNewPartConfirm()}
-				>
-					<p>
-						Are you sure you want to move <b>Part {this.state.movePartToTrashPart.position}: {this.state.movePartToTrashPart.name}</b> to Trash?
-			 		</p>
-				</Alert>
-
-				<Alert
-					className={this.state.themeName}
-					cancelButtonText="Cancel"
 					confirmButtonText="Move to Trash"
 					icon="trash"
 					intent={Intent.DANGER}

@@ -11,6 +11,7 @@ import {
 } from '../../components';
 
 import ScriptRoute from './ProjectRoutes/ScriptRoute';
+import CharactersRoute from './ProjectRoutes/CharactersRoute';
 
 class Project extends React.Component {
 
@@ -76,7 +77,7 @@ class Project extends React.Component {
 						<Switch>
 							<Redirect exact from="/" to={this.props.route} />
 							<Route path="/script" component={() => { return <ScriptRoute path_to_project={this.props.appState.path} /> }} />
-							<Route path="/characters" component={() => { return <h2>Characters</h2> }} />
+							<Route path="/characters" component={() => { return <CharactersRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />
 							<Route path="/timeline" component={() => { return <h2>Timeline</h2> }} />
 						</Switch>
