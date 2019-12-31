@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from "react-router-dom";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import {
 	Colors,
@@ -57,7 +57,7 @@ class Project extends React.Component {
 					height: '100vh'
 				}}>
 
-				{/* {window.location.hash} */}
+				{/* <div>{window.location.hash} -> {this.props.route}</div> */}
 
 				<TopNavBar />
 
@@ -75,7 +75,7 @@ class Project extends React.Component {
 				<div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
 					<div style={{ display: 'flex', flexGrow: '1' }}>
 						<Switch>
-							<Redirect exact from="/" to={this.props.route} />
+							<Redirect exact from='/' to={this.props.route} />
 							<Route path="/script" component={() => { return <ScriptRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/characters" component={() => { return <CharactersRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />
@@ -106,7 +106,7 @@ function mapStateToProps({ appStateReducer }) {
 	};
 }
 
-export default connect(
+export default withRouter(connect(
 	mapStateToProps,
 	null
-)(Project)
+)(Project))
