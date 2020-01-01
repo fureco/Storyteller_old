@@ -15,21 +15,15 @@ class Dedication extends React.Component {
 		};
 	}
 
-	undoEditing() {
-		this.setState({
-			text: this.props.project.dedication
-		});
-	}
-
-	save() {
-		this.props.setDedication(this.state.text);
+	save(text) {
+		this.props.setDedication(text);
 		this.props.saveProject();
 	}
 
 	render() {
 
 		return (
-			<TextAreaWithPreview text={this.state.text} text={this.state.text} save={this.save.bind(this)} />
+			<TextAreaWithPreview text={this.state.text} save={this.save.bind(this)} />
 		);
 	}
 }
