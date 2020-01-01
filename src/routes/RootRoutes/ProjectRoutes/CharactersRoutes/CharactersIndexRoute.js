@@ -21,11 +21,20 @@ class CharactersIndexRoute extends React.Component {
 
 	render() {
 
+		var characters = this.props.characters
+			.map((name, index) => {
+				return (
+					<Link to={`/script/structure/parts/${index}`} key={this.props.characters[index].id}>{this.props.characters[index].first_name} {this.props.characters[index].last_name}</Link>
+				);
+			});
+
 		return (
 
 			<div id="CharactersList" style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
 
-				{window.location.hash} -> {this.props.route}
+				{/* {window.location.hash} -> {this.props.route} */}
+
+				{characters}
 
 				<Link to="/characters/create">
 					<Button
@@ -43,13 +52,13 @@ class CharactersIndexRoute extends React.Component {
 }
 
 
-function mapStateToProps({ appStateReducer, projectReducer }) {
+function mapStateToProps({ appStateReducer, charactersReducer }) {
 
 	var route = "/characters/index";
 
 	return {
 		appState: appStateReducer,
-		project: projectReducer,
+		characters: charactersReducer,
 		route,
 	};
 }

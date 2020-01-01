@@ -68,14 +68,26 @@ class ScriptStructureRoute extends React.Component {
 						flex: '1'
 					}}
 				>
-					<Switch>
-						<Redirect exact from="/script/structure" to="/script/structure/abstract" />
-						<Route path="/script/structure/abstract" component={() => { return <Abstract /> }} />
-						<Route path="/script/structure/dedication" component={() => { return <Dedication /> }} />
-						<Route path="/script/structure/parts" component={() => { return <Parts /> }} />
-						<Route path="/script/structure/chapters" component={() => { return "Chapters" }} />
-						<Route path="/script/structure/scenes" component={() => { return "Scenes" }} />
-					</Switch>
+					{
+						this.props.route === '/script/structure/abstract' &&
+						<Abstract />
+					}
+					{
+						this.props.route === '/script/structure/dedication' &&
+						<Dedication />
+					}
+					{
+						this.props.route === '/script/structure/parts' &&
+						<Parts />
+					}
+					{
+						this.props.route === '/script/structure/chapters' &&
+						"Chapters"
+					}
+					{
+						this.props.route === '/script/structure/scenes' &&
+						"Scenes"
+					}
 
 				</div>
 

@@ -217,7 +217,8 @@ function storytellerProjectFileExists(directoryPath) {
 	let fileNameExists = false;
 
 	fs.readdirSync(directoryPath).forEach(fileName => {
-		fileNameExists = fileName == "project.json";
+		if (fileName == "project.json") fileNameExists = true;
+		// console.log(fileName, fileNameExists)
 	});
 
 	return fileNameExists;

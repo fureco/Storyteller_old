@@ -17,7 +17,9 @@ class ScriptRoute extends React.Component {
 
         this.state = {
             selectedFile: null,
-        };
+		};
+
+		// props.history.push(props.route);
 	}
 
 	render() {
@@ -31,7 +33,7 @@ class ScriptRoute extends React.Component {
 				{/* <ScriptNav /> */}
 
 				<Switch>
-					<Redirect exact from="/script" to={this.props.route} />
+					<Redirect exact from="/script" to="/script/structure" />
 					<Route path="/script/structure" component={() => { return <ScriptStructureRoute /> }} />
 					<Route path="/script/layout" component={() => { return <ScriptLayout /> }} />
 					<Route path="/script/files" component={() => {

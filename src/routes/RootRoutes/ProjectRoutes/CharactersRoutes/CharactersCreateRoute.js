@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect, Link } from "react-router-dom";
+import { useHistory, Route, withRouter, Switch, Redirect, Link } from "react-router-dom";
 
 import { charactersActions } from "../../../../store/actions";
 
@@ -9,8 +9,8 @@ import {
 	ButtonGroup,
 	InputGroup,
 } from '@blueprintjs/core';
-import charactersReducer from '../../../../store/reducers/charactersReducer';
 
+import charactersReducer from '../../../../store/reducers/charactersReducer';
 
 class CharactersCreateRoute extends React.Component {
 
@@ -36,6 +36,12 @@ class CharactersCreateRoute extends React.Component {
 		// console.log(this.state.first_name, full_name);
 
 		return full_name;
+	}
+
+	save() {
+		this.props.createCharacter(this.state.character);
+		this.props.saveToFile();
+		this.props.history.push("/characters/index");
 	}
 
 	render() {
@@ -78,7 +84,7 @@ class CharactersCreateRoute extends React.Component {
 						minimal={false}
 						icon="floppy-disk"
 						disabled={!this.full_name().length}
-						onClick={() => this.props.createCharacter(this.state.character)}
+						onClick={() => this.save()}
 					/>
 					<Link to="/characters/index">
 						<Button
@@ -109,7 +115,8 @@ function mapStateToProps({ appStateReducer, projectReducer, charactersReducer })
 
 function mapDispatchToProps(dispatch) {
 	return {
-		createCharacter: (character) => dispatch(charactersActions.createCharacter(character)),
+		createCharacter: (character) => dispatch(charactersActions.addCharacter(character)),
+		saveToFile: () => dispatch(charactersActions.save()),
 	};
 }
 
