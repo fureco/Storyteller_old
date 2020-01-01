@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import {
 	Colors,
@@ -74,13 +73,22 @@ class Project extends React.Component {
 
 				<div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
 					<div style={{ display: 'flex', flexGrow: '1' }}>
-						<Switch>
-							<Redirect exact from='/' to={this.props.route} />
-							<Route path="/script" component={() => { return <ScriptRoute path_to_project={this.props.appState.path} /> }} />
-							<Route path="/characters" component={() => { return <CharactersRoute path_to_project={this.props.appState.path} /> }} />
-							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />
-							<Route path="/timeline" component={() => { return <h2>Timeline</h2> }} />
-						</Switch>
+						{
+							this.props.route === '/script' &&
+							<ScriptRoute path_to_project={this.props.appState.path} />
+						}
+						{
+							this.props.route === '/characters' &&
+							<CharactersRoute path_to_project={this.props.appState.path} />
+						}
+						{
+							this.props.route === '/locations' &&
+							<h2>Locations</h2>
+						}
+						{
+							this.props.route === '/timeline' &&
+							<h2>Timeline</h2>
+						}
 					</div>
 				</div>
 
@@ -106,7 +114,7 @@ function mapStateToProps({ appStateReducer }) {
 	};
 }
 
-export default withRouter(connect(
+export default connect(
 	mapStateToProps,
 	null
-)(Project))
+)(Project)
