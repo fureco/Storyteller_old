@@ -22,9 +22,16 @@ class CharactersIndexRoute extends React.Component {
 	render() {
 
 		var characters = this.props.characters
+			.filter((character) => {
+				console.log(character.deleted_at)
+				return character.deleted_at == null
+			})
+			.sort((a, b) => ('' + a.first_name).localeCompare(b.first_name))
 			.map((name, index) => {
 				return (
-					<Link to={`/script/structure/parts/${index}`} key={this.props.characters[index].id}>{this.props.characters[index].first_name} {this.props.characters[index].last_name}</Link>
+					<Link to={`/characters/${this.props.characters[index].id}`} key={this.props.characters[index].id}>
+						{this.props.characters[index].first_name} {this.props.characters[index].last_name}
+					</Link>
 				);
 			});
 

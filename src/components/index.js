@@ -1,3 +1,4 @@
+import Character from './Character/Character';
 import CreateProjectButton from './CreateProjectButton/CreateProjectButton';
 import OpenProjectButton from './OpenProjectButton/OpenProjectButton';
 import Parts from './Parts/Parts';
@@ -10,6 +11,7 @@ import TopNavBar from './TopNavBar/TopNavBar';
 
 // export all components as modules
 export {
+	Character,
 	CreateProjectButton,
 	OpenProjectButton,
 	Parts,

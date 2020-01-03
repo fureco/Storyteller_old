@@ -29,7 +29,9 @@ class Parts extends React.Component {
 			.sort((a, b) => a.position > b.position)
 			.map((name, index) => {
 				return (
-					<Link to={`/script/structure/parts/${index}`} key={this.props.project.parts[index].id}>Part {this.props.project.parts[index].position}: {this.props.project.parts[index].name}</Link>
+					<Link to={`/script/structure/parts/${index}`} key={this.props.project.parts[index].id}>
+						Part {this.props.project.parts[index].position}: {this.props.project.parts[index].name}
+					</Link>
 				);
 			});
 

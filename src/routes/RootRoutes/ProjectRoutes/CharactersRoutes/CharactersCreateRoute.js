@@ -10,8 +10,6 @@ import {
 	InputGroup,
 } from '@blueprintjs/core';
 
-import charactersReducer from '../../../../store/reducers/charactersReducer';
-
 class CharactersCreateRoute extends React.Component {
 
 	constructor(props) {

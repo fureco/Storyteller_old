@@ -1,23 +1,29 @@
-import { characterActions } from './../../actions'
+import { charactersActions } from './../../actions'
 import { initialState } from './../../models/characterModel'
 
 const characterReducer = (state = initialState, action) => {
-
+	// console.log("characterReducer: " + action.type, action)
 	switch (action.type) {
 
-		case characterActions.SET_FIRST_NAME:
+		case charactersActions.SET_FIRST_NAME:
 			return Object.assign({}, state, {
-				firstName: action.firstName
+				first_name: action.first_name
 			});
 
-		case characterActions.SET_LAST_NAME:
+		case charactersActions.SET_LAST_NAME:
 			return Object.assign({}, state, {
-				lastName: action.lastName
+				last_name: action.last_name
 			});
 
-		case characterActions.SET_NICKNAME:
+		case charactersActions.SET_NICKNAME:
 			return Object.assign({}, state, {
 				nickname: action.nickname
+			});
+
+		case charactersActions.SET_DELETED_AT:
+			console.log(state, action.deleted_at)
+			return Object.assign({}, state, {
+				deleted_at: action.deleted_at
 			});
 
 		default:
@@ -26,9 +32,3 @@ const characterReducer = (state = initialState, action) => {
 };
 
 export default characterReducer;
-
-function getNewID(array_of_objects_in_state) {
-
-	let max_id = array_of_objects_in_state.reduce(function (prev, current) { return (prev.id > current.id) ? prev.id : current.id }, 0)
-	return max_id + 1;
-}

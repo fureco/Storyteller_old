@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Router } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 
 import storage from 'electron-json-storage';
 
@@ -40,11 +40,15 @@ class Root extends React.Component {
 
         let content;
 
-        if(this.props.appState.path) {
-			content = <ProjectRoute project={this.props.project} />;
+		if (this.props.appState.path) {
+			content = <Route path="/" component={() => {
+				return <ProjectRoute project={this.props.project} />
+			}} />
         }
         else {
-			content = <Welcome />;
+			content = <Route path="/welcome" component={() => {
+				return <Welcome />
+			}} />
         }
 
         return (

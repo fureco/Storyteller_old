@@ -11,6 +11,10 @@ import {
 	InputGroup,
 } from '@blueprintjs/core';
 
+import {
+	Character
+} from '../../../components';
+
 
 class CharactersRoute extends React.Component {
 
@@ -19,10 +23,10 @@ class CharactersRoute extends React.Component {
 		super(props);
 
 		this.state = {
+			themeName: props.themeName || "bp3-body", // null || bp3-dark
+			selectedCharacter: ''
 		};
 	}
-
-
 
 	render() {
 
@@ -34,13 +38,12 @@ class CharactersRoute extends React.Component {
 
 				<h2>Characters</h2>
 
-				<div>
-					<Switch>
-						<Redirect exact from="/characters" to="/characters/index" />
-						<Route path="/characters/index" component={() => { return <CharactersIndexRoute /> }} />
-						<Route path="/characters/create" component={() => { return <CharactersCreateRoute /> }} />
-					</Switch>
-				</div>
+				<Switch>
+					<Redirect exact from="/characters" to="/characters/index" />
+					<Route path="/characters/index" component={() => { return <CharactersIndexRoute /> }} />
+					<Route path="/characters/create" component={() => { return <CharactersCreateRoute /> }} />
+					<Route path="/characters/:id" children={(props) => <Character {...props} />} />
+				</Switch>
 
 			</div>
 		);
@@ -48,13 +51,13 @@ class CharactersRoute extends React.Component {
 }
 
 
-function mapStateToProps({ appStateReducer, projectReducer }) {
+function mapStateToProps({ appStateReducer, charactersReducer }) {
 
 	var route = "/characters";
 
 	return {
 		appState: appStateReducer,
-		project: projectReducer,
+		characters: charactersReducer,
 		route,
 	};
 }

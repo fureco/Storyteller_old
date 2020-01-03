@@ -4,9 +4,11 @@ const fs = require('fs');
 
 // ############ ACTION TYPES ##############
 export const ADD_CHARACTER = 'ADD_CHARACTER';
+export const SET_DELETED_AT = 'SET_DELETED_AT';
 
 // ############## ACTIONS #################
 export const addCharacter = (character) => ({ type: ADD_CHARACTER, character });
+export const setDeletedAt = (character, deleted_at) => ({ type: SET_DELETED_AT, character, deleted_at });
 
 export const save = () => {
 
@@ -73,7 +75,6 @@ export const load = (directoryPath) => {
 					console.log("characters.json file exists - but is empty");
 				}
 				else {
-					console.log(JSON.parse(data))
 					JSON.parse(data).forEach(character => {
 						dispatch(addCharacter(character));
 					})

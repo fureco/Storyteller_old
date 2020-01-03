@@ -28,9 +28,6 @@ class Parts extends React.Component {
 		super(props);
 
 		this.state = {
-
-			themeName: props.themeName || "bp3-body", // null || bp3-dark
-
 			showPartCreationDialog: false,
 
 			canEscapeKeyCancel: false,
@@ -82,7 +79,7 @@ class Parts extends React.Component {
 				<ScriptPartCreationDialog />
 
 				<Alert
-					className={this.state.themeName}
+					className={this.props.appState.theme}
 					cancelButtonText="Cancel"
 					confirmButtonText="Move to Trash"
 					icon="trash"
@@ -113,8 +110,9 @@ class Parts extends React.Component {
 	// }
 }
 
-function mapStateToProps({ projectReducer }) {
+function mapStateToProps({ appStateReducer, projectReducer }) {
 	return {
+		appState: appStateReducer,
 		project: projectReducer,
 	};
 }
