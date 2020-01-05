@@ -83,6 +83,11 @@ npm run test
 npm run test:watch
 ```
 
+#### Check the code coverage
+```
+npm run test:coverage
+```
+
 #### Run the app in prod (after `npm run build`)
 ```
 npm run prod

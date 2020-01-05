@@ -5,6 +5,7 @@ builds/
 # Development folders and files #
 #################################
 .tmp/
+coverage/
 dist/
 node_modules/
 test_projects/Syleria

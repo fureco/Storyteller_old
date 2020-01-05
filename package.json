@@ -43,7 +43,8 @@
     "package": "npm run build",
     "postpackage": "electron-packager ./ --out=./builds",
     "test": "jest",
-    "test:watch": "npm test -- --watch"
+	"test:watch": "npm test -- --watch",
+	"test:coverage": "npm test -- --coverage"
   },
   "dependencies": {
     "@blueprintjs/core": "^3.19.0",
