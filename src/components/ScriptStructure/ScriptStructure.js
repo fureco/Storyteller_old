@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ScriptTitle from "../ScriptTitle/ScriptTitle";
 import Nav from "./Nav/Nav";
 import Parts from "./Parts/Parts";
-import Trash from "./Trash/Trash";
+import Trash from "./../Trash/Trash.index.js";
 
 import "./ScriptStructure.css";
 
@@ -11,11 +11,22 @@ class ScriptStructure extends React.Component {
 
     constructor(props) {
 
-        super(props);
+		super(props);
+
+		var parts = this.props.project.parts.filter((part) => {
+			return part.deleted_at != null
+		})
+
+		parts = parts.map((part, index) => {
+			return ({
+				label: part.title
+			});
+		});
 
 		this.state = {
 
 			themeName: props.themeName || "bp3-body", // null || bp3-dark
+			parts,
         };
 	}
 
@@ -31,7 +42,7 @@ class ScriptStructure extends React.Component {
 
 				<Parts />
 
-				<Trash />
+				<Trash content={this.state.parts} />
 
 			</div>
         );

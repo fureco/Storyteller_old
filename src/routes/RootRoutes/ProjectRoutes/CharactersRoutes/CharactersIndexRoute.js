@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter, Switch, Redirect, Link } from "react-router-dom";
 
+import Trash from '../../../../components/Trash/Trash.index.js'
+
 import {
 	Button,
 	ButtonGroup,
@@ -21,18 +23,32 @@ class CharactersIndexRoute extends React.Component {
 
 	render() {
 
-		var characters = this.props.characters
+		var active_characters = this.props.characters
 			.filter((character) => {
-				console.log(character.deleted_at)
 				return character.deleted_at == null
 			})
-			.sort((a, b) => ('' + a.first_name).localeCompare(b.first_name))
-			.map((name, index) => {
-				return (
-					<Link to={`/characters/${this.props.characters[index].id}`} key={this.props.characters[index].id}>
-						{this.props.characters[index].first_name} {this.props.characters[index].last_name}
+			.sort((a, b) => ('' + a.first_name).localeCompare(b.first_name));
+
+		active_characters = active_characters.map((name, index) => {
+			return (
+				<Link to={`/characters/${active_characters[index].id}`} key={active_characters[index].id}>
+					{active_characters[index].first_name} {active_characters[index].last_name}
+				</Link>
+			);
+		});
+
+		var deleted_characters = this.props.characters
+			.filter((character) => {
+				return character.deleted_at != null
+			})
+			.sort((a, b) => ('' + a.first_name).localeCompare(b.first_name));
+
+		deleted_characters = deleted_characters.map((name, index) => {
+				return ({
+					label: <Link to={`/characters/${deleted_characters[index].id}`} key={deleted_characters[index].id}>
+						{deleted_characters[index].first_name} {deleted_characters[index].last_name}
 					</Link>
-				);
+				});
 			});
 
 		return (
@@ -41,7 +57,7 @@ class CharactersIndexRoute extends React.Component {
 
 				{/* {window.location.hash} -> {this.props.route} */}
 
-				{characters}
+				{active_characters}
 
 				<Link to="/characters/create">
 					<Button
@@ -52,6 +68,8 @@ class CharactersIndexRoute extends React.Component {
 						// onClick={() => this.toggleEditMode()}
 					/>
 				</Link>
+
+				<Trash content={deleted_characters} />
 
 			</div>
 		);
