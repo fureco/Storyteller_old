@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import { charactersActions } from "../../store/actions";
 
 import {
 	Alert,
 	Button,
 	ButtonGroup,
+	Icon,
 	InputGroup,
 	Intent,
 } from '@blueprintjs/core';
@@ -32,7 +34,10 @@ export class Character extends React.Component {
 
 		return (
 			<div id="Character">
-				<h3>{this.state.first_name} {this.state.last_name}</h3>
+
+				<h2>
+					<Link to={`/characters/index`}>All Characters</Link> / {this.state.first_name} {this.state.last_name}
+				</h2>
 
 				<Button
 					id="DeleteCharacter"

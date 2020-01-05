@@ -48,7 +48,11 @@ class CharactersCreateRoute extends React.Component {
 
 			<div id="CharacterCreation" style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
 
-				<div>{window.location.hash} -> {this.props.route}</div>
+				{/* <div>{window.location.hash} -> {this.props.route}</div> */}
+
+				<h2>
+					<Link to={`/characters/index`}>All Characters</Link> / Create
+				</h2>
 
 				<div>{this.full_name()}</div>
 

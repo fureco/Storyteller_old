@@ -57,6 +57,8 @@ class CharactersIndexRoute extends React.Component {
 
 				{/* {window.location.hash} -> {this.props.route} */}
 
+				<h2>All Characters</h2>
+
 				{active_characters}
 
 				<Link to="/characters/create">

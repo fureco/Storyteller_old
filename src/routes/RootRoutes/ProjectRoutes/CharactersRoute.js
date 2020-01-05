@@ -24,7 +24,6 @@ class CharactersRoute extends React.Component {
 
 		this.state = {
 			themeName: props.themeName || "bp3-body", // null || bp3-dark
-			selectedCharacter: ''
 		};
 	}
 
@@ -35,8 +34,6 @@ class CharactersRoute extends React.Component {
 			<div id="CharactersRoute" style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
 
 				{/* {window.location.hash} -> {this.props.route} */}
-
-				<h2>Characters</h2>
 
 				<Switch>
 					<Redirect exact from="/characters" to="/characters/index" />

@@ -59,7 +59,7 @@ class Project extends React.Component {
 					height: '100vh'
 				}}>
 
-				<div>{window.location.hash} -> {this.props.route}</div>
+				{/* <div>{window.location.hash} -> {this.props.route}</div> */}
 
 				<TopNavBar />
 

@@ -15,5 +15,5 @@ test('Character - renders', () => {
 
 	const result = character.find('#Character');
 	expect(result.length).toEqual(1);
-	expect(result.text()).toEqual('first_name last_name<Blueprint3.Button /><Blueprint3.Alert />');
+	expect(result.text()).toEqual('All Characters / first_name last_name<Blueprint3.Button /><Blueprint3.Alert />');
 });
