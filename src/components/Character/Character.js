@@ -10,7 +10,7 @@ import {
 	Intent,
 } from '@blueprintjs/core';
 
-class Character extends React.Component {
+export class Character extends React.Component {
 
 	constructor(props) {
 
@@ -31,7 +31,7 @@ class Character extends React.Component {
 	render() {
 
 		return (
-			<div>
+			<div id="Character">
 				<h3>{this.state.first_name} {this.state.last_name}</h3>
 
 				<Button

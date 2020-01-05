@@ -1,4 +1,5 @@
 import { charactersActions } from './../../actions'
+import { getNewID } from './../utils'
 
 import characterReducer from './../characterReducer'
 
@@ -21,9 +22,3 @@ const charactersReducer = (state = [], action) => {
 };
 
 export default charactersReducer;
-
-function getNewID(array_of_objects_in_state) {
-
-	let max_id = array_of_objects_in_state.reduce(function (prev, current) { return (prev.id > current.id) ? prev.id : current.id }, 0)
-	return max_id + 1;
-}

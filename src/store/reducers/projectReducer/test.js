@@ -7,12 +7,73 @@ describe('Project reducer', () => {
 
     it('should return the initial state', () => {
         expect(reducer(undefined, {})).toEqual({
-            abstract: "",
+			abstract: "",
+			dedication: "",
             chapters: [],
             parts: [],
             title: ""
         })
-    })
+	})
+
+	it('should handle SET_TITLE', () => {
+		expect(
+			reducer(initialState, {
+				type: projectActions.SET_TITLE,
+				title: 'test'
+			})
+		).toEqual({
+			abstract: "",
+			dedication: "",
+			chapters: [],
+			parts: [],
+			title: "test"
+		})
+	})
+
+	it('should handle SET_ABSTRACT', () => {
+		expect(
+			reducer(initialState, {
+				type: projectActions.SET_ABSTRACT,
+				abstract: 'test'
+			})
+		).toEqual({
+			abstract: "test",
+			dedication: "",
+			chapters: [],
+			parts: [],
+			title: ""
+		})
+	})
+
+	it('should handle SET_DEDICATION', () => {
+		expect(
+			reducer(initialState, {
+				type: projectActions.SET_DEDICATION,
+				dedication: 'test'
+			})
+		).toEqual({
+			abstract: "",
+			dedication: "test",
+			chapters: [],
+			parts: [],
+			title: ""
+		})
+	})
+
+	it('should handle SET_PARTS', () => {
+		expect(
+			reducer(initialState, {
+				type: projectActions.SET_PARTS,
+				parts: [{ "id": 1, "title": "test", "position": 1 }]
+			})
+		).toEqual({
+			abstract: "",
+			dedication: "",
+			chapters: [],
+			parts: [{ "id": 1, "title": "test", "position": 1 }],
+			title: ""
+		})
+	})
 
     it('should handle ADD_PART', () => {
         expect(
@@ -21,7 +82,8 @@ describe('Project reducer', () => {
                 partTitle: 'test'
             })
         ).toEqual({
-            abstract: "",
+			abstract: "",
+			dedication: "",
             chapters: [],
             parts: [{ "id": 1, "title": "test", "position": 1 }],
             title: ""
