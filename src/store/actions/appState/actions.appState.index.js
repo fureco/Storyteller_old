@@ -94,7 +94,7 @@ export const load = (directoryPath) => {
 
 				console.log("load app state: " + storageData.path);
 
-				return fs.readFile(storageData.path + '/appState.json', (err, fileData) => {
+				return fs.readFile(storageData.path + '/src/appState.json', (err, fileData) => {
 
 					if (err) throw err;
 
@@ -127,7 +127,7 @@ export const save = () => {
 
 			if (data.path) {
 
-				fs.writeFile(data.path + "/appState.json", content, (err) => {
+				fs.writeFile(data.path + "/src/appState.json", content, (err) => {
 
 					if (err) throw error;
 

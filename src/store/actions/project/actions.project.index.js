@@ -79,14 +79,14 @@ export const openProjectAction = (directoryPath) => {
 			}
 		});
 
-		if (!storytellerProjectFileExists(directoryPath)) {
+		if (!storytellerProjectFileExists(directoryPath + "/src")) {
 			// TO DO: Show UI dialog that directory is not empty, ask user if it should be used for a new project
 			console.log("project.json file does not exist");
 		}
 		else {
 			console.log("project.json file exists");
 
-			return fs.readFile(directoryPath + '/project.json', (err, fileData) => {
+			return fs.readFile(directoryPath + '/src/project.json', (err, fileData) => {
 
 				if (err) throw err;
 
@@ -200,7 +200,7 @@ export const save = () => {
 			if (error) throw error;
 			console.log("current_project: " + data.path);
 			if (data.path) {
-				fs.writeFile(data.path + "/project.json", content, (err) => {
+				fs.writeFile(data.path + "/src/project.json", content, (err) => {
 					if (err) {
 						console.log("FAILURE: ", err)
 					}
@@ -231,13 +231,13 @@ function createNewStorytellerProjectFile(directoryPath) {
 
 	return (dispatch, getState) => {
 
-		fs.writeFile(directoryPath + "/project.json", JSON.stringify(initialProjectState), (err) => {
+		fs.writeFile(directoryPath + "/src/project.json", JSON.stringify(initialProjectState), (err) => {
 
 			if (err) throw err;
 
 			console.log("creating new app state file...");
 
-			fs.writeFile(directoryPath + "/appState.json", JSON.stringify(initialAppState), (err) => {
+			fs.writeFile(directoryPath + "/src/appState.json", JSON.stringify(initialAppState), (err) => {
 
 				if (err) throw err;
 

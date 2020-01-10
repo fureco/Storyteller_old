@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { appStateActions, projectActions } from "../../store/actions";
 
-import { CreateProjectButton } from './../../components';
+import ncp from "ncp";
 
 import './TopNavBar.css';
 
@@ -67,7 +67,7 @@ export class TopNavBar extends React.Component {
 							}
 						});
 					}} />
-					{this.props.appState.path && <MenuItem text="Save Backup" icon="archive" onClick={() => { }} />}
+					{this.props.appState.path && <MenuItem text="Save Backup" icon="archive" onClick={() => { this.archive() }} />}
 					{this.props.appState.path && <MenuItem text="Restore Backup" icon="unarchive" onClick={() => { }} />}
 					{this.props.appState.path && <MenuItem text="Close" icon="delete" onClick={() => this.props.closeProject()} />}
 				</MenuItem>
@@ -120,7 +120,17 @@ export class TopNavBar extends React.Component {
 
             </Navbar>
         );
-    }
+	}
+
+	archive() {
+		var date = new Date();
+		ncp(this.props.appState.path + "/src", this.props.appState.path + "/archive/" + date.toISOString().split('T')[0], (err) => {
+			if (err) {
+				return console.error(err);
+			}
+			console.log('done!');
+		});
+	}
 }
 
 function mapStateToProps({ appStateReducer, projectReducer }) {

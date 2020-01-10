@@ -23,7 +23,7 @@ export const save = () => {
 			if (error) throw error;
 			console.log("current_project: " + data.path);
 			if (data.path) {
-				fs.writeFile(data.path + "/characters.json", content, (err) => {
+				fs.writeFile(data.path + "/src/characters.json", content, (err) => {
 					if (err) {
 						console.log("FAILURE: ", err)
 					}
@@ -57,14 +57,14 @@ export const load = (directoryPath) => {
 			}
 		});
 
-		if (!storytellerCharactersFileExists(directoryPath)) {
+		if (!storytellerCharactersFileExists(directoryPath + "/src")) {
 			// TO DO: Show UI dialog that directory is not empty, ask user if it should be used for a new project
 			console.log("characters.json file does not exist");
 		}
 		else {
 			console.log("characters.json file exists");
 
-			return fs.readFile(directoryPath + '/characters.json', (err, fileData) => {
+			return fs.readFile(directoryPath + '/src/characters.json', (err, fileData) => {
 
 				if (err) throw err;
 
