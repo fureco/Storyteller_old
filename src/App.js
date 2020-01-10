@@ -1,6 +1,8 @@
 import React from 'react';
-import Root from './routes/RootRoute';
 import { Provider } from 'react-redux';
+import { HashRouter as Router } from "react-router-dom";
+
+import RootRoute from './routes/RootRoute';
 
 import store from './store';
 
@@ -15,7 +17,10 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<Root />
+				<Router>
+					{/* <div>{window.location.hash} -> {this.props.route}</div> */}
+					<RootRoute />
+				</Router>
 			</Provider>
 		);
 	}

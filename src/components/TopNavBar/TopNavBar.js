@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { appStateActions, projectActions } from "../../store/actions";
 
-import { CreateProjectButton, OpenProjectButton } from './../../components';
+import { CreateProjectButton } from './../../components';
 
 import './TopNavBar.css';
 
@@ -24,6 +24,7 @@ import {
 } from '@blueprintjs/core';
 
 import { remote } from 'electron';
+const { dialog } = require('electron').remote;
 
 export class TopNavBar extends React.Component {
 
@@ -48,7 +49,28 @@ export class TopNavBar extends React.Component {
 	render() {
 
 		var settings = (
-			< Menu >
+			<Menu>
+				<MenuItem text="Project">
+					<MenuItem text="Open" icon="folder-open" onClick={() => {
+						dialog.showOpenDialog({ properties: ['openDirectory'] }).then(result => {
+							// console.log("result: " + JSON.stringify(result));
+							if (!result.canceled) {
+								this.props.openProject(result.filePaths[0])
+							}
+						});
+					}} />
+					<MenuItem text="Create" icon="folder-new" onClick={() => {
+						dialog.showOpenDialog({ properties: ['openDirectory'] }).then(result => {
+							// console.log("result: " + JSON.stringify(result));
+							if (!result.canceled) {
+								this.props.createProject(result.filePaths[0])
+							}
+						});
+					}} />
+					{this.props.appState.path && <MenuItem text="Save Backup" icon="archive" onClick={() => { }} />}
+					{this.props.appState.path && <MenuItem text="Restore Backup" icon="unarchive" onClick={() => { }} />}
+					{this.props.appState.path && <MenuItem text="Close" icon="delete" onClick={() => this.props.closeProject()} />}
+				</MenuItem>
 				<MenuItem text="Theme">
 					<MenuItem text="Light Mode" active={this.props.appState.theme == 'bp3-body'} onClick={() => this.handleThemeChange('bp3-body')} />
 					<MenuItem text="Dark Mode" active={this.props.appState.theme == 'bp3-dark'} onClick={() => this.handleThemeChange('bp3-dark')} />
@@ -65,35 +87,7 @@ export class TopNavBar extends React.Component {
 						<Button minimal={true} icon="settings" />
 					</Popover>
 
-					{this.props.appState.path &&
-						<NavbarDivider />
-					}
-
-					{this.props.appState.path &&
-						<Tooltip content="Open project" position={Position.BOTTOM}>
-							<OpenProjectButton minimal={true} />
-						</Tooltip>
-					}
-
-					{this.props.appState.path &&
-						<Tooltip content="Close project" position={Position.BOTTOM}>
-							<Button
-								minimal={true}
-								icon="folder-close"
-								onClick={() => { this.props.closeProject() }}
-							/>
-						</Tooltip>
-					}
-
-					{this.props.appState.path &&
-						<Tooltip content="Create new project" position={Position.BOTTOM}>
-							<CreateProjectButton minimal={true} />
-						</Tooltip>
-					}
-
-					{this.props.appState.path &&
-						<NavbarDivider />
-					}
+					<NavbarDivider />
 
                     { this.props.appState.path &&
 						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.route.current} animate="true">
@@ -138,7 +132,9 @@ function mapStateToProps({ appStateReducer, projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
 	return {
+		openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
 		closeProject: () => dispatch(projectActions.closeProjectAction()),
+		createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
 		changeCurrentRootRoute: (navbarTabId) => dispatch(appStateActions.changeCurrentRootRoute(navbarTabId)),
 		changeTheme: (theme) => dispatch(appStateActions.changeTheme(theme)),
 		saveAppState: () => dispatch(appStateActions.save()),

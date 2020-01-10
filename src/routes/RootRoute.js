@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route } from "react-router-dom";
 
 import storage from 'electron-json-storage';
 
@@ -9,7 +8,7 @@ import { appStateActions, projectActions, charactersActions } from "../store/act
 import Welcome from './RootRoutes/WelcomeRoute';
 import ProjectRoute from './RootRoutes/ProjectRoute';
 
-class Root extends React.Component {
+export class RootRoute extends React.Component {
 
 	constructor(props) {
 
@@ -31,34 +30,26 @@ class Root extends React.Component {
 
             if(data.path) {
 				props.openProject(data.path);
-				props.loadCharacters(data.path);
 			}
-        });
+		});
     }
 
-    render() {
-
-        let content;
-
-		if (this.props.appState.path) {
-			content = <Route path="/" component={() => {
-				return <ProjectRoute project={this.props.project} />
-			}} />
-        }
-        else {
-			content = <Route path="/welcome" component={() => {
-				return <Welcome />
-			}} />
-        }
-
+	render() {
         return (
-			<Router>
-				<div style={styles.container}>
-					{content}
-				</div>
-            </Router>
+			<div id = "RootRoute" style = { styles.container } >
+				<Content appState={this.props.appState} project={this.props.project} />
+			</div>
         );
     }
+}
+
+function Content(props) {
+	if (props.appState.path) {
+		return <ProjectRoute project={props.project} />
+	}
+	else {
+		return <Welcome />
+	}
 }
 
 const styles = {
@@ -89,4 +80,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Root)
+)(RootRoute)

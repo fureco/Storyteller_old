@@ -27,14 +27,12 @@ class Project extends React.Component {
 		};
 
 		this.onInput = this.onInput.bind(this);
-
-		if (window.location.hash != props.route) props.history.push(props.route)
 	}
 
 	onInput() {
 		const textField = document.querySelector('#TextField');
-		const textBeforCaret = textField.value.slice(0, textField.selectionStart);
-		const words = textBeforCaret.split(' ');
+		const textBeforeCaret = textField.value.slice(0, textField.selectionStart);
+		const words = textBeforeCaret.split(' ');
 		this.setState({
 			statistic: {
 				words: words.length,
@@ -48,6 +46,10 @@ class Project extends React.Component {
 	}
 
 	render() {
+
+		if (window.location.hash.split("/")[1] != this.props.route) {
+			return <Redirect to={"/" + this.props.route} />
+		}
 
 		return (
 			<div
@@ -104,7 +106,7 @@ class Project extends React.Component {
 function mapStateToProps({ appStateReducer }) {
 	return {
 		appState: appStateReducer,
-		route: "/" + (appStateReducer.route ? appStateReducer.route.current : 'script'),
+		route: appStateReducer.route.current,
 	};
 }
 

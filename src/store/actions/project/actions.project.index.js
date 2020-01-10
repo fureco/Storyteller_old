@@ -1,4 +1,4 @@
-import { appStateActions } from './../';
+import { appStateActions, charactersActions } from './../';
 import storage from 'electron-json-storage';
 
 import { initialState as initialProjectState } from './../../models/projectModel';
@@ -122,6 +122,7 @@ function openProjectSuccess(directoryPath, jsonData) {
 		// })
 
 		dispatch(appStateActions.load());
+		dispatch(charactersActions.load(directoryPath))
     }
 }
 
