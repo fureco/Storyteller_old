@@ -43,11 +43,12 @@
     "package": "npm run build",
     "postpackage": "electron-packager ./ --out=./builds",
     "test": "jest",
-	"test:watch": "npm test -- --watch",
-	"test:coverage": "npm test -- --coverage"
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage"
   },
   "dependencies": {
     "@blueprintjs/core": "^3.19.0",
+    "@blueprintjs/icons": "^3.13.0",
     "electron": "7.0.1",
     "electron-devtools-installer": "^2.2.4",
     "electron-json-storage": "^4.1.8",
