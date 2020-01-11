@@ -7,7 +7,8 @@ import {
 } from '@blueprintjs/core';
 
 import {
-	TopNavBar
+	Timeline,
+	TopNavBar,
 } from '../../components';
 
 import ScriptRoute from './ProjectRoutes/ScriptRoute';
@@ -83,7 +84,7 @@ class Project extends React.Component {
 							<Route path="/script" component={() => { return <ScriptRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/characters" component={() => { return <CharactersRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />
-							<Route path="/timeline" component={() => { return <h2>Timeline</h2> }} />
+							<Route path="/timeline" component={() => { return <Timeline /> }} />
 						</Switch>
 					</div>
 				</div>

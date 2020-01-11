@@ -10,8 +10,7 @@ const rootReducer = combineReducers({
 	appStateReducer,
 	charactersReducer,
 	routerReducer,
-    projectReducer,
-    fileTreeReducer
+    projectReducer
 });
 
 export default rootReducer;

@@ -7,6 +7,7 @@ import ScriptNav from './ScriptNav/ScriptNav';
 import ScriptStructure from './ScriptStructure/ScriptStructure';
 import ScriptPartCreationDialog from './ScriptStructure/ScriptPartCreationDialog';
 import TextAreaWithPreview from './TextAreaWithPreview/TextAreaWithPreview';
+import Timeline from './Timeline/Timeline';
 import TopNavBar from './TopNavBar/TopNavBar';
 
 // export all components as modules
@@ -20,5 +21,6 @@ export {
 	ScriptStructure,
 	ScriptPartCreationDialog,
 	TextAreaWithPreview,
+	Timeline,
 	TopNavBar
 }
