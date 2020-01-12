@@ -4,11 +4,17 @@ const fs = require('fs');
 
 // ############ ACTION TYPES ##############
 export const ADD_CHARACTER = 'ADD_CHARACTER';
+export const SET_FIRST_NAME = 'SET_FIRST_NAME';
+export const SET_LAST_NAME = 'SET_LAST_NAME';
+export const SET_NICKNAME = 'SET_NICKNAME';
 export const SET_DELETED_AT = 'SET_DELETED_AT';
 
 // ############## ACTIONS #################
 export const addCharacter = (character) => ({ type: ADD_CHARACTER, character });
-export const setDeletedAt = (character, deleted_at) => ({ type: SET_DELETED_AT, character, deleted_at });
+export const setFirstName = (first_name) => ({ type: SET_FIRST_NAME, first_name });
+export const setLastName = (last_name) => ({ type: SET_LAST_NAME, last_name });
+export const setNickname = (nickname) => ({ type: SET_NICKNAME, nickname });
+export const setDeletedAt = (deleted_at) => ({ type: SET_DELETED_AT, deleted_at });
 
 export const save = () => {
 
