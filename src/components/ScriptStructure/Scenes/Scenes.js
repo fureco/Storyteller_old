@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Part from "./Part";
-import ScriptPartCreationDialog from "../ScriptPartCreationDialog";
+import { scenesActions } from "../../../store/actions";
+import Scene from "./Scene";
+import SceneCreationDialog from "./SceneCreationDialog";
 
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-
-import { projectActions } from "../../../store/actions";
 
 import {
 	Alert,
@@ -21,7 +20,7 @@ const reorder = (list, startIndex, endIndex) => {
 	return result;
 };
 
-class Parts extends React.Component {
+class Scenes extends React.Component {
 
 	constructor(props) {
 
@@ -56,7 +55,7 @@ class Parts extends React.Component {
 
 		return (
 
-			<div id="ScriptStructureParts">
+			<div id="ScriptStructureScenes">
 
 				<DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
 					<Droppable droppableId="droppable">
@@ -65,8 +64,8 @@ class Parts extends React.Component {
 								{...provided.droppableProps}
 								ref={provided.innerRef}
 							>
-								{this.props.project.parts.map((part, index) => (
-									<Part key={`part-${part.id}`} part={part} />
+								{this.props.scenes.map((scene, index) => (
+									<Scene key={`scene-${scene.id}`} scene={scene} />
 								))}
 
 								{provided.placeholder}
@@ -76,7 +75,7 @@ class Parts extends React.Component {
 					</Droppable>
 				</DragDropContext>
 
-				<ScriptPartCreationDialog />
+				<SceneCreationDialog />
 
 				<Alert
 					className={this.props.appState.theme}
@@ -89,7 +88,7 @@ class Parts extends React.Component {
 					onConfirm={() => this.handleMovePartToTrashConfirm()}
 				>
 					<p>
-						Are you sure you want to move <b>Part {this.state.movePartToTrashPart.position}: {this.state.movePartToTrashPart.name}</b> to Trash?
+						Are you sure you want to move <b>Scene {this.state.movePartToTrashPart.position}: {this.state.movePartToTrashPart.title}</b> to Trash?
 					</p>
 				</Alert>
 
@@ -110,21 +109,19 @@ class Parts extends React.Component {
 	// }
 }
 
-function mapStateToProps({ appStateReducer, projectReducer }) {
+function mapStateToProps({ appStateReducer, scenesReducer }) {
 	return {
 		appState: appStateReducer,
-		project: projectReducer,
+		scenes: scenesReducer,
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		setParts: parts => dispatch(projectActions.setParts(parts)),
-		deletePart: partID => dispatch(projectActions.deleteScriptPartAction(partID)),
 	};
 }
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Parts)
+)(Scenes)

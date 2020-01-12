@@ -11,6 +11,8 @@ import {
 	TopNavBar,
 } from '../../components';
 
+import { getRoute } from './../../store/reducers/appStateReducer';
+
 import ScriptRoute from './ProjectRoutes/ScriptRoute';
 import CharactersRoute from './ProjectRoutes/CharactersRoute';
 
@@ -48,9 +50,9 @@ class Project extends React.Component {
 
 	render() {
 
-		if (window.location.hash.split("/")[1] != this.props.route) {
-			return <Redirect to={"/" + this.props.route} />
-		}
+		// if (window.location.hash.split("/")[1] != this.props.route) {
+		// 	return <Redirect to={"/" + this.props.route} />
+		// }
 
 		return (
 			<div
@@ -62,7 +64,7 @@ class Project extends React.Component {
 					height: '100vh'
 				}}>
 
-				{/* <div>{window.location.hash} -> {this.props.route}</div> */}
+				<div>ProjectRoute: {window.location.hash} -> {this.props.route}</div>
 
 				<TopNavBar />
 
@@ -107,7 +109,7 @@ class Project extends React.Component {
 function mapStateToProps({ appStateReducer }) {
 	return {
 		appState: appStateReducer,
-		route: appStateReducer.route.current,
+		route: getRoute(appStateReducer),
 	};
 }
 

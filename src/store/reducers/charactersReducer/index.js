@@ -1,7 +1,7 @@
 import { charactersActions } from './../../actions'
 import { getNewID } from './../utils'
 
-import characterReducer from './../characterReducer'
+import characterReducer from './../characterReducer/reducer.character.index'
 
 const charactersReducer = (state = [], action) => {
 	// console.log("charactersReducer: " + action.type)

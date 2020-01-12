@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
-import ChapterCreationDialog from "../../ChapterCreationDialog";
+import ChapterCreationDialog from "../ChapterCreationDialog";
 
-import { projectActions } from "../../../../store/actions";
+import { projectActions } from "../../../store/actions";
 
 import {
 	Button,

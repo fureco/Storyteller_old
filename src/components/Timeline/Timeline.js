@@ -27,6 +27,7 @@ export class Timeline extends React.Component {
 					to={2012}
 					title={"title"}
 					subtitle={"subtitle"}
+					summary={"summary"}
 					text={"text"}
 				/>
 			</div>

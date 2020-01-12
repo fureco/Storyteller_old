@@ -4,9 +4,6 @@ import { Switch, Link, Route, Redirect } from "react-router-dom";
 import { PartTitle, ScriptPartCreationDialog } from "./../../components";
 
 import {
-	Button,
-	Tab,
-	Tabs,
 	TextArea
 } from '@blueprintjs/core';
 
@@ -25,17 +22,21 @@ class Parts extends React.Component {
 
 	render() {
 
-		var parts = this.props.project.parts
-			.sort((a, b) => a.position > b.position)
-			.map((name, index) => {
-				return (
-					<Link to={`/script/structure/parts/${index}`} key={this.props.project.parts[index].id}>
-						Part {this.props.project.parts[index].position}: {this.props.project.parts[index].name}
-					</Link>
-				);
-			});
+		var parts = [];
 
-		var selectedPart = this.props.project.parts[this.state.selectedPartIndex];
+		if (this.props.parts) {
+			parts = this.props.parts
+				.sort((a, b) => a.position > b.position)
+				.map((name, index) => {
+					return (
+						<Link to={`/script/structure/parts/${index}`} key={this.props.parts[index].id}>
+							Part {this.props.parts[index].position}: {this.props.parts[index].name}
+						</Link>
+					);
+				});
+		}
+
+		var selectedPart = this.props.parts[this.state.selectedPartIndex];
 
 		return (
 			<div>
@@ -80,9 +81,9 @@ class Parts extends React.Component {
 	}
 }
 
-function mapStateToProps({ projectReducer }) {
+function mapStateToProps({ partsReducer }) {
 	return {
-		project: projectReducer,
+		parts: partsReducer,
 	};
 }
 

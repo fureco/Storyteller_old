@@ -48,6 +48,7 @@ export class Event extends React.Component {
 					<div>
 						<div><b>{this.props.title}</b></div>
 						<div><b>{this.props.subtitle}</b></div>
+						<div><b>{this.props.summary}</b></div>
 						<div>{this.props.text}</div>
 					</div>
 				</div>

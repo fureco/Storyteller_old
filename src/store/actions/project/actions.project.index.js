@@ -1,4 +1,4 @@
-import { appStateActions, charactersActions } from './../';
+import { appStateActions, charactersActions, partsActions, scenesActions } from './../';
 import storage from 'electron-json-storage';
 
 import { initialState as initialProjectState } from './../../models/projectModel';
@@ -10,9 +10,6 @@ const fs = require('fs');
 export const SET_TITLE = 'SET_TITLE';
 export const SET_ABSTRACT = 'SET_ABSTRACT';
 export const SET_DEDICATION = 'SET_DEDICATION';
-export const SET_PARTS = 'SET_PARTS';
-export const ADD_PART = 'ADD_PART';
-export const REMOVE_PART = 'REMOVE_PART';
 
 // ############## ACTIONS #################
 export const createProjectAction = (directoryPath) => {
@@ -114,15 +111,10 @@ function openProjectSuccess(directoryPath, jsonData) {
 		dispatch(setTitle(jsonData.title));
 		dispatch(setAbstract(jsonData.abstract));
 		dispatch(setDedication(jsonData.dedication));
-        jsonData.parts.forEach(part => {
-            dispatch(addScriptPartActionSuccess(part.title));
-        })
-        // jsonData.chapters.forEach(chapter => {
-        //     dispatch(addChapterActionSuccess(chapter));
-		// })
-
 		dispatch(appStateActions.load());
 		dispatch(charactersActions.load(directoryPath))
+		dispatch(partsActions.load(directoryPath))
+		dispatch(scenesActions.load(directoryPath))
     }
 }
 
@@ -153,39 +145,6 @@ export const closeProjectAction = () => {
 export const setTitle = (title) => ({ type: SET_TITLE, title });
 export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
 export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
-export const setParts = (parts) => ({ type: SET_PARTS, parts });
-
-export const addScriptPartAction = (partTitle) => {
-
-    console.log("addScriptPartAction");
-
-    return (dispatch, getState) => {
-
-		dispatch(addScriptPartActionSuccess(partTitle));
-
-		console.log("state: " + JSON.stringify(getState().projectReducer));
-
-		return dispatch(save());
-    };
-}
-
-export const addScriptPartActionSuccess = (partTitle) => ({ type: ADD_PART, partTitle });
-
-export const deleteScriptPartAction = (partID) => {
-
-	// console.log("deleteScriptPartAction: " + partID);
-
-	return (dispatch, getState) => {
-
-		dispatch(removeScriptPartAction(partID));
-
-		// console.log("state: " + JSON.stringify(getState().projectReducer));
-
-		return dispatch(save());
-	};
-}
-
-const removeScriptPartAction = (partID) => ({ type: REMOVE_PART, partID });
 
 export const save = () => {
 

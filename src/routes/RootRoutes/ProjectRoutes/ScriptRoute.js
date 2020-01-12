@@ -18,8 +18,6 @@ class ScriptRoute extends React.Component {
         this.state = {
             selectedFile: null,
 		};
-
-		// props.history.push(props.route);
 	}
 
 	render() {

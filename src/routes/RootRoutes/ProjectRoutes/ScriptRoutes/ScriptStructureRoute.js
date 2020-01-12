@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 import { ScriptStructure, Parts } from '../../../../components';
-import { Abstract, Dedication } from './ScriptStructureRoutes';
+import { Abstract, Dedication, Scenes } from './ScriptStructureRoutes';
 
 import {
 	Colors,
@@ -35,6 +35,11 @@ class ScriptStructureRoute extends React.Component {
 
 	render() {
 
+		// if (window.location.hash.split("/")[3] && window.location.hash.split("/")[3] != this.props.route.split("/")[3]) {
+		// 	console.log("ScriptStructureRoute: ", window.location.hash.split("/")[3], this.props.route.split("/")[3], this.props.route)
+		// 	return <Redirect to={"/" + this.props.route} />
+		// }
+
 		return (
 
 			<div id="ScriptStructureRoute" style={{ display: 'flex', flexDirection: 'row', height: '100%', marginBottom: '10px' }}>
@@ -51,7 +56,7 @@ class ScriptStructureRoute extends React.Component {
 					}}
 					onKeyDown={this.onInput}
 				>
-					{/* {window.location.hash} -> {this.props.route} */}
+					{/* <div>ScriptStructureRoute: {window.location.hash} -> {this.props.route}</div> */}
 
 					<ScriptStructure />
 
@@ -86,7 +91,7 @@ class ScriptStructureRoute extends React.Component {
 					}
 					{
 						this.props.route === '/script/structure/scenes' &&
-						"Scenes"
+						<Scenes />
 					}
 
 				</div>
