@@ -4,10 +4,24 @@ const fs = require('fs');
 
 // ############ ACTION TYPES ##############
 export const ADD_SCENE = 'ADD_SCENE';
+export const SET_FROM = 'SET_FROM';
+export const SET_TO = 'SET_TO';
+export const SET_LOCATION_ID = 'SET_LOCATION_ID';
+export const SET_TITLE = 'SET_TITLE';
+export const SET_SUBTITLE = 'SET_SUBTITLE';
+export const SET_SUMMARY = 'SET_SUMMARY';
+export const SET_TEXT = 'SET_TEXT';
 export const SET_DELETED_AT = 'SET_DELETED_AT';
 
 // ############## ACTIONS #################
 export const addScene = (scene) => ({ type: ADD_SCENE, scene });
+export const setFrom = (from) => ({ type: SET_FROM, from });
+export const setTo = (to) => ({ type: SET_TO, to });
+export const setLocationId = (locationID) => ({ type: SET_LOCATION_ID, locationID });
+export const setTitle = (title) => ({ type: SET_TITLE, title });
+export const setSubtitle = (subtitle) => ({ type: SET_SUBTITLE, subtitle });
+export const setSummary = (summary) => ({ type: SET_SUMMARY, summary });
+export const setText = (text) => ({ type: SET_TEXT, text });
 export const setDeletedAt = (scene, deleted_at) => ({ type: SET_DELETED_AT, scene, deleted_at });
 
 export const save = () => {

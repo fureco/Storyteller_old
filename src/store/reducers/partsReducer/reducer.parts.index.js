@@ -1,6 +1,6 @@
 import { getNewID } from '../utils'
 
-import partReducer from '../partReducer/reducer.part.index'
+import partReducer from './partReducer/reducer.part.index'
 
 const partsReducer = (state = [], action) => {
 

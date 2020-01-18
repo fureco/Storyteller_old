@@ -1,6 +1,6 @@
 import { getNewID } from '../utils'
 
-import sceneReducer from './../sceneReducer/reducer.scene.index'
+import sceneReducer from './sceneReducer/reducer.scene.index'
 
 const scenesReducer = (state = [], action) => {
 

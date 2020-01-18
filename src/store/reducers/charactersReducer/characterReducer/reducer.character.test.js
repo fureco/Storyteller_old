@@ -1,18 +1,11 @@
 import reducer from './reducer.character.index'
-import { charactersActions as actions } from '../../actions'
-import { initialState } from './../../models/characterModel'
+import { charactersActions as actions } from '../../../actions'
+import { initialState } from './../../../models/characterModel'
 
 describe('Character reducer', () => {
 
 	it('should return the initial state', () => {
-		expect(reducer(undefined, {})).toEqual(
-			{
-				"deleted_at": null,
-				"first_name": "",
-				"last_name": "",
-				"nickname": ""
-			}
-		)
+		expect(reducer(undefined, {})).toEqual(initialState)
 	})
 
 	it('should handle SET_FIRST_NAME', () => {

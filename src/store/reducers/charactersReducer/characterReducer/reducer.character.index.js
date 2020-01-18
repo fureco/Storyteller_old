@@ -1,5 +1,5 @@
-import { charactersActions } from './../../actions'
-import { initialState } from './../../models/characterModel'
+import { charactersActions } from '../../../actions'
+import { initialState } from './../../../models/characterModel'
 
 const characterReducer = (state = initialState, action) => {
 	// console.log("characterReducer: " + action.type, action)
@@ -21,7 +21,6 @@ const characterReducer = (state = initialState, action) => {
 			});
 
 		case charactersActions.SET_DELETED_AT:
-			console.log(state, action.deleted_at)
 			return Object.assign({}, state, {
 				deleted_at: action.deleted_at
 			});

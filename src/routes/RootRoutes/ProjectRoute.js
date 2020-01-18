@@ -50,10 +50,6 @@ class Project extends React.Component {
 
 	render() {
 
-		// if (window.location.hash.split("/")[1] != this.props.route) {
-		// 	return <Redirect to={"/" + this.props.route} />
-		// }
-
 		return (
 			<div
 				id="Project"
@@ -64,7 +60,7 @@ class Project extends React.Component {
 					height: '100vh'
 				}}>
 
-				<div>ProjectRoute: {window.location.hash} -> {this.props.route}</div>
+				{/* <div>ProjectRoute: {window.location.hash} -> {this.props.route}</div> */}
 
 				<TopNavBar />
 

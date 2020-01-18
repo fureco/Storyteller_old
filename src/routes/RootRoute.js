@@ -63,7 +63,7 @@ const styles = {
 
 function mapStateToProps({ appStateReducer, projectReducer, charactersReducer }) {
     return {
-        appState: appStateReducer,
+		appState: appStateReducer,
 		project: projectReducer,
 		characters: charactersReducer,
     };
