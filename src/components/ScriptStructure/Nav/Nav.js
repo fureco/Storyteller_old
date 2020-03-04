@@ -39,6 +39,9 @@ class Nav extends React.Component {
 				animate="true"
 				vertical={this.state.vertical}>
 
+				<Tab id="cover">
+					<Link to="/script/structure/cover">Cover</Link>
+				</Tab>
 				<Tab id="abstract">
 					<Link to="/script/structure/abstract">Abstract</Link>
 				</Tab>

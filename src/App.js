@@ -18,7 +18,7 @@ export default class App extends React.Component {
 		return (
 			<Provider store={store}>
 				<Router>
-					{/* <div>{window.location.hash} -> {this.props.route}</div> */}
+					{/* <div>App - window.location.hash: {window.location.hash}</div> */}
 					<RootRoute />
 				</Router>
 			</Provider>

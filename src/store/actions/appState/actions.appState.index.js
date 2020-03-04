@@ -4,14 +4,21 @@ import { initialState } from './../../models/appStateModel'
 const fs = require('fs');
 
 // ############## ACTION TYPES #################
+export const SET_OBJECT_TO_DELETE = 'SET_OBJECT_TO_DELETE';
 export const SET_PATH = 'SET_PATH';
 export const SET_ROUTE = 'SET_ROUTE';
 export const SET_THEME = 'SET_THEME';
 
+export const SHOW_MOVE_TO_TRASH_ALERT = 'SHOW_MOVE_TO_TRASH_ALERT';
+export const HIDE_MOVE_TO_TRASH_ALERT = 'HIDE_MOVE_TO_TRASH_ALERT';
+
 // ############## ACTIONS #################
+export const setObjectToDelete = (object_to_delete) => ({ type: SET_OBJECT_TO_DELETE, object_to_delete });
 export const setPath = (path) => ({ type: SET_PATH, path });
 export const setRoute = (route) => ({ type: SET_ROUTE, route });
 export const setTheme = (theme) => ({ type: SET_THEME, theme });
+export const showMoveToTrashAlert = (object_to_delete) => ({ type: SHOW_MOVE_TO_TRASH_ALERT, object_to_delete });
+export const hideMoveToTrashAlert = () => ({ type: HIDE_MOVE_TO_TRASH_ALERT });
 
 export const changeTheme = (theme) => {
 

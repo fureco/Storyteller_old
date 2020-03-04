@@ -90,7 +90,7 @@ function mapStateToProps({ appStateReducer, projectReducer, scenesReducer }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		createScene: (scene) => dispatch(sceneActions.addScene(scene)),
+		createScene: (scene) => dispatch(scenesActions.createScene(scene)),
 		saveToFile: () => dispatch(scenesActions.save()),
 	};
 }

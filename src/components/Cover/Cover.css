@@ -1,0 +1,14 @@
+#Cover {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+
+#Cover .bp3-file-input {
+	margin-bottom: 20px;
+}
+
+#cover-preview {
+	flex-grow: 2;
+}

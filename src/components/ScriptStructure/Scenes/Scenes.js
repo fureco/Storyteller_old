@@ -6,12 +6,6 @@ import SceneCreationDialog from "./SceneCreationDialog";
 
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-import {
-	Alert,
-	Intent,
-	Toaster,
-} from '@blueprintjs/core';
-
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
 	const result = Array.from(list);
@@ -28,11 +22,6 @@ class Scenes extends React.Component {
 
 		this.state = {
 			showPartCreationDialog: false,
-
-			canEscapeKeyCancel: false,
-			canOutsideClickCancel: false,
-			movePartToTrashIsOpen: false,
-			movePartToTrashPart: '',
 		};
 	}
 
@@ -77,36 +66,9 @@ class Scenes extends React.Component {
 
 				<SceneCreationDialog />
 
-				<Alert
-					className={this.props.appState.theme}
-					cancelButtonText="Cancel"
-					confirmButtonText="Move to Trash"
-					icon="trash"
-					intent={Intent.DANGER}
-					isOpen={this.state.movePartToTrashIsOpen}
-					onCancel={() => this.handleMovePartToTrashCancel()}
-					onConfirm={() => this.handleMovePartToTrashConfirm()}
-				>
-					<p>
-						Are you sure you want to move <b>Scene {this.state.movePartToTrashPart.position}: {this.state.movePartToTrashPart.title}</b> to Trash?
-					</p>
-				</Alert>
-
-				<Toaster ref={ref => (this.toaster = ref)} />
-
 			</div>
 		);
 	}
-
-	// handleNodeMouseEnter(nodeData) {
-	// 	this.setState({ hoveredPartID: nodeData.id });
-	// 	console.log(this.state.hoveredPartID)
-	// }
-
-	// handleNodeMouseLeave(nodeData) {
-	// 	this.setState({ hoveredPartID: null });
-	// 	console.log(this.state.hoveredPartID)
-	// }
 }
 
 function mapStateToProps({ appStateReducer, scenesReducer }) {

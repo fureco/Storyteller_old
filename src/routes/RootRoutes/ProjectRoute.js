@@ -13,6 +13,8 @@ import {
 
 import { getRoute } from './../../store/reducers/appStateReducer';
 
+import { MoveToTrashAlert } from './../../components';
+
 import ScriptRoute from './ProjectRoutes/ScriptRoute';
 import CharactersRoute from './ProjectRoutes/CharactersRoute';
 
@@ -97,6 +99,9 @@ class Project extends React.Component {
 					}}>
 					words: {this.state.statistic.words} - chars: {this.state.statistic.chars}
 				</div>
+
+				<MoveToTrashAlert />
+
 			</div>
 		);
 	}

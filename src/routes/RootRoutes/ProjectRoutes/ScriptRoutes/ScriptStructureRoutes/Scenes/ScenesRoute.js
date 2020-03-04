@@ -5,7 +5,7 @@ import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import ScenesIndexRoute from './ScenesIndexRoute.js';
 import ScenesCreateRoute from './ScenesCreateRoute.js';
 
-class Scenes extends React.Component {
+class ScenesRoute extends React.Component {
 
 	constructor(props) {
 
@@ -20,7 +20,7 @@ class Scenes extends React.Component {
 		return (
 			<div>
 
-				{/* <div>Scenes: {window.location.hash} -> {this.props.route}</div> */}
+				<div>Scenes: {window.location.hash} -> {this.props.route}</div>
 
 				<Switch>
 					<Redirect exact from="/script/structure/scenes" to="/script/structure/scenes/index" />
@@ -47,4 +47,4 @@ function mapStateToProps({ appStateReducer, projectReducer }) {
 export default withRouter(connect(
 	mapStateToProps,
 	null
-)(Scenes))
+)(ScenesRoute))

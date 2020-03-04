@@ -1,10 +1,10 @@
 import Abstract from './Abstract/Abstract';
 import Dedication from './Dedication/Dedication';
-import Scenes from './Scenes/Scenes';
+import ScenesRoute from './Scenes/ScenesRoute';
 
 // export all components as modules
 export {
 	Abstract,
 	Dedication,
-	Scenes,
+	ScenesRoute,
 }

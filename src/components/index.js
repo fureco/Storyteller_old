@@ -1,5 +1,7 @@
 import Character from './Character/Character';
 import CreateProjectButton from './CreateProjectButton/CreateProjectButton';
+import Cover from './Cover/Cover';
+import MoveToTrashAlert from './MoveToTrashAlert/MoveToTrashAlert';
 import OpenProjectButton from './OpenProjectButton/OpenProjectButton';
 import Parts from './Parts/Parts';
 import PartTitle from './PartTitle/PartTitle';
@@ -14,6 +16,8 @@ import TopNavBar from './TopNavBar/TopNavBar';
 export {
 	Character,
 	CreateProjectButton,
+	Cover,
+	MoveToTrashAlert,
 	OpenProjectButton,
 	Parts,
 	PartTitle,

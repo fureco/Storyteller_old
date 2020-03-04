@@ -4,6 +4,9 @@ const fs = require('fs');
 
 // ############ ACTION TYPES ##############
 export const ADD_SCENE = 'ADD_SCENE';
+export const CREATE_SCENE = 'CREATE_SCENE';
+export const DELETE_SCENE = 'DELETE_SCENE';
+
 export const SET_FROM = 'SET_FROM';
 export const SET_TO = 'SET_TO';
 export const SET_LOCATION_ID = 'SET_LOCATION_ID';
@@ -15,6 +18,8 @@ export const SET_DELETED_AT = 'SET_DELETED_AT';
 
 // ############## ACTIONS #################
 export const addScene = (scene) => ({ type: ADD_SCENE, scene });
+export const createScene = (scene) => ({ type: CREATE_SCENE, scene });
+
 export const setFrom = (from) => ({ type: SET_FROM, from });
 export const setTo = (to) => ({ type: SET_TO, to });
 export const setLocationId = (locationID) => ({ type: SET_LOCATION_ID, locationID });
@@ -23,6 +28,13 @@ export const setSubtitle = (subtitle) => ({ type: SET_SUBTITLE, subtitle });
 export const setSummary = (summary) => ({ type: SET_SUMMARY, summary });
 export const setText = (text) => ({ type: SET_TEXT, text });
 export const setDeletedAt = (scene, deleted_at) => ({ type: SET_DELETED_AT, scene, deleted_at });
+
+export const deleteScene = (id) => {
+
+	console.log("deleting scene...")
+
+	dispatch(setDeletedAt(scene, new Date()));
+};
 
 export const save = () => {
 

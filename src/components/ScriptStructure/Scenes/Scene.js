@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import SceneCreationDialog from "./SceneCreationDialog";
 
-import { projectActions } from "../../../store/actions";
+import { appStateActions } from "../../../store/actions";
 
 import {
 	Button,
@@ -12,21 +12,6 @@ import {
 	Tree,
 	Intent,
 } from '@blueprintjs/core';
-
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-	// some basic styles to make the items look a bit nicer
-	userSelect: "none",
-	padding: grid * 2,
-	margin: `0 0 ${grid}px 0`,
-
-	// change background colour if dragging
-	background: isDragging ? "lightgreen" : "grey",
-
-	// styles we need to apply on draggables
-	...draggableStyle
-});
 
 class Scene extends React.Component {
 
@@ -36,7 +21,7 @@ class Scene extends React.Component {
 
 		this.state = {
 
-			themeName: props.theme == "dark" ? "bp3-dark" : "bp3-body",
+			position: this.props.scene.position || 0,
 
 		};
 	}
@@ -45,34 +30,27 @@ class Scene extends React.Component {
 
 		let treeContent = [];
 
-		let children = [
-			{
-				id: 1,
-				label: (<SceneCreationDialog />)
-			},
-		];
-
 		let aScene =
 		{
 			id: treeContent.length,
-			hasCaret: true,
+			hasCaret: false,
 			isExpanded: false,
 			icon: "folder-close",
-			label: <Link to={`/script/structure/scenes/${this.props.scene.position}`}>Scene {this.props.scene.position}: {this.props.scene.name}</Link>,
+			label: <Link to={`/script/structure/scenes/${this.state.position}`}>Scene {this.state.position}: {this.props.scene.name}</Link>,
 			secondaryLabel:
 				<ButtonGroup>
 					<Button minimal icon="edit" />
-					<Button minimal icon="trash" onClick={() => this.handleOpenMovePartToTrashAlert()} />
+					<Button minimal icon="trash" onClick={() => this.handleMoveToTrash()} />
 					<Button minimal icon="drag-handle-vertical" />
 				</ButtonGroup>,
-			childNodes: children,
+			childNodes: [],
 		};
 
-		treeContent.push(aPart);
+		treeContent.push(aScene);
 
 		return (
 
-			<Draggable key={this.props.scene.id} draggableId={`part-${this.props.scene.id}`} index={this.props.scene.position}>
+			<Draggable key={this.props.scene.id} draggableId={`part-${this.props.scene.id}`} index={this.state.position}>
 				{(provided, snapshot) => (
 					<div
 						ref={provided.innerRef}
@@ -86,37 +64,25 @@ class Scene extends React.Component {
 		);
 	}
 
-	handleOpenMoveToTrashAlert() {
-		this.setState({ moveToTrashAlertIsOpen: true });
+	handleMoveToTrash() {
+		this.props.setObjectToDelete({ type: "Scene", id: this.props.scene.id, position: this.props.scene.position, title: this.props.scene.title });
+		this.props.showMoveToTrashAlert(this.props.scene);
 	}
 
-	handleMoveToTrashConfirm() {
-		this.setState({ moveToTrashAlertIsOpen: false });
-		this.setState({ moveToTrash: '' });
-		this.toaster.show({ intent: Intent.SUCCESS, className: this.state.themeName, message: <TOAST_MESSAGE scene={this.props.scene} /> });
-		this.props.deletePart(this.state.moveToTrash.id);
-	}
-
-	handleMoveToTrashCancel() {
-		this.setState({ moveToTrashAlertIsOpen: false });
-		this.setState({ moveToTrashPart: '' });
-	}
 }
 
-function TOAST_MESSAGE(props) {
-	return <div><b>Part {props.scene.position}: {props.scene.title}</b> was moved to Trash.</div>
-}
-
-function mapStateToProps({ projectReducer }) {
+function mapStateToProps({ appStateReducer }) {
 	return {
-		project: projectReducer,
+		appState: appStateReducer,
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		// deleteScene: sceneID => dispatch(projectActions.deleteScriptPartAction(partID)),
-	};
+		delete: sceneID => dispatch(sceneActions.deleteSceneAction(sceneID)),
+		setObjectToDelete: objectToDelete => dispatch(appStateActions.setObjectToDelete(objectToDelete)),
+		showMoveToTrashAlert: (objectToDelete) => dispatch(appStateActions.showMoveToTrashAlert(objectToDelete)),
+	}
 }
 
 export default connect(

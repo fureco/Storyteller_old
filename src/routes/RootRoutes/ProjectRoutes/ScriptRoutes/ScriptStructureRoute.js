@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
-import { ScriptStructure, Parts } from '../../../../components';
-import { Abstract, Dedication, Scenes } from './ScriptStructureRoutes';
+import { Cover, ScriptStructure, Parts } from '../../../../components';
+import { Abstract, Dedication, ScenesRoute } from './ScriptStructureRoutes';
 
 import {
 	Colors,
@@ -17,6 +17,8 @@ class ScriptStructureRoute extends React.Component {
 
 		this.state = {
 			selectedFile: null,
+			border: `1px solid ${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
+			borderRadius: `3px`,
 		};
 	}
 
@@ -35,10 +37,10 @@ class ScriptStructureRoute extends React.Component {
 
 	render() {
 
-		// if (window.location.hash.split("/")[3] && window.location.hash.split("/")[3] != this.props.route.split("/")[3]) {
-		// 	console.log("ScriptStructureRoute: ", window.location.hash.split("/")[3], this.props.route.split("/")[3], this.props.route)
-		// 	return <Redirect to={"/" + this.props.route} />
-		// }
+		if (window.location.hash.split("/")[3] && window.location.hash.split("/")[3] != this.props.route.split("/")[3]) {
+			// console.log("ScriptStructureRoute: ", window.location.hash.split("/")[3], this.props.route.split("/")[3], this.props.route)
+			return <Redirect to={this.props.route} />
+		}
 
 		return (
 
@@ -49,10 +51,12 @@ class ScriptStructureRoute extends React.Component {
 					style={{
 						width: '300px',
 						overflow: 'auto',
-						border: `1px solid ${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
+						border: `${this.state.border}`,
+						borderRadius: `${this.state.borderRadius}`,
 						resize: 'horizontal',
 						outline: 'none',
 						padding: '0 10px',
+						marginRight: '5px',
 					}}
 					onKeyDown={this.onInput}
 				>
@@ -66,33 +70,25 @@ class ScriptStructureRoute extends React.Component {
 					id="ContentColumn"
 					style={{
 						overflow: 'auto',
-						border: `1px solid ${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
+						border: `${this.state.border}`,
+						borderRadius: `${this.state.borderRadius}`,
 						resize: 'none',
 						outline: 'none',
 						padding: '10px',
 						flex: '1'
 					}}
 				>
-					{
-						this.props.route === '/script/structure/abstract' &&
-						<Abstract />
-					}
-					{
-						this.props.route === '/script/structure/dedication' &&
-						<Dedication />
-					}
-					{
-						this.props.route === '/script/structure/parts' &&
-						<Parts />
-					}
-					{
-						this.props.route === '/script/structure/chapters' &&
-						"Chapters"
-					}
-					{
-						this.props.route === '/script/structure/scenes' &&
-						<Scenes />
-					}
+					{/* <div>ScriptStructureRoute: {window.location.hash} -> {this.props.route}</div> */}
+
+					<Switch>
+						<Redirect exact from="/script/structure" to="/script/structure/cover" />
+						<Route path="/script/structure/cover" component={() => { return <Cover /> }} />
+						<Route path="/script/structure/abstract" component={() => { return <Abstract /> }} />
+						<Route path="/script/structure/dedication" component={() => { return <Dedication /> }} />
+						<Route path="/script/structure/parts" component={() => { return <Parts /> }} />
+						<Route path="/script/structure/chapters" component={() => { return "Chapters" }} />
+						<Route path="/script/structure/scenes" component={() => { return <ScenesRoute /> }} />
+					</Switch>
 
 				</div>
 
@@ -109,7 +105,7 @@ function mapStateToProps({ appStateReducer, projectReducer }) {
 	return {
 		appState: appStateReducer,
 		project: projectReducer,
-		route,
+		route: route,
 	};
 }
 
