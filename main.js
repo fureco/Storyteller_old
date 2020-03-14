@@ -32,7 +32,8 @@ function createWindow() {
 		height: 768,
 		show: false,
 		webPreferences: {
-			nodeIntegration: true
+			nodeIntegration: true,
+			webSecurity: false // to allow copying of local files
 		}
 	})
 
