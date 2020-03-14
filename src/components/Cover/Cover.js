@@ -26,7 +26,8 @@ export class Cover extends React.Component {
 			coverFolderPath: props.appState.path + "\\src\\assets\\cover\\",
 			fileName: "",
 			filePath: props.project.cover,
-			hasSelection: false
+			hasSelection: false,
+			isHovering: false,
 		};
 
 		if (this.state.filePath && this.state.filePath.length > 0) {
@@ -36,7 +37,7 @@ export class Cover extends React.Component {
 
 	render() {
 
-
+		// without a cover
 		var content =
 			<div id="cover-preview-empty">
 				<Icon icon="media" iconSize={100} style={{
@@ -65,8 +66,43 @@ export class Cover extends React.Component {
 				/>
 			</div>;
 
+		// with a cover
 		if (this.state.hasSelection) {
-			content = <img src={this.state.filePath} />;
+			content =
+				<div id="cover-preview-filled"
+					onMouseEnter={this.handleMouseHover.bind(this)}
+					onMouseLeave={this.handleMouseHover.bind(this)}
+				>
+					<img src={this.state.filePath} />
+					{
+						this.state.isHovering &&
+
+						<div id="cover-preview-overlay" />
+					}
+					{
+						this.state.isHovering &&
+						<Button
+							id="OpenProjectButton"
+							minimal={this.state.minimal}
+							icon="folder-open"
+							text="Browse"
+							style={this.props.style}
+							onClick={() => {
+								dialog.showOpenDialog({
+									properties: ['openFile'],
+									filters: [
+										{ name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+									]
+								}).then(result => {
+									console.log("result: " + JSON.stringify(result));
+									if (!result.canceled) {
+										this.onUpdateCover(result.filePaths[0])
+									}
+								});
+							}}
+						/>
+					}
+				</div>;
 		}
 
 		return (
@@ -125,6 +161,16 @@ export class Cover extends React.Component {
 	save() {
 		this.props.setCover(this.state.filePath);
 		this.props.saveProject();
+	}
+
+	handleMouseHover() {
+		this.setState(this.toggleHoverState);
+	}
+
+	toggleHoverState(state) {
+		return {
+			isHovering: !state.isHovering,
+		};
 	}
 }
 
