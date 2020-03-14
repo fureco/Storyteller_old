@@ -28,9 +28,9 @@ class Abstract extends React.Component {
 	}
 }
 
-function mapStateToProps({ projectReducer }) {
+function mapStateToProps({ project }) {
 	return {
-		project: projectReducer,
+		project,
 	};
 }
 

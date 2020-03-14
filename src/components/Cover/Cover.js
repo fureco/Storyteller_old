@@ -1,12 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { projectActions } from './../../store/actions';
 
 import {
+	Button,
 	Colors,
-	FileInput
+	Icon
 } from '@blueprintjs/core';
 
 import "./Cover.css";
+
+const fs = require('fs');
+const { dialog } = require('electron').remote;
 
 export class Cover extends React.Component {
 
@@ -18,39 +23,123 @@ export class Cover extends React.Component {
 			border: `1px solid ${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.GRAY5}`,
 			borderRadius: `3px`,
 			backgroundColor: `${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY3 : Colors.LIGHT_GRAY5}`,
+			coverFolderPath: props.appState.path + "\\src\\assets\\cover\\",
+			fileName: "",
+			filePath: props.project.cover,
+			hasSelection: false
 		};
+
+		if (this.state.filePath && this.state.filePath.length > 0) {
+			this.state.hasSelection = true;
+		}
 	}
 
 	render() {
 
+
+		var content =
+			<div id="cover-preview-empty">
+				<Icon icon="media" iconSize={100} style={{
+					alignSelf: `center`,
+					color: this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY5 : Colors.LIGHT_GRAY1
+				}} />
+				<Button
+					id="OpenProjectButton"
+					minimal={this.state.minimal}
+					icon="folder-open"
+					text="Browse"
+					style={this.props.style}
+					onClick={() => {
+						dialog.showOpenDialog({
+							properties: ['openFile'],
+							filters: [
+								{ name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+							]
+						}).then(result => {
+							console.log("result: " + JSON.stringify(result));
+							if (!result.canceled) {
+								this.onUpdateCover(result.filePaths[0])
+							}
+						});
+					}}
+				/>
+			</div>;
+
+		if (this.state.hasSelection) {
+			content = <img src={this.state.filePath} />;
+		}
+
 		return (
 			<div id="Cover">
 
-				<FileInput className={this.props.appState.theme} text="Choose file..." onInputChange={() => { console.log("test") }} />
+				<h1>Cover</h1>
 
-				<div
-					id="cover-preview"
-					style={{
-						border: `${this.state.border}`,
-						borderRadius: `${this.state.borderRadius}`,
-						backgroundColor: `${this.state.backgroundColor}`,
-					}}
-				/>
+				<div id="cover-preview" style={{
+					border: `${this.state.border}`,
+					borderRadius: `${this.state.borderRadius}`,
+					backgroundColor: `${this.state.backgroundColor}`,
+				}}>
+					{content}
+				</div>
 
 			</div>
 		);
 	}
+
+	onUpdateCover(filePath) {
+
+		if (!filePath) return;
+
+		if (!fs.existsSync(this.props.appState.path + "\\src")) {
+			fs.mkdirSync(this.props.appState.path + "\\src");
+		}
+
+		if (!fs.existsSync(this.props.appState.path + "\\src\\assets")) {
+			fs.mkdirSync(this.props.appState.path + "\\src\\assets");
+		}
+
+		if (!fs.existsSync(this.state.coverFolderPath)) {
+			fs.mkdirSync(this.state.coverFolderPath);
+		}
+
+		var filePathArr = filePath.split("\\");
+		var fileName = filePathArr[filePathArr.length - 1];
+
+        // copy file into project folder
+ 		fs.copyFile(filePath, this.state.coverFolderPath + fileName, (err) => {
+
+			if (err) throw err;
+
+			console.log(fileName + ' was copied to ' + this.state.coverFolderPath);
+
+			this.setState({
+				"fileName": fileName,
+				"filePath": this.state.coverFolderPath + fileName,
+				"hasSelection": true
+			});
+
+			this.save();
+		});
+	}
+
+	save() {
+		this.props.setCover(this.state.filePath);
+		this.props.saveProject();
+	}
 }
 
-function mapStateToProps({ appStateReducer }, ownProps) {
+function mapStateToProps({ appStateReducer, project }, ownProps) {
 
 	return {
 		appState: appStateReducer,
+		project
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
+		setCover: filePath => dispatch(projectActions.setCover(filePath)),
+		saveProject: () => dispatch(projectActions.save()),
 	};
 }
 

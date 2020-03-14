@@ -1,12 +1,13 @@
 import { appStateActions, charactersActions, partsActions, scenesActions } from './../';
 import storage from 'electron-json-storage';
 
-import { initialState as initialProjectState } from './../../models/projectModel';
+import { initialState as initialProjectState } from '../../reducers/projectReducer/projectModel';
 import { initialState as initialAppState } from './../../models/appStateModel';
 
 const fs = require('fs');
 
 // ############ ACTION TYPES ##############
+export const SET_COVER = 'SET_COVER';
 export const SET_TITLE = 'SET_TITLE';
 export const SET_ABSTRACT = 'SET_ABSTRACT';
 export const SET_DEDICATION = 'SET_DEDICATION';
@@ -14,7 +15,7 @@ export const SET_DEDICATION = 'SET_DEDICATION';
 // ############## ACTIONS #################
 export const createProjectAction = (directoryPath) => {
 
-	console.log("start creating a new project...", directoryPath);
+	console.log("starting to create a new project...", directoryPath);
 
 	return (dispatch, getState) => {
 
@@ -107,7 +108,8 @@ function openProjectSuccess(directoryPath, jsonData) {
 
 	return (dispatch, getState) => {
 
-        dispatch(appStateActions.setPath(directoryPath));
+		dispatch(appStateActions.setPath(directoryPath));
+		dispatch(setCover(jsonData.cover));
 		dispatch(setTitle(jsonData.title));
 		dispatch(setAbstract(jsonData.abstract));
 		dispatch(setDedication(jsonData.dedication));
@@ -142,6 +144,7 @@ export const closeProjectAction = () => {
 	}
 }
 
+export const setCover = (cover) => ({ type: SET_COVER, cover });
 export const setTitle = (title) => ({ type: SET_TITLE, title });
 export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
 export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
@@ -152,7 +155,13 @@ export const save = () => {
 
 	return (dispatch, getState) => {
 
-		let content = JSON.stringify(getState().projectReducer);
+		let content = JSON.stringify(getState().project);
+
+		if (!content) {
+			console.error("content: " + content);
+			return;
+		}
+
 		console.log("content: " + content);
 
 		storage.get('storyteller', function (error, data) {
@@ -189,6 +198,10 @@ function createNewStorytellerProjectFile(directoryPath) {
 	console.log("creating new project file...");
 
 	return (dispatch, getState) => {
+
+		if (!fs.existsSync(directoryPath + "\\src")) {
+			fs.mkdirSync(directoryPath + "\\src");
+		}
 
 		fs.writeFile(directoryPath + "/src/project.json", JSON.stringify(initialProjectState), (err) => {
 

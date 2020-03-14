@@ -6,7 +6,7 @@ export const initialState = {
 		script: {
 			current: "structure",
 			structure: {
-				current: 'abstract'
+				current: "cover"
 			}
 		},
 		characters: {

@@ -1,4 +1,4 @@
-import reducer from '.'
+import reducer from './reducer.project.js'
 import { projectActions } from '../../actions'
 
 import { initialState } from '../../models/projectModel'

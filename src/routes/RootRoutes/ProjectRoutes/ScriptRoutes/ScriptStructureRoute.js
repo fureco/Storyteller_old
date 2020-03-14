@@ -75,9 +75,12 @@ class ScriptStructureRoute extends React.Component {
 						resize: 'none',
 						outline: 'none',
 						padding: '10px',
-						flex: '1'
+						flex: '1',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
 					}}
-				>
+							>
 					{/* <div>ScriptStructureRoute: {window.location.hash} -> {this.props.route}</div> */}
 
 					<Switch>

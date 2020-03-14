@@ -1,10 +1,14 @@
-import { projectActions } from './../../actions'
-import { initialState } from './../../models/projectModel'
-import { getNewID } from './../utils'
+import { projectActions } from '../../actions'
+import { initialState } from './projectModel'
 
-const projectReducer = (state = initialState, action) => {
+const project = (state = initialState, action) => {
 
-    switch (action.type) {
+	switch (action.type) {
+
+		case projectActions.SET_COVER:
+			return Object.assign({}, state, {
+				cover: action.cover
+			});
 
 		case projectActions.SET_TITLE:
 			return Object.assign({}, state, {
@@ -26,4 +30,4 @@ const projectReducer = (state = initialState, action) => {
   }
 };
 
-export default projectReducer;
+export default project;

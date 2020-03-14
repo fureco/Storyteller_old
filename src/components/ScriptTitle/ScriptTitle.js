@@ -101,9 +101,9 @@ export class ScriptTitle extends React.Component {
 	}
 }
 
-function mapStateToProps({ projectReducer }) {
+function mapStateToProps({ project }) {
 	return {
-		project: projectReducer
+		project
 	};
 }
 
