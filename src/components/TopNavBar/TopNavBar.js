@@ -24,6 +24,8 @@ import {
 } from '@blueprintjs/core';
 
 import { remote } from 'electron';
+
+const fs = require('fs');
 const { dialog } = require('electron').remote;
 
 export class TopNavBar extends React.Component {
@@ -123,8 +125,20 @@ export class TopNavBar extends React.Component {
 	}
 
 	archive() {
+
 		var date = new Date();
-		ncp(this.props.appState.path + "/src", this.props.appState.path + "/archive/" + date.toISOString().split('T')[0], (err) => {
+		var date_splitted = date.toISOString().split('T');
+		var date_string = date_splitted[0].replace(/-/g, "") + "_" + date_splitted[1].substring(0, 8).replace(/:/g, "");
+
+		if (!fs.existsSync(this.props.appState.path + "\\archive")) {
+			fs.mkdirSync(this.props.appState.path + "\\archive");
+		}
+
+		if (!fs.existsSync(this.props.appState.path + "\\archive\\" + date_string)) {
+			fs.mkdirSync(this.props.appState.path + "\\archive\\" + date_string);
+		}
+
+		ncp(this.props.appState.path + "/src", this.props.appState.path + "/archive/" + date_string, (err) => {
 			if (err) {
 				return console.error(err);
 			}
