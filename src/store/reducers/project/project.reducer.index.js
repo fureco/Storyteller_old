@@ -1,5 +1,5 @@
 import { projectActions } from '../../actions'
-import { initialState } from './projectModel'
+import { initialState } from './project.model'
 
 const project = (state = initialState, action) => {
 

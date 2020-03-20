@@ -1,7 +1,7 @@
-import reducer from './reducer.project.js'
+import reducer from './reducer.project.index.js'
 import { projectActions } from '../../actions'
 
-import { initialState } from '../../models/projectModel'
+import { initialState } from './projectModel'
 
 describe('Project reducer', () => {
 

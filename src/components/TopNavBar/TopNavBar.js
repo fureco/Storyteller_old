@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { appStateActions, projectActions } from "../../store/actions";
 
-import ncp from "ncp";
-
 import './TopNavBar.css';
 
 import {
@@ -69,7 +67,7 @@ export class TopNavBar extends React.Component {
 							}
 						});
 					}} />
-					{this.props.appState.path && <MenuItem text="Save Backup" icon="archive" onClick={() => { this.archive() }} />}
+					{this.props.appState.path && <MenuItem text="Save Backup" icon="archive" onClick={() => { this.props.archiveProject() }} />}
 					{this.props.appState.path && <MenuItem text="Restore Backup" icon="unarchive" onClick={() => { }} />}
 					{this.props.appState.path && <MenuItem text="Close" icon="delete" onClick={() => this.props.closeProject()} />}
 				</MenuItem>
@@ -104,46 +102,43 @@ export class TopNavBar extends React.Component {
                             </Tab>
                             <Tab id="timeline">
                                 <Link to="/timeline"><Icon icon="time" /> Timeline</Link>
-                            </Tab>
+							</Tab>
+							<Tab id="preview">
+								<Link to="/preview"><Icon icon="eye-open" /> Preview</Link>
+							</Tab>
+							{/* <Tab id="export">
+								<Link to="/export"><Icon icon="export" /> Export</Link>
+							</Tab> */}
                         </Tabs>
                     }
 
                 </NavbarGroup>
 
-                <NavbarGroup id="TopNavBarGroupRight" align={Alignment.RIGHT}>
-                    <Tooltip content="Quit Storyteller" position={Position.BOTTOM}>
+				<NavbarGroup id="TopNavBarGroupRight" align={Alignment.RIGHT}>
+
+					{this.props.appState.path &&
+						<Button
+							minimal={true}
+							icon="export"
+							text="Export"
+							onClick={() => this.props.exportAsEpub()}
+						/>
+					}
+
+					<NavbarDivider />
+
+					<Tooltip content="Quit Storyteller" position={Position.BOTTOM}>
 						<Button
 							minimal={true}
 							icon="small-cross"
 							onClick={() => remote.app.quit()}
 						/>
-                    </Tooltip>
+					</Tooltip>
+
                 </NavbarGroup>
 
             </Navbar>
         );
-	}
-
-	archive() {
-
-		var date = new Date();
-		var date_splitted = date.toISOString().split('T');
-		var date_string = date_splitted[0].replace(/-/g, "") + "_" + date_splitted[1].substring(0, 8).replace(/:/g, "");
-
-		if (!fs.existsSync(this.props.appState.path + "\\archive")) {
-			fs.mkdirSync(this.props.appState.path + "\\archive");
-		}
-
-		if (!fs.existsSync(this.props.appState.path + "\\archive\\" + date_string)) {
-			fs.mkdirSync(this.props.appState.path + "\\archive\\" + date_string);
-		}
-
-		ncp(this.props.appState.path + "/src", this.props.appState.path + "/archive/" + date_string, (err) => {
-			if (err) {
-				return console.error(err);
-			}
-			console.log('done!');
-		});
 	}
 }
 
@@ -156,9 +151,13 @@ function mapStateToProps({ appStateReducer, projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
 	return {
+		// project
 		openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
 		closeProject: () => dispatch(projectActions.closeProjectAction()),
 		createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
+		archiveProject: () => dispatch(projectActions.archive()),
+		exportAsEpub: () => dispatch(projectActions.exportAsEpub()),
+		// app_state
 		changeCurrentRootRoute: (navbarTabId) => dispatch(appStateActions.changeCurrentRootRoute(navbarTabId)),
 		changeTheme: (theme) => dispatch(appStateActions.changeTheme(theme)),
 		saveAppState: () => dispatch(appStateActions.save()),

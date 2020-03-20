@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:title>Syleria</dc:title>
+    <dc:creator opf:file-as="Unbekannt" opf:role="aut">Melanie Mende</dc:creator>
+    <dc:identifier opf:scheme="uuid" id="uuid_id">0f098cca-cb40-4c1f-b19b-1388c52e6219</dc:identifier>
+    <dc:language>deu</dc:language>
+  </metadata>
+
+  <manifest>
+
+    <item href="styles/stylesheet.css" id="styles" media-type="text/css"/>
+    <item href="fonts/Tangerine_Bold.ttf" id="font_tangerine_bold" media-type="application/x-font-truetype"/>
+    <item href="toc.ncx" id="toc" media-type="application/x-dtbncx+xml"/>
+
+	<!-- <item href="text" dirName + ".xhtml" id=" + chapterID + " media-type="application/xhtml+xml"/> -->
+
+  </manifest>
+
+  <spine toc="toc">
+<!--     <itemref idref="dedication"/>
+    <itemref idref="chapter_1"/>
+    <itemref idref="chapter_2"/>
+    <itemref idref="chapter_3"/>
+    <itemref idref="chapter_4"/> -->
+  </spine>
+
+</package>

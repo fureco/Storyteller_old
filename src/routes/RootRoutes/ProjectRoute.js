@@ -17,6 +17,7 @@ import { MoveToTrashAlert } from './../../components';
 
 import ScriptRoute from './ProjectRoutes/ScriptRoute';
 import CharactersRoute from './ProjectRoutes/CharactersRoute';
+import PreviewRoute from './ProjectRoutes/PreviewRoute/PreviewRoute';
 
 class Project extends React.Component {
 
@@ -85,6 +86,7 @@ class Project extends React.Component {
 							<Route path="/characters" component={() => { return <CharactersRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />
 							<Route path="/timeline" component={() => { return <Timeline /> }} />
+							<Route path="/preview" component={() => { return <PreviewRoute /> }} />
 						</Switch>
 					</div>
 				</div>

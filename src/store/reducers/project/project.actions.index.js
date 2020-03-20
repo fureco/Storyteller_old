@@ -1,10 +1,10 @@
-import { appStateActions, charactersActions, partsActions, scenesActions } from './../';
+import { appStateActions, charactersActions, partsActions, scenesActions } from '../../actions';
 import storage from 'electron-json-storage';
 
-import { initialState as initialProjectState } from '../../reducers/projectReducer/projectModel';
-import { initialState as initialAppState } from './../../models/appStateModel';
+import { initialState as initialProjectState } from './project.model';
+import { initialState as initialAppState } from '../../models/appStateModel';
 
-const fs = require('fs');
+const fs = require('fs-extra')
 
 // ############ ACTION TYPES ##############
 export const SET_COVER = 'SET_COVER';
@@ -13,6 +13,11 @@ export const SET_ABSTRACT = 'SET_ABSTRACT';
 export const SET_DEDICATION = 'SET_DEDICATION';
 
 // ############## ACTIONS #################
+export const setCover = (cover) => ({ type: SET_COVER, cover });
+export const setTitle = (title) => ({ type: SET_TITLE, title });
+export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
+export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
+
 export const createProjectAction = (directoryPath) => {
 
 	console.log("starting to create a new project...", directoryPath);
@@ -144,11 +149,6 @@ export const closeProjectAction = () => {
 	}
 }
 
-export const setCover = (cover) => ({ type: SET_COVER, cover });
-export const setTitle = (title) => ({ type: SET_TITLE, title });
-export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
-export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
-
 export const save = () => {
 
 	console.log("saving project...")
@@ -178,6 +178,128 @@ export const save = () => {
 				})
 			}
 		});
+	};
+};
+
+export const archive = () => {
+
+	return (dispatch, getState) => {
+
+		var date = new Date();
+		var date_splitted = date.toISOString().split('T');
+		var date_string = date_splitted[0].replace(/-/g, "") + "_" + date_splitted[1].substring(0, 8).replace(/:/g, "");
+
+		var path = getState().appStateReducer.path;
+
+		fs.copy(path + "/src", path + "/archive/" + date_string, (err) => {
+			if (err) {
+				return console.error(err);
+			}
+			console.log('done!');
+		});
+	};
+}
+
+export const exportAsEpub = () => {
+
+	console.log("exporting project...")
+
+	return (dispatch, getState) => {
+
+		const path = require('path');
+
+		var path_to_project = getState().appStateReducer.path;
+		var dist_folder = path_to_project + "/dist";
+
+		if (!fs.existsSync(dist_folder)) {
+			// create destination folder if it does not yet exist
+			fs.mkdirSync(dist_folder);
+		}
+		else {
+			// clear destination folder if it does exist
+			fs.emptyDir(dist_folder, err => {
+
+				if (err) return console.error(err)
+
+				// copy fonts
+				/* fs.copy(path_to_project + "/src/assets/fonts", path_to_project + "/dist/fonts/", (err) => {
+					if (err) {
+						return console.error(err);
+					}
+					console.log('done!');
+				}); */
+
+				// copy styles
+				/* fs.copy(path_to_project + "/src/assets/styles", path_to_project + "/dist/styles/", (err) => {
+					if (err) {
+						return console.error(err);
+					}
+					console.log('done!');
+				}); */
+
+				fs.copy("./src/assets/META-INF", dist_folder + "/META-INF", (err) => {
+
+					if (err) return console.error(err);
+
+					fs.copy("./src/assets/meta-content", dist_folder + "/meta-content", (err) => {
+
+						if (err) return console.error(err);
+
+						var archiver = require('archiver');
+
+						if (!fs.existsSync(path_to_project + "/epub")) {
+							fs.mkdirSync(path_to_project + "/epub");
+						}
+
+						// create a file to stream archive data to.
+						var output = fs.createWriteStream(path_to_project + "/epub/example.zip");
+						var archive = archiver('zip');
+
+						// listen for all archive data to be written
+						// 'close' event is fired only when a file descriptor is involved
+						output.on('close', function () {
+							console.log(archive.pointer() + ' total bytes');
+							console.log('archiver has been finalized and the output file descriptor has closed.');
+						});
+
+						// This event is fired when the data source is drained no matter what was the data source.
+						// It is not part of this library but rather from the NodeJS Stream API.
+						// @see: https://nodejs.org/api/stream.html#stream_event_end
+						output.on('end', function () {
+							console.log('Data has been drained');
+						});
+
+						// good practice to catch warnings (ie stat failures and other non-blocking errors)
+						archive.on('warning', function (err) {
+							if (err.code === 'ENOENT') {
+								// log warning
+							} else {
+								// throw error
+								throw err;
+							}
+						});
+
+						// good practice to catch this error explicitly
+						archive.on('error', function (err) {
+							throw err;
+						});
+
+						// pipe archive data to the file
+						archive.pipe(output);
+
+						var mimetype = './src/assets/meta-content/mimetype';
+						archive.append(fs.createReadStream(mimetype), { name: 'mimetype', store: true });
+
+						var metadata = './src/assets/meta-content/metadata.opf';
+						archive.append(fs.createReadStream(metadata), { name: 'metadata.opf' });
+
+						archive.finalize();
+
+						console.log('done!');
+					});
+				});
+			})
+		}
 	};
 };
 

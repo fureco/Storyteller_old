@@ -1,3 +1,7 @@
 #TopNavBarContainer {
 	padding: 0 5px;
 }
+
+#TopNavBarGroupRight .bp3-navbar-divider {
+	margin: 0;
+}
