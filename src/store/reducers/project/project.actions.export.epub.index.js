@@ -1,4 +1,9 @@
-const fs = require('fs-extra')
+const fs = require('fs-extra');
+
+var path_to_project = "";
+var dist_folder = "";
+var dist_folder_fonts = "";
+var dist_folder_toc = "";
 
 export const exportAsEpub = () => {
 
@@ -6,54 +11,81 @@ export const exportAsEpub = () => {
 
 	return (dispatch, getState) => {
 
-		const path = require('path');
+		path_to_project = getState().appStateReducer.path;
+		dist_folder = path_to_project + "/dist";
+		dist_folder_fonts = dist_folder + '/fonts';
+		dist_folder_toc = dist_folder + '/meta-content/toc.ncx';
 
-		var path_to_project = getState().appStateReducer.path;
-		var dist_folder = path_to_project + "/dist";
-
-		if (!fs.existsSync(dist_folder)) {
+ 		if (!fs.existsSync(dist_folder)) {
 			// create destination folder if it does not yet exist
 			fs.mkdirSync(dist_folder);
 		}
 		else {
 			// clear destination folder if it does exist
-			fs.emptyDir(dist_folder, err => {
-
-				if (err) return console.error(err)
-
-				// copy fonts
-				/* fs.copy(path_to_project + "/src/assets/fonts", path_to_project + "/dist/fonts/", (err) => {
-					if (err) {
-						return console.error(err);
-					}
-					console.log('done!');
-				}); */
-
-				// copy styles
-				/* fs.copy(path_to_project + "/src/assets/styles", path_to_project + "/dist/styles/", (err) => {
-					if (err) {
-						return console.error(err);
-					}
-					console.log('done!');
-				}); */
-
-				fs.copy(path_to_project + "/src/script", dist_folder + "/script")
-					.then(() => {
-						fs.copy("./src/assets/META-INF", dist_folder + "/META-INF")
-							.then(() => {
-								fs.copy("./src/assets/meta-content", dist_folder + "/meta-content")
-									.then(() => createArchive(path_to_project))
-									.catch(err => console.error(err))
-							})
-							.catch(err => console.error(err))
-					})
-					.catch(err => console.error(err))
-			})
+			fs.emptyDirSync(dist_folder);
 		}
-	};
+
+		// copy fonts
+		if (!fs.existsSync(dist_folder_fonts)) {
+			// create destination folder if it does not yet exist
+			fs.mkdirSync(dist_folder_fonts);
+		}
+
+		fs.copySync(path_to_project + "/src/assets/fonts", dist_folder_fonts);
+
+		// copy styles
+		fs.copySync("./src/templates/stylesheet.css", path_to_project + "/dist/styles/stylesheet.css");
+
+		// copy script
+		if (!fs.existsSync(dist_folder + "/script")) {
+			// create destination folder if it does not yet exist
+			fs.mkdirSync(dist_folder + "/script");
+		}
+
+		fs.copySync(path_to_project + "/src/script", dist_folder + "/script");
+
+        fs.copySync("./src/templates/META-INF", dist_folder + "/META-INF");
+
+		// meta-content = metadata.opf, mimetype, toc.ncx
+        fs.copySync("./src/templates/meta-content", dist_folder + "/meta-content");
+
+        prepareTOC(getState().project);
+
+        prepareMetadataOPF(path_to_project + '/dist/meta-content/metadata.opf', getState().project);
+
+        createEpub();
+	}
 };
 
-function createArchive(path_to_project) {
+function prepareTOC(project) {
+
+	var data = fs.readFileSync(dist_folder_toc, 'utf8');
+
+	data = data.replace(/@_TITLE_@/g, project.title);
+
+	var navmap = "";
+	navmap += "<navPoint id=\"dedication\" playOrder=\"1\">\n";
+	navmap += 	"\t\t<navLabel>\n";
+	navmap += 		"\t\t\t<text>Danksagung</text>\n";
+	navmap += 	"\t\t</navLabel>\n";
+	navmap += 	"\t\t<content src=\"script/0_dedication-Dedication.xhtml\" />\n";
+	navmap += "\t</navPoint>\n";
+
+	data = data.replace(/@_NAVMAP_@/g, navmap);
+
+	fs.writeFileSync(dist_folder_toc, data, 'utf8');
+}
+
+function prepareMetadataOPF(pathToMetadataOPF, project) {
+
+	var data = fs.readFileSync(pathToMetadataOPF, 'utf8');
+
+	data = data.replace(/@_TITLE_@/g, project.title);
+
+	fs.writeFileSync(pathToMetadataOPF, data, 'utf8');
+}
+
+function createEpub() {
 
 	var archiver = require('archiver');
 
@@ -110,7 +142,18 @@ function createArchive(path_to_project) {
 	var container_xml = path_to_project + '/dist/META-INF/container.xml';
 	archive.append(fs.createReadStream(container_xml), { name: 'META-INF/container.xml' });
 
-	archive.directory(path_to_project + 'script/', false); // false = put at the root of the archive
+	var stylesheet = path_to_project + '/dist/styles/stylesheet.css';
+	archive.append(fs.createReadStream(stylesheet), { name: 'styles/stylesheet.css' });
+
+    fs.readdirSync(dist_folder_fonts).forEach(file => {
+        console.log(dist_folder_fonts + "/" + file);
+        archive.append(fs.createReadStream(dist_folder_fonts + "/" + file), { name: 'fonts/' + file });
+	});
+
+	fs.readdirSync(path_to_project + '/dist/script/').forEach(file => {
+		console.log(file);
+		archive.append(fs.createReadStream(dist_folder + "/script/" + file), { name: 'script/' + file });
+	});
 
 	archive.finalize();
 
