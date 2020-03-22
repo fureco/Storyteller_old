@@ -3,6 +3,7 @@ const fs = require('fs-extra');
 var path_to_project = "";
 var dist_folder = "";
 var dist_folder_fonts = "";
+var dist_folder_cover = "";
 var dist_folder_toc = "";
 
 export const exportAsEpub = () => {
@@ -13,6 +14,7 @@ export const exportAsEpub = () => {
 
 		path_to_project = getState().appStateReducer.path;
 		dist_folder = path_to_project + "/dist";
+		dist_folder_cover = dist_folder + '/cover';
 		dist_folder_fonts = dist_folder + '/fonts';
 		dist_folder_toc = dist_folder + '/meta-content/toc.ncx';
 
@@ -24,6 +26,15 @@ export const exportAsEpub = () => {
 			// clear destination folder if it does exist
 			fs.emptyDirSync(dist_folder);
 		}
+
+		// copy cover
+		if (!fs.existsSync(dist_folder_cover)) {
+			// create destination folder if it does not yet exist
+			fs.mkdirSync(dist_folder_cover);
+		}
+
+		fs.copySync("./src/templates/cover", dist_folder_cover);
+		fs.copySync(path_to_project + "/src/assets/cover", dist_folder_cover);
 
 		// copy fonts
 		if (!fs.existsSync(dist_folder_fonts)) {
@@ -64,6 +75,14 @@ function prepareTOC(project) {
 	data = data.replace(/@_TITLE_@/g, project.title);
 
 	var navmap = "";
+
+	navmap += "<navPoint id=\"cover\" playOrder=\"0\">\n";
+	navmap += "\t\t<navLabel>\n";
+	navmap += "\t\t\t<text>Cover</text>\n";
+	navmap += "\t\t</navLabel>\n";
+	navmap += "\t\t<content src=\"cover/cover.xhtml\" />\n";
+	navmap += "\t</navPoint>\n";
+
 	navmap += "<navPoint id=\"dedication\" playOrder=\"1\">\n";
 	navmap += 	"\t\t<navLabel>\n";
 	navmap += 		"\t\t\t<text>Danksagung</text>\n";
@@ -145,8 +164,13 @@ function createEpub() {
 	var stylesheet = path_to_project + '/dist/styles/stylesheet.css';
 	archive.append(fs.createReadStream(stylesheet), { name: 'styles/stylesheet.css' });
 
+	fs.readdirSync(dist_folder_cover).forEach(file => {
+		console.log(file);
+		archive.append(fs.createReadStream(dist_folder_cover + "/" + file), { name: 'cover/' + file });
+	});
+
     fs.readdirSync(dist_folder_fonts).forEach(file => {
-        console.log(dist_folder_fonts + "/" + file);
+        console.log(file);
         archive.append(fs.createReadStream(dist_folder_fonts + "/" + file), { name: 'fonts/' + file });
 	});
 

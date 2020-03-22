@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 import { Cover, ScriptStructure, Parts } from '../../../../components';
-import { Abstract, Dedication, ScenesRoute } from './ScriptStructureRoutes';
+import { Abstract, DedicationRoute, ScenesRoute } from './ScriptStructureRoutes';
 
 import {
 	Colors,
@@ -87,7 +87,7 @@ class ScriptStructureRoute extends React.Component {
 						<Redirect exact from="/script/structure" to="/script/structure/cover" />
 						<Route path="/script/structure/cover" component={() => { return <Cover /> }} />
 						<Route path="/script/structure/abstract" component={() => { return <Abstract /> }} />
-						<Route path="/script/structure/dedication" component={() => { return <Dedication /> }} />
+						<Route path="/script/structure/dedication" component={() => { return <DedicationRoute /> }} />
 						<Route path="/script/structure/parts" component={() => { return <Parts /> }} />
 						<Route path="/script/structure/chapters" component={() => { return "Chapters" }} />
 						<Route path="/script/structure/scenes" component={() => { return <ScenesRoute /> }} />

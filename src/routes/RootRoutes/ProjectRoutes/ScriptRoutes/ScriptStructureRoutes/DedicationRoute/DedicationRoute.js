@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from './../../../../../../store/actions';
+import { projectActions } from '../../../../../../store/actions';
 
 import { TextAreaWithPreview } from '../../../../../../components';
 
-class Dedication extends React.Component {
+class DedicationRoute extends React.Component {
 
 	constructor(props) {
 
@@ -28,9 +28,9 @@ class Dedication extends React.Component {
 	}
 }
 
-function mapStateToProps({ projectReducer }) {
+function mapStateToProps({ project }) {
 	return {
-		project: projectReducer,
+		project,
 	};
 }
 
@@ -44,4 +44,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Dedication)
+)(DedicationRoute)

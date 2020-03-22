@@ -15,6 +15,11 @@ const project = (state = initialState, action) => {
 				title: action.title
 			});
 
+		case projectActions.SET_AUTHOR:
+			return Object.assign({}, state, {
+				author: action.author
+			});
+
 		case projectActions.SET_ABSTRACT:
 			return Object.assign({}, state, {
 				abstract: action.abstract

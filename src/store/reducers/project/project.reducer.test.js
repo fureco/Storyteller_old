@@ -22,6 +22,19 @@ describe('Project reducer', () => {
 		)
 	})
 
+	it('should handle SET_AUTHOR', () => {
+		expect(
+			reducer(initialState, {
+				type: projectActions.SET_AUTHOR,
+				author: 'firstname lastname'
+			})
+		).toEqual(
+			Object.assign({}, initialState, {
+				author: 'firstname lastname'
+			})
+		)
+	})
+
 	it('should handle SET_ABSTRACT', () => {
 		expect(
 			reducer(initialState, {

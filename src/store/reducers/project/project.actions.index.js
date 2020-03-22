@@ -12,12 +12,14 @@ const fs = require('fs-extra')
 // ############ ACTION TYPES ##############
 export const SET_COVER = 'SET_COVER';
 export const SET_TITLE = 'SET_TITLE';
+export const SET_AUTHOR = 'SET_AUTHOR';
 export const SET_ABSTRACT = 'SET_ABSTRACT';
 export const SET_DEDICATION = 'SET_DEDICATION';
 
 // ############## ACTIONS #################
 export const setCover = (cover) => ({ type: SET_COVER, cover });
 export const setTitle = (title) => ({ type: SET_TITLE, title });
+export const setAuthor = (author) => ({ type: SET_AUTHOR, author });
 export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
 export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
 
