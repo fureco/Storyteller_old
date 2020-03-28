@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter, Switch, Redirect, Link } from "react-router-dom";
 
-import Trash from '../../../../../../components/Trash/Trash.index.js'
+import Trash from '../../../../../components/Trash/Trash.index.js'
 
 import {
 	Button,

@@ -108,16 +108,15 @@ export class Cover extends React.Component {
 		return (
 			<div id="Cover">
 
-				<h1>Cover</h1>
-
-				<div id="cover-preview" style={{
-					border: `${this.state.border}`,
-					borderRadius: `${this.state.borderRadius}`,
-					backgroundColor: `${this.state.backgroundColor}`,
-				}}>
-					{content}
+				<div className="page-preview" >
+					<div className="page-preview-content" style={{
+						border: `${this.state.border}`,
+						borderRadius: `${this.state.borderRadius}`,
+						backgroundColor: `${this.state.backgroundColor}`,
+					}}>
+						{content}
+					</div>
 				</div>
-
 			</div>
 		);
 	}

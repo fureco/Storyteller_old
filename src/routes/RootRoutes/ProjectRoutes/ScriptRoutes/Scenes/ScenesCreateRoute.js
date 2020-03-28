@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory, Route, withRouter, Switch, Redirect, Link } from "react-router-dom";
 
-import { scenesActions } from "../../../../../../store/actions";
+import { scenesActions } from "../../../../../store/actions";
 
 import {
 	Button,

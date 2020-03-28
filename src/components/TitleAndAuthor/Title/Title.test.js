@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScriptTitle } from './ScriptTitle.js';
+import { Title } from './Title.js';
 import { shallow, mount, render } from 'enzyme';
 
 test('ScriptTitle - edit mode is open when project title is empty', () => {
@@ -9,7 +9,7 @@ test('ScriptTitle - edit mode is open when project title is empty', () => {
 	};
 
 	const scriptTitle = shallow(
-		<ScriptTitle project={project} />
+		<Title project={project} />
 	);
 
 	// find input group
@@ -24,7 +24,7 @@ test('ScriptTitle - edit mode is closed when project title is not empty', () => 
 	};
 
 	const scriptTitle = shallow(
-		<ScriptTitle project={project} />
+		<Title project={project} />
 	);
 
 	// find input group

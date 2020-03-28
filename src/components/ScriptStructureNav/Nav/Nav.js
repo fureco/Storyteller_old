@@ -40,19 +40,22 @@ class Nav extends React.Component {
 				vertical={this.state.vertical}>
 
 				<Tab id="cover">
-					<Link to="/script/structure/cover">Cover</Link>
+					<Link to="/script/cover">Cover</Link>
+				</Tab>
+				<Tab id="title_author">
+					<Link to="/script/title_author">Title &amp; Author</Link>
 				</Tab>
 				<Tab id="abstract">
-					<Link to="/script/structure/abstract">Abstract</Link>
+					<Link to="/script/abstract">Abstract</Link>
 				</Tab>
 				<Tab id="dedication">
-					<Link to="/script/structure/dedication">Dedication</Link>
+					<Link to="/script/dedication">Dedication</Link>
 				</Tab>
 				{/* <Tab id="parts">
-					<Link to="/script/structure/parts">Parts</Link>
+					<Link to="/script/parts">Parts</Link>
 				</Tab> */}
 				<Tab id="scenes">
-					<Link to="/script/structure/scenes">Scenes</Link>
+					<Link to="/script/scenes">Scenes</Link>
 				</Tab>
 
 			</Tabs>

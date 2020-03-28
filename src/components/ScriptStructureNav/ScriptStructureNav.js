@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ScriptTitle from "../ScriptTitle/ScriptTitle";
 import Nav from "./Nav/Nav";
 import Parts from "./Parts/Parts";
 import Scenes from "./Scenes/Scenes";
-import Trash from "./../Trash/Trash.index.js";
+import Trash from "../Trash/Trash.index.js";
 
 import "./ScriptStructure.css";
 
@@ -38,8 +37,6 @@ class ScriptStructure extends React.Component {
 		return (
 
 			<div id="ScriptStructure">
-
-				<ScriptTitle />
 
 				<Nav vertical />
 

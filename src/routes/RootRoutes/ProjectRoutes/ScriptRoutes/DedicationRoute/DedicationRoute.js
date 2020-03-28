@@ -1,22 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from './../../../../../../store/actions';
+import { projectActions } from '../../../../../store/actions';
 
-import { TextAreaWithPreview } from '../../../../../../components';
+import { TextAreaWithPreview } from '../../../../../components';
 
-class Abstract extends React.Component {
+class DedicationRoute extends React.Component {
 
 	constructor(props) {
 
 		super(props);
 
 		this.state = {
-			text: props.project.abstract,
+			text: props.project.dedication,
 		};
 	}
 
 	save(text) {
-		this.props.setAbstract(text);
+		this.props.setDedication(text);
 		this.props.saveProject();
 	}
 
@@ -36,7 +36,7 @@ function mapStateToProps({ project }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		setAbstract: abstract => dispatch(projectActions.setAbstract(abstract)),
+		setDedication: dedication => dispatch(projectActions.setDedication(dedication)),
 		saveProject: () => dispatch(projectActions.save()),
 	};
 }
@@ -44,4 +44,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Abstract)
+)(DedicationRoute)

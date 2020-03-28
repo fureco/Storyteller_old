@@ -5,11 +5,11 @@ import MoveToTrashAlert from './MoveToTrashAlert/MoveToTrashAlert';
 import OpenProjectButton from './OpenProjectButton/OpenProjectButton';
 import Parts from './Parts/Parts';
 import PartTitle from './PartTitle/PartTitle';
-import ScriptNav from './ScriptNav/ScriptNav';
-import ScriptStructure from './ScriptStructure/ScriptStructure';
-import ScriptPartCreationDialog from './ScriptStructure/ScriptPartCreationDialog';
+import ScriptStructureNav from './ScriptStructureNav/ScriptStructureNav';
+import ScriptPartCreationDialog from './ScriptStructureNav/ScriptPartCreationDialog';
 import TextAreaWithPreview from './TextAreaWithPreview/TextAreaWithPreview';
 import Timeline from './Timeline/Timeline';
+import TitleAndAuthor from './TitleAndAuthor/TitleAndAuthor';
 import TopNavBar from './TopNavBar/TopNavBar';
 
 // export all components as modules
@@ -21,10 +21,10 @@ export {
 	OpenProjectButton,
 	Parts,
 	PartTitle,
-	ScriptNav,
-	ScriptStructure,
+	ScriptStructureNav,
 	ScriptPartCreationDialog,
 	TextAreaWithPreview,
 	Timeline,
+	TitleAndAuthor,
 	TopNavBar
 }

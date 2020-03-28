@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from '../../store/actions';
+import { projectActions } from '../../../store/actions';
 
-import './ScriptTitle.css';
+import './Author.css';
 
 import {
 	Button,
@@ -13,16 +13,16 @@ import {
 	TextArea,
 } from '@blueprintjs/core';
 
-export class ScriptTitle extends React.Component {
+export class Author extends React.Component {
 
 	constructor(props) {
 
 		super(props);
 
 		this.state = {
-			isInEditMode: !this.props.project.title || this.props.project.title.length <= 0,
+			isInEditMode: !this.props.project.author || this.props.project.author.length <= 0,
 			mouseOver: false,
-			value: this.props.project.title,
+			value: this.props.project.author,
 		};
 	}
 
@@ -44,33 +44,33 @@ export class ScriptTitle extends React.Component {
 
 	undoEditing() {
 		this.setState({
-			isInEditMode: !this.props.project.title || this.props.project.title.length <= 0,
-			value: this.props.project.title
+			isInEditMode: !this.props.project.author || this.props.project.author.length <= 0,
+			value: this.props.project.author
 		});
 	}
 
 	save() {
-		this.props.setTitle(this.state.value);
+		this.props.setAuthor(this.state.value);
 		this.props.saveProject();
 	}
 
 	render() {
 		return (
-			<div id="ScriptTitle" onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
+			<div id="Author" onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
 
 				{this.state.isInEditMode ?
 
-					<div id="ScriptTitleInput">
+					<div id="AuthorInput">
 
 						<TextArea
 							value={this.state.value}
-							placeholder="Title..."
+							placeholder="Firstname Lastname..."
 							fill={true}
 							growVertically={true}
 							autoFocus
 							onChange={() => this.setState({ value: event.target.value })} />
 
-						<div id="ScriptTitleButtons">
+						<div id="AuthorButtons">
 							<ButtonGroup>
 								<Button
 									minimal={false}
@@ -89,9 +89,9 @@ export class ScriptTitle extends React.Component {
 
 					</div>
 
-					: <div id="ScriptTitleText" onClick={this.openEditMode.bind(this)}>
+					: <div id="AuthorText" onClick={this.openEditMode.bind(this)}>
 
-						{this.props.project.title}
+						{this.props.project.author}
 
 					</div>
 				}
@@ -109,7 +109,7 @@ function mapStateToProps({ project }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		setTitle: title => dispatch(projectActions.setTitle(title)),
+		setAuthor: author => dispatch(projectActions.setAuthor(author)),
 		saveProject: () => dispatch(projectActions.save()),
 	};
 }
@@ -117,4 +117,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ScriptTitle)
+)(Author)
