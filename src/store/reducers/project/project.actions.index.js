@@ -121,6 +121,7 @@ function openProjectSuccess(directoryPath, jsonData) {
 		dispatch(appStateActions.setPath(directoryPath));
 		dispatch(setCover(jsonData.cover));
 		dispatch(setTitle(jsonData.title));
+		dispatch(setAuthor(jsonData.author));
 		dispatch(setAbstract(jsonData.abstract));
 		dispatch(setDedication(jsonData.dedication));
 		dispatch(appStateActions.load());

@@ -2,16 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { projectActions } from '../../../store/actions';
 
-import './Author.css';
-
-import {
-	Button,
-	ButtonGroup,
-	EditableText,
-	InputGroup,
-	Text,
-	TextArea,
-} from '@blueprintjs/core';
+import TextInput from "./../../TextInput/TextInput";
 
 export class Author extends React.Component {
 
@@ -20,81 +11,34 @@ export class Author extends React.Component {
 		super(props);
 
 		this.state = {
-			isInEditMode: !this.props.project.author || this.props.project.author.length <= 0,
-			mouseOver: false,
-			value: this.props.project.author,
+			author: this.props.project.author,
 		};
 	}
 
-	onMouseEnter() {
-		this.setState({ mouseOver: true })
-	}
-
-	onMouseLeave() {
-		this.setState({ mouseOver: false })
-	}
-
-	openEditMode() {
-		this.setState({ isInEditMode: true })
-	}
-
-	closeEditMode() {
-		this.setState({ isInEditMode: false })
-	}
-
-	undoEditing() {
-		this.setState({
-			isInEditMode: !this.props.project.author || this.props.project.author.length <= 0,
-			value: this.props.project.author
-		});
-	}
-
-	save() {
-		this.props.setAuthor(this.state.value);
+	save(author) {
+		this.props.setAuthor(author);
 		this.props.saveProject();
 	}
 
 	render() {
 		return (
-			<div id="Author" onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
+			<div id="Author" style={{
+				display: "flex",
+				flexDirection: "column",
+				height: "30%",
+				margin: "10px 0",
+				fontSize: "24px",
+				alignItems: "center",
+				justifyContent: "center"
+			}}>
 
-				{this.state.isInEditMode ?
-
-					<div id="AuthorInput">
-
-						<TextArea
-							value={this.state.value}
-							placeholder="Firstname Lastname..."
-							fill={true}
-							growVertically={true}
-							autoFocus
-							onChange={() => this.setState({ value: event.target.value })} />
-
-						<div id="AuthorButtons">
-							<ButtonGroup>
-								<Button
-									minimal={false}
-									disabled={!this.state.value.length}
-									icon="floppy-disk"
-									onClick={this.save.bind(this)}
-								/>
-								<Button
-									minimal={false}
-									disabled={!this.state.value.length}
-									icon="small-cross"
-									onClick={this.undoEditing.bind(this)}
-								/>
-							</ButtonGroup>
-						</div>
-
-					</div>
-
-					: <div id="AuthorText" onClick={this.openEditMode.bind(this)}>
-
-						{this.props.project.author}
-
-					</div>
-				}
+				<TextInput
+					id="AuthorInput"
+					placeholder="Author..."
+					html={this.state.author} // innerHTML of the editable div
+					disabled={false} // use true to disable edition
+					save={this.save.bind(this)}
+				/>
 
 			</div>
 		);
