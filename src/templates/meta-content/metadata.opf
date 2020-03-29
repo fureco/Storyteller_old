@@ -1,27 +1,30 @@
 <?xml version='1.0' encoding='utf-8'?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
 
-  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title>@_TITLE_@</dc:title>
-    <dc:creator opf:file-as="Unbekannt" opf:role="aut">Melanie Mende</dc:creator>
-    <dc:identifier opf:scheme="uuid" id="uuid_id">0f098cca-cb40-4c1f-b19b-1388c52e6219</dc:identifier>
-    <dc:language>deu</dc:language>
-  </metadata>
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+		<dc:title>@_TITLE_@</dc:title>
+		<dc:creator opf:file-as="Unbekannt" opf:role="aut">@_AUTHOR_@</dc:creator>
+		<dc:identifier opf:scheme="uuid" id="uuid_id">0f098cca-cb40-4c1f-b19b-1388c52e6219</dc:identifier>
+		<dc:language>deu</dc:language>
+	</metadata>
 
-  <manifest>
+  	<manifest>
 
-    <item href="styles/stylesheet.css" id="styles" media-type="text/css"/>
-    <item href="fonts/Tangerine_Bold.ttf" id="font_tangerine_bold" media-type="application/x-font-truetype"/>
-    <item href="toc.ncx" id="toc" media-type="application/x-dtbncx+xml"/>
+		<item href="styles/stylesheet.css" id="styles" media-type="text/css"/>
+		<item href="fonts/Tangerine_Bold.ttf" id="font_tangerine_bold" media-type="application/x-font-truetype"/>
+		<item href="toc.ncx" id="toc" media-type="application/x-dtbncx+xml"/>
 
-	<item href="cover/cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
-	<item href="script/0_dedication-Dedication.xhtml" id="dedication" media-type="application/xhtml+xml"/>
+		<item href="cover/cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
+		<item href="cover/cover.css" id="cover_styles" media-type="text/css"/>
+		<item href="cover/cover.png" id="cover_image" media-type="image/png"/>
 
-  </manifest>
+		<item href="script/title.xhtml" id="title" media-type="application/xhtml+xml"/>
+		<item href="script/0_dedication-Dedication.xhtml" id="dedication" media-type="application/xhtml+xml"/>
 
-  <spine toc="toc">
-  	<itemref idref="cover"/>
-	<itemref idref="dedication"/>
-  </spine>
+  	</manifest>
+
+	<spine toc="toc">
+		@_SPINE_@
+	</spine>
 
 </package>

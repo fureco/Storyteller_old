@@ -11,7 +11,7 @@ export class TextInput extends React.Component {
 		super(props);
 
 		this.state = {
-			html: props.html,
+			html: props.html || "",
 			isInEditMode: !props.html || props.html.length <= 0,
 			mouseOver: false,
 		};

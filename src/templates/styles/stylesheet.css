@@ -1,0 +1,117 @@
+@font-face {
+  font-family: "Tangerine";
+  src: url(./../fonts/Tangerine_Bold.ttf);
+}
+
+@page {
+  margin: 1em 0 1em 1em;
+}
+
+
+body, h1, h2, h3, h4, h5, h6, p.u7, ol, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+	position: absolute;
+    height: 100%;
+    width: 100%;
+	font-size: 0.9em;
+	line-height: 1.5em;
+	text-align: left;
+}
+
+.titlepage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.t_title {
+  font-family: "Tangerine", sans-serif;
+  font-size: 4em;
+  line-height: 0.5em;
+  font-style: normal;
+  letter-spacing: 0.05em;
+  color: #729292;
+  margin-bottom: 1em;
+}
+
+.t_author {
+  font-size: 1.4em;
+  line-height: 1.6em;
+  margin-bottom: 1.7em;
+  color: #333;
+}
+
+/* body.meta_maintitle a {
+  color: inherit;
+}
+
+h1 {
+  font-family: "Tangerine", sans-serif;
+  font-size: 3em;
+  color: #729292;
+  line-height: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.3em;
+  text-align: center;
+}
+
+p {
+  margin: 0;
+  text-indent: 2em;
+}
+
+p.t_untertitel {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  font-weight: normal;
+  color: #333;
+  margin-top: -1.4em;
+  margin-bottom: 1em;
+  text-indent: 0;
+}
+
+p.t_verlag {
+  display: none;
+  visibility: hidden;
+}
+
+p.t_verlagslogo {
+  padding-left: 5px;
+  margin-top: 4em;
+  outline-style: none;
+  border-width: 0;
+  text-indent: 0;
+}
+
+p.section-divider {
+  text-align: center;
+  margin: 0;
+  text-indent: 0;
+}
+
+.first::first-letter {
+  font-weight: bold;
+  font-family: "Tangerine", sans-serif;
+  font-size: 2em;
+  color: #729292;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.eleriseja {
+  font-family: "Tangerine", sans-serif;
+  font-size: 1.5em;
+}
+
+.dedication-section {
+  margin-top: 2.2em;
+  line-height: 2em;
+}
+/*# sourceMappingURL=stylesheet.css.map */
