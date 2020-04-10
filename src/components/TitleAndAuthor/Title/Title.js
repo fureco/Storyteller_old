@@ -12,6 +12,7 @@ export class Title extends React.Component {
 
 		this.state = {
 			title: this.props.project.title,
+			fontSize: this.props.project.styles.title.fontSize
 		};
 	}
 
@@ -28,11 +29,10 @@ export class Title extends React.Component {
 					flexDirection: "column",
 					height: "30%",
 					margin: "10px 0",
-					fontSize: "48px",
+					fontSize: this.state.fontSize,
 					alignItems: "center",
 					justifyContent: "center"
-				}}
-			>
+				}}>
 
 				<TextInput
 					id="TitleInput"

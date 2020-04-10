@@ -13,6 +13,7 @@ export class TextInput extends React.Component {
 		this.state = {
 			html: props.html || "",
 			isInEditMode: !props.html || props.html.length <= 0,
+			multiLine: props.multiLine,
 			mouseOver: false,
 		};
 	}
@@ -44,6 +45,7 @@ export class TextInput extends React.Component {
 		return (
 			<ContentEditable
 				id={this.props.id}
+				style={this.props.style}
 				className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
 				placeholder={this.props.placeholder}
 				html={this.state.html} // innerHTML of the editable div
@@ -65,7 +67,7 @@ export class TextInput extends React.Component {
 	}
 
 	handleKeyDown(event) {
-		if (event.which === 13) {
+		if (event.which === 13 && !this.state.multiLine) {
 			event.preventDefault();
 			document.getElementById(this.props.id).blur();
 			window.getSelection().removeAllRanges();

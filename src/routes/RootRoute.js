@@ -36,7 +36,7 @@ export class RootRoute extends React.Component {
 
 	render() {
         return (
-			<div id = "RootRoute" style = { styles.container } >
+			<div id="RootRoute" style={styles.container} >
 				<Content appState={this.props.appState} project={this.props.project} />
 			</div>
         );

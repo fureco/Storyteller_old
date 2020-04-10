@@ -19,7 +19,7 @@
 		<item href="cover/cover.png" id="cover_image" media-type="image/png"/>
 
 		<item href="script/title.xhtml" id="title" media-type="application/xhtml+xml"/>
-		<item href="script/0_dedication-Dedication.xhtml" id="dedication" media-type="application/xhtml+xml"/>
+		<item href="script/dedication.xhtml" id="dedication" media-type="application/xhtml+xml"/>
 
   	</manifest>
 

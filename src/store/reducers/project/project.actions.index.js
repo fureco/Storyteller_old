@@ -15,6 +15,7 @@ export const SET_TITLE = 'SET_TITLE';
 export const SET_AUTHOR = 'SET_AUTHOR';
 export const SET_ABSTRACT = 'SET_ABSTRACT';
 export const SET_DEDICATION = 'SET_DEDICATION';
+export const SET_STYLES = 'SET_STYLES';
 
 // ############## ACTIONS #################
 export const setCover = (cover) => ({ type: SET_COVER, cover });
@@ -22,6 +23,7 @@ export const setTitle = (title) => ({ type: SET_TITLE, title });
 export const setAuthor = (author) => ({ type: SET_AUTHOR, author });
 export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
 export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
+export const setStyles = (styles) => ({ type: SET_STYLES, styles });
 
 export const createProjectAction = (directoryPath) => {
 
@@ -124,6 +126,7 @@ function openProjectSuccess(directoryPath, jsonData) {
 		dispatch(setAuthor(jsonData.author));
 		dispatch(setAbstract(jsonData.abstract));
 		dispatch(setDedication(jsonData.dedication));
+		dispatch(setStyles(jsonData.styles));
 		dispatch(appStateActions.load());
 		dispatch(charactersActions.load(directoryPath))
 		dispatch(partsActions.load(directoryPath))

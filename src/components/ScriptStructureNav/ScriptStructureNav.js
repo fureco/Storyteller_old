@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Nav from "./Nav/Nav";
 import Parts from "./Parts/Parts";
+import Chapters from "./Chapters/Chapters";
 import Scenes from "./Scenes/Scenes";
 import Trash from "../Trash/Trash.index.js";
 
@@ -42,7 +43,9 @@ class ScriptStructure extends React.Component {
 
 				{/* <Parts /> */}
 
-				<Scenes />
+				<Chapters />
+
+				{/* <Scenes /> */}
 
 				<Trash content={this.state.parts} />
 

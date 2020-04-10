@@ -22,31 +22,41 @@ body {
 	text-align: left;
 }
 
-.titlepage {
+.centered {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
 
-.t_title {
-  font-family: "Tangerine", sans-serif;
-  font-size: 4em;
-  line-height: 0.5em;
-  font-style: normal;
-  letter-spacing: 0.05em;
-  color: #729292;
-  margin-bottom: 1em;
+.title {
+	font-family: "Tangerine", sans-serif;
+	font-size: @_TITLE_FONT_SIZE_@;
+	line-height: 0.5em;
+	font-style: normal;
+	letter-spacing: 0.05em;
+	color: #729292;
+	margin-bottom: 1em;
 }
 
-.t_author {
-  font-size: 1.4em;
-  line-height: 1.6em;
-  margin-bottom: 1.7em;
-  color: #333;
+.author {
+	font-size: 1.4em;
+	line-height: 1.6em;
+	margin-bottom: 1.7em;
+	color: #333;
 }
 
-/* body.meta_maintitle a {
+.dedication {
+  	text-align: @_DEDICATION_TEXT_ALIGN_@;
+}
+
+/*
+p {
+  margin: 0;
+  text-indent: 2em;
+}
+
+body.meta_maintitle a {
   color: inherit;
 }
 
@@ -58,11 +68,6 @@ h1 {
   margin-top: 0.5em;
   margin-bottom: 0.3em;
   text-align: center;
-}
-
-p {
-  margin: 0;
-  text-indent: 2em;
 }
 
 p.t_untertitel {
@@ -109,9 +114,4 @@ p.section-divider {
   font-family: "Tangerine", sans-serif;
   font-size: 1.5em;
 }
-
-.dedication-section {
-  margin-top: 2.2em;
-  line-height: 2em;
-}
-/*# sourceMappingURL=stylesheet.css.map */
+*/

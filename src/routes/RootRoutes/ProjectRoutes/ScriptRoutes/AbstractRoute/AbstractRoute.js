@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from './../../../../../store/actions';
+import { projectActions } from '../../../../../store/actions';
 
 import { TextAreaWithPreview } from '../../../../../components';
 
-class Abstract extends React.Component {
+class AbstractRoute extends React.Component {
 
 	constructor(props) {
 
@@ -44,4 +44,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Abstract)
+)(AbstractRoute)

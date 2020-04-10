@@ -6,8 +6,8 @@ import {
 	Colors,
 } from '@blueprintjs/core';
 
-import { Cover, TitleAndAuthor, ScriptStructureNav, Parts } from '../../../components';
-import { Abstract, DedicationRoute, ScenesRoute } from './ScriptRoutes';
+import { Cover, TitleAndAuthor, Abstract, ScriptStructureNav, Parts } from '../../../components';
+import { DedicationRoute, ScenesRoute } from './ScriptRoutes';
 
 class ScriptRoute extends React.Component {
 

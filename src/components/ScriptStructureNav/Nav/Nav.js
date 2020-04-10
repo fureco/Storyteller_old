@@ -54,9 +54,12 @@ class Nav extends React.Component {
 				{/* <Tab id="parts">
 					<Link to="/script/parts">Parts</Link>
 				</Tab> */}
-				<Tab id="scenes">
-					<Link to="/script/scenes">Scenes</Link>
+				<Tab id="chapters">
+					<Link to="/script/chapters">Chapters</Link>
 				</Tab>
+{/* 				<Tab id="scenes">
+					<Link to="/script/scenes">Scenes</Link>
+				</Tab> */}
 
 			</Tabs>
 		);

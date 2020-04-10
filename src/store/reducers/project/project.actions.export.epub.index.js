@@ -4,6 +4,7 @@ var path_to_project = "";
 var dist_folder = "";
 var dist_folder_toc = "";
 var dist_folder_fonts = "";
+var dist_folder_styles = "";
 var dist_folder_cover = "";
 var dist_folder_script = "";
 
@@ -24,7 +25,7 @@ const navPoints = [
 		id: "dedication",
 		playOrder: "2",
 		label: "Danksagung",
-		src: "script/0_dedication-Dedication.xhtml"
+		src: "script/dedication.xhtml"
 	},
 ];
 
@@ -39,6 +40,7 @@ export const exportAsEpub = () => {
 		dist_folder_toc = dist_folder + '/meta-content/toc.ncx';
 		dist_folder_cover = dist_folder + '/cover';
 		dist_folder_fonts = dist_folder + '/fonts';
+		dist_folder_styles = dist_folder + "/styles";
 		dist_folder_script = dist_folder + '/script';
 
  		if (!fs.existsSync(dist_folder)) {
@@ -50,15 +52,6 @@ export const exportAsEpub = () => {
 			fs.emptyDirSync(dist_folder);
 		}
 
-		// copy cover
-		if (!fs.existsSync(dist_folder_cover)) {
-			// create destination folder if it does not yet exist
-			fs.mkdirSync(dist_folder_cover);
-		}
-
-		fs.copySync("./src/templates/cover", dist_folder_cover);
-		fs.copySync(path_to_project + "/src/assets/cover", dist_folder_cover);
-
 		// copy fonts
 		if (!fs.existsSync(dist_folder_fonts)) {
 			// create destination folder if it does not yet exist
@@ -68,7 +61,13 @@ export const exportAsEpub = () => {
 		fs.copySync(path_to_project + "/src/assets/fonts", dist_folder_fonts);
 
 		// copy styles
-		fs.copySync("./src/templates/styles/stylesheet.css", path_to_project + "/dist/styles/stylesheet.css");
+		if (!fs.existsSync(dist_folder_styles)) {
+			// create destination folder if it does not yet exist
+			fs.mkdirSync(dist_folder_styles);
+		}
+
+		fs.copySync("./src/templates/styles/stylesheet.template", dist_folder_styles + "/stylesheet.css");
+		prepareStyles(getState().project);
 
 		// copy META-INF
         fs.copySync("./src/templates/META-INF", dist_folder + "/META-INF");
@@ -78,14 +77,26 @@ export const exportAsEpub = () => {
         prepareTOC(getState().project);
 		prepareMetadataOPF(path_to_project + '/dist/meta-content/metadata.opf', getState().project);
 
-		// copy title page and script
+		// copy cover
+		if (!fs.existsSync(dist_folder_cover)) {
+			// create destination folder if it does not yet exist
+			fs.mkdirSync(dist_folder_cover);
+		}
+
+		fs.copySync("./src/templates/cover", dist_folder_cover);
+		fs.copySync(path_to_project + "/src/assets/cover", dist_folder_cover);
+
+		// copy title page, dedication and script
 		if (!fs.existsSync(dist_folder + "/script")) {
 			// create destination folder if it does not yet exist
 			fs.mkdirSync(dist_folder + "/script");
 		}
 
-		fs.copySync("./src/templates/title.xhtml", dist_folder + "/script/title.xhtml");
+		fs.copySync("./src/templates/script/title.xhtml", dist_folder + "/script/title.xhtml");
 		prepareTitlePage(getState().project);
+
+		fs.copySync("./src/templates/script/dedication.xhtml", dist_folder + "/script/dedication.xhtml");
+		prepareDedication(getState().project);
 
 		fs.copySync(path_to_project + "/src/script", dist_folder + "/script");
 
@@ -133,6 +144,16 @@ function prepareMetadataOPF(pathToMetadataOPF, project) {
 	fs.writeFileSync(pathToMetadataOPF, data, 'utf8');
 }
 
+function prepareStyles(project) {
+
+	var data = fs.readFileSync(dist_folder_styles + "/stylesheet.css", 'utf8');
+
+	data = data.replace(/@_TITLE_FONT_SIZE_@/g, project.styles.title.fontSize);
+	data = data.replace(/@_DEDICATION_TEXT_ALIGN_@/g, project.styles.dedication.textAlign);
+
+	fs.writeFileSync(dist_folder_styles + "/stylesheet.css", data, 'utf8');
+}
+
 function prepareTitlePage(project) {
 
 	var data = fs.readFileSync(dist_folder_script + "/title.xhtml", 'utf8');
@@ -141,6 +162,16 @@ function prepareTitlePage(project) {
 	data = data.replace(/@_AUTHOR_@/g, project.author);
 
 	fs.writeFileSync(dist_folder_script + "/title.xhtml", data, 'utf8');
+}
+
+function prepareDedication(project) {
+
+	var data = fs.readFileSync(dist_folder_script + "/dedication.xhtml", 'utf8');
+
+	data = data.replace(/@_TITLE_@/g, project.title);
+	data = data.replace(/@_DEDICATION_@/g, project.dedication);
+
+	fs.writeFileSync(dist_folder_script + "/dedication.xhtml", data, 'utf8');
 }
 
 function createEpub() {
