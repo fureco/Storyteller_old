@@ -22,7 +22,7 @@ class Trash extends React.Component {
 		{
 			id: nodes.length,
 			disabled: props.content.length <= 0,
-			hasCaret: props.content.length > 0,
+			hasCaret: true,
 			isExpanded: false,
 			icon: "trash",
 			label: "Trash (" + props.content.length + ")",
@@ -35,7 +35,7 @@ class Trash extends React.Component {
 			{
 				id: treeRoot.childNodes.length,
 				isExpanded: false,
-				label: element.label,
+				label: element,
 			};
 
 			treeRoot.childNodes.push(treeItem);
@@ -44,8 +44,6 @@ class Trash extends React.Component {
 		nodes.push(treeRoot);
 
 		this.state = {
-
-			themeName: props.themeName || "bp3-body", // null || bp3-dark
 			nodes,
 		};
 	}
@@ -95,15 +93,14 @@ class Trash extends React.Component {
 	}
 }
 
-function mapStateToProps({ projectReducer }) {
+function mapStateToProps({ chapters, }) {
 	return {
-		project: projectReducer,
+
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		deletePart: partID => dispatch(projectActions.deleteScriptPartAction(partID)),
 	};
 }
 

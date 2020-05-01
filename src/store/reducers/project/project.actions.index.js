@@ -1,4 +1,6 @@
 import { appStateActions, charactersActions, partsActions, scenesActions } from '../../actions';
+import * as chaptersActions from './../../reducers/chapters/chapter.actions.index';
+
 import storage from 'electron-json-storage';
 
 import { initialState as initialProjectState } from './project.model';
@@ -130,6 +132,7 @@ function openProjectSuccess(directoryPath, jsonData) {
 		dispatch(appStateActions.load());
 		dispatch(charactersActions.load(directoryPath))
 		dispatch(partsActions.load(directoryPath))
+		dispatch(chaptersActions.load(directoryPath))
 		dispatch(scenesActions.load(directoryPath))
     }
 }

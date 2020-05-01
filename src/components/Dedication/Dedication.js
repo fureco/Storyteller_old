@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from '../../../../../store/actions';
+import { projectActions } from '../../store/actions';
 
-import { PagePreview } from './../../../../../components';
-import TextInput from "./../../../../../components/TextInput/TextInput";
+import { PagePreview } from './../../components';
+import TextInput from "./../../components/TextInput/TextInput";
 
-class DedicationRoute extends React.Component {
+class Dedication extends React.Component {
 
 	constructor(props) {
 
@@ -48,7 +48,7 @@ class DedicationRoute extends React.Component {
 								textAlign: this.state.textAlign
 							}}
 						/>
-				} />
+					} />
 			</div>
 		);
 	}
@@ -70,4 +70,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(DedicationRoute)
+)(Dedication)

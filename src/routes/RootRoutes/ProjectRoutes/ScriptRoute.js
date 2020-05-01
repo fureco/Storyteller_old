@@ -6,7 +6,16 @@ import {
 	Colors,
 } from '@blueprintjs/core';
 
-import { Cover, TitleAndAuthor, Abstract, ScriptStructureNav, Parts } from '../../../components';
+import {
+	Cover,
+	TitleAndAuthor,
+	Abstract,
+	ScriptStructureNav,
+	Parts
+} from '../../../components';
+
+import Dedication from '../../../components/Dedication/Dedication';
+
 import { DedicationRoute, ScenesRoute } from './ScriptRoutes';
 
 class ScriptRoute extends React.Component {
@@ -73,7 +82,7 @@ class ScriptRoute extends React.Component {
 						<Route path="/script/cover" component={() => { return <Cover /> }} />
 						<Route path="/script/title_author" component={() => { return <TitleAndAuthor /> }} />
 						<Route path="/script/abstract" component={() => { return <Abstract /> }} />
-						<Route path="/script/dedication" component={() => { return <DedicationRoute /> }} />
+						<Route path="/script/dedication" component={() => { return <Dedication /> }} />
 						<Route path="/script/parts" component={() => { return <Parts /> }} />
 						<Route path="/script/chapters" component={() => { return "Chapters" }} />
 						<Route path="/script/scenes" component={() => { return <ScenesRoute /> }} />

@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { addScriptPartAction, save } from  "../../../../store/reducers/projectReducer";
+
+import { create, save } from "../../../../store/reducers/chapters/chapter.actions.index";
 
 import {
   Button,
   InputGroup,
 } from '@blueprintjs/core';
 
-class ChapterCreationDialog extends React.Component {
+class CreateDialog extends React.Component {
 
     constructor(props) {
 
@@ -15,32 +16,33 @@ class ChapterCreationDialog extends React.Component {
 
         this.state = {
             showChapterCreationDialog: props.showChapterCreationDialog || false,
-            name: ''
+            title: ''
         };
     }
 
     render() {
 
         return (
-            <div id="ChapterCreationDialog">
+            <div id="ChapterCreationDialog" style={this.props.style}>
 
                 {
                     this.state.showChapterCreationDialog ?
 
                     <InputGroup
-                        placeholder="title of new chapter..."
-                        onChange={() => this.setState( { name : event.target.value } ) }
+						placeholder="title of new chapter..."
+						autoFocus
+                        onChange={() => this.setState( { title : event.target.value } ) }
                         rightElement={
                             <div>
                                 <Button
                                     minimal={false}
                                     icon="floppy-disk"
-                                    onClick={() => this.create(this.state.name)}
+                                    onClick={() => this.create(this.state.title)}
                                 />
                                 <Button
                                     minimal={false}
                                     icon="small-cross"
-                                    onClick={toggleDialog.bind(this)}
+                                    onClick={this.toggleDialog.bind(this)}
                                 />
                             </div>
                         }
@@ -50,7 +52,7 @@ class ChapterCreationDialog extends React.Component {
                             minimal={true}
                             icon="plus"
                             text="Add a new chapter"
-                            onClick={toggleDialog.bind(this)}
+                            onClick={this.toggleDialog.bind(this)}
                         />
                 }
 
@@ -58,14 +60,15 @@ class ChapterCreationDialog extends React.Component {
         );
     }
 
-    create(name) {
-        this.props.addChapter(name);
-        this.props.saveProject();
-    }
-}
+	create(title) {
+		this.props.create({title});
+		this.props.save();
+		this.toggleDialog();
+	}
 
-function toggleDialog() {
-    this.setState({ showChapterCreationDialog: !this.state.showChapterCreationDialog });
+	toggleDialog() {
+		this.setState({ showChapterCreationDialog: !this.state.showChapterCreationDialog });
+	}
 }
 
 function mapStateToProps ({ projectReducer }) {
@@ -76,12 +79,12 @@ function mapStateToProps ({ projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        addChapter: name => dispatch(projectActions.addScriptPartAction(name)),
-		saveProject: () => dispatch(projectActions.save()),
+		create: (chapter) => dispatch(create(chapter)),
+		save: () => dispatch(save()),
     };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ChapterCreationDialog)
+)(CreateDialog)

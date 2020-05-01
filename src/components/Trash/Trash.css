@@ -1,13 +1,17 @@
-.bp3-tree-node-content {
-    cursor: pointer;
+#Trash .bp3-tree-node-content {
+	cursor: pointer;
 }
 
-.bp3-tree-node.bp3-disabled .bp3-tree-node-content {
+#Trash .bp3-tree-node-caret-none {
+	min-width: 0.25rem;
+}
+
+#Trash .bp3-tree-node.bp3-disabled .bp3-tree-node-content {
     background-color: inherit;
     cursor: not-allowed;
     color: rgba(92, 112, 128, 0.6);
 }
 
-.bp3-tree-node.bp3-disabled .bp3-tree-node-content .bp3-icon {
+#Trash .bp3-tree-node.bp3-disabled .bp3-tree-node-content .bp3-icon {
     color: rgba(92, 112, 128, 0.6);
 }

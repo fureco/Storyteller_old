@@ -1,0 +1,8 @@
+#Chapters .bp3-tree-node {
+	margin-left: -20px;
+}
+
+#ChapterCreationDialog .bp3-button.bp3-minimal:hover {
+	background: none;
+	color: #48aff0;
+}
