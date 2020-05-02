@@ -49,7 +49,7 @@ export class Cover extends React.Component {
 					minimal={this.state.minimal}
 					icon="folder-open"
 					text="Browse"
-					style={this.props.style}
+					style={{ marginTop: "20px" }}
 					onClick={() => {
 						dialog.showOpenDialog({
 							properties: ['openFile'],
