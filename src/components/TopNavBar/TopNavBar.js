@@ -5,6 +5,8 @@ import { appStateActions, projectActions } from "../../store/actions";
 
 import './TopNavBar.css';
 
+import Settings from './components/Settings.js';
+
 import {
     Alignment,
     Button,
@@ -48,42 +50,12 @@ export class TopNavBar extends React.Component {
 
 	render() {
 
-		var settings = (
-			<Menu>
-				<MenuItem text="Project">
-					<MenuItem text="Open" icon="folder-open" onClick={() => {
-						dialog.showOpenDialog({ properties: ['openDirectory'] }).then(result => {
-							// console.log("result: " + JSON.stringify(result));
-							if (!result.canceled) {
-								this.props.openProject(result.filePaths[0])
-							}
-						});
-					}} />
-					<MenuItem text="Create" icon="folder-new" onClick={() => {
-						dialog.showOpenDialog({ properties: ['openDirectory'] }).then(result => {
-							// console.log("result: " + JSON.stringify(result));
-							if (!result.canceled) {
-								this.props.createProject(result.filePaths[0])
-							}
-						});
-					}} />
-					{this.props.appState.path && <MenuItem text="Save Backup" icon="archive" onClick={() => { this.props.archiveProject() }} />}
-					{this.props.appState.path && <MenuItem text="Restore Backup" icon="unarchive" onClick={() => { }} />}
-					{this.props.appState.path && <MenuItem text="Close" icon="delete" onClick={() => this.props.closeProject()} />}
-				</MenuItem>
-				<MenuItem text="Theme">
-					<MenuItem text="Light Mode" active={this.props.appState.theme == 'bp3-body'} onClick={() => this.handleThemeChange('bp3-body')} />
-					<MenuItem text="Dark Mode" active={this.props.appState.theme == 'bp3-dark'} onClick={() => this.handleThemeChange('bp3-dark')} />
-				</MenuItem>
-			</Menu>
-		)
-
         return (
 			<Navbar id="TopNavBarContainer" className={this.props.appState.theme}>
 
 				<NavbarGroup id="TopNavBarGroupLeft" align={Alignment.LEFT}>
 
-					<Popover content={settings} position={Position.BOTTOM_RIGHT}>
+					<Popover content={<Settings />} position={Position.BOTTOM_RIGHT}>
 						<Button minimal={true} icon="settings" />
 					</Popover>
 
