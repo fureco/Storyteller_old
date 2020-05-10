@@ -6,7 +6,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import CreateDialog from "./CreateDialog";
 import Chapter from "./Chapter.js";
 
-import { set, save, deleteChapter } from "../../../store/reducers/chapters/chapter.actions.index";
+import { setChapters, save, deleteChapter } from "../../../store/reducers/chapters/chapter.actions.index";
 
 import {
 	Alert,
@@ -96,7 +96,7 @@ class Chapters extends React.Component {
 			result.destination.index
 		);
 
-		this.props.set(reordered_elements);
+		this.props.setCharacters(reordered_elements);
 		this.props.save();
 	}
 
@@ -162,7 +162,7 @@ function mapStateToProps({ appStateReducer, project, chapters }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		set: chapters => dispatch(set(chapters)),
+		setChapters: chapters => dispatch(setChapters(chapters)),
 		save: () => dispatch(save()),
 		deleteChapter: chapter => dispatch(deleteChapter(chapter)),
 	};

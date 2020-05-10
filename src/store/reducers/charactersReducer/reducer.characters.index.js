@@ -7,6 +7,10 @@ export const charactersReducer = (state = [], action) => {
 	// console.log("charactersReducer: " + action.type)
 	switch (action.type) {
 
+		case charactersActions.SET_CHARACTERS:
+			state = action.characters;
+			return state;
+
 		case charactersActions.ADD_CHARACTER:
 			state = state.slice();
 			state.push(Object.assign({}, action.character, { id: getNewID(state) }));

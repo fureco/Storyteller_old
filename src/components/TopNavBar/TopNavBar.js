@@ -11,8 +11,6 @@ import {
     Alignment,
     Button,
 	Icon,
-	Menu,
-	MenuItem,
     Navbar,
     NavbarGroup,
     NavbarDivider,
@@ -35,17 +33,17 @@ export class TopNavBar extends React.Component {
         super(props);
 
 		this.state = {
+			workspaceIsOpen: props.workspaceIsOpen || false
         };
-	}
-
-	handleThemeChange(theme) {
-		this.props.changeTheme(theme);
-		this.props.saveAppState();
 	}
 
 	handleTabChange(navbarTabId) {
 		this.props.changeCurrentRootRoute(navbarTabId);
 		this.props.saveAppState();
+	}
+
+	handleClickOnWorkspace() {
+		this.props.closeProject()
 	}
 
 	render() {
@@ -55,12 +53,25 @@ export class TopNavBar extends React.Component {
 
 				<NavbarGroup id="TopNavBarGroupLeft" align={Alignment.LEFT}>
 
+					{/* SETTINGS DROPDOWN */}
 					<Popover content={<Settings />} position={Position.BOTTOM_RIGHT}>
 						<Button minimal={true} icon="settings" />
 					</Popover>
 
 					<NavbarDivider />
 
+					<Button
+						id="WorkspaceButton"
+						minimal={true}
+						icon="box"
+						text="Workspace"
+						disabled={ this.state.workspaceIsOpen }
+						onClick={() => this.props.closeProject()}
+					/>
+
+					<NavbarDivider />
+
+					{/* SECTION TABS */}
                     { this.props.appState.path &&
 						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.route.current} animate="true">
                             <Tab id="script">

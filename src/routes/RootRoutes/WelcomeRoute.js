@@ -1,19 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-	CreateProjectButton,
-	OpenProjectButton,
-	TopNavBar
-} from './../../components';
+import { TopNavBar } from './../../components';
 
-import { remote } from 'electron';
+import Workspace from './../../components/Workspace/Workspace';
 
 import {
 	Icon,
 } from '@blueprintjs/core';
-
-const dialog = remote.dialog;
 
 class Welcome extends React.Component {
 
@@ -29,15 +23,16 @@ class Welcome extends React.Component {
         return (
 			<div id="Welcome" style={styles.container} className={this.props.appState.theme}>
 
-				<TopNavBar />
+				<TopNavBar workspaceIsOpen={true} />
 
 				<div style={styles.content}>
+
 					<div className="app_name" style={styles.app_name}>
 						<Icon icon="draw" iconSize={55} style={{ marginRight: "0.2em"}} />Storyteller
 					</div>
 
-					<OpenProjectButton style={styles.item} minimal={false} showText={true} />
-					<CreateProjectButton style={styles.item} minimal={false} showText={true} />
+					<Workspace />
+
 				</div>
 
             </div>
@@ -57,9 +52,6 @@ const styles = {
 		height: '100vh',
 		justifyContent: 'center',
 		alignItems: 'center',
-	},
-	item: {
-		margin: '1em'
 	},
     app_name: {
 		fontSize: '4em',

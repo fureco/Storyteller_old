@@ -5,3 +5,17 @@
 #TopNavBarGroupRight .bp3-navbar-divider {
 	margin: 0;
 }
+
+#WorkspaceButton:hover {
+	background: none;
+	color: #48aff0;
+}
+
+#WorkspaceButton:hover .bp3-icon {
+	color: #48aff0;
+}
+
+#WorkspaceButton:disabled {
+	cursor: default;
+	color: #48aff0;
+}

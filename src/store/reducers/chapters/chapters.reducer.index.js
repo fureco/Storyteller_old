@@ -17,7 +17,7 @@ const chapters = (state = [], action) => {
 			state.push(Object.assign(initialState, action.chapter, { id: getNewID(state), position: state.length + 1 }));
 			return state;
 
-		case chapterActions.SET:
+		case chapterActions.SET_CHAPTERS:
 			state = action.chapters;
 			return state;
 

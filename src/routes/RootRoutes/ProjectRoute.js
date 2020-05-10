@@ -79,9 +79,14 @@ class Project extends React.Component {
 				</div>
 
 				<div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
-					<div style={{ display: 'flex', flexGrow: '1' }}>
+					<div style={{
+						display: 'flex',
+						flexGrow: '1',
+						justifyContent: "center",
+						alignItems: "center"
+					}}>
 						<Switch>
-							<Redirect exact from="/" to="/script" />
+							<Redirect exact from="/" to="/workspace" />
 							<Route path="/script" component={() => { return <ScriptRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/characters" component={() => { return <CharactersRoute path_to_project={this.props.appState.path} /> }} />
 							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />

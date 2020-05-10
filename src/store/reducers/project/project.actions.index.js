@@ -31,42 +31,12 @@ export const createProjectAction = (directoryPath) => {
 
 	console.log("starting to create a new project...", directoryPath);
 
+	// create new project folder
+	fs.mkdirSync(directoryPath);
+
 	return (dispatch, getState) => {
 
-		const files = fs.readdirSync(directoryPath);
-
-		if (!files.length) {
-			console.log("directory is empty, can be used to create new project");
-
-			return dispatch(createNewStorytellerProjectFile(directoryPath));
-		}
-		else {
-			console.log("directory is NOT empty");
-			if (!storytellerProjectFileExists(directoryPath)) {
-				// TO DO: Show UI dialog that directory is not empty, ask user if it still should be used for a new project
-				// createNewStorytellerProjectFile(directoryPath, data);
-			}
-			else {
-				console.log("project.json file exists");
-				// TO DO: show UI dialog to inform user and ask if existing project should be opened
-				return dispatch(openProjectAction(directoryPath));
-			}
-		}
-
-		storage.get('storyteller', function (error, data) {
-			if (error) throw error;
-
-			if (data) {
-
-				var new_data = Object.assign({}, data, {
-					path: directoryPath
-				});
-
-				storage.set('storyteller', new_data, (error) => {
-					if (error) throw error;
-				});
-			}
-		});
+		return dispatch(createNewStorytellerProjectFile(directoryPath));
 	};
 };
 
@@ -212,6 +182,17 @@ export const archive = () => {
 	};
 }
 
+export const deleteProject = (directoryPath) => {
+
+	return (dispatch, getState) => {
+
+		console.log("deleting project...", directoryPath);
+
+		var rimraf = require("rimraf");
+		rimraf(directoryPath, function () { console.log("done"); });
+	};
+}
+
 function storytellerProjectFileExists(directoryPath) {
 
 	let fileNameExists = false;
@@ -258,8 +239,6 @@ function createNewStorytellerProjectFile(directoryPath) {
 						});
 					}
 				});
-
-				return dispatch(openProjectAction(directoryPath));
 			});
 		});
 	};

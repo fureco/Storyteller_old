@@ -5,7 +5,7 @@ const fs = require('fs');
 // ############ ACTION TYPES ##############
 export const ADD = 'ADD';
 export const CREATE = 'CREATE';
-export const SET = 'SET';
+export const SET_CHAPTERS = 'SET_CHAPTERS';
 export const DELETE_CHAPTER = 'DELETE_CHAPTER';
 
 export const SET_DELETED_AT = 'SET_DELETED_AT';
@@ -13,7 +13,7 @@ export const SET_DELETED_AT = 'SET_DELETED_AT';
 // ############## ACTIONS #################
 export const add = (chapter) => ({ type: ADD, chapter });
 export const create = (chapter) => ({ type: CREATE, chapter });
-export const set = (chapters) => ({ type: SET, chapters });
+export const setChapters = (chapters) => ({ type: SET_CHAPTERS, chapters });
 export const setDeletedAt = (chapter, deleted_at) => ({ type: SET_DELETED_AT, chapter, deleted_at });
 
 export const save = () => {
@@ -47,6 +47,8 @@ export const load = (directoryPath) => {
 	console.log("load chapters from file: " + directoryPath);
 
 	return (dispatch, getState) => {
+
+		dispatch(setChapters([]));
 
 		storage.get('storyteller', function (error, data) {
 			if (error) throw error;

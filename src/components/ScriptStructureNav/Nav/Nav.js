@@ -15,10 +15,7 @@ class Nav extends React.Component {
 		super(props);
 
 		this.state = {
-
-			themeName: props.themeName || "bp3-body", // null || bp3-dark
 			vertical: props.vertical || false,
-
 		};
 	}
 
@@ -33,7 +30,7 @@ class Nav extends React.Component {
 
 			<Tabs
 				id="ScriptStructureNav"
-				className={this.state.themeName}
+				className={this.props.appState.theme}
 				onChange={this.handleTabChange.bind(this)}
 				selectedTabId={this.props.selectedTabId}
 				animate="true"

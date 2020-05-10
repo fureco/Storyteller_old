@@ -8,8 +8,16 @@
   src: url('./../fonts/Typewriter.ttf') format('truetype');
 }
 
+body {
+	font-family: Verdana;
+}
+
 button:focus, .bp3-tab:focus {
   outline: none;
+}
+
+input {
+	font-family: Verdana;
 }
 
 .column {
@@ -33,19 +41,19 @@ button:focus, .bp3-tab:focus {
 }
 
 .bp3-button.bp3-minimal:active, .bp3-button.bp3-minimal.bp3-active {
-  background:rgba(100, 162, 208, 0.34);
+  	background:rgba(100, 162, 208, 0.34);
 }
 
 ._fileTree {
-  padding: 0;
+  	padding: 0;
 }
 
 ._file:hover, ._directory:hover {
-  background:rgba(100, 162, 208, 0.34);
+  	background:rgba(100, 162, 208, 0.34);
 }
 
 .app_name {
-  font-family: Storyteller, arial, sans-serif;
+  	font-family: Storyteller, arial, sans-serif;
 }
 
 .page-preview {

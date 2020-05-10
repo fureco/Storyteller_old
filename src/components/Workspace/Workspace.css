@@ -1,0 +1,12 @@
+h2 {
+	text-align: center;
+}
+
+#projectsList {
+	margin-top: 5px;
+}
+
+#projectsList > .bp3-button {
+	justify-content: left;
+	/* margin-left: 20px; */
+}
