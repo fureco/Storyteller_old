@@ -11,6 +11,7 @@ export class TextInput extends React.Component {
 		super(props);
 
 		this.state = {
+			value: props.html || "",
 			html: props.html || "",
 			isInEditMode: !props.html || props.html.length <= 0,
 			multiLine: props.multiLine,
@@ -18,7 +19,16 @@ export class TextInput extends React.Component {
 		};
 	}
 
+ 	componentDidUpdate() {
+		if (this.props.html.localeCompare(this.state.value)) {
+			this.setState({ value: this.props.html });
+		}
+	}
+
 	onMouseEnter() {
+		if (!this.state.isInEditMode && this.state.html !== this.state.value) {
+			this.setState({ html: this.state.value });
+		}
 		this.setState({ mouseOver: true })
 	}
 
@@ -42,22 +52,35 @@ export class TextInput extends React.Component {
 	}
 
 	render() {
-		return (
-			<ContentEditable
-				id={this.props.id}
-				style={this.props.style}
-				className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
-				placeholder={this.props.placeholder}
-				html={this.state.html} // innerHTML of the editable div
-				disabled={false} // use true to disable edition
-				onClick={this.openEditMode.bind(this)}
-				onMouseEnter={this.onMouseEnter.bind(this)}
-				onMouseLeave={this.onMouseLeave.bind(this)}
-				onKeyDown={this.handleKeyDown.bind(this)}
-				onChange={this.handleChange.bind(this)} // handle innerHTML change
-				onBlur={this.handleBlur.bind(this)} // the element looses focus
-			/>
-		);
+		if (this.state.mouseOver || this.state.isInEditMode) {
+			return (
+				<ContentEditable
+					id={this.props.id}
+					style={this.props.style}
+					className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
+					placeholder={this.props.placeholder}
+					html={this.state.html} // innerHTML of the editable div
+					disabled={false} // use true to disable edition
+					onClick={this.openEditMode.bind(this)}
+					onKeyDown={this.handleKeyDown.bind(this)}
+					onChange={this.handleChange.bind(this)} // handle innerHTML change
+					onBlur={this.handleBlur.bind(this)} // the element looses focus
+					onMouseLeave={this.onMouseLeave.bind(this)}
+				/>
+			);
+		}
+		else {
+			return (
+				<div
+					style={this.props.style}
+					className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
+					onMouseEnter={this.onMouseEnter.bind(this)}
+					onMouseLeave={this.onMouseLeave.bind(this)}
+				>
+					{this.state.value}
+				</div>
+			);
+		}
 	}
 
 	handleChange(event) {

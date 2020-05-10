@@ -16,6 +16,12 @@ export class Title extends React.Component {
 		};
 	}
 
+ 	componentDidUpdate() {
+		if (this.props.project.title !== this.state.title) {
+			this.setState({ title: this.props.project.title });
+		}
+	}
+
 	save(title) {
 		this.props.setTitle(title);
 		this.props.saveProject();
@@ -27,15 +33,17 @@ export class Title extends React.Component {
 				style={{
 					display: "flex",
 					flexDirection: "column",
-					height: "30%",
+					fitContent: "100%",
 					margin: "10px 0",
 					fontSize: this.state.fontSize,
 					alignItems: "center",
 					justifyContent: "center"
 				}}>
-
 				<TextInput
 					id="TitleInput"
+					style={{
+						textAlign: "center"
+					}}
 					placeholder="Title..."
 					html={this.state.title} // innerHTML of the editable div
 					disabled={false} // use true to disable edition

@@ -15,6 +15,12 @@ export class Author extends React.Component {
 		};
 	}
 
+	componentDidUpdate() {
+		if (this.props.project.author !== this.state.author) {
+			this.setState({ author: this.props.project.author });
+		}
+	}
+
 	save(author) {
 		this.props.setAuthor(author);
 		this.props.saveProject();

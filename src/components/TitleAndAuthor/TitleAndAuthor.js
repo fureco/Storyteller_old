@@ -38,7 +38,6 @@ class TitleAndAuthor extends React.Component {
 						display: `flex`,
 						flexDirection: `column`,
 						justifyContent: `center`,
-						padding: `50px`,
 						height: `100%`
 					}}>
 						<Title />
