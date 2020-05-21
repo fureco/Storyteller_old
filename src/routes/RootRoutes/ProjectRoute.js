@@ -11,7 +11,7 @@ import {
 	TopNavBar,
 } from '../../components';
 
-import { getRoute } from './../../store/reducers/appStateReducer';
+import { getRoute } from './../../store/reducers/project/project.reducer.index';
 
 import { MoveToTrashAlert } from './../../components';
 
@@ -52,6 +52,10 @@ class Project extends React.Component {
 	}
 
 	render() {
+
+		if (this.props.route.split("/")[1] != window.location.hash.split("/")[1]) {
+			return <Redirect to={this.props.route} />
+		}
 
 		return (
 			<div
@@ -114,10 +118,10 @@ class Project extends React.Component {
 	}
 }
 
-function mapStateToProps({ appStateReducer }) {
+function mapStateToProps({ appStateReducer, project }) {
 	return {
 		appState: appStateReducer,
-		route: getRoute(appStateReducer),
+		route: getRoute(project),
 	};
 }
 

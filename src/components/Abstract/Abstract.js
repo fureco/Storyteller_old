@@ -16,6 +16,12 @@ class Abstract extends React.Component {
 		};
 	}
 
+	componentDidUpdate() {
+		if (this.props.project.abstract !== this.state.text) {
+			this.setState({ text: this.props.project.abstract });
+		}
+	}
+
 	save(text) {
 		this.props.setAbstract(text);
 		this.props.saveProject();
@@ -28,6 +34,7 @@ class Abstract extends React.Component {
 				width: `100%`,
 				height: `100%`,
 			}}>
+				{this.state.text}
 				<PagePreview content={
 					<TextInput
 						id="AbstractInput"

@@ -39,7 +39,7 @@ export class TopNavBar extends React.Component {
 
 	handleTabChange(navbarTabId) {
 		this.props.changeCurrentRootRoute(navbarTabId);
-		this.props.saveAppState();
+		this.props.save();
 	}
 
 	handleClickOnWorkspace() {
@@ -73,7 +73,7 @@ export class TopNavBar extends React.Component {
 
 					{/* SECTION TABS */}
                     { this.props.appState.path &&
-						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.appState.route.current} animate="true">
+						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.project.route.current} animate="true">
                             <Tab id="script">
                                 <Link to="/script"><Icon icon="draw" /> Script</Link>
                             </Tab>
@@ -125,10 +125,10 @@ export class TopNavBar extends React.Component {
 	}
 }
 
-function mapStateToProps({ appStateReducer, projectReducer }) {
+function mapStateToProps({ appStateReducer, project }) {
     return {
         appState: appStateReducer,
-		project: projectReducer,
+		project
     };
 }
 
@@ -140,10 +140,10 @@ function mapDispatchToProps (dispatch) {
 		createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
 		archiveProject: () => dispatch(projectActions.archive()),
 		exportAsEpub: () => dispatch(projectActions.exportAsEpub()),
+		changeCurrentRootRoute: (navbarTabId) => dispatch(projectActions.changeCurrentRootRoute(navbarTabId)),
+		save: () => dispatch(projectActions.save()),
 		// app_state
-		changeCurrentRootRoute: (navbarTabId) => dispatch(appStateActions.changeCurrentRootRoute(navbarTabId)),
 		changeTheme: (theme) => dispatch(appStateActions.changeTheme(theme)),
-		saveAppState: () => dispatch(appStateActions.save()),
     };
 }
 

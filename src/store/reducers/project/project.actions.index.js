@@ -18,6 +18,7 @@ export const SET_AUTHOR = 'SET_AUTHOR';
 export const SET_ABSTRACT = 'SET_ABSTRACT';
 export const SET_DEDICATION = 'SET_DEDICATION';
 export const SET_STYLES = 'SET_STYLES';
+export const SET_ROUTE = 'SET_ROUTE';
 
 // ############## ACTIONS #################
 export const setCover = (cover) => ({ type: SET_COVER, cover });
@@ -26,6 +27,7 @@ export const setAuthor = (author) => ({ type: SET_AUTHOR, author });
 export const setAbstract = (abstract) => ({ type: SET_ABSTRACT, abstract });
 export const setDedication = (dedication) => ({ type: SET_DEDICATION, dedication });
 export const setStyles = (styles) => ({ type: SET_STYLES, styles });
+export const setRoute = (route) => ({ type: SET_ROUTE, route });
 
 export const createProjectAction = (directoryPath) => {
 
@@ -99,7 +101,7 @@ function openProjectSuccess(directoryPath, jsonData) {
 		dispatch(setAbstract(jsonData.abstract));
 		dispatch(setDedication(jsonData.dedication));
 		dispatch(setStyles(jsonData.styles));
-		dispatch(appStateActions.load());
+		dispatch(setRoute(jsonData.route || initialProjectState.route));
 		dispatch(charactersActions.load(directoryPath))
 		dispatch(partsActions.load(directoryPath))
 		dispatch(chaptersActions.load(directoryPath))
@@ -242,4 +244,51 @@ function createNewStorytellerProjectFile(directoryPath) {
 			});
 		});
 	};
+}
+
+export const changeCurrentRootRoute = (navbarTabId) => {
+
+	return (dispatch, getState) => {
+
+		var route_copy = getState().project.route || initialProjectState.route;
+		route_copy.current = navbarTabId;
+
+		var route = Object.assign({}, getState().project.route, route_copy);
+
+		dispatch(setRoute(route));
+	}
+}
+
+export const changeCurrentScriptRoute = (navbarTabId) => {
+
+	return (dispatch, getState) => {
+
+		var route_copy = getState().project.route || initialProjectState.route;
+		route_copy.script.current = navbarTabId;
+
+		var route = Object.assign({}, getState().project.route, route_copy);
+
+		dispatch(setRoute(route));
+	}
+}
+
+export const changeCurrentScriptStructureRoute = (navbarTabId) => {
+
+	return (dispatch, getState) => {
+
+		var route_copy = getState().project.route || initialProjectState.route;
+
+		if (route_copy.script.structure) {
+			route_copy.script.structure.current = navbarTabId;
+		}
+		else {
+			route_copy.script.structure = { current: navbarTabId };
+		}
+
+		var route = Object.assign({}, getState().project.route, route_copy);
+
+		console.log(route)
+
+		dispatch(setRoute(route));
+	}
 }

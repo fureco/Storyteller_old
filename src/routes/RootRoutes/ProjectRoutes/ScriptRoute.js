@@ -16,6 +16,8 @@ import {
 
 import Dedication from '../../../components/Dedication/Dedication';
 
+import { getRoute } from './../../../store/reducers/project/project.reducer.index';
+
 import { DedicationRoute, ScenesRoute } from './ScriptRoutes';
 
 class ScriptRoute extends React.Component {
@@ -109,14 +111,12 @@ class ScriptRoute extends React.Component {
 }
 
 
-function mapStateToProps({ appStateReducer, projectReducer }) {
-
-	var route = "/script/" + (appStateReducer.route.script.structure.current || 'cover');
+function mapStateToProps({ appStateReducer, project }) {
 
 	return {
 		appState: appStateReducer,
-		project: projectReducer,
-		route: route,
+		project,
+		route: getRoute(project),
 	};
 }
 

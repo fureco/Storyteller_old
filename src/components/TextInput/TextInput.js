@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ContentEditable from "react-contenteditable";
+import ReactHtmlParser from 'react-html-parser';
 
 import './TextInput.css';
 
@@ -75,9 +76,9 @@ export class TextInput extends React.Component {
 					style={this.props.style}
 					className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
 					onMouseEnter={this.onMouseEnter.bind(this)}
-					onMouseLeave={this.onMouseLeave.bind(this)}
-				>
-					{this.state.value}
+					onMouseLeave={this.onMouseLeave.bind(this)}>
+
+					{ReactHtmlParser(this.state.value)}
 				</div>
 			);
 		}
@@ -100,7 +101,9 @@ export class TextInput extends React.Component {
 
 	handleBlur() {
 		if (this.state.html.length > 0) this.closeEditMode();
-		if (this.state.html != this.props.html) this.props.save(this.state.html);
+		if (this.state.html != this.props.html) {
+			this.props.save(this.state.html);
+		}
 	}
 }
 

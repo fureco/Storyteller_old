@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { appStateActions } from "../../../store/actions";
+import { appStateActions, projectActions } from "../../../store/actions";
 
 import {
 	Tab,
@@ -21,7 +21,7 @@ class Nav extends React.Component {
 
 	handleTabChange(navbarTabId) {
 		this.props.changeCurrentScriptStructureRoute(navbarTabId);
-		this.props.saveAppState();
+		this.props.save();
 	}
 
 	render() {
@@ -63,17 +63,17 @@ class Nav extends React.Component {
 	}
 }
 
-function mapStateToProps({ appStateReducer, }) {
+function mapStateToProps({ appStateReducer, project }) {
 	return {
 		appState: appStateReducer,
-		selectedTabId: appStateReducer.route.script.structure ? appStateReducer.route.script.structure.current : 'abstract'
+		selectedTabId: project.route.script.structure ? project.route.script.structure.current : 'abstract'
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		changeCurrentScriptStructureRoute: (navbarTabId) => dispatch(appStateActions.changeCurrentScriptStructureRoute(navbarTabId)),
-		saveAppState: () => dispatch(appStateActions.save()),
+		changeCurrentScriptStructureRoute: (navbarTabId) => dispatch(projectActions.changeCurrentScriptStructureRoute(navbarTabId)),
+		save: () => dispatch(projectActions.save()),
 	};
 }
 
