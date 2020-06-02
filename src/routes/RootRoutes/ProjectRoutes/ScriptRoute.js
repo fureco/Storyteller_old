@@ -64,7 +64,7 @@ class ScriptRoute extends React.Component {
 				<div
 					id="TreeviewColumn"
 					style={{
-						width: '300px',
+						maxWidth: '400px',
 						overflow: 'auto',
 						border: `${this.state.border}`,
 						borderRadius: `${this.state.borderRadius}`,

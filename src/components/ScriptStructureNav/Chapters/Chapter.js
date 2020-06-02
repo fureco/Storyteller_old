@@ -68,7 +68,7 @@ class Chapter extends React.Component {
 			hasCaret: false,
 			isExpanded: false,
 			icon: "document",
-			label: <Link to={`/script/structure/chapters/${this.props.chapter.id}`}>Chapter {this.props.position}: {this.props.chapter.title}</Link>,
+			label: <Link to={`/script/structure/chapters/${this.props.chapter.id}`}>{this.props.position}: {this.props.chapter.title}</Link>,
 			secondaryLabel,
 			childNodes: children,
 		};

@@ -7,8 +7,6 @@ import Chapter from "./Chapters/Chapter";
 import Scenes from "./Scenes/Scenes";
 import Trash from "./../../components/Trash/Trash.index.js";
 
-import "./ScriptStructure.css";
-
 class ScriptStructure extends React.Component {
 
     constructor(props) {
