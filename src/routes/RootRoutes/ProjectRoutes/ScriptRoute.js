@@ -30,14 +30,31 @@ class ScriptRoute extends React.Component {
 			selectedFile: null,
 			border: `1px solid ${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
 			borderRadius: `3px`,
+			route: props.route
 		};
 	}
 
 	render() {
 
-		if (window.location.hash.split("/")[2] && window.location.hash.split("/")[2] != this.props.route.split("/")[2]) {
-			// console.log("ScriptStructureRoute: ", window.location.hash.split("/")[2], this.props.route.split("/")[2], this.props.route)
-			return <Redirect to={this.props.route} />
+		var content = <Cover />;
+
+		if (this.state.route === "/script/title_author") {
+			content = <TitleAndAuthor />;
+		}
+		else if (this.state.route === "/script/abstract") {
+			content = <Abstract />;
+		}
+		else if (this.state.route === "/script/dedication") {
+			content = <Dedication />;
+		}
+		else if (this.state.route === "/script/parts") {
+			content = <Parts />;
+		}
+		else if (this.state.route === "/script/chapters") {
+			content = "Chapters";
+		}
+		else if (this.state.route === "/script/scenes") {
+			content = <ScenesRoute />;
 		}
 
 		return (
@@ -79,16 +96,7 @@ class ScriptRoute extends React.Component {
 						justifyContent: 'center',
 					}}
 				>
-					<Switch>
-						<Redirect exact from="/script" to="/script/cover" />
-						<Route path="/script/cover" component={() => { return <Cover /> }} />
-						<Route path="/script/title_author" component={() => { return <TitleAndAuthor /> }} />
-						<Route path="/script/abstract" component={() => { return <Abstract /> }} />
-						<Route path="/script/dedication" component={() => { return <Dedication /> }} />
-						<Route path="/script/parts" component={() => { return <Parts /> }} />
-						<Route path="/script/chapters" component={() => { return "Chapters" }} />
-						<Route path="/script/scenes" component={() => { return <ScenesRoute /> }} />
-					</Switch>
+					{content}
 
 				</div>
 

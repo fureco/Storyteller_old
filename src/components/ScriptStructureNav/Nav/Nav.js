@@ -20,7 +20,7 @@ class Nav extends React.Component {
 	}
 
 	handleTabChange(navbarTabId) {
-		this.props.changeCurrentScriptStructureRoute(navbarTabId);
+		this.props.changeCurrentScriptRoute(navbarTabId);
 		this.props.save();
 	}
 
@@ -66,13 +66,13 @@ class Nav extends React.Component {
 function mapStateToProps({ appStateReducer, project }) {
 	return {
 		appState: appStateReducer,
-		selectedTabId: project.route.script.structure ? project.route.script.structure.current : 'abstract'
+		selectedTabId: project.route.script ? project.route.script.current : 'abstract'
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		changeCurrentScriptStructureRoute: (navbarTabId) => dispatch(projectActions.changeCurrentScriptStructureRoute(navbarTabId)),
+		changeCurrentScriptRoute: (navbarTabId) => dispatch(projectActions.changeCurrentScriptRoute(navbarTabId)),
 		save: () => dispatch(projectActions.save()),
 	};
 }

@@ -146,7 +146,7 @@ export const save = () => {
 			return;
 		}
 
-		console.log("content: " + content);
+		// console.log("content: " + content);
 
 		storage.get('storyteller', function (error, data) {
 			if (error) throw error;
@@ -267,27 +267,6 @@ export const changeCurrentScriptRoute = (navbarTabId) => {
 		route_copy.script.current = navbarTabId;
 
 		var route = Object.assign({}, getState().project.route, route_copy);
-
-		dispatch(setRoute(route));
-	}
-}
-
-export const changeCurrentScriptStructureRoute = (navbarTabId) => {
-
-	return (dispatch, getState) => {
-
-		var route_copy = getState().project.route || initialProjectState.route;
-
-		if (route_copy.script.structure) {
-			route_copy.script.structure.current = navbarTabId;
-		}
-		else {
-			route_copy.script.structure = { current: navbarTabId };
-		}
-
-		var route = Object.assign({}, getState().project.route, route_copy);
-
-		console.log(route)
 
 		dispatch(setRoute(route));
 	}

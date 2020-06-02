@@ -19,7 +19,6 @@ export class Settings extends React.Component {
 
 	handleThemeChange(theme) {
 		this.props.changeTheme(theme);
-		this.props.saveAppState();
 	}
 
 	render() {
@@ -44,7 +43,6 @@ function mapDispatchToProps(dispatch) {
 	return {
 		// app_state
 		changeTheme: (theme) => dispatch(appStateActions.changeTheme(theme)),
-		saveAppState: () => dispatch(appStateActions.save()),
 	};
 }
 
