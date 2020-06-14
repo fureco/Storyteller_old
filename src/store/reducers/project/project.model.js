@@ -32,6 +32,5 @@ export const initialState = {
 		dedication: {
 			textAlign: "center"
 		}
-	},
-	chapters: []
+	}
 };

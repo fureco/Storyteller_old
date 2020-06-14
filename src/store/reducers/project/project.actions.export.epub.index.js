@@ -37,11 +37,11 @@ export const exportAsEpub = () => {
 
 		path_to_project = getState().appStateReducer.path;
 		dist_folder = path_to_project + "/dist";
-		dist_folder_toc = dist_folder + '/meta-content/toc.ncx';
-		dist_folder_cover = dist_folder + '/cover';
-		dist_folder_fonts = dist_folder + '/fonts';
+		dist_folder_toc = dist_folder + "/meta-content/toc.ncx";
+		dist_folder_cover = dist_folder + "/cover";
+		dist_folder_fonts = dist_folder + "/fonts";
 		dist_folder_styles = dist_folder + "/styles";
-		dist_folder_script = dist_folder + '/script';
+		dist_folder_script = dist_folder + "/script";
 
  		if (!fs.existsSync(dist_folder)) {
 			// create destination folder if it does not yet exist

@@ -44,52 +44,46 @@ export const save = () => {
 
 export const load = (directoryPath) => {
 
-	console.log("load chapters from file: " + directoryPath);
+	console.log("load chapters from directory: " + directoryPath);
 
 	return (dispatch, getState) => {
 
 		dispatch(setChapters([]));
 
-		storage.get('storyteller', function (error, data) {
-			if (error) throw error;
-
-			if (data) {
-
-				var new_data = Object.assign({}, data, {
-					path: directoryPath
-				});
-
-				storage.set('storyteller', new_data, (error) => {
-					if (error) throw error;
-				});
-			}
-		});
-
-		if (!storytellerChaptersFileExists(directoryPath + "/src")) {
-			// TO DO: Show UI dialog that directory is not empty, ask user if it should be used for a new project
-			console.log("chapters.json file does not exist");
+		if (!fs.existsSync(directoryPath + "/src/script")) {
+			// create script folder if it does not yet exist
+			fs.mkdirSync(directoryPath + "/src/script");
+			return;
 		}
-		else {
-			console.log("chapters.json file exists");
 
-			return fs.readFile(directoryPath + '/src/chapters.json', (err, fileData) => {
+		fs.readdirSync(directoryPath + "/src/script").forEach((chapter, index) => {
+
+			console.log(chapter);
+
+			fs.readFile(directoryPath + "/src/script/" + chapter, 'utf8', function (err, data) {
 
 				if (err) throw err;
 
-				var data = fileData;
+				var meta_data = data.match(/<meta-data>(\n|\t|\s)*([^]*)<\/meta-data>/);
 
-				if (!fileData) {
+				if (meta_data) {
 
-					console.log("chapters.json file exists - but is empty");
+					console.log(meta_data[2]);
+
+					var title = meta_data[2].match(/<title>(\n|\t|\s)*([^]*)<\/title>/);
+					console.log(title[2]);
+
+					var chapter = {
+						"id": index,
+						"title": title[2],
+						"part": 1,
+						"position": 1
+					};
+
+					dispatch(add(chapter));
 				}
-				else {
-					JSON.parse(data).forEach(chapter => {
-						dispatch(add(chapter));
-					})
-				}
-
 			});
-		}
+		});
 	};
 }
 
@@ -100,16 +94,4 @@ export const deleteChapter = (chapter) => {
 	return (dispatch, getState) => {
 		dispatch(setDeletedAt(chapter, new Date()));
 	}
-};
-
-function storytellerChaptersFileExists(directoryPath) {
-
-	let fileNameExists = false;
-
-	fs.readdirSync(directoryPath).forEach(fileName => {
-		if (fileName == "chapters.json") fileNameExists = true;
-		// console.log(fileName, fileNameExists)
-	});
-
-	return fileNameExists;
 };

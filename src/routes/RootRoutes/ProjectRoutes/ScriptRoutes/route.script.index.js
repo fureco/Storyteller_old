@@ -12,13 +12,15 @@ import {
 	Abstract,
 	ScriptStructureNav,
 	Parts
-} from '../../../components';
+} from '../../../../components';
 
-import Dedication from '../../../components/Dedication/Dedication';
+import Chapters from '../../../../components/Chapters/Chapters';
+import Dedication from '../../../../components/Dedication/Dedication';
 
-import { getRoute } from './../../../store/reducers/project/project.reducer.index';
+import { getRoute } from '../../../../store/reducers/project/project.reducer.index';
 
-import { DedicationRoute, ScenesRoute } from './ScriptRoutes';
+import ScenesRoute from './Scenes/ScenesRoute';
+//import DedicationRoute from './Scenes';
 
 class ScriptRoute extends React.Component {
 
@@ -51,7 +53,7 @@ class ScriptRoute extends React.Component {
 			content = <Parts />;
 		}
 		else if (this.state.route === "/script/chapters") {
-			content = "Chapters";
+			content = <Chapters />;
 		}
 		else if (this.state.route === "/script/scenes") {
 			content = <ScenesRoute />;

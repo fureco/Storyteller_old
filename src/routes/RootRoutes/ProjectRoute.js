@@ -15,7 +15,7 @@ import { getRoute } from './../../store/reducers/project/project.reducer.index';
 
 import { MoveToTrashAlert } from './../../components';
 
-import ScriptRoute from './ProjectRoutes/ScriptRoute';
+import ScriptRoute from './ProjectRoutes/ScriptRoutes/route.script.index';
 import CharactersRoute from './ProjectRoutes/CharactersRoute';
 import PreviewRoute from './ProjectRoutes/PreviewRoute/PreviewRoute';
 
