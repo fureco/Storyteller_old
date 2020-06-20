@@ -104,6 +104,7 @@ function openProjectSuccess(directoryPath, jsonData) {
 		dispatch(setDedication(jsonData.dedication));
 		dispatch(setStyles(jsonData.styles));
 		dispatch(setRoute(jsonData.route || initialProjectState.route));
+		dispatch(setSelectedChapter(jsonData.selectedChapter || initialProjectState.selectedChapter));
 		dispatch(charactersActions.load(directoryPath))
 		dispatch(partsActions.load(directoryPath))
 		dispatch(chaptersActions.load(directoryPath))

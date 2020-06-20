@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import ChapterCreationDialog from "../Chapters/CreateDialog";
 
-import { setSelectedChapter } from "./../../../store/reducers/project/project.actions.index";
+import { setSelectedChapter, save } from "./../../../store/reducers/project/project.actions.index";
 
 import {
 	Button,
@@ -78,7 +78,7 @@ class Chapter extends React.Component {
 					minimal
 					className={`chapters-list-item-button ${this.props.className}`}
 					icon={`${this.props.isSelected ? "chevron-right" : ""}`}
-					onClick={() => this.props.setSelectedChapter(this.props.chapter.id)}
+					onClick={() => this.handleClickOnChapter(this.props.chapter.id)}
 				>
 					{this.props.position}: {this.props.chapter.title}
 				</Button>,
@@ -100,6 +100,11 @@ class Chapter extends React.Component {
 			</Draggable>
 		);
 	}
+
+	handleClickOnChapter(chapter_id) {
+		this.props.setSelectedChapter(chapter_id);
+		this.props.saveProject();
+	}
 }
 
 function mapStateToProps({ appStateReducer, project }) {
@@ -113,6 +118,7 @@ function mapDispatchToProps(dispatch) {
 	return {
 		setSelectedChapter: ID => dispatch(setSelectedChapter(ID)),
 		deleteChapter: ID => dispatch(chapterActions.delete(ID)),
+		saveProject: () => dispatch(save()),
 	};
 }
 
