@@ -1,13 +1,22 @@
 #Chapters .bp3-tree-node {
-	margin-left: -20px;
+
+}
+
+#Chapters .bp3-tree-node-caret-none {
+	min-width: 0;
 }
 
 #Chapters .bp3-tree-node-label {
 	white-space: normal;
 }
 
+#Chapters .bp3-tree-node-secondary-label {
+	padding: 0 0 0 0.3125rem;
+}
+
 #Chapters .bp3-tree-node-content {
 	height: auto;
+	padding-right: 0;
 }
 
 #ChapterCreationDialog .bp3-button.bp3-minimal:hover {

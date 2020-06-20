@@ -5,6 +5,7 @@ const fs = require('fs');
 // ############ ACTION TYPES ##############
 export const ADD = 'ADD';
 export const CREATE = 'CREATE';
+
 export const SET_CHAPTERS = 'SET_CHAPTERS';
 export const DELETE_CHAPTER = 'DELETE_CHAPTER';
 
@@ -13,6 +14,7 @@ export const SET_DELETED_AT = 'SET_DELETED_AT';
 // ############## ACTIONS #################
 export const add = (chapter) => ({ type: ADD, chapter });
 export const create = (chapter) => ({ type: CREATE, chapter });
+
 export const setChapters = (chapters) => ({ type: SET_CHAPTERS, chapters });
 export const setDeletedAt = (chapter, deleted_at) => ({ type: SET_DELETED_AT, chapter, deleted_at });
 
@@ -56,11 +58,11 @@ export const load = (directoryPath) => {
 			return;
 		}
 
-		fs.readdirSync(directoryPath + "/src/script").forEach((chapter, index) => {
+		fs.readdirSync(directoryPath + "/src/script").forEach((file, index) => {
 
-			console.log(chapter);
+			// console.log(chapter);
 
-			fs.readFile(directoryPath + "/src/script/" + chapter, 'utf8', function (err, data) {
+			fs.readFile(directoryPath + "/src/script/" + file, 'utf8', (err, data) => {
 
 				if (err) throw err;
 
@@ -68,16 +70,19 @@ export const load = (directoryPath) => {
 
 				if (meta_data) {
 
-					console.log(meta_data[2]);
+					// console.log(meta_data[2]);
 
 					var title = meta_data[2].match(/<title>(\n|\t|\s)*([^]*)<\/title>/);
-					console.log(title[2]);
+					//console.log(title[2]);
+
+					var position = file.split("_")[0];
+					//console.log(position);
 
 					var chapter = {
 						"id": index,
 						"title": title[2],
 						"part": 1,
-						"position": 1
+						"position": parseInt(position)
 					};
 
 					dispatch(add(chapter));

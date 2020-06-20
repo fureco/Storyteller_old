@@ -1,0 +1,21 @@
+.chapters-list-item > ul > li.is_selected {
+	color: #48aff0 !important;
+}
+
+.chapters-list-item > ul > li.is_selected:hover {
+	color: #48aff0 !important;
+}
+
+.chapters-list-item-li > .bp3-tree-node-content:hover {
+
+}
+
+.chapters-list-item-li .bp3-tree-node-label button {
+	width: 100%;
+	justify-content: left;
+}
+
+.chapters-list-item-li .bp3-tree-node-label button:hover {
+	color: #48aff0 !important;
+	background: transparent !important;
+}

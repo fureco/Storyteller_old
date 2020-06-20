@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import ChapterCreationDialog from "../Chapters/CreateDialog";
 
+import { setSelectedChapter } from "./../../../store/reducers/project/project.actions.index";
+
 import {
 	Button,
 	ButtonGroup,
 	Tree,
 	Intent,
 } from '@blueprintjs/core';
+
+import './Chapter.css';
 
 const grid = 8;
 
@@ -46,7 +50,7 @@ class Chapter extends React.Component {
 
 		let children = [
 			{
-				id: 1,
+				id: 0,
 				label: (<ChapterCreationDialog />)
 			},
 		];
@@ -57,41 +61,43 @@ class Chapter extends React.Component {
 			</ButtonGroup>
 
 			: <ButtonGroup>
-				<Button minimal icon="edit" />
+				{/* <Button minimal icon="edit" /> */}
 				<Button minimal icon="trash" onClick={() => this.props.handleOpenMoveToTrashAlert()} />
 				<Button minimal icon="drag-handle-vertical" />
 			</ButtonGroup>;
 
 		let aTreeNode =
 		{
-			id: treeContent.length,
+			id: this.props.chapter.id,
+			key: this.props.chapter.id,
+			className: `chapters-list-item-li ${this.props.className}`,
 			hasCaret: false,
 			isExpanded: false,
-			icon: "document",
-			label: <Link to={`/script/structure/chapters/${this.props.chapter.id}`}>{this.props.position}: {this.props.chapter.title}</Link>,
+			label:
+				<Button
+					minimal
+					className={`chapters-list-item-button ${this.props.className}`}
+					icon={`${this.props.isSelected ? "chevron-right" : ""}`}
+					onClick={() => this.props.setSelectedChapter(this.props.chapter.id)}
+				>
+					{this.props.position}: {this.props.chapter.title}
+				</Button>,
 			secondaryLabel,
-			childNodes: children,
 		};
 
 		treeContent.push(aTreeNode);
 
-		let content = this.props.draggable ?
-
+		return (
 			<Draggable key={this.props.key} draggableId={this.props.draggableId} index={this.props.chapter.position}>
 				{(provided, snapshot) => (
 					<div
 						ref={provided.innerRef}
 						{...provided.draggableProps}
 						{...provided.dragHandleProps}>
-						<Tree contents={treeContent} />
+						<Tree className="chapters-list-item" contents={treeContent} />
 					</div>
 				)}
 			</Draggable>
-
-			: <Tree contents={treeContent} />;
-
-		return (
-			content
 		);
 	}
 }
@@ -105,6 +111,7 @@ function mapStateToProps({ appStateReducer, project }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
+		setSelectedChapter: ID => dispatch(setSelectedChapter(ID)),
 		deleteChapter: ID => dispatch(chapterActions.delete(ID)),
 	};
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect } from "react-router-dom";
+import { Route, withRouter, Switch, Redirect,} from "react-router-dom";
 
 import {
 	Colors,
@@ -12,12 +12,12 @@ import {
 	Abstract,
 	ScriptStructureNav,
 	Parts
-} from '../../../../components';
+} from './../../../../components';
 
-import Chapters from '../../../../components/Chapters/Chapters';
-import Dedication from '../../../../components/Dedication/Dedication';
+import ChaptersRoute from './route.script.chapters.index.';
+import Dedication from './../../../../components/Dedication/Dedication';
 
-import { getRoute } from '../../../../store/reducers/project/project.reducer.index';
+import { getRoute } from './../../../../store/reducers/project/project.reducer.index';
 
 import ScenesRoute from './Scenes/ScenesRoute';
 //import DedicationRoute from './Scenes';
@@ -28,7 +28,7 @@ class ScriptRoute extends React.Component {
 
 		super(props);
 
-        this.state = {
+		this.state = {
 			selectedFile: null,
 			border: `1px solid ${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
 			borderRadius: `3px`,
@@ -53,7 +53,7 @@ class ScriptRoute extends React.Component {
 			content = <Parts />;
 		}
 		else if (this.state.route === "/script/chapters") {
-			content = <Chapters />;
+			content = <ChaptersRoute />;
 		}
 		else if (this.state.route === "/script/scenes") {
 			content = <ScenesRoute />;

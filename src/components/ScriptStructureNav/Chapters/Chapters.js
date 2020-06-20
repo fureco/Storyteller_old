@@ -43,9 +43,11 @@ class Chapters extends React.Component {
 								{...provided.droppableProps}
 								ref={provided.innerRef}
 							>
-								{this.props.chapters.map((chapter, index) => (
+								{this.props.chapters.sort(this.sortByPosition).map((chapter, index) => (
 									<Chapter
 										key={chapter.id}
+										className={chapter.id == this.props.selectedChapter ? "is_selected" : ""}
+										isSelected={chapter.id == this.props.selectedChapter}
 										draggable
 										draggableId={`chapter-${chapter.id}`}
 										position={chapter.position}
@@ -82,6 +84,16 @@ class Chapters extends React.Component {
 
 			</div>
 		);
+	}
+
+	sortByPosition(a, b) {
+		let comparison = 0;
+		if (a.position > b.position) {
+			comparison = 1;
+		} else if (a.position < b.position) {
+			comparison = -1;
+		}
+		return comparison;
 	}
 
 	onDragEnd(result) {
@@ -149,6 +161,8 @@ function mapStateToProps({ appStateReducer, project, chapters }) {
 		appState: appStateReducer,
 
 		project,
+
+		selectedChapter: project.selectedChapter,
 
 		chapters: chapters.filter((chapter) => {
 			return chapter.deleted_at == null

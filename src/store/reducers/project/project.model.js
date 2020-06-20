@@ -4,13 +4,11 @@ export const initialState = {
 	author: "",
 	abstract: "",
 	dedication: "",
+	selectedChapter: "",
 	route: {
 		current: "script",
 		script: {
-			current: "structure",
-			structure: {
-				current: "cover"
-			}
+			current: "cover"
 		},
 		characters: {
 

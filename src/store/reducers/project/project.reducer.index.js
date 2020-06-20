@@ -35,6 +35,11 @@ const project = (state = initialState, action) => {
 				route: action.route
 			});
 
+		case projectActions.SET_SELECTED_CHAPTER:
+			return Object.assign({}, state, {
+				selectedChapter: action.chapter
+			});
+
     default:
         return state;
   }
