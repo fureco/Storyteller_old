@@ -82,7 +82,7 @@ class Project extends React.Component {
 					{this.props.appState.path ? this.props.appState.path : 'No project selected.'}
 				</div>
 
-				<div id="Main" style={{ display: 'flex', height: '100vh', padding: '10px' }}>
+				<div id="Main" style={{ display: 'flex', flexGrow: '1', padding: '10px', overflow: 'auto' }}>
 					<div style={{
 						display: 'flex',
 						flexGrow: '1',

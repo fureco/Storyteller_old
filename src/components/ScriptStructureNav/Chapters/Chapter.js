@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import ChapterCreationDialog from "../Chapters/CreateDialog";
 
@@ -101,9 +100,18 @@ class Chapter extends React.Component {
 		);
 	}
 
+	scrollTo(chapter_id) {
+        var element = document.getElementById("chapter-" + chapter_id);
+		element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		/* var y = element.getBoundingClientRect().top + window.pageYOffset + 100;
+		console.log(y)
+		element.scrollTo({ top: y, behavior: 'smooth' }); */
+	}
+
 	handleClickOnChapter(chapter_id) {
 		this.props.setSelectedChapter(chapter_id);
 		this.props.saveProject();
+		this.scrollTo(chapter_id);
 	}
 }
 

@@ -14,7 +14,7 @@ import {
 	Parts
 } from './../../../../components';
 
-import ChaptersRoute from './route.script.chapters.index.';
+import ChaptersRoute from './route.script.chapters.index';
 import Dedication from './../../../../components/Dedication/Dedication';
 
 import { getRoute } from './../../../../store/reducers/project/project.reducer.index';
