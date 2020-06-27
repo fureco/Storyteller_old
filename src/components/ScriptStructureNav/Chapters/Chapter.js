@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Draggable } from "react-beautiful-dnd";
 import ChapterCreationDialog from "../Chapters/CreateDialog";
 
-import { setSelectedChapter, save } from "./../../../store/reducers/project/project.actions.index";
+import * as projectActions from "./../../../store/reducers/project/project.actions.index";
 
 import {
 	Button,
@@ -41,6 +41,11 @@ class Chapter extends React.Component {
 			canOutsideClickCancel: false,
 			moveToTrashIsOpen: false,
 		};
+	}
+
+	componentDidMount() {
+		console.log(this.props.project.selectedChapter)
+		this.scrollTo(this.props.project.selectedChapter);
 	}
 
 	render() {
@@ -100,18 +105,18 @@ class Chapter extends React.Component {
 		);
 	}
 
-	scrollTo(chapter_id) {
-        var element = document.getElementById("chapter-" + chapter_id);
-		element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-		/* var y = element.getBoundingClientRect().top + window.pageYOffset + 100;
-		console.log(y)
-		element.scrollTo({ top: y, behavior: 'smooth' }); */
-	}
-
 	handleClickOnChapter(chapter_id) {
+		this.props.openChaptersRoute();
 		this.props.setSelectedChapter(chapter_id);
 		this.props.saveProject();
 		this.scrollTo(chapter_id);
+	}
+
+	scrollTo(chapter_id) {
+		var element = document.getElementById("chapter-" + chapter_id);
+		if (element) {
+			element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
 	}
 }
 
@@ -124,9 +129,10 @@ function mapStateToProps({ appStateReducer, project }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		setSelectedChapter: ID => dispatch(setSelectedChapter(ID)),
+		setSelectedChapter: ID => dispatch(projectActions.setSelectedChapter(ID)),
 		deleteChapter: ID => dispatch(chapterActions.delete(ID)),
-		saveProject: () => dispatch(save()),
+		openChaptersRoute: () => dispatch(projectActions.changeCurrentScriptRoute("chapters")),
+		saveProject: () => dispatch(projectActions.save()),
 	};
 }
 
