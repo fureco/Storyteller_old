@@ -2,6 +2,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter as Router } from "react-router-dom";
 
+import { FocusStyleManager } from "@blueprintjs/core";
+
+FocusStyleManager.onlyShowFocusOnTabs();
+
 import RootRoute from './routes/RootRoute';
 
 import store from './store';
