@@ -18,28 +18,32 @@ export const create = (chapter) => ({ type: CREATE, chapter });
 export const setChapters = (chapters) => ({ type: SET_CHAPTERS, chapters });
 export const setDeletedAt = (chapter, deleted_at) => ({ type: SET_DELETED_AT, chapter, deleted_at });
 
-export const save = () => {
+export const saveText = (chapter_pos, new_text) => {
 
-	console.log("saving chapters...")
+	console.log("saving chapter " + chapter_pos + " ...")
 
 	return (dispatch, getState) => {
 
-		let content = JSON.stringify(getState().chapters);
-		console.log("content: " + content);
+		let directoryPath = getState().appStateReducer.path;
 
-		storage.get('storyteller', function (error, data) {
-			if (error) throw error;
-			console.log("current_project: " + data.path);
-			if (data.path) {
-				fs.writeFile(data.path + "/src/chapters.json", content, (err) => {
-					if (err) {
-						console.log("FAILURE: ", err)
-					}
-					else {
-						console.log("Saved!")
-					}
-				})
-			}
+		let chapter = getState().chapters.find((chapter) => {
+			return chapter.position == chapter_pos
+		});
+
+		fs.readFile(directoryPath + "/src/script/" + chapter.file_name, 'utf8', (err, data) => {
+
+			if (err) throw err;
+
+			data = data.replace(/<text>(\n|\t|\s)*([^]*)<\/text>/, "<text>" + new_text + "<\/text>")
+
+			fs.writeFile(directoryPath + "/src/script/" + chapter.file_name, data, (err) => {
+				if (err) {
+					console.log("FAILURE: ", err)
+				}
+				else {
+					console.log("Saved!")
+				}
+			})
 		});
 	};
 };
@@ -78,11 +82,16 @@ export const load = (directoryPath) => {
 					var position = file.split("_")[0];
 					//console.log(position);
 
+					var text_metadata = meta_data[2].match(/<text>(\n|\t|\s)*([^]*)<\/text>/);
+					var text = text_metadata ? text_metadata[2] : "";
+
 					var chapter = {
 						"id": index,
+						"file_name": file,
 						"title": title[2],
 						"part": 1,
-						"position": parseInt(position)
+						"position": parseInt(position),
+						"text": text
 					};
 
 					dispatch(add(chapter));

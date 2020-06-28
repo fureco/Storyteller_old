@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from './../../store/actions';
+import { projectActions } from '../../store/actions';
+
+import TextInput from "./../../components/TextInput/TextInput";
 
 import {
 	Button,
 	Colors,
+	Switch,
 	TextArea
 } from '@blueprintjs/core';
 
-class TextAreaWithPreview extends React.Component {
+class Editor extends React.Component {
 
 	constructor(props) {
 
@@ -39,22 +42,22 @@ class TextAreaWithPreview extends React.Component {
 					height: '100%'
 				}}
 			>
+				{/* <div style={{
+					display: 'flex',
+					flexDirection: 'row',
+					flex: '1'
+				}}>
+					<Switch checked={this.state.isPublic} label="Editor" onChange={this.handlePublicChange} />
+					<Switch checked={this.state.isPublic} label="HTML" onChange={this.handlePublicChange} />
+				</div> */}
+				{/* <div>
+					<Button>Italic</Button>
+				</div> */}
 				<div style={{
 					display: 'flex',
 					flexDirection: 'row',
 					flex: '1'
 				}}>
-					<TextArea
-						className="TextArea"
-						onChange={() => this.setState({ "text": event.target.value })}
-						value={this.state.text}
-						style={{
-							// height: '100%',
-							overflow: 'auto',
-							resize: 'none',
-							flex: '1'
-						}}
-					/>
 					<div
 						className="PreviewArea"
 						style={{
@@ -65,7 +68,31 @@ class TextAreaWithPreview extends React.Component {
 							padding: '10px',
 							border: `1px solid ${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
 						}}
-						dangerouslySetInnerHTML={{ __html: this.state.text }} />
+					>
+						<TextInput
+							id="PreviewAreaInput"
+							placeholder="Dedication..."
+							html={this.state.text} // innerHTML of the editable div
+							disabled={false} // use true to disable edition
+							multiLine={true}
+							onChange={this.onChange.bind(this)}
+							style={{
+								textAlign: this.state.textAlign
+							}}
+						/>
+					</div>
+
+					<TextArea
+						className="HTMLArea"
+						onChange={this.onChange.bind(this)}
+						value={this.state.text}
+						style={{
+							// height: '100%',
+							overflow: 'auto',
+							resize: 'none',
+							flex: '1'
+						}}
+					/>
 
 				</div>
 
@@ -92,6 +119,10 @@ class TextAreaWithPreview extends React.Component {
 			</div>
 		);
 	}
+
+	onChange(event) {
+		this.setState({ "text": event.target.value });
+	}
 }
 
 function mapStateToProps({ appStateReducer, projectReducer }) {
@@ -103,12 +134,10 @@ function mapStateToProps({ appStateReducer, projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		setAbstract: abstract => dispatch(projectActions.setAbstract(abstract)),
-		saveProject: () => dispatch(projectActions.save()),
 	};
 }
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(TextAreaWithPreview)
+)(Editor)

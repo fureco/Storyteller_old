@@ -62,7 +62,6 @@ class CreateDialog extends React.Component {
 
 	create(title) {
 		this.props.create({title});
-		this.props.save();
 		this.toggleDialog();
 	}
 
@@ -80,7 +79,6 @@ function mapStateToProps ({ projectReducer }) {
 function mapDispatchToProps (dispatch) {
     return {
 		create: (chapter) => dispatch(create(chapter)),
-		save: () => dispatch(save()),
     };
 }
 

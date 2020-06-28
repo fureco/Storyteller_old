@@ -20,7 +20,11 @@ export class TextInput extends React.Component {
 		};
 	}
 
- 	componentDidUpdate() {
+	componentDidUpdate() {
+
+		if (!this.props.html)
+			return;
+
 		if (this.props.html.localeCompare(this.state.value)) {
 			this.setState({ value: this.props.html });
 		}
@@ -85,6 +89,11 @@ export class TextInput extends React.Component {
 	}
 
 	handleChange(event) {
+
+		if (this.props.onChange) {
+			this.props.onChange(event)
+		}
+
 		this.setState({
 			html: event.target.value,
 		});
@@ -101,7 +110,7 @@ export class TextInput extends React.Component {
 
 	handleBlur() {
 		if (this.state.html.length > 0) this.closeEditMode();
-		if (this.state.html != this.props.html) {
+		if (this.props.save && this.state.html != this.props.html) {
 			this.props.save(this.state.html);
 		}
 	}

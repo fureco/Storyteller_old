@@ -109,7 +109,6 @@ class Chapters extends React.Component {
 		);
 
 		this.props.setCharacters(reordered_elements);
-		this.props.save();
 	}
 
 	handleOpenMoveToTrashAlert(chapter) {
@@ -177,7 +176,6 @@ function mapStateToProps({ appStateReducer, project, chapters }) {
 function mapDispatchToProps(dispatch) {
 	return {
 		setChapters: chapters => dispatch(setChapters(chapters)),
-		save: () => dispatch(save()),
 		deleteChapter: chapter => dispatch(deleteChapter(chapter)),
 	};
 }
