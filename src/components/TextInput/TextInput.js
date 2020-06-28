@@ -13,6 +13,7 @@ export class TextInput extends React.Component {
 
 		this.state = {
 			html: props.html || "",
+			initial_value: props.html || "",
 			isInEditMode: !props.html || props.html.length <= 0,
 			multiLine: props.multiLine,
 			mouseOver: false,
@@ -38,7 +39,7 @@ export class TextInput extends React.Component {
 	undoEditing() {
 		this.setState({
 			isInEditMode: !this.props.html || this.props.html.length <= 0,
-			html: this.props.text
+			html: this.props.initial_value
 		});
 	}
 
@@ -82,7 +83,11 @@ export class TextInput extends React.Component {
 	}
 
 	handleBlur() {
-		this.props.save();
+		if (this.state.html !== this.state.initial_value) {
+			this.state.initial_value = this.state.html;
+			this.props.save();
+		}
+
 		this.closeEditMode();
 	}
 }
