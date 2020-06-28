@@ -16,15 +16,13 @@ export class Title extends React.Component {
 		};
 	}
 
- 	componentDidUpdate() {
-		if (this.props.project.title !== this.state.title) {
-			this.setState({ title: this.props.project.title });
-		}
+	save() {
+		this.props.setTitle(this.state.title);
+		this.props.saveProject();
 	}
 
-	save(title) {
-		this.props.setTitle(title);
-		this.props.saveProject();
+	onChange(event) {
+		this.setState({ "title": event.target.value });
 	}
 
 	render() {
@@ -47,6 +45,7 @@ export class Title extends React.Component {
 					placeholder="Title..."
 					html={this.state.title} // innerHTML of the editable div
 					disabled={false} // use true to disable edition
+					onChange={this.onChange.bind(this)}
 					save={this.save.bind(this)}
 				/>
 

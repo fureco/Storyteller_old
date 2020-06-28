@@ -12,15 +12,19 @@ class Dedication extends React.Component {
 		super(props);
 
 		this.state = {
-			text: props.project.dedication,
+			dedication: props.project.dedication,
 			fontSize: this.props.project.styles.default.fontSize,
 			textAlign: this.props.project.styles.dedication.textAlign
 		};
 	}
 
-	save(text) {
-		this.props.setDedication(text);
+	save() {
+		this.props.setDedication(this.state.dedication);
 		this.props.saveProject();
+	}
+
+	onChange(event) {
+		this.setState({ "dedication": event.target.value });
 	}
 
 	render() {
@@ -40,7 +44,8 @@ class Dedication extends React.Component {
 						<TextInput
 							id="DedicationInput"
 							placeholder="Dedication..."
-							html={this.state.text} // innerHTML of the editable div
+							html={this.state.dedication} // innerHTML of the editable div
+							onChange={this.onChange.bind(this)}
 							disabled={false} // use true to disable edition
 							multiLine={true}
 							save={this.save.bind(this)}

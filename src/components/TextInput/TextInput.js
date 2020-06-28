@@ -12,7 +12,6 @@ export class TextInput extends React.Component {
 		super(props);
 
 		this.state = {
-			value: props.html || "",
 			html: props.html || "",
 			isInEditMode: !props.html || props.html.length <= 0,
 			multiLine: props.multiLine,
@@ -20,20 +19,7 @@ export class TextInput extends React.Component {
 		};
 	}
 
-	componentDidUpdate() {
-
-		if (!this.props.html)
-			return;
-
-		if (this.props.html.localeCompare(this.state.value)) {
-			this.setState({ value: this.props.html });
-		}
-	}
-
 	onMouseEnter() {
-		if (!this.state.isInEditMode && this.state.html !== this.state.value) {
-			this.setState({ html: this.state.value });
-		}
 		this.setState({ mouseOver: true })
 	}
 
@@ -57,35 +43,22 @@ export class TextInput extends React.Component {
 	}
 
 	render() {
-		if (this.state.mouseOver || this.state.isInEditMode) {
-			return (
-				<ContentEditable
-					id={this.props.id}
-					style={this.props.style}
-					className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
-					placeholder={this.props.placeholder}
-					html={this.state.html} // innerHTML of the editable div
-					disabled={false} // use true to disable edition
-					onClick={this.openEditMode.bind(this)}
-					onKeyDown={this.handleKeyDown.bind(this)}
-					onChange={this.handleChange.bind(this)} // handle innerHTML change
-					onBlur={this.handleBlur.bind(this)} // the element looses focus
-					onMouseLeave={this.onMouseLeave.bind(this)}
-				/>
-			);
-		}
-		else {
-			return (
-				<div
-					style={this.props.style}
-					className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
-					onMouseEnter={this.onMouseEnter.bind(this)}
-					onMouseLeave={this.onMouseLeave.bind(this)}>
-
-					{ReactHtmlParser(this.state.value)}
-				</div>
-			);
-		}
+		return (
+			<ContentEditable
+				id={this.props.id}
+				style={this.props.style}
+				className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
+				placeholder={this.props.placeholder}
+				html={this.state.html} // innerHTML of the editable div
+				disabled={false} // use true to disable edition
+				onClick={this.openEditMode.bind(this)}
+				onKeyDown={this.handleKeyDown.bind(this)}
+				onChange={this.handleChange.bind(this)} // handle innerHTML change
+				onBlur={this.handleBlur.bind(this)} // the element looses focus
+				onMouseEnter={this.onMouseEnter.bind(this)}
+				onMouseLeave={this.onMouseLeave.bind(this)}
+			/>
+		);
 	}
 
 	handleChange(event) {
@@ -109,10 +82,8 @@ export class TextInput extends React.Component {
 	}
 
 	handleBlur() {
-		if (this.state.html.length > 0) this.closeEditMode();
-		if (this.props.save && this.state.html != this.props.html) {
-			this.props.save(this.state.html);
-		}
+		this.props.save();
+		this.closeEditMode();
 	}
 }
 

@@ -15,15 +15,13 @@ export class Author extends React.Component {
 		};
 	}
 
-	componentDidUpdate() {
-		if (this.props.project.author !== this.state.author) {
-			this.setState({ author: this.props.project.author });
-		}
+	save() {
+		this.props.setAuthor(this.state.author);
+		this.props.saveProject();
 	}
 
-	save(author) {
-		this.props.setAuthor(author);
-		this.props.saveProject();
+	onChange(event) {
+		this.setState({ "author": event.target.value });
 	}
 
 	render() {
@@ -44,6 +42,7 @@ export class Author extends React.Component {
 					html={this.state.author} // innerHTML of the editable div
 					disabled={false} // use true to disable edition
 					save={this.save.bind(this)}
+					onChange={this.onChange.bind(this)}
 				/>
 
 			</div>
