@@ -16,7 +16,7 @@ import { getRoute } from './../../store/reducers/project/project.reducer.index';
 import { MoveToTrashAlert } from './../../components';
 
 import ScriptRoute from './ProjectRoutes/ScriptRoutes/route.script.index';
-import CharactersRoute from './ProjectRoutes/CharactersRoute';
+import CharactersRoute from './ProjectRoutes/CharactersRoutes/CharactersRoute';
 import PreviewRoute from './ProjectRoutes/PreviewRoute/PreviewRoute';
 
 class Project extends React.Component {

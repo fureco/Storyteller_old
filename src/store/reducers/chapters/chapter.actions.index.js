@@ -13,41 +13,50 @@ export const SET_DELETED_AT = 'SET_DELETED_AT';
 
 // ############## ACTIONS #################
 export const add = (chapter) => ({ type: ADD, chapter });
-export const create = (chapter) => ({ type: CREATE, chapter });
+/* export const create = (chapter) => ({ type: CREATE, chapter }); */
 
 export const setChapters = (chapters) => ({ type: SET_CHAPTERS, chapters });
 export const setDeletedAt = (chapter, deleted_at) => ({ type: SET_DELETED_AT, chapter, deleted_at });
 
-export const saveText = (chapter_pos, new_text) => {
+// create a new chapter and save it to a new JSON file
+export const create = (chapter) => {
 
-	console.log("saving chapter " + chapter_pos + " ...")
+	console.log("creating new chapter \"" + chapter.title + "\" ...")
 
 	return (dispatch, getState) => {
 
 		let directoryPath = getState().appStateReducer.path;
 
-		let chapter = getState().chapters.find((chapter) => {
-			return chapter.position == chapter_pos
+		if (!fs.existsSync(directoryPath + "/src/script/")) {
+			// create script folder if it does not yet exist
+			fs.mkdirSync(directoryPath + "/src/script/");
+		}
+
+		let pos_of_new_chapter = 1;
+
+		getState().chapters.forEach((chapter) => {
+			if (chapter.position > pos_of_new_chapter)
+				pos_of_new_chapter = chapter.position + 1;
 		});
 
-		fs.readFile(directoryPath + "/src/script/" + chapter.file_name, 'utf8', (err, data) => {
+		let data = {
+			title: chapter.title,
+			text: ""
+		};
 
-			if (err) throw err;
-
-			data = data.replace(/<text>(\n|\t|\s)*([^]*)<\/text>/, "<text>" + new_text + "<\/text>")
-
-			fs.writeFile(directoryPath + "/src/script/" + chapter.file_name, data, (err) => {
-				if (err) {
-					console.log("FAILURE: ", err)
-				}
-				else {
-					console.log("Saved!")
-				}
-			})
-		});
+		fs.writeFile(directoryPath + "/src/script/" + pos_of_new_chapter + "_" + chapter.title + ".json", JSON.stringify(data), (err) => {
+			if (err) {
+				console.log("FAILURE: ", err)
+			}
+			else {
+				console.log("Saved!")
+				dispatch(load(directoryPath));
+			}
+		})
 	};
 };
 
+// load an existing chapter from it's JSON file
 export const load = (directoryPath) => {
 
 	console.log("load chapters from directory: " + directoryPath);
@@ -70,25 +79,24 @@ export const load = (directoryPath) => {
 
 				if (err) throw err;
 
-				var meta_data = data.match(/<meta-data>(\n|\t|\s)*([^]*)<\/meta-data>/);
+				var json_data = JSON.parse(data);
 
-				if (meta_data) {
+				if (json_data) {
 
-					// console.log(meta_data[2]);
+					// console.log(json_data);
 
-					var title = meta_data[2].match(/<title>(\n|\t|\s)*([^]*)<\/title>/);
+					var title = json_data.title;
 					//console.log(title[2]);
 
 					var position = file.split("_")[0];
 					//console.log(position);
 
-					var text_metadata = meta_data[2].match(/<text>(\n|\t|\s)*([^]*)<\/text>/);
-					var text = text_metadata ? text_metadata[2] : "";
+					var text = json_data.text || "";
 
 					var chapter = {
 						"id": index,
 						"file_name": file,
-						"title": title[2],
+						"title": title,
 						"part": 1,
 						"position": parseInt(position),
 						"text": text
@@ -108,4 +116,68 @@ export const deleteChapter = (chapter) => {
 	return (dispatch, getState) => {
 		dispatch(setDeletedAt(chapter, new Date()));
 	}
+};
+
+export const saveTitle = (chapter_pos, new_title) => {
+
+	console.log("saving new title of chapter " + chapter_pos + " ...")
+
+	return (dispatch, getState) => {
+
+		let directoryPath = getState().appStateReducer.path;
+
+		let chapter = getState().chapters.find((chapter) => {
+			return chapter.position == chapter_pos
+		});
+
+		fs.readFile(directoryPath + "/src/script/" + chapter.file_name, 'utf8', (err, data) => {
+
+			if (err) throw err;
+
+			var json_data = JSON.parse(data);
+
+			json_data.title = new_title;
+
+			fs.writeFile(directoryPath + "/src/script/" + chapter.file_name, JSON.stringify(json_data), (err) => {
+				if (err) {
+					console.log("FAILURE: ", err)
+				}
+				else {
+					console.log("Saved!")
+				}
+			})
+		});
+	};
+};
+
+export const saveText = (chapter_pos, new_text) => {
+
+	console.log("saving chapter " + chapter_pos + " ...")
+
+	return (dispatch, getState) => {
+
+		let directoryPath = getState().appStateReducer.path;
+
+		let chapter = getState().chapters.find((chapter) => {
+			return chapter.position == chapter_pos
+		});
+
+		fs.readFile(directoryPath + "/src/script/" + chapter.file_name, 'utf8', (err, data) => {
+
+            if (err) throw err;
+
+            var json_data = JSON.parse(data);
+
+            json_data.text = new_text;
+
+			fs.writeFile(directoryPath + "/src/script/" + chapter.file_name, JSON.stringify(json_data), (err) => {
+				if (err) {
+					console.log("FAILURE: ", err)
+				}
+				else {
+					console.log("Saved!")
+				}
+			})
+		});
+	};
 };

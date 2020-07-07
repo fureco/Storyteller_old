@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Part from "./Part";
-import ScriptPartCreationDialog from "../ScriptPartCreationDialog";
+import ScriptPartCreationDialog from "./../ScriptPartCreationDialog";
 
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 

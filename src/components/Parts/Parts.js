@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Link, Route, Redirect } from "react-router-dom";
-import { PartTitle, ScriptPartCreationDialog } from "./../../components";
+import { PartTitle } from "./../../components";
+import ScriptPartCreationDialog from "./../../components/ScriptNav/ScriptPartCreationDialog";
 
 import {
 	TextArea

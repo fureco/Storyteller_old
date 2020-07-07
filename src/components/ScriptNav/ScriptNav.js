@@ -5,9 +5,9 @@ import Parts from "./Parts/Parts";
 import Chapters from "./Chapters/Chapters";
 import Chapter from "./Chapters/Chapter";
 import Scenes from "./Scenes/Scenes";
-import Trash from "./../../components/Trash/Trash.index.js";
+import Trash from "../Trash/Trash.index.js";
 
-class ScriptStructure extends React.Component {
+class ScriptNav extends React.Component {
 
     constructor(props) {
 
@@ -80,4 +80,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
     mapStateToProps,
 	mapDispatchToProps
-)(ScriptStructure)
+)(ScriptNav)

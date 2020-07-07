@@ -6,21 +6,9 @@ import {
 	Colors,
 } from '@blueprintjs/core';
 
-import {
-	Cover,
-	TitleAndAuthor,
-	Abstract,
-	ScriptStructureNav,
-	Parts
-} from './../../../../components';
+import ScriptNav from '../../../../components/ScriptNav/ScriptNav';
+import ScriptContent from '../../../../components/ScriptContent/ScriptContent';
 
-import ChaptersRoute from './route.script.chapters.index';
-import Dedication from './../../../../components/Dedication/Dedication';
-
-import { getRoute } from './../../../../store/reducers/project/project.reducer.index';
-
-import ScenesRoute from './Scenes/ScenesRoute';
-//import DedicationRoute from './Scenes';
 
 class ScriptRoute extends React.Component {
 
@@ -29,35 +17,12 @@ class ScriptRoute extends React.Component {
 		super(props);
 
 		this.state = {
-			selectedFile: null,
 			border: `1px solid ${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
 			borderRadius: `3px`,
-			route: props.route
 		};
 	}
 
 	render() {
-
-		var content = <Cover />;
-
-		if (this.state.route === "/script/title_author") {
-			content = <TitleAndAuthor />;
-		}
-		else if (this.state.route === "/script/abstract") {
-			content = <Abstract />;
-		}
-		else if (this.state.route === "/script/dedication") {
-			content = <Dedication />;
-		}
-		else if (this.state.route === "/script/parts") {
-			content = <Parts />;
-		}
-		else if (this.state.route === "/script/chapters") {
-			content = <ChaptersRoute />;
-		}
-		else if (this.state.route === "/script/scenes") {
-			content = <ScenesRoute />;
-		}
 
 		return (
 
@@ -79,7 +44,7 @@ class ScriptRoute extends React.Component {
 				>
 					{/* <div>ScriptRoute: {window.location.hash} -> {this.props.route}</div> */}
 
-					<ScriptStructureNav />
+					<ScriptNav />
 
 				</div>
 
@@ -98,35 +63,20 @@ class ScriptRoute extends React.Component {
 						justifyContent: 'center',
 					}}
 				>
-					{content}
+					<ScriptContent />
 
 				</div>
 
 			</div>
 		);
 	}
-
-	onFileClick(file) {
-		this.loadTextFromFile(file);
-	}
-
-	loadTextFromFile(file) {
-
-		console.log("loading content from file: " + file.filePath);
-
-		fetch(file.filePath)
-			.then(r => r.text())
-			.then(text => this.setState(text, text))
-	}
 }
 
 
-function mapStateToProps({ appStateReducer, project }) {
+function mapStateToProps({ appStateReducer }) {
 
 	return {
 		appState: appStateReducer,
-		project,
-		route: getRoute(project),
 	};
 }
 

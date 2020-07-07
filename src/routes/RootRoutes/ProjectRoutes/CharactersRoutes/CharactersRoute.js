@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
-import CharactersIndexRoute from './CharactersRoutes/CharactersIndexRoute.js';
-import CharactersCreateRoute from './CharactersRoutes/CharactersCreateRoute.js';
+import CharactersIndexRoute from './CharactersIndexRoute.js';
+import CharactersCreateRoute from './CharactersCreateRoute.js';
 
 import {
 	Button,
@@ -13,7 +13,7 @@ import {
 
 import {
 	Character
-} from '../../../components';
+} from '../../../../components';
 
 
 class CharactersRoute extends React.Component {

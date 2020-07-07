@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-/* import Chapter from "./Chapter"; */
-import CreateDialog from "./CreateDialog";
+import ChapterCreationDialog from "../../ChapterCreationDialog";
 import Chapter from "./Chapter.js";
 
 import { setChapters, save, deleteChapter } from "../../../store/reducers/chapters/chapter.actions.index";
@@ -63,7 +62,7 @@ class Chapters extends React.Component {
 					</Droppable>
 				</DragDropContext>
 
-				<CreateDialog />
+				<ChapterCreationDialog />
 
 				<Alert
 					className={this.props.appState.theme}

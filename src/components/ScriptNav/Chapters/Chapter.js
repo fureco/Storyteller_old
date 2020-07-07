@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Draggable } from "react-beautiful-dnd";
-import ChapterCreationDialog from "../Chapters/CreateDialog";
+import ChapterCreationDialog from "../../ChapterCreationDialog";
 
 import * as projectActions from "./../../../store/reducers/project/project.actions.index";
 

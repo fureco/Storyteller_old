@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from '../../store/actions';
+import { chapterActions } from '../../store/actions';
 
 import TextInput from "./../../components/TextInput/TextInput";
 
@@ -18,18 +18,16 @@ class Editor extends React.Component {
 		super(props);
 
 		this.state = {
-			text: props.text,
+			text: props.chapter.text,
 		};
 	}
 
 	save() {
-		this.props.save(this.state.text);
+		this.props.saveText(this.props.chapter, this.state.text);
 	}
 
-	undoEditing() {
-		this.setState({
-			text: this.props.text
-		});
+	onChange(event) {
+		this.setState({ "text": event.target.value });
 	}
 
 	render() {
@@ -71,11 +69,12 @@ class Editor extends React.Component {
 					>
 						<TextInput
 							id="PreviewAreaInput"
-							placeholder="Dedication..."
+							placeholder="Start typing..."
 							html={this.state.text} // innerHTML of the editable div
 							disabled={false} // use true to disable edition
 							multiLine={true}
 							onChange={this.onChange.bind(this)}
+							save={this.save.bind(this)}
 							style={{
 								textAlign: this.state.textAlign
 							}}
@@ -95,33 +94,8 @@ class Editor extends React.Component {
 					/>
 
 				</div>
-
-				<div style={{
-					display: 'flex',
-					justifyContent: 'center',
-					padding: '10px 0'
-				}}>
-					<Button
-						minimal={false}
-						disabled={this.state.text == this.props.text}
-						icon="floppy-disk"
-						text="Save"
-						onClick={this.save.bind(this)}
-					/>
-					<Button
-						minimal={false}
-						disabled={this.state.text == this.props.text}
-						icon="undo"
-						text="Discard"
-						onClick={this.undoEditing.bind(this)}
-					/>
-				</div>
 			</div>
 		);
-	}
-
-	onChange(event) {
-		this.setState({ "text": event.target.value });
 	}
 }
 
@@ -134,6 +108,7 @@ function mapStateToProps({ appStateReducer, projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
+		saveText: (chapter, new_text) => dispatch(chapterActions.saveText(chapter.position, new_text)),
 	};
 }
 

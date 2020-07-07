@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { create, save } from "../../../../store/reducers/chapters/chapter.actions.index";
+import { create } from "./../../store/reducers/chapters/chapter.actions.index";
 
 import {
   Button,
   InputGroup,
 } from '@blueprintjs/core';
 
-class CreateDialog extends React.Component {
+class ChapterCreationDialog extends React.Component {
 
     constructor(props) {
 
@@ -85,4 +85,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateDialog)
+)(ChapterCreationDialog)

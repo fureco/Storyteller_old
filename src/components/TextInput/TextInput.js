@@ -20,6 +20,25 @@ export class TextInput extends React.Component {
 		};
 	}
 
+	render() {
+		return (
+			<ContentEditable
+				id={this.props.id}
+				style={this.props.style}
+				className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
+				placeholder={this.props.placeholder}
+				html={this.state.html} // innerHTML of the editable div
+				disabled={false} // use true to disable edition
+				onClick={this.openEditMode.bind(this)}
+				onKeyDown={this.handleKeyDown.bind(this)}
+				onChange={this.handleChange.bind(this)} // handle innerHTML change
+				onBlur={this.handleBlur.bind(this)} // the element looses focus
+				onMouseEnter={this.onMouseEnter.bind(this)}
+				onMouseLeave={this.onMouseLeave.bind(this)}
+			/>
+		);
+	}
+
 	onMouseEnter() {
 		this.setState({ mouseOver: true })
 	}
@@ -41,25 +60,6 @@ export class TextInput extends React.Component {
 			isInEditMode: !this.props.html || this.props.html.length <= 0,
 			html: this.props.initial_value
 		});
-	}
-
-	render() {
-		return (
-			<ContentEditable
-				id={this.props.id}
-				style={this.props.style}
-				className={`${this.state.isInEditMode || this.state.mouseOver ? 'showBorder ' : ''}` + "editable"}
-				placeholder={this.props.placeholder}
-				html={this.state.html} // innerHTML of the editable div
-				disabled={false} // use true to disable edition
-				onClick={this.openEditMode.bind(this)}
-				onKeyDown={this.handleKeyDown.bind(this)}
-				onChange={this.handleChange.bind(this)} // handle innerHTML change
-				onBlur={this.handleBlur.bind(this)} // the element looses focus
-				onMouseEnter={this.onMouseEnter.bind(this)}
-				onMouseLeave={this.onMouseLeave.bind(this)}
-			/>
-		);
 	}
 
 	handleChange(event) {

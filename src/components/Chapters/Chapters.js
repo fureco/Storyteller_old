@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions, chapterActions } from '../../../../store/actions';
+import { projectActions } from '../../store/actions';
 
-import Editor from './../../../../components/Editor/Editor';
+import Chapter from "./../Chapter/Chapter";
+import ChapterCreationDialog from "./../ChapterCreationDialog";
 
-import "./chapters.css"
+import "./Chapters.css"
 
-class ChaptersRoute extends React.Component {
+class Chapters extends React.Component {
 
 	constructor(props) {
 
@@ -24,16 +25,10 @@ class ChaptersRoute extends React.Component {
 				height: `100%`,
 			}}>
 				{this.props.chapters.sort(this.sortByPosition).map((chapter, index) => (
-					<div key={chapter.id}>
-						<div id={`chapter-${chapter.id}`} style={{ position: "relative", top: "-10px", left: "0" }}></div>
-						<h2>{chapter.title}</h2>
-						<div style={{
-							display: "flex",
-						}}>
-							<Editor text={chapter.text} save={(new_text) => this.props.saveText(chapter, new_text)} />
-						</div>
-					</div>
+					<Chapter key={chapter.id} chapter={chapter} />
 				))}
+
+				<div><ChapterCreationDialog /></div>
 			</div>
 		);
 	}
@@ -61,11 +56,10 @@ function mapStateToProps({ project, chapters }) {
 function mapDispatchToProps(dispatch) {
 	return {
 		saveProject: () => dispatch(projectActions.save()),
-		saveText: (chapter, new_text) => dispatch(chapterActions.saveText(chapter.position, new_text)),
 	};
 }
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ChaptersRoute)
+)(Chapters)
