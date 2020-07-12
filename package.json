@@ -35,13 +35,11 @@
     "npm": ">=6.0.0",
     "yarn": ">=1.0.0"
   },
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
-    "prod": "webpack --mode production --config webpack.build.config.js && electron --noDevServer .",
-    "start": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js --mode development",
-    "build": "webpack --config webpack.build.config.js --mode production",
-    "package": "npm run build",
-    "postpackage": "electron-packager ./ --out=./builds",
+    "dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./config/webpack/webpack.dev.config.js --mode development",
+    "prod": "webpack --config=./config/webpack/webpack.prod.config.js --mode production",
+    "build": "electron-packager ./src --out=./builds --overwrite",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage"
@@ -50,7 +48,6 @@
     "@blueprintjs/core": "^3.23.1",
     "@blueprintjs/icons": "^3.13.0",
     "archiver": "^3.1.1",
-    "electron": "7.2.4",
     "electron-devtools-installer": "^2.2.4",
     "electron-json-storage": "^4.1.8",
     "electron-json-storage-sync": "^1.1.1",
@@ -76,7 +73,9 @@
     "babili-webpack-plugin": "^0.1.2",
     "browser-env": "^3.2.6",
     "css-loader": "^3.2.0",
-    "electron-packager": "^14.0.5",
+    "electron": "^7.2.4",
+    "electron-builder": "^22.7.0",
+    "electron-packager": "^14.2.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.7.1",
     "file-loader": "5.0.2",
@@ -93,7 +92,7 @@
     "redux-mock-store": "^1.5.3",
     "style-loader": "^1.0.0",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   }
 }

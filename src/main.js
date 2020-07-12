@@ -15,7 +15,11 @@ let mainWindow
 let dev = false
 
 if (process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) || /[\\/]electron[\\/]/.test(process.execPath)) {
-  	dev = true
+	dev = true
+	console.log("executed in dev mode!\n");
+}
+else {
+	console.log("executed in production mode!\n");
 }
 
 // Temporary fix broken high-dpi scale factor on Windows (125% scaling)
@@ -50,11 +54,11 @@ function createWindow() {
 	} else {
 		indexPath = url.format({
 			protocol: 'file:',
-			pathname: path.join(__dirname, 'dist', 'index.html'),
+			pathname: path.join(__dirname, 'resources', 'app', 'src', 'index.js'),
 			slashes: true
 		})
 	}
-
+	console.log(indexPath)
   	mainWindow.loadURL(indexPath)
 
 	// Don't show until we are ready and loaded
@@ -62,17 +66,16 @@ function createWindow() {
 
 		mainWindow.show()
 
+		installExtension(REACT_DEVELOPER_TOOLS)
+			.then((name) => console.log(`Added Extension:  ${name}`))
+			.catch((err) => console.log('An error occurred: ', err));
+
+		installExtension(REDUX_DEVTOOLS)
+			.then((name) => console.log(`Added Extension:  ${name}`))
+			.catch((err) => console.log('An error occurred: ', err));
+
 		// Open the DevTools automatically if developing
 		if (dev) {
-
-			installExtension(REACT_DEVELOPER_TOOLS)
-				.then((name) => console.log(`Added Extension:  ${name}`))
-				.catch((err) => console.log('An error occurred: ', err));
-
-			installExtension(REDUX_DEVTOOLS)
-				.then((name) => console.log(`Added Extension:  ${name}`))
-				.catch((err) => console.log('An error occurred: ', err));
-
 			mainWindow.webContents.openDevTools()
 		}
 	})
@@ -93,17 +96,17 @@ app.on('ready', createWindow)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+	// On macOS it is common for applications and their menu bar
+	// to stay active until the user quits explicitly with Cmd + Q
+	if (process.platform !== 'darwin') {
+		app.quit()
+	}
 })
 
 app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
+	// On macOS it's common to re-create a window in the app when the
+	// dock icon is clicked and there are no other windows open.
+	if (mainWindow === null) {
+		createWindow()
+	}
 })
