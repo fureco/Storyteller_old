@@ -28,7 +28,7 @@ class Chapters extends React.Component {
 					<Chapter key={chapter.id} chapter={chapter} />
 				))}
 
-				<div><ChapterCreationDialog /></div>
+				{/* <div><ChapterCreationDialog /></div> */}
 			</div>
 		);
 	}

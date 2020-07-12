@@ -77,20 +77,17 @@ export class TopNavBar extends React.Component {
                             <Tab id="script">
                                 <Link to="/script"><Icon icon="draw" /> Script</Link>
                             </Tab>
-                            <Tab id="characters">
+                            {/* <Tab id="characters">
                                 <Link to="/characters"><Icon icon="people" /> Characters</Link>
-                            </Tab>
-                            <Tab id="locations">
+                            </Tab> */}
+                            {/* <Tab id="locations">
                                 <Link to="/locations"><Icon icon="map-marker" /> Locations</Link>
-                            </Tab>
-                            <Tab id="timeline">
+                            </Tab> */}
+                            {/* <Tab id="timeline">
                                 <Link to="/timeline"><Icon icon="time" /> Timeline</Link>
-							</Tab>
-							<Tab id="preview">
+							</Tab> */}
+							{/* <Tab id="preview">
 								<Link to="/preview"><Icon icon="eye-open" /> Preview</Link>
-							</Tab>
-							{/* <Tab id="export">
-								<Link to="/export"><Icon icon="export" /> Export</Link>
 							</Tab> */}
                         </Tabs>
                     }

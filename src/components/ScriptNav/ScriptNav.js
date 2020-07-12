@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Nav from "./Nav/Nav";
 import Parts from "./Parts/Parts";
-import Chapters from "./Chapters/Chapters";
-import Chapter from "./Chapters/Chapter";
+import Chapters from "./Chapters/ScriptNavChapters";
+import Chapter from "./Chapters/ScriptNavChapter";
 import Scenes from "./Scenes/Scenes";
 import Trash from "../Trash/Trash.index.js";
 
@@ -13,34 +13,7 @@ class ScriptNav extends React.Component {
 
 		super(props);
 
-		var parts = this.props.parts.filter((part) => {
-			return part.deleted_at != null
-		})
-
-		if (parts) {
-			parts = parts.map((part, index) => {
-				return ({
-					label: part.title
-				});
-			});
-		}
-
-		var deleted_chapters = this.props.chapters.filter((chapter) => {
-			return chapter.deleted_at != null
-		})
-
-		var trash_content = deleted_chapters.length > 0 ? deleted_chapters.map(element => {
-			return <Chapter
-				key={element.id}
-				draggableId={`chapter-${element.id}`}
-				position={element.position}
-				chapter={element}
-			/>
-		}) : [];
-
 		this.state = {
-			parts,
-			trash_content
 		};
 	}
 
@@ -58,7 +31,7 @@ class ScriptNav extends React.Component {
 
 				{/* <Scenes /> */}
 
-				{<Trash content={this.state.trash_content} />}
+				{/*<Trash content={this.props.trash_content} />*/}
 
 			</div>
         );
@@ -66,9 +39,23 @@ class ScriptNav extends React.Component {
 }
 
 function mapStateToProps({ partsReducer, chapters }) {
+
+	let deleted_chapters = chapters.filter((chapter) => {
+		return chapter.deleted_at != null
+	});
+
+	let trash_content = deleted_chapters.length > 0 ? deleted_chapters.map(element => {
+		return <Chapter
+			key={element.id}
+			draggableId={`chapter-${element.id}`}
+			position={element.position}
+			chapter={element}
+		/>
+	}) : [];
+
     return {
 		parts: partsReducer,
-		chapters
+		trash_content: trash_content
     };
 }
 

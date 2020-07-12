@@ -16,20 +16,26 @@ class Trash extends React.Component {
 
 		super(props);
 
+		this.state = {
+		};
+	}
+
+	render() {
+
 		var nodes = [];
 
 		let treeRoot =
 		{
 			id: nodes.length,
-			disabled: props.content.length <= 0,
+			disabled: this.props.content.length <= 0,
 			hasCaret: true,
 			isExpanded: false,
 			icon: "trash",
-			label: "Trash (" + props.content.length + ")",
+			label: "Trash (" + this.props.content.length + ")",
 			childNodes: []
 		};
 
-		props.content.forEach(element => {
+		this.props.content.forEach(element => {
 
 			let treeItem =
 			{
@@ -43,19 +49,12 @@ class Trash extends React.Component {
 
 		nodes.push(treeRoot);
 
-		this.state = {
-			nodes,
-		};
-	}
-
-	render() {
-
 		return (
 
 			<div id="Trash">
 
 				<Tree
-					contents={this.state.nodes}
+					contents={nodes}
 					onNodeClick={this.handleNodeClick.bind(this)}
 					onNodeCollapse={this.handleNodeCollapse.bind(this)}
 					onNodeExpand={this.handleNodeExpand.bind(this)}

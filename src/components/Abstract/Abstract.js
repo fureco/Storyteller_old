@@ -34,7 +34,6 @@ class Abstract extends React.Component {
 				width: `100%`,
 				height: `100%`,
 			}}>
-				{this.state.text}
 				<PagePreview content={
 					<TextInput
 						id="AbstractInput"

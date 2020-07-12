@@ -1,5 +1,3 @@
-import storage from 'electron-json-storage';
-
 const fs = require('fs');
 
 // ############ ACTION TYPES ##############
@@ -9,13 +7,15 @@ export const CREATE = 'CREATE';
 export const SET_CHAPTERS = 'SET_CHAPTERS';
 export const DELETE_CHAPTER = 'DELETE_CHAPTER';
 
+export const SET_TITLE = 'SET_TITLE';
 export const SET_DELETED_AT = 'SET_DELETED_AT';
 
 // ############## ACTIONS #################
 export const add = (chapter) => ({ type: ADD, chapter });
-/* export const create = (chapter) => ({ type: CREATE, chapter }); */
 
 export const setChapters = (chapters) => ({ type: SET_CHAPTERS, chapters });
+
+export const setTitle = (chapter, title) => ({ type: SET_TITLE, chapter, title });
 export const setDeletedAt = (chapter, deleted_at) => ({ type: SET_DELETED_AT, chapter, deleted_at });
 
 // create a new chapter and save it to a new JSON file
@@ -35,7 +35,7 @@ export const create = (chapter) => {
 		let pos_of_new_chapter = 1;
 
 		getState().chapters.forEach((chapter) => {
-			if (chapter.position > pos_of_new_chapter)
+			if (chapter.position >= pos_of_new_chapter)
 				pos_of_new_chapter = chapter.position + 1;
 		});
 
@@ -44,7 +44,7 @@ export const create = (chapter) => {
 			text: ""
 		};
 
-		fs.writeFile(directoryPath + "/src/script/" + pos_of_new_chapter + "_" + chapter.title + ".json", JSON.stringify(data), (err) => {
+		fs.writeFile(directoryPath + "/src/script/" + pos_of_new_chapter + "_" + chapter.title.replace(/ /g, "_") + ".json", JSON.stringify(data), (err) => {
 			if (err) {
 				console.log("FAILURE: ", err)
 			}
@@ -99,7 +99,8 @@ export const load = (directoryPath) => {
 						"title": title,
 						"part": 1,
 						"position": parseInt(position),
-						"text": text
+						"text": text,
+						"deleted_at": json_data.deleted_at
 					};
 
 					dispatch(add(chapter));
@@ -114,7 +115,29 @@ export const deleteChapter = (chapter) => {
 	console.log("deleting chapter...")
 
 	return (dispatch, getState) => {
-		dispatch(setDeletedAt(chapter, new Date()));
+
+		var deleted_at = new Date();
+
+		let directoryPath = getState().appStateReducer.path;
+
+		fs.readFile(directoryPath + "/src/script/" + chapter.file_name, 'utf8', (err, data) => {
+
+			if (err) throw err;
+
+			var json_data = JSON.parse(data);
+
+			json_data.deleted_at = deleted_at;
+
+			fs.writeFile(directoryPath + "/src/script/" + chapter.file_name, JSON.stringify(json_data), (err) => {
+				if (err) {
+					console.log("FAILURE: ", err)
+				}
+				else {
+					console.log("Saved!")
+					dispatch(setDeletedAt(chapter, deleted_at));
+				}
+			})
+		});
 	}
 };
 
@@ -144,6 +167,7 @@ export const saveTitle = (chapter_pos, new_title) => {
 				}
 				else {
 					console.log("Saved!")
+					dispatch(setTitle(chapter, new_title));
 				}
 			})
 		});

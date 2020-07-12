@@ -33,11 +33,12 @@ class Editor extends React.Component {
 	render() {
 
 		return (
-			<div id="TextAreaWithPreview"
+			<div id="Editor"
 				style={{
 					display: 'flex',
 					flexDirection: 'column',
-					height: '100%'
+					height: '100%',
+					lineHeight: '180%'
 				}}
 			>
 				{/* <div style={{

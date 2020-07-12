@@ -21,6 +21,10 @@ const chapters = (state = [], action) => {
 			state = action.chapters;
 			return state;
 
+		case chapterActions.SET_TITLE:
+			state[state.indexOf(action.chapter)] = chapterReducer(action.chapter, action);
+			return state;
+
 		case chapterActions.SET_DELETED_AT:
 			state[state.indexOf(action.chapter)] = chapterReducer(action.chapter, action);
 			return state;

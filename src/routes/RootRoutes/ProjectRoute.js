@@ -74,6 +74,8 @@ class Project extends React.Component {
 				<div
 					id="path_to_open_project"
 					style={{
+						display: "flex",
+						alignItems: "center",
 						backgroundColor: this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY4 : Colors.LIGHT_GRAY5,
 						borderBottom: `1px solid ${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
 						height: '50px',
@@ -103,12 +105,12 @@ class Project extends React.Component {
 				<div
 					id="StatusBar"
 					style={{
-						backgroundColor: Colors.LIGHT_GRAY5,
-						borderTop: `1px solid ${Colors.LIGHT_GRAY1}`,
+						backgroundColor: this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY4 : Colors.LIGHT_GRAY5,
+						borderTop: `1px solid ${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
 						height: '50px',
 						padding: 12,
 					}}>
-					words: {this.state.statistic.words} - chars: {this.state.statistic.chars}
+					{/* words: {this.state.statistic.words} - chars: {this.state.statistic.chars} */}
 				</div>
 
 				<MoveToTrashAlert />

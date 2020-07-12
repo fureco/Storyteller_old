@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import ChapterCreationDialog from "../../ChapterCreationDialog";
-import Chapter from "./Chapter.js";
+import ScriptNavChapter from "./ScriptNavChapter.js";
 
 import { setChapters, save, deleteChapter } from "../../../store/reducers/chapters/chapter.actions.index";
 
@@ -13,9 +13,9 @@ import {
 	Toaster,
 } from '@blueprintjs/core';
 
-import './Chapters.css';
+import './ScriptNavChapters.css';
 
-class Chapters extends React.Component {
+class ScriptNavChapters extends React.Component {
 
 	constructor(props) {
 
@@ -43,10 +43,10 @@ class Chapters extends React.Component {
 								ref={provided.innerRef}
 							>
 								{this.props.chapters.sort(this.sortByPosition).map((chapter, index) => (
-									<Chapter
+									<ScriptNavChapter
 										key={chapter.id}
-										className={chapter.id == this.props.selectedChapter ? "is_selected" : ""}
-										isSelected={chapter.id == this.props.selectedChapter}
+										className={this.props.chaptersRouteIsActive && chapter.id == this.props.selectedChapter ? "is_selected" : ""}
+										isSelected={this.props.chaptersRouteIsActive && chapter.id == this.props.selectedChapter}
 										draggable
 										draggableId={`chapter-${chapter.id}`}
 										position={chapter.position}
@@ -126,7 +126,6 @@ class Chapters extends React.Component {
 		});
 
 		this.props.deleteChapter(chapter);
-		this.props.save();
 	}
 
 	handleMoveToTrashCancel() {
@@ -160,6 +159,8 @@ function mapStateToProps({ appStateReducer, project, chapters }) {
 
 		project,
 
+		chaptersRouteIsActive: project.route.script && project.route.script.current == 'chapters',
+
 		selectedChapter: project.selectedChapter,
 
 		chapters: chapters.filter((chapter) => {
@@ -182,4 +183,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Chapters)
+)(ScriptNavChapters)

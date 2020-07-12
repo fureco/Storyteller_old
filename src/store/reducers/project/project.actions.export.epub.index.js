@@ -1,4 +1,7 @@
 const fs = require('fs-extra');
+const { remote } = require('electron');
+const dialog = remote.dialog;
+const shell = remote.shell;
 
 var path_to_project = "";
 var dist_folder = "";
@@ -8,7 +11,9 @@ var dist_folder_styles = "";
 var dist_folder_cover = "";
 var dist_folder_script = "";
 
-const navPoints = [
+const path_to_templates = "./src/templates";
+
+const defaultNavPoints = [
 	{
 		id: "cover",
 		playOrder: "0",
@@ -28,6 +33,8 @@ const navPoints = [
 		src: "script/dedication.xhtml"
 	},
 ];
+
+let navPoints = [];
 
 export const exportAsEpub = () => {
 
@@ -69,14 +76,6 @@ export const exportAsEpub = () => {
 		fs.copySync("./src/templates/styles/stylesheet.template", dist_folder_styles + "/stylesheet.css");
 		prepareStyles(getState().project);
 
-		// copy META-INF
-        fs.copySync("./src/templates/META-INF", dist_folder + "/META-INF");
-
-		// meta-content = metadata.opf, mimetype, toc.ncx
-        fs.copySync("./src/templates/meta-content", dist_folder + "/meta-content");
-        prepareTOC(getState().project);
-		prepareMetadataOPF(path_to_project + '/dist/meta-content/metadata.opf', getState().project);
-
 		// copy cover
 		if (!fs.existsSync(dist_folder_cover)) {
 			// create destination folder if it does not yet exist
@@ -98,7 +97,15 @@ export const exportAsEpub = () => {
 		fs.copySync("./src/templates/script/dedication.xhtml", dist_folder + "/script/dedication.xhtml");
 		prepareDedication(getState().project);
 
-		fs.copySync(path_to_project + "/src/script", dist_folder + "/script");
+		prepareScript(path_to_project);
+
+		// copy META-INF
+		fs.copySync("./src/templates/META-INF", dist_folder + "/META-INF");
+
+		// meta-content = metadata.opf, mimetype, toc.ncx
+		fs.copySync("./src/templates/meta-content", dist_folder + "/meta-content");
+		prepareTOC(getState().project);
+		prepareMetadataOPF(path_to_project + '/dist/meta-content/metadata.opf', getState().project);
 
         createEpub();
 	}
@@ -133,10 +140,18 @@ function prepareMetadataOPF(pathToMetadataOPF, project) {
 	data = data.replace(/@_TITLE_@/g, project.title);
 	data = data.replace(/@_AUTHOR_@/g, project.author);
 
+	var manifest = "";
+
+	navPoints.forEach(navPoint => {
+		manifest += "\t\t<item href=\"" + navPoint.src + "\" id=\"" + navPoint.id + "\" media-type=\"application/xhtml+xml\" />\n";
+	});
+
+	data = data.replace(/@_MANIFEST_@/g, manifest);
+
 	var spine = "";
 
 	navPoints.forEach(navPoint => {
-		spine += "<itemref idref=\"" + navPoint.id + "\" />\n";
+		spine += "\t\t<itemref idref=\"" + navPoint.id + "\" />\n";
 	});
 
 	data = data.replace(/@_SPINE_@/g, spine);
@@ -172,6 +187,34 @@ function prepareDedication(project) {
 	data = data.replace(/@_DEDICATION_@/g, project.dedication);
 
 	fs.writeFileSync(dist_folder_script + "/dedication.xhtml", data, 'utf8');
+}
+
+function prepareScript(path_to_project) {
+
+	var xhtml_template = fs.readFileSync(path_to_templates + "/script/chapter.xhtml", 'utf8');
+
+	navPoints = [...defaultNavPoints];
+
+	fs.readdirSync(path_to_project + "/src/script").forEach((chapter_file_name, index) => {
+
+		var json_data = JSON.parse(fs.readFileSync(path_to_project + "/src/script" + "/" + chapter_file_name, 'utf8'));
+
+		var xhtml_data = xhtml_template;
+		xhtml_data = xhtml_data.replace(/@_TITLE_@/g, json_data.title);
+		xhtml_data = xhtml_data.replace(/@_TEXT_@/g, json_data.text);
+
+		fs.writeFileSync(dist_folder_script + "/" + chapter_file_name.replace(".json", ".xhtml"), xhtml_data, 'utf8');
+
+		var navPoint = {
+			id: "chapter" + index,
+			playOrder: (defaultNavPoints.length + index),
+			label: json_data.title,
+			src: "script/" + chapter_file_name.replace(".json", ".xhtml")
+		};
+
+		navPoints.push(navPoint);
+
+	});
 }
 
 function createEpub() {
@@ -252,4 +295,6 @@ function createEpub() {
 	archive.finalize();
 
 	console.log('done!');
+
+	shell.openItem(path_to_project + "\\epub\\example.epub");
 }

@@ -40,7 +40,8 @@ export class Title extends React.Component {
 				<TextInput
 					id="TitleInput"
 					style={{
-						textAlign: "center"
+						textAlign: "center",
+						overflow: "hidden"
 					}}
 					placeholder="Title..."
 					html={this.state.title} // innerHTML of the editable div

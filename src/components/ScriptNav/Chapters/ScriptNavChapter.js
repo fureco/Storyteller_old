@@ -12,7 +12,7 @@ import {
 	Intent,
 } from '@blueprintjs/core';
 
-import './Chapter.css';
+import './ScriptNavChapter.css';
 
 const grid = 8;
 
@@ -29,7 +29,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 	...draggableStyle
 });
 
-class Chapter extends React.Component {
+class ScriptNavChapter extends React.Component {
 
 	constructor(props) {
 
@@ -52,24 +52,6 @@ class Chapter extends React.Component {
 
 		let treeContent = [];
 
-		let children = [
-			{
-				id: 0,
-				label: (<ChapterCreationDialog />)
-			},
-		];
-
-		let secondaryLabel = this.props.chapter.deleted_at != null && this.props.chapter.deleted_at != "" ?
-			<ButtonGroup>
-				<Button minimal icon="edit" />
-			</ButtonGroup>
-
-			: <ButtonGroup>
-				{/* <Button minimal icon="edit" /> */}
-				<Button minimal icon="trash" onClick={() => this.props.handleOpenMoveToTrashAlert()} />
-				<Button minimal icon="drag-handle-vertical" />
-			</ButtonGroup>;
-
 		let aTreeNode =
 		{
 			id: this.props.chapter.id,
@@ -86,7 +68,19 @@ class Chapter extends React.Component {
 				>
 					{this.props.position}: {this.props.chapter.title}
 				</Button>,
-			secondaryLabel,
+			secondaryLabel:
+				(
+					this.props.chapter.deleted_at != null && this.props.chapter.deleted_at != "" ?
+						<ButtonGroup>
+							<Button minimal icon="edit" />
+						</ButtonGroup>
+
+						: <ButtonGroup>
+							{/* <Button minimal icon="edit" /> */}
+							<Button minimal icon="trash" onClick={() => this.props.handleOpenMoveToTrashAlert()} />
+							<Button minimal icon="drag-handle-vertical" />
+						</ButtonGroup>
+				),
 		};
 
 		treeContent.push(aTreeNode);
@@ -109,13 +103,13 @@ class Chapter extends React.Component {
 		this.props.openChaptersRoute();
 		this.props.setSelectedChapter(chapter_id);
 		this.props.saveProject();
-		this.scrollTo(chapter_id);
+		this.scrollTo(chapter_id, 'smooth');
 	}
 
-	scrollTo(chapter_id) {
+	scrollTo(chapter_id, behavior) {
 		var element = document.getElementById("chapter-" + chapter_id);
 		if (element) {
-			element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			element.scrollIntoView({ behavior: behavior || 'auto', block: 'start' });
 		}
 	}
 }
@@ -139,4 +133,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Chapter)
+)(ScriptNavChapter)

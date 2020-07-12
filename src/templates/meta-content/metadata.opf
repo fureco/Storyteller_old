@@ -14,17 +14,15 @@
 		<item href="fonts/Tangerine_Bold.ttf" id="font_tangerine_bold" media-type="application/x-font-truetype"/>
 		<item href="toc.ncx" id="toc" media-type="application/x-dtbncx+xml"/>
 
-		<item href="cover/cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
 		<item href="cover/cover.css" id="cover_styles" media-type="text/css"/>
 		<item href="cover/cover.png" id="cover_image" media-type="image/png"/>
 
-		<item href="script/title.xhtml" id="title" media-type="application/xhtml+xml"/>
-		<item href="script/dedication.xhtml" id="dedication" media-type="application/xhtml+xml"/>
+@_MANIFEST_@
 
   	</manifest>
 
 	<spine toc="toc">
-		@_SPINE_@
+@_SPINE_@
 	</spine>
 
 </package>

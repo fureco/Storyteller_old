@@ -31,7 +31,7 @@ class Chapter extends React.Component {
 						html={this.state.title} // innerHTML of the editable div
 						onChange={this.onTitleChange.bind(this)}
 						disabled={false} // use true to disable edition
-						multiLine={true}
+						multiLine={false}
 						save={this.saveTitle.bind(this)}
 						style={{
 							textAlign: this.state.textAlign
