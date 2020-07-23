@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 import {
 	Colors,
@@ -53,10 +52,6 @@ class Project extends React.Component {
 
 	render() {
 
-		if (this.props.route.split("/")[1] != window.location.hash.split("/")[1]) {
-			return <Redirect to={this.props.route} />
-		}
-
 		return (
 			<div
 				id="Project"
@@ -66,8 +61,6 @@ class Project extends React.Component {
 					flexDirection: 'column',
 					height: '100vh'
 				}}>
-
-				{/* <div>ProjectRoute: {window.location.hash} -> {this.props.route}</div> */}
 
 				<TopNavBar />
 
@@ -91,14 +84,7 @@ class Project extends React.Component {
 						justifyContent: "center",
 						alignItems: "center"
 					}}>
-						<Switch>
-							<Redirect exact from="/" to="/workspace" />
-							<Route path="/script" component={() => { return <ScriptRoute path_to_project={this.props.appState.path} /> }} />
-							<Route path="/characters" component={() => { return <CharactersRoute path_to_project={this.props.appState.path} /> }} />
-							<Route path="/locations" component={() => { return <h2>Locations</h2> }} />
-							<Route path="/timeline" component={() => { return <Timeline /> }} />
-							<Route path="/preview" component={() => { return <PreviewRoute /> }} />
-						</Switch>
+						<Content appState={this.props.appState} project={this.props.project} />
 					</div>
 				</div>
 
@@ -120,14 +106,41 @@ class Project extends React.Component {
 	}
 }
 
+function Content(props) {
+
+	if (!props.project) return null;
+
+	switch (props.project.route.current) {
+
+		case 'script':
+			return <ScriptRoute path_to_project={props.appState.path} />
+
+		case 'characters':
+			return <CharactersRoute path_to_project={props.appState.path} />
+
+		case 'locations':
+			return <h2>Locations</h2>
+
+		case 'timeline':
+			return <Timeline />
+
+		case 'preview':
+			return <PreviewRoute />
+
+		default:
+			return <ScriptRoute path_to_project={props.appState.path} />;
+	}
+}
+
 function mapStateToProps({ appStateReducer, project }) {
 	return {
 		appState: appStateReducer,
+		project,
 		route: getRoute(project),
 	};
 }
 
-export default withRouter(connect(
+export default connect(
 	mapStateToProps,
 	null
-)(Project))
+)(Project)

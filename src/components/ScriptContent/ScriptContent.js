@@ -20,33 +20,32 @@ class ScriptContent extends React.Component {
 		super(props);
 
 		this.state = {
-			route: props.route
 		};
 	}
 
 	render() {
 
-		if (this.state.route === "/script/title_author") {
+		if (this.props.route === "title_author") {
 			return (<TitleAndAuthor />);
 		}
 
-		if (this.state.route === "/script/abstract") {
+		if (this.props.route === "abstract") {
 			return (<Abstract />);
 		}
 
-		if (this.state.route === "/script/dedication") {
+		if (this.props.route === "dedication") {
 			return (<Dedication />);
 		}
 
-		if (this.state.route === "/script/parts") {
+		if (this.props.route === "parts") {
 			return(<Parts />);
 		}
 
-		if (this.state.route === "/script/chapters") {
+		if (this.props.route === "chapters") {
 			return (<Chapters />);
 		}
 
-		if (this.state.route === "/script/scenes") {
+		if (this.props.route === "scenes") {
 			return(<ScenesRoute />);
 		}
 
@@ -57,8 +56,11 @@ class ScriptContent extends React.Component {
 
 function mapStateToProps({ project }) {
 
+	let route = project.route.script.current
+
 	return {
-		route: getRoute(project),
+		project,
+		route
 	};
 }
 

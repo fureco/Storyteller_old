@@ -1,18 +1,15 @@
+import { hot } from 'react-hot-loader';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { HashRouter as Router } from "react-router-dom";
+
+import store from './store';
 
 import { FocusStyleManager } from "@blueprintjs/core";
-
 FocusStyleManager.onlyShowFocusOnTabs();
 
 import RootRoute from './routes/RootRoute';
 
-import store from './store';
-
-import './assets/css/App.css';
-
-export default class App extends React.Component {
+class App extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -22,11 +19,11 @@ export default class App extends React.Component {
 
 		return (
 			<Provider store={store}>
-				<Router>
-					{/* <div>App - window.location.hash: {window.location.hash}</div> */}
-					<RootRoute />
-				</Router>
+				{/* <div>App - window.location.hash: {window.location.hash}</div> */}
+				<RootRoute />
 			</Provider>
 		);
 	}
 }
+
+export default hot(module)(App);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from "../../store/actions";
+
+import * as projectActions from "./../../store/reducers/project/project.actions.index.js";
 
 import storage from 'electron-json-storage-sync';
 

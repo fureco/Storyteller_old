@@ -1,7 +1,7 @@
 import storage from 'electron-json-storage';
 import { initialState } from './../../models/appStateModel'
 
-const fs = require('fs');
+const fs = require('fs-extra');
 
 // ############## ACTION TYPES #################
 export const SET_OBJECT_TO_DELETE = 'SET_OBJECT_TO_DELETE';

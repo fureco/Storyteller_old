@@ -1,10 +1,9 @@
-import { appStateActions } from './../../actions'
+import * as appStateActions from "./../../actions/appState/actions.appState.index.js";
 import { initialState } from './../../models/appStateModel'
 
 const appStateReducer = (state = initialState, action) => {
 
 	switch (action.type) {
-
 
 		case appStateActions.SET_OBJECT_TO_DELETE:
 			return Object.assign({}, state, {

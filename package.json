@@ -2,80 +2,86 @@
   "name": "storyteller",
   "productName": "Storyteller",
   "version": "1.0.0",
-  "description": "A writing application build with Electron, React, PostCSS and Webpack.",
-  "license": "MIT",
-  "private": false,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alexdevero/electron-react-webpack-boilerplate.git"
-  },
-  "homepage": "",
-  "bugs": {
-    "url": "https://github.com/alexdevero/electron-react-webpack-boilerplate.git/issues"
-  },
-  "author": {
-    "name": "Melanie Mende",
-    "email": "melanie.mende@me.com",
-    "url": "https: //github.com/laniley"
-  },
-  "keywords": [
-    "app",
-    "boilerplate",
-    "electron",
-    "open",
-    "open-source",
-    "postcss",
-    "react",
-    "reactjs",
-    "source",
-    "webpack"
-  ],
-  "engines": {
-    "node": ">=9.0.0",
-    "npm": ">=6.0.0",
-    "yarn": ">=1.0.0"
-  },
-  "main": "src/main.js",
+  "description": "A writing application build with Electron-Forge, React and PostCSS.",
+  "main": ".webpack/main",
   "scripts": {
-    "dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./config/webpack/webpack.dev.config.js --mode development",
-    "prod": "webpack --config=./config/webpack/webpack.prod.config.js --mode production",
-    "build": "electron-packager ./src --out=./builds --overwrite",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage"
   },
-  "dependencies": {
-    "@blueprintjs/core": "^3.23.1",
-    "@blueprintjs/icons": "^3.13.0",
-    "archiver": "^3.1.1",
-    "electron-devtools-installer": "^2.2.4",
-    "electron-json-storage": "^4.1.8",
-    "electron-json-storage-sync": "^1.1.1",
-    "fs-extra": "^9.0.0",
-    "react": "^16.9.0",
-    "react-anchor-link-smooth-scroll": "^1.0.12",
-    "react-beautiful-dnd": "^12.0.0",
-    "react-contenteditable": "^3.3.3",
-    "react-dom": "^16.9.0",
-    "react-html-parser": "^2.0.2",
-    "react-redux": "^7.1.1",
-    "react-router-dom": "^5.1.2",
-    "react-router-redux": "^4.0.8",
-    "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
+  "keywords": [],
+  "author": {
+    "name": "Melanie Mende",
+    "email": "melanie.mende@me.com"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "storyteller_electron_forge"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "plugins": [
+        [
+          "@electron-forge/plugin-webpack",
+          {
+            "mainConfig": "./webpack.main.config.js",
+            "renderer": {
+              "config": "./webpack.renderer.config.js",
+              "entryPoints": [
+                {
+                  "html": "./src/index.html",
+                  "js": "./src/index.js",
+                  "name": "main_window"
+                }
+              ]
+            }
+          }
+        ]
+      ]
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "@electron-forge/cli": "^6.0.0-beta.52",
+    "@electron-forge/maker-deb": "^6.0.0-beta.52",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.52",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.52",
+    "@electron-forge/maker-zip": "^6.0.0-beta.52",
+    "@electron-forge/plugin-webpack": "^6.0.0-beta.52",
+    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babili-webpack-plugin": "^0.1.2",
     "browser-env": "^3.2.6",
-    "css-loader": "^3.2.0",
-    "electron": "^7.2.4",
-    "electron-builder": "^22.7.0",
-    "electron-packager": "^14.2.1",
+    "css-loader": "^3.6.0",
+    "electron": "9.1.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.7.1",
     "file-loader": "5.0.2",
@@ -87,12 +93,30 @@
     "postcss-loader": "^3.0.0",
     "postcss-nested": "^4.1.2",
     "postcss-pxtorem": "^4.0.1",
-    "redux-devtools-extension": "^2.13.8",
+    "node-loader": "^0.6.0",
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.3",
-    "style-loader": "^1.0.0",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "style-loader": "^0.23.1"
+  },
+  "dependencies": {
+    "@blueprintjs/core": "^3.23.1",
+    "@blueprintjs/icons": "^3.13.0",
+    "archiver": "^3.1.1",
+    "electron-devtools-installer": "3.1.1",
+    "electron-json-storage": "^4.1.8",
+    "electron-json-storage-sync": "^1.1.1",
+    "electron-squirrel-startup": "^1.0.0",
+    "fs-extra": "8.1.0",
+    "react": "^16.9.0",
+    "react-anchor-link-smooth-scroll": "^1.0.12",
+    "react-beautiful-dnd": "^12.0.0",
+    "react-contenteditable": "^3.3.3",
+    "react-dom": "^16.9.0",
+    "react-hot-loader": "^4.12.21",
+    "react-html-parser": "^2.0.2",
+    "react-redux": "^7.1.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
   }
 }
