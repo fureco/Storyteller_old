@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 import PreviewIndexRoute from './PreviewIndexRoute.js';
 
@@ -30,10 +29,10 @@ class PreviewRoute extends React.Component {
 
 				{/* {window.location.hash} -> {this.props.route} */}
 
-				<Switch>
+{/* 				<Switch>
 					<Redirect exact from="/preview" to="/preview/index" />
 					<Route path="/preview/index" component={() => { return <PreviewIndexRoute /> }} />
-				</Switch>
+				</Switch> */}
 
 			</div>
 		);
@@ -51,7 +50,7 @@ function mapStateToProps({ appStateReducer, charactersReducer }) {
 	};
 }
 
-export default withRouter(connect(
+export default connect(
 	mapStateToProps,
 	null
-)(PreviewRoute))
+)(PreviewRoute)
