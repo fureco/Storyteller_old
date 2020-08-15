@@ -54,11 +54,11 @@ function createWindow() {
 	} else {
 		indexPath = url.format({
 			protocol: 'file:',
-			pathname: path.join(__dirname, 'resources', 'app', 'src', 'index.js'),
+			pathname: path.join(__dirname, 'index.js'),
 			slashes: true
 		})
 	}
-	console.log(indexPath)
+
   	mainWindow.loadURL(indexPath)
 
 	// Don't show until we are ready and loaded

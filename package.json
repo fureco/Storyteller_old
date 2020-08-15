@@ -7,16 +7,16 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexdevero/electron-react-webpack-boilerplate.git"
+    "url": "https://github.com/laniley/Storyteller.git"
   },
   "homepage": "",
   "bugs": {
-    "url": "https://github.com/alexdevero/electron-react-webpack-boilerplate.git/issues"
+    "url": "https://github.com/laniley/Storyteller.git/issues"
   },
   "author": {
     "name": "Melanie Mende",
     "email": "melanie.mende@me.com",
-    "url": "https: //github.com/laniley"
+    "url": "https://github.com/laniley"
   },
   "keywords": [
     "app",
@@ -37,9 +37,9 @@
   },
   "main": "src/main.js",
   "scripts": {
-    "dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./config/webpack/webpack.dev.config.js --mode development",
-    "prod": "webpack --config=./config/webpack/webpack.prod.config.js --mode production",
-    "build": "electron-packager ./src --out=./builds --overwrite",
+	"start": "webpack-dev-server --hot --host 0.0.0.0 --config=./config/webpack/webpack.dev.config.js --mode development",
+	"dist": "webpack --config=./config/webpack/webpack.prod.config.js  --mode=production",
+    "build": "electron-packager ./ --overwrite",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage"
@@ -73,9 +73,9 @@
     "babili-webpack-plugin": "^0.1.2",
     "browser-env": "^3.2.6",
     "css-loader": "^3.2.0",
-    "electron": "^7.2.4",
+    "electron": "7.3.2",
     "electron-builder": "^22.7.0",
-    "electron-packager": "^14.2.1",
+    "electron-packager": "^15.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.7.1",
     "file-loader": "5.0.2",

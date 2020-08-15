@@ -10,7 +10,7 @@ import RootRoute from './routes/RootRoute';
 
 import store from './store';
 
-import './assets/css/App.css';
+import './assets/css/app.css';
 
 export default class App extends React.Component {
 
