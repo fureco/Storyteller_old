@@ -26,31 +26,19 @@ const createWindow = () => {
         height: 768,
         show: false,
 		webPreferences: {
+			preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
 			enableRemoteModule: true,
             nodeIntegration: true,
             webSecurity: false // to allow copying of local files
         }
      });
 
-    // and load the index.html of the app.
+	// and load the index.html of the app.
 	mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-	if (dev && process.argv.indexOf('--noDevServer') === -1) {
-		indexPath = url.format({
-			protocol: 'http:',
-			host: 'localhost:8080',
-			pathname: 'index.html',
-			slashes: true
-		})
-	} else {
-		indexPath = url.format({
-			protocol: 'file:',
-			pathname: path.join(__dirname, 'index.js'),
-			slashes: true
-		})
-	}
-
-  	mainWindow.loadURL(indexPath)
+	installExtension(REACT_DEVELOPER_TOOLS)
+		.then((name) => console.log(`Added Extension:  ${name}`))
+		.catch((err) => console.log('An error occurred: ', err));
 
 	installExtension(REDUX_DEVTOOLS)
 		.then((name) => console.log(`Added Extension:  ${name}`))

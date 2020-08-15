@@ -15,41 +15,23 @@
   },
   "author": {
     "name": "Melanie Mende",
-    "email": "melanie.mende@me.com",
-    "url": "https://github.com/laniley"
+    "email": "melanie.mende@me.com"
   },
-  "keywords": [
-    "app",
-    "boilerplate",
-    "electron",
-    "open",
-    "open-source",
-    "postcss",
-    "react",
-    "reactjs",
-    "source",
-    "webpack"
-  ],
+  "keywords": [],
   "engines": {
     "node": ">=9.0.0",
     "npm": ">=6.0.0",
     "yarn": ">=1.0.0"
   },
-  "main": "src/main.js",
+  "main": "./.webpack/main",
   "scripts": {
-	"start": "webpack-dev-server --hot --host 0.0.0.0 --config=./config/webpack/webpack.dev.config.js --mode development",
-	"dist": "webpack --config=./config/webpack/webpack.prod.config.js  --mode=production",
-    "build": "electron-packager ./ --overwrite",
+    "start": "electron-forge start",
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "test:coverage": "npm test -- --coverage"
+    "test:coverage": "npm test -- --coverage",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
-  "keywords": [],
-  "author": {
-    "name": "Melanie Mende",
-    "email": "melanie.mende@me.com"
-  },
-  "license": "MIT",
   "config": {
     "forge": {
       "packagerConfig": {},
@@ -57,7 +39,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "storyteller_electron_forge"
+            "name": "storyteller"
           }
         },
         {
@@ -99,11 +81,11 @@
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
-    "@electron-forge/cli": "^6.0.0-beta.52",
-    "@electron-forge/maker-deb": "^6.0.0-beta.52",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.52",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.52",
-    "@electron-forge/maker-zip": "^6.0.0-beta.52",
+    "@electron-forge/cli": "6.0.0-beta.52",
+    "@electron-forge/maker-deb": "6.0.0-beta.52",
+    "@electron-forge/maker-rpm": "6.0.0-beta.52",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.52",
+    "@electron-forge/maker-zip": "6.0.0-beta.52",
     "@electron-forge/plugin-webpack": "^6.0.0-beta.52",
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
     "babel-jest": "^24.9.0",
@@ -112,8 +94,6 @@
     "browser-env": "^3.2.6",
     "css-loader": "^3.2.0",
     "electron": "7.3.2",
-    "electron-builder": "^22.7.0",
-    "electron-packager": "^15.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.7.1",
     "file-loader": "5.0.2",

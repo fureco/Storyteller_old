@@ -9,11 +9,7 @@ FocusStyleManager.onlyShowFocusOnTabs();
 
 import RootRoute from './routes/RootRoute';
 
-import store from './store';
-
-import './assets/css/app.css';
-
-export default class App extends React.Component {
+class App extends React.Component {
 
 	constructor(props) {
 		super(props);
