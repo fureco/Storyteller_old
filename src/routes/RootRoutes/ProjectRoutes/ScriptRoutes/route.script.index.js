@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect,} from "react-router-dom";
 
 import {
 	Colors,
@@ -8,7 +7,6 @@ import {
 
 import ScriptNav from '../../../../components/ScriptNav/ScriptNav';
 import ScriptContent from '../../../../components/ScriptContent/ScriptContent';
-
 
 class ScriptRoute extends React.Component {
 
@@ -42,8 +40,6 @@ class ScriptRoute extends React.Component {
 					}}
 					onKeyDown={this.onInput}
 				>
-					{/* <div>ScriptRoute: {window.location.hash} -> {this.props.route}</div> */}
-
 					<ScriptNav />
 
 				</div>
@@ -80,7 +76,7 @@ function mapStateToProps({ appStateReducer }) {
 	};
 }
 
-export default withRouter(connect(
+export default connect(
     mapStateToProps,
     null
-)(ScriptRoute))
+)(ScriptRoute)

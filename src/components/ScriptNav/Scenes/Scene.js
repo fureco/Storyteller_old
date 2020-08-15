@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import SceneCreationDialog from "./SceneCreationDialog";
 
@@ -36,7 +35,7 @@ class Scene extends React.Component {
 			hasCaret: false,
 			isExpanded: false,
 			icon: "folder-close",
-			label: <Link to={`/script/structure/scenes/${this.state.position}`}>Scene {this.state.position}: {this.props.scene.name}</Link>,
+			label: <div>Scene {this.state.position}: {this.props.scene.name}</div>,
 			secondaryLabel:
 				<ButtonGroup>
 					<Button minimal icon="edit" />

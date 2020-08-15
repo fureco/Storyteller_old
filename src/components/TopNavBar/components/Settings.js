@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { appStateActions } from "../../../store/actions";
+
+import * as appStateActions from "./../../../store/actions/appState/actions.appState.index.js";
 
 import {
 	Menu,

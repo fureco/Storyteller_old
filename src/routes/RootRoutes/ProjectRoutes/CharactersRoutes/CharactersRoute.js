@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 import CharactersIndexRoute from './CharactersIndexRoute.js';
 import CharactersCreateRoute from './CharactersCreateRoute.js';
@@ -35,12 +34,12 @@ class CharactersRoute extends React.Component {
 
 				{/* {window.location.hash} -> {this.props.route} */}
 
-				<Switch>
+{/* 				<Switch>
 					<Redirect exact from="/characters" to="/characters/index" />
 					<Route path="/characters/index" component={() => { return <CharactersIndexRoute /> }} />
 					<Route path="/characters/create" component={() => { return <CharactersCreateRoute /> }} />
 					<Route path="/characters/:id" children={(props) => <Character {...props} />} />
-				</Switch>
+				</Switch> */}
 
 			</div>
 		);
@@ -59,7 +58,7 @@ function mapStateToProps({ appStateReducer, charactersReducer }) {
 	};
 }
 
-export default withRouter(connect(
+export default connect(
 	mapStateToProps,
 	null
-)(CharactersRoute))
+)(CharactersRoute)

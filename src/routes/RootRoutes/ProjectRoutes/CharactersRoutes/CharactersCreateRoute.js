@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useHistory, Route, withRouter, Switch, Redirect, Link } from "react-router-dom";
 
 import { charactersActions } from "../../../../store/actions";
 
@@ -51,7 +50,7 @@ class CharactersCreateRoute extends React.Component {
 				{/* <div>{window.location.hash} -> {this.props.route}</div> */}
 
 				<h2>
-					<Link to={`/characters/index`}>All Characters</Link> / Create
+					<div>All Characters</div> / Create
 				</h2>
 
 				<div>{this.full_name()}</div>
@@ -88,13 +87,13 @@ class CharactersCreateRoute extends React.Component {
 						disabled={!this.full_name().length}
 						onClick={() => this.save()}
 					/>
-					<Link to="/characters/index">
+					<div>
 						<Button
 							id="CloseCharacterCreationButton"
 							minimal={false}
 							icon="small-cross"
 						/>
-					</Link>
+					</div>
 				</ButtonGroup>
 
 			</div>
@@ -122,7 +121,7 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default withRouter(connect(
+export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(CharactersCreateRoute))
+)(CharactersCreateRoute)

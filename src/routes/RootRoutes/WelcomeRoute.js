@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { TopNavBar } from './../../components';
-
+import TopNavBar from './../../components/TopNavBar/TopNavBar';
 import Workspace from './../../components/Workspace/Workspace';
 
 import {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect, Link } from "react-router-dom";
 
 import Trash from '../../../../components/Trash/Trash.index.js'
 
@@ -31,9 +30,9 @@ class CharactersIndexRoute extends React.Component {
 
 		active_characters = active_characters.map((name, index) => {
 			return (
-				<Link to={`/characters/${active_characters[index].id}`} key={active_characters[index].id}>
+				<div key={active_characters[index].id}>
 					{active_characters[index].first_name} {active_characters[index].last_name}
-				</Link>
+				</div>
 			);
 		});
 
@@ -45,9 +44,9 @@ class CharactersIndexRoute extends React.Component {
 
 		deleted_characters = deleted_characters.map((name, index) => {
 				return ({
-					label: <Link to={`/characters/${deleted_characters[index].id}`} key={deleted_characters[index].id}>
+					label: <div key={deleted_characters[index].id}>
 						{deleted_characters[index].first_name} {deleted_characters[index].last_name}
-					</Link>
+					</div>
 				});
 			});
 
@@ -61,7 +60,7 @@ class CharactersIndexRoute extends React.Component {
 
 				{active_characters}
 
-				<Link to="/characters/create">
+				<div>
 					<Button
 						id="OpenCreateCharacterDialogButton"
 						minimal={true}
@@ -69,7 +68,7 @@ class CharactersIndexRoute extends React.Component {
 						text="Add a new character"
 						// onClick={() => this.toggleEditMode()}
 					/>
-				</Link>
+				</div>
 
 				<Trash content={deleted_characters} />
 
@@ -90,7 +89,7 @@ function mapStateToProps({ appStateReducer, charactersReducer }) {
 	};
 }
 
-export default withRouter(connect(
+export default connect(
 	mapStateToProps,
 	null
-)(CharactersIndexRoute))
+)(CharactersIndexRoute)

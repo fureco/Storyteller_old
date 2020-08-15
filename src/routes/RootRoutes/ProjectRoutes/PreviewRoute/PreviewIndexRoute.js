@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect, Link } from "react-router-dom";
 
 import {
 	Cover
@@ -51,7 +50,7 @@ function mapStateToProps({ appStateReducer }) {
 	};
 }
 
-export default withRouter(connect(
+export default connect(
 	mapStateToProps,
 	null
-)(PreviewIndexRoute))
+)(PreviewIndexRoute)

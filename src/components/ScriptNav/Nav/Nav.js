@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
 import { appStateActions, projectActions } from "../../../store/actions";
 
 import {
@@ -20,8 +19,13 @@ class Nav extends React.Component {
 	}
 
 	handleTabChange(navbarTabId) {
-		this.props.changeCurrentScriptRoute(navbarTabId);
-		this.props.save();
+		if (navbarTabId != this.props.project.route.script.current) {
+			this.props.changeCurrentScriptRoute(navbarTabId);
+			this.props.save();
+		}
+		else {
+			console.log("The current route already is " + navbarTabId)
+		}
 	}
 
 	render() {
@@ -36,27 +40,13 @@ class Nav extends React.Component {
 				animate="true"
 				vertical={this.state.vertical}>
 
-				<Tab id="cover">
-					<Link to="/script/cover">Cover</Link>
-				</Tab>
-				<Tab id="title_author">
-					<Link to="/script/title_author">Title &amp; Author</Link>
-				</Tab>
-				<Tab id="abstract">
-					<Link to="/script/abstract">Abstract</Link>
-				</Tab>
-				<Tab id="dedication">
-					<Link to="/script/dedication">Dedication</Link>
-				</Tab>
-				{/* <Tab id="parts">
-					<Link to="/script/parts">Parts</Link>
-				</Tab> */}
-				<Tab id="chapters">
-					<Link to="/script/chapters">Chapters</Link>
-				</Tab>
-{/* 				<Tab id="scenes">
-					<Link to="/script/scenes">Scenes</Link>
-				</Tab> */}
+				<Tab id="cover">Cover</Tab>
+				<Tab id="title_author">Title &amp; Author</Tab>
+				<Tab id="abstract">Abstract</Tab>
+				<Tab id="dedication">Dedication</Tab>
+				{/* <Tab id="parts">>Parts</Tab> */}
+				<Tab id="chapters">Chapters</Tab>
+				{/* <Tab id="scenes">Scenes</Tab> */}
 
 			</Tabs>
 		);
@@ -66,6 +56,7 @@ class Nav extends React.Component {
 function mapStateToProps({ appStateReducer, project }) {
 	return {
 		appState: appStateReducer,
+		project,
 		selectedTabId: project.route.script ? project.route.script.current : 'abstract'
 	};
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
-import { appStateActions, projectActions } from "../../store/actions";
+
+import * as appStateActions from "./../../store/actions/appState/actions.appState.index.js";
+import * as projectActions from "./../../store/reducers/project/project.actions.index.js";
 
 import './TopNavBar.css';
 
@@ -38,8 +39,13 @@ export class TopNavBar extends React.Component {
 	}
 
 	handleTabChange(navbarTabId) {
-		this.props.changeCurrentRootRoute(navbarTabId);
-		this.props.save();
+		if (navbarTabId != this.props.project.route.current) {
+			this.props.changeCurrentRootRoute(navbarTabId);
+			this.props.save();
+		}
+		else {
+			console.log("Current route already is \\" + this.props.project.route.current)
+		}
 	}
 
 	handleClickOnWorkspace() {
@@ -75,19 +81,19 @@ export class TopNavBar extends React.Component {
                     { this.props.appState.path &&
 						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.project.route.current} animate="true">
                             <Tab id="script">
-                                <Link to="/script"><Icon icon="draw" /> Script</Link>
+                                <Icon icon="draw" /> Script
                             </Tab>
                             {/* <Tab id="characters">
-                                <Link to="/characters"><Icon icon="people" /> Characters</Link>
+                                <Icon icon="people" /> Characters
                             </Tab> */}
                             {/* <Tab id="locations">
-                                <Link to="/locations"><Icon icon="map-marker" /> Locations</Link>
+                                <Icon icon="map-marker" /> Locations
                             </Tab> */}
                             {/* <Tab id="timeline">
-                                <Link to="/timeline"><Icon icon="time" /> Timeline</Link>
+                                <Icon icon="time" /> Timeline
 							</Tab> */}
 							{/* <Tab id="preview">
-								<Link to="/preview"><Icon icon="eye-open" /> Preview</Link>
+								<Icon icon="eye-open" /> Preview
 							</Tab> */}
                         </Tabs>
                     }

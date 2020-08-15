@@ -1,4 +1,4 @@
-import { projectActions } from '../../actions'
+import * as projectActions from './project.actions.index'
 import { initialState } from './project.model'
 
 const project = (state = initialState, action) => {

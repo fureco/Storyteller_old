@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import storage from 'electron-json-storage';
+import * as sync_storage from 'electron-json-storage-sync';
 
-import { appStateActions, projectActions, charactersActions } from "../store/actions";
+import * as appStateActions from "../store/actions/appState/actions.appState.index.js";
+import * as projectActions from "../store/reducers/project/project.actions.index.js";
 
 import Welcome from './RootRoutes/WelcomeRoute';
 import ProjectRoute from './RootRoutes/ProjectRoute';
@@ -16,26 +18,26 @@ export class RootRoute extends React.Component {
 
 		console.log("locale storage directory: " + storage.getDefaultDataPath());
 
-		storage.get('storyteller', function (error, data) {
+		let result = sync_storage.get('storyteller');
 
-			if (error) throw error;
+		// console.log("storage-data: " + JSON.stringify(result));
 
-			console.log("theme: " + data.theme);
+		console.log("theme: " + result.data.theme);
 
-			if (data.theme) {
-				props.setTheme(data.theme);
-			}
+		if (result.data.theme) {
+			props.setTheme(result.data.theme);
+		}
 
-			console.log("current_project: " + data.path);
+		console.log("current_project: " + result.data.path);
 
-            if(data.path) {
-				props.openProject(data.path);
-			}
-		});
+		if (result.data.path) {
+			props.openProject(result.data.path);
+		}
     }
 
 	render() {
-        return (
+
+		return (
 			<div id="RootRoute" style={styles.container} >
 				<Content appState={this.props.appState} project={this.props.project} />
 			</div>
@@ -61,18 +63,17 @@ const styles = {
     }
 }
 
-function mapStateToProps({ appStateReducer, projectReducer, charactersReducer }) {
+function mapStateToProps({ appStateReducer, project }) {
+
     return {
 		appState: appStateReducer,
-		project: projectReducer,
-		characters: charactersReducer,
+		project
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
 		openProject: (filePath) => { dispatch(projectActions.openProjectAction(filePath)) },
-		loadCharacters: (filePath) => { dispatch(charactersActions.load(filePath)) },
 		setTheme: (theme) => dispatch(appStateActions.setTheme(theme)),
     };
 }

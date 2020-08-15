@@ -1,7 +1,10 @@
-import { appStateActions, charactersActions, partsActions, scenesActions } from '../../actions';
+import * as appStateActions from './../../actions/appState/actions.appState.index';
 import * as chaptersActions from './../../reducers/chapters/chapter.actions.index';
+import * as charactersActions from './../../actions/characters/actions.characters.index';
+import * as partsActions from './../../actions/parts/actions.parts.index';
+import * as scenesActions from './../../actions/scenes/actions.scenes.index';
 
-import storage from 'electron-json-storage';
+import * as sync_storage from 'electron-json-storage-sync';
 
 import { initialState as initialProjectState } from './project.model';
 import { initialState as initialAppState } from '../../models/appStateModel';
@@ -9,7 +12,7 @@ import { initialState as initialAppState } from '../../models/appStateModel';
 import { exportAsEpub } from './project.actions.export.epub.index';
 export { exportAsEpub };
 
-const fs = require('fs-extra')
+const fs = require('fs-extra');
 
 // ############ ACTION TYPES ##############
 export const SET_COVER = 'SET_COVER';
@@ -48,22 +51,19 @@ export const openProjectAction = (directoryPath) => {
 
     console.log("openProjectAction: " + directoryPath);
 
-    return (dispatch, getState) => {
+	return (dispatch, getState) => {
 
-		storage.get('storyteller', function (error, data) {
-			if (error) throw error;
+		let result_get = sync_storage.get('storyteller');
 
-			if (data) {
-
-				var new_data = Object.assign({}, data, {
-					path: directoryPath
-				});
-
-				storage.set('storyteller', new_data, (error) => {
-					if (error) throw error;
-				});
-			}
+		var new_data = Object.assign({}, result_get.data, {
+			path: directoryPath
 		});
+
+		let result_set = sync_storage.set('storyteller', new_data);
+
+		if (!result_set.status) {
+			throw error;
+		}
 
 		if (!storytellerProjectFileExists(directoryPath + "/src")) {
 			// TO DO: Show UI dialog that directory is not empty, ask user if it should be used for a new project
@@ -71,21 +71,18 @@ export const openProjectAction = (directoryPath) => {
 		}
 		else {
 			console.log("project.json file exists");
+			console.log("reading project.json file...");
 
-			return fs.readFile(directoryPath + '/src/project.json', (err, fileData) => {
+			let fileData = fs.readFileSync(directoryPath + '/src/project.json')
 
-				if (err) throw err;
+			if (!fileData) {
 
-				var data = fileData;
-
-				if (!fileData) {
-
-					console.log("project.json file exists - but is empty");
-					return dispatch(createNewStorytellerProjectFile(directoryPath));
-				}
-
-				return dispatch(openProjectSuccess(directoryPath, JSON.parse(data)));
-			});
+				console.log("project.json file exists - but is empty");
+				return dispatch(createNewStorytellerProjectFile(directoryPath));
+			}
+			else {
+				return dispatch(openProjectSuccess(directoryPath, JSON.parse(fileData)));
+			}
 		}
     };
 }
@@ -97,13 +94,13 @@ function openProjectSuccess(directoryPath, jsonData) {
 	return (dispatch, getState) => {
 
 		dispatch(appStateActions.setPath(directoryPath));
-		dispatch(setCover(jsonData.cover));
-		dispatch(setTitle(jsonData.title));
+		dispatch(setRoute(jsonData.route || initialProjectState.route));
+  		dispatch(setCover(jsonData.cover));
+ 		dispatch(setTitle(jsonData.title));
 		dispatch(setAuthor(jsonData.author));
 		dispatch(setAbstract(jsonData.abstract));
 		dispatch(setDedication(jsonData.dedication));
 		dispatch(setStyles(jsonData.styles));
-		dispatch(setRoute(jsonData.route || initialProjectState.route));
 		dispatch(setSelectedChapter(jsonData.selectedChapter || initialProjectState.selectedChapter));
 		dispatch(charactersActions.load(directoryPath))
 		dispatch(partsActions.load(directoryPath))
@@ -150,21 +147,21 @@ export const save = () => {
 		}
 
 		// console.log("content: " + content);
+		let path = getState().appStateReducer.path;
 
-		storage.get('storyteller', function (error, data) {
-			if (error) throw error;
-			console.log("current_project: " + data.path);
-			if (data.path) {
-				fs.writeFile(data.path + "/src/project.json", content, (err) => {
-					if (err) {
-						console.log("FAILURE: ", err)
-					}
-					else {
-						console.log("Saved!")
-					}
-				})
-			}
-		});
+		if (!path) {
+			console.error("path: " + path);
+			return;
+		}
+
+		let err = fs.writeFileSync(path + "/src/project.json", content)
+
+		if (err) {
+			console.log("FAILURE: ", err)
+		}
+		else {
+			console.log("Saved!")
+		}
 	};
 };
 

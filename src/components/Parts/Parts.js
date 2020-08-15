@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Link, Route, Redirect } from "react-router-dom";
 import { PartTitle } from "./../../components";
 import ScriptPartCreationDialog from "./../../components/ScriptNav/ScriptPartCreationDialog";
 
@@ -30,9 +29,7 @@ class Parts extends React.Component {
 				.sort((a, b) => a.position > b.position)
 				.map((name, index) => {
 					return (
-						<Link to={`/script/structure/parts/${index}`} key={this.props.parts[index].id}>
-							Part {this.props.parts[index].position}: {this.props.parts[index].name}
-						</Link>
+						<div>Part {this.props.parts[index].position}: {this.props.parts[index].name}</div>
 					);
 				});
 		}

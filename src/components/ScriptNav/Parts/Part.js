@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
 import { Draggable } from "react-beautiful-dnd";
 import ChapterCreationDialog from "../../../components/ChapterCreationDialog";
 
@@ -58,7 +57,7 @@ class Part extends React.Component {
 			hasCaret: true,
 			isExpanded: false,
 			icon: "folder-close",
-			label: <Link to={`/script/structure/parts/${this.props.part.position}`}>Part {this.props.part.position}: {this.props.part.title}</Link>,
+			label: <div>Part {this.props.part.position}: {this.props.part.title}</div>,
 			secondaryLabel:
 				<ButtonGroup>
 					<Button minimal icon="edit" />
