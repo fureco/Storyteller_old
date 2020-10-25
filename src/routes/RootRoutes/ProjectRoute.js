@@ -14,6 +14,7 @@ import { getRoute } from './../../store/reducers/project/project.reducer.index';
 
 import { MoveToTrashAlert } from './../../components';
 
+import Workspace from './../../components/Workspace/Workspace';
 import ScriptRoute from './ProjectRoutes/ScriptRoutes/route.script.index';
 import CharactersRoute from './ProjectRoutes/CharactersRoutes/CharactersRoute';
 import PreviewRoute from './ProjectRoutes/PreviewRoute/PreviewRoute';
@@ -111,6 +112,9 @@ function Content(props) {
 	if (!props.project) return null;
 
 	switch (props.project.route.current) {
+
+		case 'workspace':
+			return <Workspace />
 
 		case 'script':
 			return <ScriptRoute path_to_project={props.appState.path} />

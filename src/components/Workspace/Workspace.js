@@ -103,6 +103,7 @@ class Workspace extends React.Component {
 							minimal={false}
 							icon={"folder-new"}
 							text={"Create a new project"}
+							intent={Intent.SUCCESS}
 							onClick={this.handleCreateClick.bind(this)} />
 						}
 						{this.state.createIsOpen &&
@@ -223,6 +224,8 @@ function Project(props) {
 				text={props.project.name}
 				onClick={props.onClick}
 				icon={props.isCurrentlyOpen ? "folder-open" : "folder-close"}
+				intent={Intent.PRIMARY}
+				active={props.isCurrentlyOpen ? true : false}
 				style={{
 					flex: "1",
 					justifyContent: "left",
@@ -233,6 +236,7 @@ function Project(props) {
 				id={props.project.name + "-delete"}
 				onClick={props.onDelete}
 				icon={"trash"}
+				intent={Intent.DANGER}
 				style={{
 					justifyContent: "center",
 					width: "auto"

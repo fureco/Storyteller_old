@@ -32,10 +32,6 @@ export class TopNavBar extends React.Component {
     constructor(props) {
 
         super(props);
-
-		this.state = {
-			workspaceIsOpen: props.workspaceIsOpen || false
-        };
 	}
 
 	handleTabChange(navbarTabId) {
@@ -46,10 +42,6 @@ export class TopNavBar extends React.Component {
 		else {
 			console.log("Current route already is \\" + this.props.project.route.current)
 		}
-	}
-
-	handleClickOnWorkspace() {
-		this.props.closeProject()
 	}
 
 	render() {
@@ -66,20 +58,21 @@ export class TopNavBar extends React.Component {
 
 					<NavbarDivider />
 
-					<Button
-						id="WorkspaceButton"
-						minimal={true}
-						icon="box"
-						text="Workspace"
-						disabled={ this.state.workspaceIsOpen }
-						onClick={() => this.props.closeProject()}
-					/>
-
-					<NavbarDivider />
-
 					{/* SECTION TABS */}
-                    { this.props.appState.path &&
-						<Tabs id="TopNavTabs" onChange={this.handleTabChange.bind(this)} selectedTabId={this.props.project.route.current} animate="true">
+					{this.props.appState.path &&
+
+						<Tabs
+						id="TopNavTabs"
+						onChange={this.handleTabChange.bind(this)}
+						selectedTabId={this.props.project.route.current}
+						animate="true">
+
+							<Tab id="workspace" style={{ marginRight: "0px"}} >
+								<Icon icon="box" /> Workspace
+                            </Tab>
+
+							<NavbarDivider style={{ marginRight: "10px" }} />
+
                             <Tab id="script">
                                 <Icon icon="draw" /> Script
                             </Tab>
