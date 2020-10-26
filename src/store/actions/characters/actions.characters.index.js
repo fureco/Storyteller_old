@@ -3,18 +3,20 @@ import storage from 'electron-json-storage';
 const fs = require('fs');
 
 // ############ ACTION TYPES ##############
+export const ADD_CHARACTER = 'ADD_CHARACTER';
+export const CREATE_CHARACTER = 'CREATE_CHARACTER';
 export const SET_CHARACTERS = 'SET_CHARACTERS';
 
-export const ADD_CHARACTER = 'ADD_CHARACTER';
 export const SET_FIRST_NAME = 'SET_FIRST_NAME';
 export const SET_LAST_NAME = 'SET_LAST_NAME';
 export const SET_NICKNAME = 'SET_NICKNAME';
 export const SET_DELETED_AT = 'SET_DELETED_AT';
 
 // ############## ACTIONS #################
+export const addCharacter = (character) => ({ type: ADD_CHARACTER, character });
+export const createCharacter = (character) => ({ type: CREATE_CHARACTER, character });
 export const setCharacters = (characters) => ({ type: SET_CHARACTERS, characters });
 
-export const addCharacter = (character) => ({ type: ADD_CHARACTER, character });
 export const setFirstName = (first_name) => ({ type: SET_FIRST_NAME, first_name });
 export const setLastName = (last_name) => ({ type: SET_LAST_NAME, last_name });
 export const setNickname = (nickname) => ({ type: SET_NICKNAME, nickname });

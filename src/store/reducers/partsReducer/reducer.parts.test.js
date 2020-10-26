@@ -6,6 +6,10 @@ const initialState = [];
 
 describe('Parts reducer', () => {
 
+	it('should return the initial state for an unknown action', () => {
+		expect(reducer(undefined, {})).toEqual(initialState)
+	})
+
 	it('should handle ADD_PART', () => {
 		expect(
 			reducer(initialState, {
