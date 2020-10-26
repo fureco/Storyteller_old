@@ -12,16 +12,14 @@ export const SET_DELETED_AT = 'SET_DELETED_AT';
 
 // ############## ACTIONS #################
 export const add = (chapter) => ({ type: ADD, chapter });
-
+export const create = (chapter) => ({ type: CREATE, chapter });
 export const setChapters = (chapters) => ({ type: SET_CHAPTERS, chapters });
 
 export const setTitle = (chapter, title) => ({ type: SET_TITLE, chapter, title });
 export const setDeletedAt = (chapter, deleted_at) => ({ type: SET_DELETED_AT, chapter, deleted_at });
 
 // create a new chapter and save it to a new JSON file
-export const create = (chapter) => {
-
-	console.log("creating new chapter \"" + chapter.title + "\" ...")
+export const save = (chapter) => {
 
 	return (dispatch, getState) => {
 
@@ -31,13 +29,6 @@ export const create = (chapter) => {
 			// create script folder if it does not yet exist
 			fs.mkdirSync(directoryPath + "/src/script/");
 		}
-
-		let pos_of_new_chapter = 1;
-
-		getState().chapters.forEach((chapter) => {
-			if (chapter.position >= pos_of_new_chapter)
-				pos_of_new_chapter = chapter.position + 1;
-		});
 
 		let data = {
 			title: chapter.title,

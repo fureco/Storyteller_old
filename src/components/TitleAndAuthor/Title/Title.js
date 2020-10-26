@@ -11,8 +11,8 @@ export class Title extends React.Component {
 		super(props);
 
 		this.state = {
-			title: this.props.project.title,
-			fontSize: this.props.project.styles.title.fontSize
+			title: props.title || this.props.project.title,
+			fontSize: props.fontSize || this.props.project.styles.title.fontSize
 		};
 	}
 

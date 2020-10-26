@@ -1,12 +1,24 @@
-import reducer from './reducer.project.index.js'
-import { projectActions } from '../../actions'
-
-import { initialState } from './projectModel'
+import reducer from './project.reducer.index.js'
+import * as projectActions from './project.actions.index'
+import { initialState } from './project.model'
 
 describe('Project reducer', () => {
 
-    it('should return the initial state', () => {
+    it('should return the initial state for an unknown action', () => {
         expect(reducer(undefined, {})).toEqual(initialState)
+	})
+
+	it('should handle SET_COVER', () => {
+		expect(
+			reducer(initialState, {
+				type: projectActions.SET_COVER,
+				cover: 'test_cover'
+			})
+		).toEqual(
+			Object.assign({}, initialState, {
+				cover: "test_cover"
+			})
+		)
 	})
 
 	it('should handle SET_TITLE', () => {
@@ -57,6 +69,32 @@ describe('Project reducer', () => {
 		).toEqual(
 			Object.assign({}, initialState, {
 				dedication: "test"
+			})
+		)
+	})
+
+	it('should handle SET_ROUTE', () => {
+		expect(
+			reducer(initialState, {
+				type: projectActions.SET_ROUTE,
+				route: 'test_route'
+			})
+		).toEqual(
+			Object.assign({}, initialState, {
+				route: "test_route"
+			})
+		)
+	})
+
+	it('should handle SET_SELECTED_CHAPTER', () => {
+		expect(
+			reducer(initialState, {
+				type: projectActions.SET_SELECTED_CHAPTER,
+				chapter: 'test_chapter'
+			})
+		).toEqual(
+			Object.assign({}, initialState, {
+				selectedChapter: "test_chapter"
 			})
 		)
 	})

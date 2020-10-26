@@ -1,3 +1,4 @@
+import { partsActions } from '../../actions'
 import { getNewID } from '../utils'
 
 import partReducer from './partReducer/reducer.part.index'
@@ -6,12 +7,12 @@ const partsReducer = (state = [], action) => {
 
 	switch (action.type) {
 
-		case partsReducer.ADD_PART:
+		case partsActions.ADD_PART:
 			state = state.slice();
-			state.push(Object.assign({}, action.part, { id: getNewID(state) }));
+			state.push(action.part);
 			return state;
 
-		case partsReducer.SET_DELETED_AT:
+		case partsActions.SET_DELETED_AT:
 			state[state.indexOf(action.part)] = partReducer(action.part, action);
 			return state;
 

@@ -4,7 +4,7 @@ import { initialState } from './../../../models/sceneModel'
 
 describe('Scene reducer', () => {
 
-	it('should return the initial state', () => {
+	it('should return the initial state for an unknown action', () => {
 		expect(reducer(undefined, {})).toEqual(initialState)
 	})
 

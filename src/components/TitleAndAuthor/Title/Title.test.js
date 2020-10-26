@@ -2,32 +2,38 @@ import React from 'react';
 import { Title } from './Title.js';
 import { shallow, mount, render } from 'enzyme';
 
-test('ScriptTitle - edit mode is open when project title is empty', () => {
+import { initialState } from './../../../store/reducers/project/project.model'
 
-	var project = {
-		title: ''
-	};
+describe('Title component', () => {
 
-	const scriptTitle = shallow(
-		<Title project={project} />
-	);
+	it('shows the title of the project in the TextInput component, when the title is not empty', () => {
 
-	// find input group
-	const scriptTitleInputGroup = scriptTitle.find('#ScriptTitleInput')
-	expect(scriptTitleInputGroup.length).toEqual(1);
-});
+		const project = Object.assign({}, initialState, {
+			title: 'test_title'
+		})
 
-test('ScriptTitle - edit mode is closed when project title is not empty', () => {
+		const title = shallow(
+			<Title project={project} />
+		);
 
-	var project = {
-		title: 'test'
-	};
+		// find TextInput component
+		const titleTextInput = title.find('#TitleInput');
 
-	const scriptTitle = shallow(
-		<Title project={project} />
-	);
+		expect(titleTextInput.render().text()).toEqual('test_title');
+	})
 
-	// find input group
-	const scriptTitleInputGroup = scriptTitle.find('#ScriptTitleInput')
-	expect(scriptTitleInputGroup.length).toEqual(0);
-});
+	it('div is empty when the title is empty', () => {
+
+		const project = initialState;
+
+		const title = shallow(
+			<Title project={project} />
+		);
+
+		// find TextInput component
+		const titleTextInput = title.find('#TitleInput');
+
+		expect(titleTextInput.render().text()).toEqual('');
+	})
+
+})

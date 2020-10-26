@@ -5,7 +5,7 @@ import { projectActions } from '../../store/actions';
 import { PagePreview } from './../../components';
 import TextInput from "./../TextInput/TextInput";
 
-class Abstract extends React.Component {
+export class Abstract extends React.Component {
 
 	constructor(props) {
 

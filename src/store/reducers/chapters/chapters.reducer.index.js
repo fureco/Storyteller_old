@@ -1,7 +1,7 @@
 import * as chapterActions from './chapter.actions.index.js'
-import chapterReducer from './chapter.reducer.index.js'
-import { initialState } from './chapter.model.js'
 import { getNewID } from '../utils'
+import { initialState } from './chapter.model.js'
+import chapterReducer from './chapter.reducer.index.js'
 
 const chapters = (state = [], action) => {
 
@@ -14,7 +14,7 @@ const chapters = (state = [], action) => {
 
 		case chapterActions.CREATE:
 			state = state.slice();
-			state.push(Object.assign(initialState, action.chapter, { id: getNewID(state), position: state.length + 1 }));
+			state.push(Object.assign(initialState, action.chapter, { id: getNewID(state), position: state.length }));
 			return state;
 
 		case chapterActions.SET_CHAPTERS:
