@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
-import rootReducer from './reducers';
+import rootReducer from './reducers/reducers.js';
 
 const isDevMode = process.execPath.match(/[\\/]electron/);
 

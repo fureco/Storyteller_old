@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { initialState } from './../../store/workspace/workspace.model';
+
 import * as projectActions from "./../../store/reducers/project/project.actions.index.js";
 
 import storage from 'electron-json-storage-sync';
@@ -20,40 +22,18 @@ import {
 const { dialog } = require('electron').remote;
 const fs = require('fs-extra');
 
-class Workspace extends React.Component {
+export class Workspace extends React.Component {
 
 	constructor(props) {
 
 		super(props);
-
-		this.state = {
-			workspace: undefined,
-			projects: [],
-			createIsOpen: false,
-			name_of_new_project: "",
-			name_of_new_project_is_valid: false
-		};
-
-		var result = storage.get('storyteller');
-
-		if (result.status) {
-			console.log("workspace: " + result.data.workspace);
-			this.state.workspace = result.data.workspace;
-		}
-		else {
-			throw error;
-		}
-	}
-
-	componentDidMount() {
-		this.readWorkspace();
 	}
 
 	render() {
 
 		let content = "";
 
-		if (this.state.workspace === undefined) {
+		if (this.props.workspace === undefined) {
 			content =
 				<Button
 					id="ChangeWorkspaceButton"
@@ -64,7 +44,7 @@ class Workspace extends React.Component {
 		}
 		else {
 
-			let projectListItems = this.state.projects.map((project) =>
+			let projectListItems = this.props.workspace.projects.map((project) =>
 				<Project
 					key={project.name}
 					project={project}
@@ -76,7 +56,7 @@ class Workspace extends React.Component {
 			content = <div>
 				<h2>Workspace</h2>
 				<hr/>
-				{this.state.workspace}
+				{this.props.workspace.path}
 				<Button id="ChangeWorkspaceButton"
 						icon="folder-open"
 						text="Change"
@@ -87,7 +67,7 @@ class Workspace extends React.Component {
 				<div style={{ display: "flex", justifyContent: "center" }}>
 					<ButtonGroup id="projectsList" minimal={false} vertical={true} style={{ minWidth: "250px" }}>
 						{projectListItems}
-						<Collapse isOpen={this.state.createIsOpen}>
+						<Collapse isOpen={this.props.workspace.createIsOpen}>
 							<Pre>
 								<InputGroup
 									placeholder={"Title of new project..."}
@@ -98,7 +78,7 @@ class Workspace extends React.Component {
 									autoFocus />
 							</Pre>
 						</Collapse>
-						{ !this.state.createIsOpen &&
+						{ !this.props.workspace.createIsOpen &&
 							<Button id="CreateProjectButton"
 							minimal={false}
 							icon={"folder-new"}
@@ -106,7 +86,7 @@ class Workspace extends React.Component {
 							intent={Intent.SUCCESS}
 							onClick={this.handleCreateClick.bind(this)} />
 						}
-						{this.state.createIsOpen &&
+						{this.props.workspace.createIsOpen &&
 
 							<ButtonGroup>
 								<Button id="CreateProjectButton"
@@ -165,17 +145,6 @@ class Workspace extends React.Component {
 				}
 			}
 		});
-	}
-
-	readWorkspace() {
-
-		let projects = [];
-
-		fs.readdirSync(this.state.workspace).forEach(project => {
-			projects.push({ name: project, path: this.state.workspace + "\\" + project, isCurrentlyOpen: this.props.appState.path === this.state.workspace + "\\" + project });
-		});
-
-		this.setState({ projects: projects });
 	}
 
 	is_a_valid_new_project_name(new_name) {
@@ -246,9 +215,10 @@ function Project(props) {
 	);
 }
 
-function mapStateToProps({ appStateReducer, }) {
+function mapStateToProps({ appStateReducer, workspace }) {
 	return {
 		appState: appStateReducer,
+		workspace
 	};
 }
 
