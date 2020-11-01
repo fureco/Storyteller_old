@@ -2,7 +2,7 @@ import React from 'react';
 import { Title } from './Title.js';
 import { shallow, mount, render } from 'enzyme';
 
-import { initialState } from './../../../store/reducers/project/project.model'
+import { initialState } from './../../../store/project/project.model'
 
 describe('Title component', () => {
 

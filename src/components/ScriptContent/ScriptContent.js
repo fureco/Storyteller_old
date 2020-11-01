@@ -11,7 +11,7 @@ import {
 import Chapters from './../../components/Chapters/Chapters';
 import Dedication from './../../components/Dedication/Dedication';
 
-import { getRoute } from './../../store/reducers/project/project.reducer.index';
+import { getRoute } from './../../store/project/project.reducer';
 
 class ScriptContent extends React.Component {
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Draggable } from "react-beautiful-dnd";
 import ChapterCreationDialog from "../../ChapterCreationDialog";
 
-import * as projectActions from "./../../../store/reducers/project/project.actions.index";
+import * as projectActions from "./../../../store/project/project.actions";
 
 import {
 	Button,

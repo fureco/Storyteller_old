@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as appStateActions from "./../../store/actions/appState/actions.appState.index.js";
-import * as projectActions from "./../../store/reducers/project/project.actions.index.js";
+import * as projectActions from "./../../store/project/project.actions";
 
 import './TopNavBar.css';
 

@@ -1,4 +1,4 @@
-import * as projectActions from './project.actions.index.js';
+import * as projectActions from './project.actions';
 
 describe('Project actions', () => {
 

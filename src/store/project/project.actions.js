@@ -1,14 +1,14 @@
-import * as appStateActions from './../../actions/appState/actions.appState.index';
-import * as chaptersActions from './../../reducers/chapters/chapter.actions.index';
-import * as charactersActions from './../../actions/characters/actions.characters.index';
-import * as partsActions from './../../actions/parts/actions.parts.index';
-import * as scenesActions from './../../actions/scenes/actions.scenes.index';
-import * as workspaceActions from './../../workspace/workspace.actions';
+import * as appStateActions from '../actions/appState/actions.appState.index';
+import * as chaptersActions from '../reducers/chapters/chapter.actions.index';
+import * as charactersActions from '../actions/characters/actions.characters.index';
+import * as partsActions from '../actions/parts/actions.parts.index';
+import * as scenesActions from '../actions/scenes/actions.scenes.index';
+import * as workspaceActions from '../workspace/workspace.actions';
 
 import * as sync_storage from 'electron-json-storage-sync';
 
 import { initialState as initialProjectState } from './project.model';
-import { initialState as initialAppState } from '../../models/appStateModel';
+import { initialState as initialAppState } from '../models/appStateModel';
 
 import { exportAsEpub } from './project.actions.export.epub.index';
 export { exportAsEpub };

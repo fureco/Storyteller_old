@@ -10,7 +10,7 @@ import {
 	TopNavBar,
 } from '../../components';
 
-import { getRoute } from './../../store/reducers/project/project.selectors.index';
+import { getRoute } from './../../store/project/project.selectors';
 
 import { MoveToTrashAlert } from './../../components';
 

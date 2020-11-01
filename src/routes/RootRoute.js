@@ -5,7 +5,7 @@ import * as sync_storage from 'electron-json-storage-sync';
 
 import * as appStateActions from "../store/actions/appState/actions.appState.index.js";
 import * as workspaceActions from "../store/workspace/workspace.actions.js";
-import * as projectActions from "../store/reducers/project/project.actions.index.js";
+import * as projectActions from "../store/project/project.actions";
 
 import Welcome from './RootRoutes/WelcomeRoute';
 import ProjectRoute from './RootRoutes/ProjectRoute';
