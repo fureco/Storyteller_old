@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from '../../store/project/project.actions';
+import * as projectActions from '../../store/project/project.actions';
 
 import { PagePreview } from './../../components';
 import TextInput from "./../TextInput/TextInput";

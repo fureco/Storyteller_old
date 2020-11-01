@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Draggable } from "react-beautiful-dnd";
 import ChapterCreationDialog from "../../../components/ChapterCreationDialog";
 
-import { projectActions } from "../../../store/actions";
+import * as projectActions from "../../../store/project/project.actions";
 
 import {
 	Button,
@@ -114,7 +114,7 @@ function mapStateToProps({ projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		deletePart: partID => dispatch(projectActions.deleteScriptPartAction(partID)),
+		/* deletePart: partID => dispatch(projectActions.deleteScriptPartAction(partID)), */
 	};
 }
 

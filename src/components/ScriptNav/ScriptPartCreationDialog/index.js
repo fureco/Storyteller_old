@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from "../../../store/actions";
+import * as projectActions from "../../../store/project/project.actions";
 
 import "./ScriptPartCreationDialog.css";
 
@@ -90,7 +90,7 @@ function mapStateToProps ({ projectReducer }) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        addScriptPart: (partName, position) => dispatch(projectActions.addScriptPartAction(partName, position)),
+        /* addScriptPart: (partName, position) => dispatch(projectActions.addScriptPartAction(partName, position)), */
     };
 }
 

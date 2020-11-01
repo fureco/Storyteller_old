@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions } from '../../store/actions';
+import * as projectActions from '../../store/project/project.actions';
 
 import Chapter from "./../Chapter/Chapter";
 import ChapterCreationDialog from "./../ChapterCreationDialog";

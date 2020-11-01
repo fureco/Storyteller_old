@@ -5,7 +5,7 @@ import ScriptPartCreationDialog from "./../ScriptPartCreationDialog";
 
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-import { projectActions } from "../../../store/actions";
+import * as projectActions from "../../../store/project/project.actions";
 
 import {
 	Alert,
@@ -119,8 +119,8 @@ function mapStateToProps({ appStateReducer, projectReducer }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		setParts: parts => dispatch(projectActions.setParts(parts)),
-		deletePart: partID => dispatch(projectActions.deleteScriptPartAction(partID)),
+		/* setParts: parts => dispatch(projectActions.setParts(parts)), */
+		/* deletePart: partID => dispatch(projectActions.deleteScriptPartAction(partID)), */
 	};
 }
 

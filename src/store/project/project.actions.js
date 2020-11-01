@@ -42,9 +42,40 @@ export const createProjectAction = (directoryPath) => {
 	// create new project folder
 	fs.mkdirSync(directoryPath);
 
+	console.log("creating new project file...");
+
 	return (dispatch, getState) => {
 
-		return dispatch(createNewStorytellerProjectFile(directoryPath));
+		if (!fs.existsSync(directoryPath + "\\src")) {
+			fs.mkdirSync(directoryPath + "\\src");
+		}
+
+		fs.writeFile(directoryPath + "/src/project.json", JSON.stringify(initialProjectState), (err) => {
+
+			if (err) throw err;
+
+			/* console.log("creating new app state file..."); */
+
+			/* fs.writeFile(directoryPath + "/src/appState.json", JSON.stringify(initialAppState), (err) => {
+
+				if (err) throw err; */
+
+			/* storage.get('storyteller', function (error, data) { */
+			/* if (error) throw error; */
+
+			/* if (data) {
+
+				var new_data = Object.assign({}, data, {
+					path: directoryPath
+				});
+
+				storage.set('storyteller', new_data, (error) => {
+					if (error) throw error;
+				});
+			} */
+			/* }); */
+			/* }); */
+		});
 	};
 };
 
@@ -209,45 +240,6 @@ function storytellerProjectFileExists(directoryPath) {
 
 	return fileNameExists;
 };
-
-function createNewStorytellerProjectFile(directoryPath) {
-
-	console.log("creating new project file...");
-
-	return (dispatch, getState) => {
-
-		if (!fs.existsSync(directoryPath + "\\src")) {
-			fs.mkdirSync(directoryPath + "\\src");
-		}
-
-		fs.writeFile(directoryPath + "/src/project.json", JSON.stringify(initialProjectState), (err) => {
-
-			if (err) throw err;
-
-			console.log("creating new app state file...");
-
-			fs.writeFile(directoryPath + "/src/appState.json", JSON.stringify(initialAppState), (err) => {
-
-				if (err) throw err;
-
-				storage.get('storyteller', function (error, data) {
-					if (error) throw error;
-
-					if (data) {
-
-						var new_data = Object.assign({}, data, {
-							path: directoryPath
-						});
-
-						storage.set('storyteller', new_data, (error) => {
-							if (error) throw error;
-						});
-					}
-				});
-			});
-		});
-	};
-}
 
 export const changeCurrentRootRoute = (navbarTabId) => {
 

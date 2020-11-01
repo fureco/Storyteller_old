@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { appStateActions, projectActions } from "../../../store/actions";
+import { appStateActions } from "../../../store/actions";
+import * as projectActions from "../../../store/project/project.actions";
 
 import {
 	Tab,
