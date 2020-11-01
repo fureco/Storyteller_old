@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import * as workspaceActions from "./../../store/workspace/workspace.actions";
 import * as projectActions from "./../../store/reducers/project/project.actions.index.js";
 
 import storage from 'electron-json-storage-sync';
@@ -126,17 +127,17 @@ export class Workspace extends React.Component {
 
 				if (storage_data.status) {
 
-					this.setState({ workspace: result.filePaths[0] });
+					var path = result.filePaths[0];
+
+					this.props.openWorkspace(path);
 
 					var new_storage_data = Object.assign({}, storage_data, {
-						workspace: result.filePaths[0]
+						workspace: path
 					});
 
 					storage.set('storyteller', new_storage_data, (error) => {
 						if (error) throw error;
 					});
-
-					this.readWorkspace();
 				}
 				else {
 					throw error;
@@ -222,6 +223,7 @@ function mapStateToProps({ appStateReducer, workspace }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
+		openWorkspace: (filePath) => { dispatch(workspaceActions.openWorkspace(filePath)) },
 		openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
 		createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
 		deleteProject: (filePath) => dispatch(projectActions.deleteProject(filePath)),

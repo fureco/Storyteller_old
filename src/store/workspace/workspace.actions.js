@@ -13,7 +13,6 @@ export const openWorkspace = (directoryPath) => {
 	console.log("workspace - actions - openWorkspace: " + directoryPath);
 
 	return (dispatch, getState) => {
-
 		dispatch(setPath(directoryPath));
 		dispatch(loadProjects());
 	};

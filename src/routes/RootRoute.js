@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import storage from 'electron-json-storage';
 import * as sync_storage from 'electron-json-storage-sync';
 
 import * as appStateActions from "../store/actions/appState/actions.appState.index.js";
@@ -17,11 +16,13 @@ export class RootRoute extends React.Component {
 
 		super(props);
 
-		console.log("locale storage directory: " + storage.getDefaultDataPath());
-
 		let result = sync_storage.get('storyteller');
 
 		// console.log("storage-data: " + JSON.stringify(result));
+
+		if (!result.status) {
+			return;
+		}
 
 		if (result.data.theme) {
 			console.log("theme: " + result.data.theme);
@@ -76,7 +77,7 @@ const styles = {
     }
 }
 
-function mapStateToProps({ appStateReducer, project, workspace }) {
+export function mapStateToProps({ appStateReducer, project, workspace }) {
 
     return {
 		appState: appStateReducer,
@@ -85,7 +86,7 @@ function mapStateToProps({ appStateReducer, project, workspace }) {
     };
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
 	return {
 		setTheme: (theme) => dispatch(appStateActions.setTheme(theme)),
 		openWorkspace: (filePath) => { dispatch(workspaceActions.openWorkspace(filePath)) },

@@ -1,4 +1,5 @@
 import * as actions from './workspace.actions.js';
+import * as reducer from './workspace.reducer.js';
 
 describe('Workspace actions', () => {
 
