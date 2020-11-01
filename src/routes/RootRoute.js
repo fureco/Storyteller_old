@@ -31,20 +31,20 @@ export class RootRoute extends React.Component {
 			console.log("theme: not set");
 		}
 
-		if (result.data.path) {
-			console.log("current_project: " + result.data.path);
-			props.openProject(result.data.path);
-		}
-		else {
-			console.log("current_project: not set");
-		}
-
 		if (result.data.workspace) {
 			console.log("workspace: " + result.data.workspace);
 			props.openWorkspace(result.data.workspace);
 		}
 		else {
 			console.log("workspace: not set");
+		}
+
+		if (result.data.path) {
+			console.log("current_project: " + result.data.path);
+			props.openProject(result.data.path);
+		}
+		else {
+			console.log("current_project: not set");
 		}
     }
 
@@ -88,7 +88,7 @@ function mapStateToProps({ appStateReducer, project, workspace }) {
 function mapDispatchToProps(dispatch) {
 	return {
 		setTheme: (theme) => dispatch(appStateActions.setTheme(theme)),
-		openWorkspace: (filePath) => { dispatch(workspaceActions.openWorkspaceAction(filePath)) },
+		openWorkspace: (filePath) => { dispatch(workspaceActions.openWorkspace(filePath)) },
 		openProject: (filePath) => { dispatch(projectActions.openProjectAction(filePath)) },
     };
 }

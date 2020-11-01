@@ -8,11 +8,24 @@ export const WORKSPACE_SET_PROJECTS = 'WORKSPACE_SET_PROJECTS';
 export const setPath = (payload) => ({ type: WORKSPACE_SET_PATH, payload });
 export const setProjects = (payload) => ({ type: WORKSPACE_SET_PROJECTS, payload });
 
-export const openWorkspaceAction = (directoryPath) => {
+export const openWorkspace = (directoryPath) => {
 
-	console.log("openWorkspaceAction: " + directoryPath);
+	console.log("workspace - actions - openWorkspace: " + directoryPath);
 
 	return (dispatch, getState) => {
+
+		dispatch(setPath(directoryPath));
+		dispatch(loadProjects());
+	};
+}
+
+export const loadProjects = () => {
+
+	console.log("workspace - actions - loadProjects");
+
+	return (dispatch, getState) => {
+
+		let directoryPath = getState().workspace.path;
 
 		let projects = [];
 
@@ -21,7 +34,6 @@ export const openWorkspaceAction = (directoryPath) => {
 			projects.push({ name: project, path: directoryPath + "\\" + project, isCurrentlyOpen: getState().appStateReducer.path === directoryPath + "\\" + project });
 		});
 
-		dispatch(setPath(directoryPath));
 		dispatch(setProjects(projects));
 	};
 }

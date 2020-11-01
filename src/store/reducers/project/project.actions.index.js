@@ -3,6 +3,7 @@ import * as chaptersActions from './../../reducers/chapters/chapter.actions.inde
 import * as charactersActions from './../../actions/characters/actions.characters.index';
 import * as partsActions from './../../actions/parts/actions.parts.index';
 import * as scenesActions from './../../actions/scenes/actions.scenes.index';
+import * as workspaceActions from './../../workspace/workspace.actions';
 
 import * as sync_storage from 'electron-json-storage-sync';
 
@@ -93,8 +94,10 @@ function openProjectSuccess(directoryPath, jsonData) {
 
 	return (dispatch, getState) => {
 
-		dispatch(appStateActions.setPath(directoryPath));
 		dispatch(setRoute(jsonData.route || initialProjectState.route));
+		dispatch(appStateActions.setPath(directoryPath));
+		dispatch(workspaceActions.loadProjects());
+
   		dispatch(setCover(jsonData.cover));
  		dispatch(setTitle(jsonData.title));
 		dispatch(setAuthor(jsonData.author));

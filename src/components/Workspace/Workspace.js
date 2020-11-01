@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { initialState } from './../../store/workspace/workspace.model';
-
 import * as projectActions from "./../../store/reducers/project/project.actions.index.js";
 
 import storage from 'electron-json-storage-sync';
@@ -36,7 +34,7 @@ export class Workspace extends React.Component {
 		if (this.props.workspace === undefined) {
 			content =
 				<Button
-					id="ChangeWorkspaceButton"
+					id="SelectWorkspaceButton"
 					icon="folder-open"
 					text="Select a workspace folder"
 					onClick={this.changeWorkspace.bind(this)}
