@@ -10,8 +10,6 @@ export const setProjects = (payload) => ({ type: WORKSPACE_SET_PROJECTS, payload
 
 export const openWorkspace = (directoryPath) => {
 
-	console.log("workspace - actions - openWorkspace: " + directoryPath);
-
 	return (dispatch, getState) => {
 		dispatch(setPath(directoryPath));
 		dispatch(loadProjects());
@@ -20,8 +18,6 @@ export const openWorkspace = (directoryPath) => {
 
 export const loadProjects = () => {
 
-	console.log("workspace - actions - loadProjects");
-
 	return (dispatch, getState) => {
 
 		let directoryPath = getState().workspace.path;
@@ -29,7 +25,6 @@ export const loadProjects = () => {
 		let projects = [];
 
 		fs.readdirSync(directoryPath).forEach(project => {
-			//console.log(getState().appStateReducer.path === directoryPath + "\\" + project, getState().appStateReducer.path, directoryPath + "\\" + project);
 			projects.push({ name: project, path: directoryPath + "\\" + project, isCurrentlyOpen: getState().appStateReducer.path === directoryPath + "\\" + project });
 		});
 
