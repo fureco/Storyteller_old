@@ -1,7 +1,7 @@
-import * as chapterActions from './chapter.actions.index.js'
-import { getNewID } from '../utils'
-import { initialState } from './chapter.model.js'
-import chapterReducer from './chapter.reducer.index.js'
+import * as chapterActions from './chapter.actions'
+import { getNewID } from '../reducers/utils'
+import { initialState } from './chapter.model'
+import chapterReducer from './chapter.reducer'
 
 const chapters = (state = [], action) => {
 

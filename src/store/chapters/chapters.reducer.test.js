@@ -1,5 +1,5 @@
-import reducer from './chapters.reducer.index'
-import * as actions from './chapter.actions.index'
+import reducer from './chapters.reducer'
+import * as actions from './chapter.actions'
 import { initialState as initialStateChapter } from './chapter.model.js'
 
 const initialState = [];

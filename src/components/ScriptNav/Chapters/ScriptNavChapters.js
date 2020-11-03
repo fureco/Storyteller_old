@@ -5,7 +5,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import ChapterCreationDialog from "../../ChapterCreationDialog";
 import ScriptNavChapter from "./ScriptNavChapter.js";
 
-import { setChapters, save, deleteChapter } from "../../../store/reducers/chapters/chapter.actions.index";
+import { setChapters, save, deleteChapter } from "../../../store/chapters/chapter.actions";
 
 import {
 	Alert,

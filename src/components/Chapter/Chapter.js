@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { chapterActions } from '../../store/actions';
+import * as chapterActions from '../../store/chapters/chapter.actions';
 
 import TextInput from "./../TextInput/TextInput";
 

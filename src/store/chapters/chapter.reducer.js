@@ -1,4 +1,4 @@
-import * as actions from './chapter.actions.index'
+import * as actions from './chapter.actions'
 import { initialState } from './chapter.model'
 
 const chapterReducer = (state = initialState, action) => {

@@ -1,5 +1,5 @@
 import * as appStateActions from '../actions/appState/actions.appState.index';
-import * as chaptersActions from '../reducers/chapters/chapter.actions.index';
+import * as chaptersActions from './../chapters/chapter.actions';
 import * as charactersActions from '../actions/characters/actions.characters.index';
 import * as partsActions from '../actions/parts/actions.parts.index';
 import * as scenesActions from '../actions/scenes/actions.scenes.index';
@@ -37,12 +37,8 @@ export const setRoute = (route) => ({ type: SET_ROUTE, route });
 
 export const createProjectAction = (directoryPath) => {
 
-	console.log("starting to create a new project...", directoryPath);
-
 	// create new project folder
 	fs.mkdirSync(directoryPath);
-
-	console.log("creating new project file...");
 
 	return (dispatch, getState) => {
 

@@ -1,5 +1,5 @@
-import reducer from './chapter.reducer.index'
-import  * as actions from './chapter.actions.index'
+import reducer from './chapter.reducer'
+import  * as actions from './chapter.actions'
 import { initialState } from './chapter.model'
 
 describe('Chapter reducer', () => {

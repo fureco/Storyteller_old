@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import appStateReducer from './appStateReducer';
-import chapters from './chapters/chapters.reducer.index';
+import chapters from './../chapters/chapters.reducer';
 import charactersReducer from './charactersReducer/reducer.characters.index';
 import partsReducer from './partsReducer/reducer.parts.index';
 import project from './../project/project.reducer';

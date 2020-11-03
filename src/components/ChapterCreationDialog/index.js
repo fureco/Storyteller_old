@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { create } from "./../../store/reducers/chapters/chapter.actions.index";
+import { create } from "./../../store/chapters/chapter.actions";
 
 import {
   Button,
