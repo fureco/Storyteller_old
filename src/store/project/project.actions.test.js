@@ -1,10 +1,14 @@
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
+import * as actions from './project.actions';
+
 const middlewares = [thunk] // add your middlewares like `redux-thunk`
 const mockStore = configureStore(middlewares)
 
-import * as actions from './project.actions';
+const fs = require('fs-extra');
+const dir = process.cwd();
+const path_to_workspaces = dir + "\\config\\test_workspaces\\project_actions_tests";
 
 describe('Project actions', () => {
 
@@ -64,36 +68,39 @@ describe('Project actions', () => {
 		});
 	})
 
-	it('should crate a new project', () => {
+	describe('on file system', () => {
 
-		var dir = process.cwd();
-		const mockState = {}
+		it('should create a new project', () => {
 
-		const path_to_workspace = dir + "\\config\\test_workspaces\\empty_workspace"
+			const path_to_workspace = path_to_workspaces + "\\project_actions_should_create_a_new_project";
 
-		const store = mockStore({
-			workspace: {
-				path: path_to_workspace
-			}
+			clearWorkspace(path_to_workspace);
+
+			const mockState = {}
+
+			const store = mockStore({
+				workspace: {
+					path: path_to_workspace
+				}
+			})
+
+			store.getState = () => mockState
+
+			const path = path_to_workspace + "\\test_project";
+
+			store.dispatch(actions.createProjectAction(path))
+
+			var fileNameExists = false;
+
+			fs.readdirSync(path + "\\src").forEach(fileName => {
+				if (fileName == "project.json") fileNameExists = true;
+			});
+
+			expect(fileNameExists).toEqual(true)
 		})
-
-		store.getState = () => mockState
-
-		const path = path_to_workspace + "\\test_project_1";
-
-		store.dispatch(actions.createProjectAction(path))
-
-		const executed_actions = store.getActions();
-
-		expect(executed_actions).toEqual([
-			{
-				"payload": "",
-				"type": "WORKSPACE_SET_PATH"
-			},
-			{
-				"payload": [],
-				"type": "WORKSPACE_SET_PROJECTS"
-			}
-		])
 	})
 });
+
+const clearWorkspace = (path_to_workspace) => {
+	fs.emptyDirSync(path_to_workspace)
+}

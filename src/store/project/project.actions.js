@@ -51,30 +51,7 @@ export const createProjectAction = (directoryPath) => {
 		}
 
 		fs.writeFile(directoryPath + "/src/project.json", JSON.stringify(initialProjectState), (err) => {
-
 			if (err) throw err;
-
-			/* console.log("creating new app state file..."); */
-
-			/* fs.writeFile(directoryPath + "/src/appState.json", JSON.stringify(initialAppState), (err) => {
-
-				if (err) throw err; */
-
-			/* storage.get('storyteller', function (error, data) { */
-			/* if (error) throw error; */
-
-			/* if (data) {
-
-				var new_data = Object.assign({}, data, {
-					path: directoryPath
-				});
-
-				storage.set('storyteller', new_data, (error) => {
-					if (error) throw error;
-				});
-			} */
-			/* }); */
-			/* }); */
 		});
 	};
 };
