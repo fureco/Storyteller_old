@@ -214,9 +214,9 @@ function Project(props) {
 	);
 }
 
-function mapStateToProps({ appStateReducer, workspace }) {
+function mapStateToProps({ appState, workspace }) {
 	return {
-		appState: appStateReducer,
+		appState,
 		workspace
 	};
 }

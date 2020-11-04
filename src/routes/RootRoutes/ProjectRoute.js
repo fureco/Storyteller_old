@@ -14,12 +14,13 @@ import { getRoute } from './../../store/project/project.selectors';
 
 import { MoveToTrashAlert } from './../../components';
 
+import LocalStorage from './../../components/LocalStorage/LocalStorage';
 import Workspace from './../../components/Workspace/Workspace';
 import ScriptRoute from './ProjectRoutes/ScriptRoutes/route.script.index';
 import CharactersRoute from './ProjectRoutes/CharactersRoutes/CharactersRoute';
 import PreviewRoute from './ProjectRoutes/PreviewRoute/PreviewRoute';
 
-class Project extends React.Component {
+export class ProjectRoute extends React.Component {
 
 	constructor(props) {
 
@@ -55,7 +56,7 @@ class Project extends React.Component {
 
 		return (
 			<div
-				id="Project"
+				id="ProjectRoute"
 				className={this.props.appState.theme}
 				style={{
 					display: 'flex',
@@ -136,9 +137,9 @@ function Content(props) {
 	}
 }
 
-function mapStateToProps({ appStateReducer, project }) {
+function mapStateToProps({ appState, project }) {
 	return {
-		appState: appStateReducer,
+		appState,
 		project,
 		route: getRoute(project),
 	};
@@ -147,4 +148,4 @@ function mapStateToProps({ appStateReducer, project }) {
 export default connect(
 	mapStateToProps,
 	null
-)(Project)
+)(ProjectRoute)

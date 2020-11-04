@@ -1,5 +1,5 @@
-import * as appStateActions from "./../../actions/appState/actions.appState.index.js";
-import { initialState } from './../../models/appStateModel'
+import * as appStateActions from "./appState.actions";
+import { initialState } from './appState.model'
 
 const appStateReducer = (state = initialState, action) => {
 

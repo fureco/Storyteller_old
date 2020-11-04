@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Draggable } from "react-beautiful-dnd";
 import SceneCreationDialog from "./SceneCreationDialog";
 
-import { appStateActions } from "../../../store/actions";
+import * as appStateActions from "../../../store/appState/appState.actions";
 
 import {
 	Button,
@@ -70,9 +70,9 @@ class Scene extends React.Component {
 
 }
 
-function mapStateToProps({ appStateReducer }) {
+function mapStateToProps({ appState }) {
 	return {
-		appState: appStateReducer,
+		appState
 	};
 }
 

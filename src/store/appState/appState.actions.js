@@ -1,5 +1,4 @@
 import storage from 'electron-json-storage';
-import { initialState } from './../../models/appStateModel'
 
 const fs = require('fs-extra');
 
@@ -23,6 +22,7 @@ export const changeTheme = (theme) => {
 	return (dispatch, getState) => {
 
 		storage.get('storyteller', function (error, data) {
+
 			if (error) throw error;
 
 			if (data) {

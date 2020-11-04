@@ -2,8 +2,7 @@ import React from 'react';
 import { Workspace } from './Workspace.js';
 import { shallow, mount, render } from 'enzyme';
 
-import { initialState as appState } from './../../store/models/appStateModel'
-import * as workspaceActions from "./../../store/workspace/workspace.actions";
+import { initialState as appState } from './../../store/appState/appState.model'
 
 describe('Workspace component', () => {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as appStateActions from "./../../store/actions/appState/actions.appState.index.js";
+import * as appStateActions from "./../../store/appState/appState.actions";
 import * as projectActions from "./../../store/project/project.actions";
 
 import './TopNavBar.css';
@@ -121,9 +121,9 @@ export class TopNavBar extends React.Component {
 	}
 }
 
-function mapStateToProps({ appStateReducer, project }) {
+function mapStateToProps({ appState, project }) {
     return {
-        appState: appStateReducer,
+        appState,
 		project
     };
 }

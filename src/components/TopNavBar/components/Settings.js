@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as appStateActions from "./../../../store/actions/appState/actions.appState.index.js";
+import * as appStateActions from "./../../../store/appState/appState.actions";
 
 import {
 	Menu,
@@ -34,9 +34,9 @@ export class Settings extends React.Component {
 	}
 }
 
-function mapStateToProps({ appStateReducer }) {
+function mapStateToProps({ appState }) {
 	return {
-		appState: appStateReducer,
+		appState,
 	};
 }
 

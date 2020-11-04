@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { appStateActions, scenesActions } from "./../../store/actions";
+import * as appStateActions from "./../../store/appState/appState.actions";
+import { scenesActions } from "./../../store/actions";
 
 import {
 	Alert,
@@ -70,14 +71,14 @@ function TOAST_MESSAGE(props) {
 	return <div><b>{props.type} {props.position}: {props.title}</b> was moved to Trash.</div>
 }
 
-function mapStateToProps({ appStateReducer, }) {
+function mapStateToProps({ appState }) {
 
 	return {
-		type: appStateReducer.object_to_delete ? appStateReducer.object_to_delete.type : "",
-		id: appStateReducer.object_to_delete ? appStateReducer.object_to_delete.id : 0,
-		position: appStateReducer.object_to_delete ? appStateReducer.object_to_delete.position : 0,
-		title: appStateReducer.object_to_delete ? appStateReducer.object_to_delete.title : "",
-		appState: appStateReducer,
+		type: appState.object_to_delete ? appState.object_to_delete.type : "",
+		id: appState.object_to_delete ? appState.object_to_delete.id : 0,
+		position: appState.object_to_delete ? appState.object_to_delete.position : 0,
+		title: appState.object_to_delete ? appState.object_to_delete.title : "",
+		appState
 	};
 }
 

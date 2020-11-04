@@ -8,7 +8,7 @@ import {
 	Icon,
 } from '@blueprintjs/core';
 
-class Welcome extends React.Component {
+export class WelcomeRoute extends React.Component {
 
     constructor(props) {
 
@@ -20,7 +20,7 @@ class Welcome extends React.Component {
 
     render() {
         return (
-			<div id="Welcome" style={styles.container} className={this.props.appState.theme}>
+			<div id="WelcomeRoute" style={styles.container} className={this.props.appState.theme}>
 
 				<TopNavBar workspaceIsOpen={true} />
 
@@ -59,13 +59,13 @@ const styles = {
 }
 
 
-function mapStateToProps({ appStateReducer, }) {
+function mapStateToProps({ appState }) {
 	return {
-		appState: appStateReducer,
+		appState
 	};
 }
 
 export default connect(
 	mapStateToProps,
 	null
-)(Welcome)
+)(WelcomeRoute)

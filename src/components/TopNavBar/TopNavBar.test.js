@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
 import { TopNavBar } from './TopNavBar';
-import { initialState as appState } from './../../store/models/appStateModel'
+import { initialState as appState } from './../../store/appState/appState.model'
 import { initialState as project } from './../../store/project/project.model'
 
 test('TopNavBar - does not render tabs, when no path it set', () => {

@@ -1,6 +1,6 @@
-import reducer from '.'
-import { appStateActions as actions } from '../../actions'
-import { initialState } from './../../models/appStateModel'
+import reducer from './appState.reducer'
+import * as actions from './appState.actions'
+import { initialState } from './appState.model'
 
 describe('AppState reducer', () => {
 

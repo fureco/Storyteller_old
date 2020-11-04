@@ -1,10 +1,9 @@
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-
-import * as actions from './project.actions';
-
 const middlewares = [thunk] // add your middlewares like `redux-thunk`
 const mockStore = configureStore(middlewares)
+
+import * as actions from './project.actions';
 
 const fs = require('fs-extra');
 const dir = process.cwd();

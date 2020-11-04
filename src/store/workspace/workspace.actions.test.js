@@ -70,7 +70,7 @@ describe('Workspace actions', () => {
 			const mockState = {}
 
 			const store = mockStore({
-				appStateReducer: {
+				appState: {
 					path: path_to_workspace + "\\test_project"
 				},
 				workspace: {

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 
 import * as sync_storage from 'electron-json-storage-sync';
 
-import * as appStateActions from "../store/actions/appState/actions.appState.index.js";
-import * as workspaceActions from "../store/workspace/workspace.actions.js";
-import * as projectActions from "../store/project/project.actions";
+import * as appStateActions from "./../store/appState/appState.actions";
+import * as workspaceActions from "./../store/workspace/workspace.actions";
+import * as projectActions from "./../store/project/project.actions";
 
-import Welcome from './RootRoutes/WelcomeRoute';
+import WelcomeRoute from './RootRoutes/WelcomeRoute';
 import ProjectRoute from './RootRoutes/ProjectRoute';
 
 export class RootRoute extends React.Component {
@@ -64,7 +64,7 @@ function Content(props) {
 		return <ProjectRoute project={props.project} />
 	}
 	else {
-		return <Welcome />
+		return <WelcomeRoute />
 	}
 }
 
@@ -77,10 +77,10 @@ const styles = {
     }
 }
 
-export function mapStateToProps({ appStateReducer, project, workspace }) {
+export function mapStateToProps({ appState, project, workspace }) {
 
     return {
-		appState: appStateReducer,
+		appState,
 		project,
 		workspace
     };

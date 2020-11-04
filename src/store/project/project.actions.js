@@ -1,4 +1,4 @@
-import * as appStateActions from '../actions/appState/actions.appState.index';
+import * as appStateActions from '../appState/appState.actions';
 import * as chaptersActions from './../chapters/chapter.actions';
 import * as charactersActions from '../actions/characters/actions.characters.index';
 import * as partsActions from '../actions/parts/actions.parts.index';
@@ -8,7 +8,6 @@ import * as workspaceActions from '../workspace/workspace.actions';
 import * as sync_storage from 'electron-json-storage-sync';
 
 import { initialState as initialProjectState } from './project.model';
-import { initialState as initialAppState } from '../models/appStateModel';
 
 import { exportAsEpub } from './project.actions.export.epub.index';
 export { exportAsEpub };
@@ -154,7 +153,7 @@ export const save = () => {
 		}
 
 		// console.log("content: " + content);
-		let path = getState().appStateReducer.path;
+		let path = getState().appState.path;
 
 		if (!path) {
 			console.error("path: " + path);

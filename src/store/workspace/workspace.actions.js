@@ -9,7 +9,6 @@ export const setPath = (payload) => ({ type: WORKSPACE_SET_PATH, payload });
 export const setProjects = (payload) => ({ type: WORKSPACE_SET_PROJECTS, payload });
 
 export const openWorkspace = (directoryPath) => {
-
 	return (dispatch, getState) => {
 		dispatch(setPath(directoryPath));
 		dispatch(loadProjects());
@@ -20,13 +19,16 @@ export const loadProjects = () => {
 
 	return (dispatch, getState) => {
 
-		let directoryPath = getState().workspace.path;
-
 		let projects = [];
 
-		fs.readdirSync(directoryPath).forEach(project => {
-			projects.push({ name: project, path: directoryPath + "\\" + project, isCurrentlyOpen: getState().appStateReducer.path === directoryPath + "\\" + project });
-		});
+		if (getState().workspace.path) {
+
+			let directoryPath = getState().workspace.path;
+
+			fs.readdirSync(directoryPath).forEach(project => {
+				projects.push({ name: project, path: directoryPath + "\\" + project, isCurrentlyOpen: getState().appState.path === directoryPath + "\\" + project });
+			});
+		}
 
 		dispatch(setProjects(projects));
 	};
