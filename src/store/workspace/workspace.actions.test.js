@@ -85,13 +85,13 @@ describe('Workspace actions', () => {
 		it('should return projects if valid workspace path is set', () => {
 
 			const MOCK_FILE_INFO = {
-				'/path/to/workspace/project_1': 'project.js',
-				'/path/to/workspace/project_2': 'project.js',
+				'\\path\\to\\workspace\\project_1': 'project.js',
+				'\\path\\to\\workspace\\project_2': 'project.js',
 			};
 
 			require('fs').__setMockFiles(MOCK_FILE_INFO);
 
-			const path_to_workspace = "/path/to/workspace";
+			const path_to_workspace = "\\path\\to\\workspace";
 
 			const mockState = {}
 
@@ -100,7 +100,7 @@ describe('Workspace actions', () => {
 					path: path_to_workspace
 				},
 				appState: {
-					path: '/path/to/workspace/project_2'
+					path: '\\path\\to\\workspace\\project_2'
 				}
 			})
 
@@ -113,8 +113,8 @@ describe('Workspace actions', () => {
 			expect(executed_actions).toEqual([
 				{
 					"payload": [
-						{ name: "project_1", path: "/path/to/workspace/project_1", isCurrentlyOpen: false },
-						{ name: "project_2", path: "/path/to/workspace/project_2", isCurrentlyOpen: true }
+						{ name: "project_1", path: "\\path\\to\\workspace\\project_1", isCurrentlyOpen: false },
+						{ name: "project_2", path: "\\path\\to\\workspace\\project_2", isCurrentlyOpen: true }
 					],
 					"type": "WORKSPACE_SET_PROJECTS"
 				}
