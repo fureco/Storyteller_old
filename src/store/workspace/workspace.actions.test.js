@@ -2,14 +2,11 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 import * as actions from './workspace.actions.js';
-import * as projectActions from './../project/project.actions.js';
 
 const middlewares = [thunk] // add your middlewares like `redux-thunk`
 const mockStore = configureStore(middlewares)
 
-const fs = require('fs-extra')
-const dir = process.cwd();
-const path_to_workspaces = dir + "\\config\\test_workspaces\\workspace_actions_tests";
+jest.mock('fs');
 
 describe('Workspace actions', () => {
 
@@ -27,13 +24,11 @@ describe('Workspace actions', () => {
 		});
 	})
 
-	describe('on file system', () => {
+	describe('openWorkspace', () => {
 
-		it('should open empty workspace', () => {
+		it('should dispatch WORKSPACE_SET_PATH & WORKSPACE_SET_PROJECTS actions', () => {
 
-			const path_to_workspace = path_to_workspaces + "\\workspace_actions_should_open_empty_workspace";
-
-			clearWorkspace(path_to_workspace);
+			const path_to_workspace = "";
 
 			const mockState = {}
 
@@ -60,55 +55,11 @@ describe('Workspace actions', () => {
 				}
 			])
 		})
-
-		it('should open workspace with projects', () => {
-
-			const path_to_workspace = path_to_workspaces + "\\workspace_actions_should_open_workspace_with_projects";
-
-			clearWorkspace(path_to_workspace);
-
-			const mockState = {}
-
-			const store = mockStore({
-				appState: {
-					path: path_to_workspace + "\\test_project"
-				},
-				workspace: {
-					path: path_to_workspace
-				}
-			})
-
-			store.getState = () => mockState
-
-			// create a test project so the workspace is no longer empty
-			const path = path_to_workspace + "\\test_project";
-			store.dispatch(projectActions.createProjectAction(path))
-
-			store.dispatch(actions.openWorkspace(""))
-
-			const executed_actions = store.getActions();
-
-			expect(executed_actions).toEqual([
-				{
-					"payload": "",
-					"type": "WORKSPACE_SET_PATH"
-				},
-				{
-					"payload": [{
-						"isCurrentlyOpen": true,
-						"name": "test_project",
-						"path": path_to_workspace + "\\test_project",
-					}],
-					"type": "WORKSPACE_SET_PROJECTS"
-				}
-			])
-		})
-
 	})
 
 	describe('loadProjects', () => {
 
-		it('should set projects = [] if no workspace path is set', () => {
+		it('should set projects = [] if no valid workspace path is set', () => {
 
 			const mockState = {}
 
@@ -130,10 +81,45 @@ describe('Workspace actions', () => {
 				}
 			])
 		})
+
+		it('should return projects if valid workspace path is set', () => {
+
+			const MOCK_FILE_INFO = {
+				'/path/to/workspace/project_1': 'project.js',
+				'/path/to/workspace/project_2': 'project.js',
+			};
+
+			require('fs').__setMockFiles(MOCK_FILE_INFO);
+
+			const path_to_workspace = "/path/to/workspace";
+
+			const mockState = {}
+
+			const store = mockStore({
+				workspace: {
+					path: path_to_workspace
+				},
+				appState: {
+					path: '/path/to/workspace/project_2'
+				}
+			})
+
+			store.getState = () => mockState
+
+			store.dispatch(actions.loadProjects())
+
+			const executed_actions = store.getActions();
+
+			expect(executed_actions).toEqual([
+				{
+					"payload": [
+						{ name: "project_1", path: "/path/to/workspace/project_1", isCurrentlyOpen: false },
+						{ name: "project_2", path: "/path/to/workspace/project_2", isCurrentlyOpen: true }
+					],
+					"type": "WORKSPACE_SET_PROJECTS"
+				}
+			])
+		})
 	})
 
 });
-
-const clearWorkspace = (path_to_workspace) => {
-	fs.emptyDirSync(path_to_workspace)
-}
