@@ -27,6 +27,7 @@
 	  	<img alt="Current release" src="https://img.shields.io/github/release/laniley/Storyteller.svg">
 	</a>
 </p>
+![Build Status](https://github.com/laniley/Storyteller/workflows/Node.js+CI/badge.svg)
 
 ## A writing application build with Electron, React, PostCSS and Webpack.
 
