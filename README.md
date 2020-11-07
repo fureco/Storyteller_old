@@ -23,12 +23,12 @@
 	<!-- <a href="https://travis-ci.com/laniley/Storyteller">
   		<img alt="Build Status" src="https://travis-ci.com/laniley/Storyteller.svg?branch=master">
 	</a> -->
-	![Build Status](https://github.com/laniley/Storyteller/workflows/Node.js+CI/badge.svg)
+
   	<a href="https://github.com/laniley/Storyteller/releases">
 	  	<img alt="Current release" src="https://img.shields.io/github/release/laniley/Storyteller.svg">
 	</a>
 </p>
-
+	![Build Status](https://github.com/laniley/Storyteller/workflows/Node.js+CI/badge.svg)
 ## A writing application build with Electron, React, PostCSS and Webpack.
 
 A writing application build with Electron, React, PostCSS and Webpack.
