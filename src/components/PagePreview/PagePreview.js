@@ -13,10 +13,6 @@ class PagePreview extends React.Component {
 
 		this.state = {
 			content: props.content,
-
-			border: `1px solid ${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.GRAY5}`,
-			borderRadius: `3px`,
-			backgroundColor: `${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY3 : Colors.LIGHT_GRAY5}`,
 		};
 	}
 
@@ -25,9 +21,9 @@ class PagePreview extends React.Component {
 		return (
 			<div className="page-preview" >
 				<div className="page-preview-content" style={{
-					border: `${this.state.border}`,
-					borderRadius: `${this.state.borderRadius}`,
-					backgroundColor: `${this.state.backgroundColor}`,
+					border: `1px solid ${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.GRAY5}`,
+					borderRadius: `3px`,
+					backgroundColor: `${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY3 : Colors.LIGHT_GRAY5}`,
 				}}>
 					<div style={{
 						display: `flex`,

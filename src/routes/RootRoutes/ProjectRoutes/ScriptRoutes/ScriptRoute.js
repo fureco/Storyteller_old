@@ -1,12 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-	Colors,
-} from '@blueprintjs/core';
-
-import ScriptNav from '../../../../components/ScriptNav/ScriptNav';
-import ScriptContent from '../../../../components/ScriptContent/ScriptContent';
+import { getBorderStyle } from './../../../../store/appState/appState.selectors';
+import ScriptNav from './../../../../components/ScriptNav/ScriptNav';
+import ScriptContent from './../../../../components/ScriptContent/ScriptContent';
 
 class ScriptRoute extends React.Component {
 
@@ -15,7 +12,6 @@ class ScriptRoute extends React.Component {
 		super(props);
 
 		this.state = {
-			border: `1px solid ${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.LIGHT_GRAY1}`,
 			borderRadius: `3px`,
 		};
 	}
@@ -31,7 +27,7 @@ class ScriptRoute extends React.Component {
 					style={{
 						maxWidth: '400px',
 						overflow: 'auto',
-						border: `${this.state.border}`,
+						border: this.props.borderStyle,
 						borderRadius: `${this.state.borderRadius}`,
 						resize: 'horizontal',
 						outline: 'none',
@@ -48,7 +44,7 @@ class ScriptRoute extends React.Component {
 					id="ContentColumn"
 					style={{
 						overflow: 'auto',
-						border: `${this.state.border}`,
+						border: this.props.borderStyle,
 						borderRadius: `${this.state.borderRadius}`,
 						resize: 'none',
 						outline: 'none',
@@ -73,6 +69,7 @@ function mapStateToProps({ appState }) {
 
 	return {
 		appState,
+		borderStyle: getBorderStyle(appState),
 	};
 }
 

@@ -65,40 +65,48 @@ describe('Project actions', () => {
 		});
 	})
 
-/* 	describe('createProjectAction', () => {
+	/* describe('openProjectAction', () => {
 
+		it('should open a project', () => {
 
-	}) */
+			const MOCK_FILE_INFO = {
+				'/path/to/workspace/project_1': 'project.js',
+				'/path/to/workspace/project_2': 'project.js',
+			};
 
-	/* describe('on file system', () => {
+			require('fs').__setMockFiles(MOCK_FILE_INFO);
 
-		it('should create a new project', () => {
-
-			const path_to_workspace = path_to_workspaces + "\\project_actions_should_create_a_new_project";
-
-			clearWorkspace(path_to_workspace);
+			const path_to_workspace = "/path/to/workspace";
 
 			const mockState = {}
 
 			const store = mockStore({
 				workspace: {
 					path: path_to_workspace
+				},
+				appState: {
+					path: '/path/to/workspace/project_2'
 				}
 			})
 
 			store.getState = () => mockState
 
-			const path = path_to_workspace + "\\test_project";
+			const path = path_to_workspace + "/new_project";
 
-			store.dispatch(actions.createProjectAction(path))
+			store.dispatch(actions.openProjectAction(path))
 
-			var fileNameExists = false;
+			const executed_actions = store.getActions();
 
-			fs.readdirSync(path + "\\src").forEach(fileName => {
-				if (fileName == "project.json") fileNameExists = true;
-			});
-
-			expect(fileNameExists).toEqual(true)
+			expect(executed_actions).toEqual([
+				{
+					"payload": [
+						{ name: "project_1", path: "/path/to/workspace/project_1", isCurrentlyOpen: false },
+						{ name: "project_2", path: "/path/to/workspace/project_2", isCurrentlyOpen: true }
+					],
+					"type": "WORKSPACE_SET_PROJECTS"
+				}
+			])
 		})
 	}) */
+
 });

@@ -15,7 +15,7 @@ import { getRoute } from './../../store/project/project.selectors';
 import { MoveToTrashAlert } from './../../components';
 
 import Workspace from './../../components/Workspace/Workspace';
-import ScriptRoute from './ProjectRoutes/ScriptRoutes/route.script.index';
+import ScriptRoute from './ProjectRoutes/ScriptRoutes/ScriptRoute';
 import CharactersRoute from './ProjectRoutes/CharactersRoutes/CharactersRoute';
 import PreviewRoute from './ProjectRoutes/PreviewRoute/PreviewRoute';
 
