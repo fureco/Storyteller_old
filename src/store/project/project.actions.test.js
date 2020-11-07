@@ -5,9 +5,7 @@ const mockStore = configureStore(middlewares)
 
 import * as actions from './project.actions';
 
-const fs = require('fs-extra');
-const dir = process.cwd();
-const path_to_workspaces = dir + "\\config\\test_workspaces\\project_actions_tests";
+jest.mock('fs');
 
 describe('Project actions', () => {
 
@@ -67,7 +65,12 @@ describe('Project actions', () => {
 		});
 	})
 
-	describe('on file system', () => {
+/* 	describe('createProjectAction', () => {
+
+
+	}) */
+
+	/* describe('on file system', () => {
 
 		it('should create a new project', () => {
 
@@ -97,9 +100,5 @@ describe('Project actions', () => {
 
 			expect(fileNameExists).toEqual(true)
 		})
-	})
+	}) */
 });
-
-const clearWorkspace = (path_to_workspace) => {
-	fs.emptyDirSync(path_to_workspace)
-}
