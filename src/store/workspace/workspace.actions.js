@@ -26,7 +26,7 @@ export const loadProjects = () => {
 			let directoryPath = getState().workspace.path;
 
 			fs.readdirSync(directoryPath).forEach(project => {
-				projects.push({ name: project, path: directoryPath + "/" + project, isCurrentlyOpen: getState().appState.path === directoryPath + "/" + project });
+				projects.push({ name: project, path: directoryPath + "\\" + project, isCurrentlyOpen: getState().appState.path === directoryPath + "\\" + project });
 			});
 		}
 
