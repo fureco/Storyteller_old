@@ -106,6 +106,32 @@ describe('Workspace actions', () => {
 
 	})
 
+	describe('loadProjects', () => {
+
+		it('should set projects = [] if no workspace path is set', () => {
+
+			const mockState = {}
+
+			const store = mockStore({
+				workspace: {
+				}
+			})
+
+			store.getState = () => mockState
+
+			store.dispatch(actions.loadProjects())
+
+			const executed_actions = store.getActions();
+
+			expect(executed_actions).toEqual([
+				{
+					"payload": [],
+					"type": "WORKSPACE_SET_PROJECTS"
+				}
+			])
+		})
+	})
+
 });
 
 const clearWorkspace = (path_to_workspace) => {

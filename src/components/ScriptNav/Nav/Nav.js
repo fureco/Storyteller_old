@@ -54,9 +54,9 @@ class Nav extends React.Component {
 	}
 }
 
-function mapStateToProps({ appStateReducer, project }) {
+function mapStateToProps({ appState, project }) {
 	return {
-		appState: appStateReducer,
+		appState,
 		project,
 		selectedTabId: project.route.script ? project.route.script.current : 'abstract'
 	};

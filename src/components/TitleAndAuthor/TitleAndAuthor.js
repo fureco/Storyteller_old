@@ -49,10 +49,10 @@ class TitleAndAuthor extends React.Component {
 	}
 }
 
-function mapStateToProps({ appStateReducer }, ownProps) {
+function mapStateToProps({ appState }, ownProps) {
 
 	return {
-		appState: appStateReducer,
+		appState,
 	};
 }
 

@@ -173,10 +173,10 @@ export class Cover extends React.Component {
 	}
 }
 
-function mapStateToProps({ appStateReducer, project }, ownProps) {
+function mapStateToProps({ appState, project }, ownProps) {
 
 	return {
-		appState: appStateReducer,
+		appState,
 		project
 	};
 }

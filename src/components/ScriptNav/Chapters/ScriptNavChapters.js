@@ -152,10 +152,10 @@ const reorder = (list, startIndex, endIndex) => {
 	return result;
 };
 
-function mapStateToProps({ appStateReducer, project, chapters }) {
+function mapStateToProps({ appState, project, chapters }) {
 
 	return {
-		appState: appStateReducer,
+		appState,
 
 		project,
 

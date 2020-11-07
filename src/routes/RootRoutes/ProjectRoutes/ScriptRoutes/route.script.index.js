@@ -69,10 +69,10 @@ class ScriptRoute extends React.Component {
 }
 
 
-function mapStateToProps({ appStateReducer }) {
+function mapStateToProps({ appState }) {
 
 	return {
-		appState: appStateReducer,
+		appState,
 	};
 }
 
