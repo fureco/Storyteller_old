@@ -102,7 +102,7 @@
     "node-loader": "1.0.2",
     "postcss": "8.1.6",
     "postcss-cssnext": "3.1.0",
-    "postcss-import": "^12.0.1",
+    "postcss-import": "13.0.0",
     "postcss-loader": "4.0.4",
     "postcss-nested": "5.0.1",
     "postcss-pxtorem": "5.1.1",
