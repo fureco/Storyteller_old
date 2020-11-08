@@ -57,7 +57,7 @@ describe('Workspace actions', () => {
 		})
 	})
 
-	describe('loadProjects', () => {
+/* 	describe('loadProjects', () => {
 
 		it('should set projects = [] if no valid workspace path is set', () => {
 
@@ -121,5 +121,5 @@ describe('Workspace actions', () => {
 			])
 		})
 	})
-
+ */
 });
