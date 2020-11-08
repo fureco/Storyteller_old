@@ -6,6 +6,8 @@ import * as projectActions from "./../../store/project/project.actions";
 
 import storage from 'electron-json-storage-sync';
 
+const path = require('path');
+
 import "./Workspace.css";
 
 import {
@@ -13,6 +15,7 @@ import {
 	ButtonGroup,
 	Card,
 	Collapse,
+	FormGroup,
 	InputGroup,
 	Intent,
 	Pre,
@@ -53,7 +56,7 @@ export class Workspace extends React.Component {
 					project={project}
 					isCurrentlyOpen={project.isCurrentlyOpen}
 					onClick={() => { this.props.openProject(project.path) }}
-					onDelete={() => { this.props.deleteProject(project.path); this.props.loadProjects(); }} />
+					onDelete={() => { this.props.deleteProject(project.path); }} />
 			);
 
 			content = <div>
@@ -70,7 +73,7 @@ export class Workspace extends React.Component {
 				<div style={{ display: "flex", justifyContent: "center" }}>
 					<ButtonGroup id="projectsList" minimal={false} vertical={true} style={{ minWidth: "250px" }}>
 						{projectListItems}
-						<Collapse isOpen={this.props.workspace.createIsOpen}>
+						<Collapse isOpen={this.state.createIsOpen}>
 							<Pre>
 								<InputGroup
 									placeholder={"Title of new project..."}
@@ -81,7 +84,7 @@ export class Workspace extends React.Component {
 									autoFocus />
 							</Pre>
 						</Collapse>
-						{ !this.props.workspace.createIsOpen &&
+						{!this.state.createIsOpen &&
 							<Button id="CreateProjectButton"
 							minimal={false}
 							icon={"folder-new"}
@@ -90,7 +93,6 @@ export class Workspace extends React.Component {
 							onClick={this.handleCreateClick.bind(this)} />
 						}
 						{this.state.createIsOpen &&
-
 							<ButtonGroup>
 								<Button id="CreateProjectButton"
 								style={{width:"50%"}}
@@ -156,7 +158,7 @@ export class Workspace extends React.Component {
 
 		var new_name_is_unique = true;
 
-		this.state.projects.forEach(project => {
+		this.props.workspace.projects.forEach(project => {
 			if (project.name == new_name) {
 				new_name_is_unique = false;
 			}
@@ -170,10 +172,10 @@ export class Workspace extends React.Component {
 	}
 
 	handleSaveClick() {
-		let path_of_new_project = this.state.workspace + "\\" + this.state.name_of_new_project;
+		let path_of_new_project = path.join(this.props.workspace.path, this.state.name_of_new_project);
 		console.log(path_of_new_project);
 		this.props.createProject(path_of_new_project)
-		this.readWorkspace();
+		this.props.loadProjects();
 		this.setState({
 			createIsOpen: false,
 			name_of_new_project: ""

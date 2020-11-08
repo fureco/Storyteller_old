@@ -205,7 +205,10 @@ export const deleteProject = (directoryPath) => {
 		console.log("deleting project...", directoryPath);
 
 		var rimraf = require("rimraf");
-		rimraf(directoryPath, function () { console.log("done"); });
+		rimraf(directoryPath, function () {
+			console.log("done");
+			dispatch(workspaceActions.loadProjects());
+		});
 	};
 }
 
