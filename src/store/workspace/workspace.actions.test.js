@@ -1,10 +1,12 @@
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import * as actions from './workspace.actions.js';
-
 const middlewares = [thunk] // add your middlewares like `redux-thunk`
 const mockStore = configureStore(middlewares)
+
+import * as actions from './workspace.actions.js';
+
+const path = require('path');
 
 jest.mock('fs');
 
@@ -57,7 +59,7 @@ describe('Workspace actions', () => {
 		})
 	})
 
-/* 	describe('loadProjects', () => {
+	describe('loadProjects', () => {
 
 		it('should set projects = [] if no valid workspace path is set', () => {
 
@@ -84,14 +86,17 @@ describe('Workspace actions', () => {
 
 		it('should return projects if valid workspace path is set', () => {
 
-			const MOCK_FILE_INFO = {
-				'\\path\\to\\workspace\\project_1': 'project.js',
-				'\\path\\to\\workspace\\project_2': 'project.js',
-			};
+			const path_to_workspace = path.join('path', 'to', 'workspace');
+
+			const path_to_project_1 = path.join(path_to_workspace, 'project_1');
+			const path_to_project_2 = path.join(path_to_workspace, 'project_2');
+
+			const MOCK_FILE_INFO = {};
+
+			MOCK_FILE_INFO[path_to_project_1] = 'project.js';
+			MOCK_FILE_INFO[path_to_project_2] = 'project.js';
 
 			require('fs').__setMockFiles(MOCK_FILE_INFO);
-
-			const path_to_workspace = "\\path\\to\\workspace";
 
 			const mockState = {}
 
@@ -100,7 +105,7 @@ describe('Workspace actions', () => {
 					path: path_to_workspace
 				},
 				appState: {
-					path: '\\path\\to\\workspace\\project_2'
+					path: path_to_project_2
 				}
 			})
 
@@ -113,13 +118,13 @@ describe('Workspace actions', () => {
 			expect(executed_actions).toEqual([
 				{
 					"payload": [
-						{ name: "project_1", path: "\\path\\to\\workspace\\project_1", isCurrentlyOpen: false },
-						{ name: "project_2", path: "\\path\\to\\workspace\\project_2", isCurrentlyOpen: true }
+						{ name: "project_1", path: path_to_project_1, isCurrentlyOpen: false },
+						{ name: "project_2", path: path_to_project_2, isCurrentlyOpen: true }
 					],
 					"type": "WORKSPACE_SET_PROJECTS"
 				}
 			])
 		})
 	})
- */
+
 });

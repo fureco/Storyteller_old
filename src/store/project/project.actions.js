@@ -14,6 +14,8 @@ export { exportAsEpub };
 
 const fs = require('fs-extra');
 
+const path = require('path');
+
 // ############ ACTION TYPES ##############
 export const SET_COVER = 'SET_COVER';
 export const SET_TITLE = 'SET_TITLE';
@@ -69,24 +71,30 @@ export const openProjectAction = (directoryPath) => {
 			throw error;
 		}
 
-		if (!storytellerProjectFileExists(directoryPath + "/src")) {
-			// TO DO: Show UI dialog that directory is not empty, ask user if it should be used for a new project
-			console.log("project.json file does not exist");
-		}
-		else {
-			console.log("project.json file exists");
-			console.log("reading project.json file...");
+		if (projectFolderExists(directoryPath)) {
 
-			let fileData = fs.readFileSync(directoryPath + '/src/project.json')
+			if (storytellerProjectFileExists(path.join(directoryPath, "src"))) {
+				console.log("project.json file exists");
+				console.log("reading project.json file...");
 
-			if (!fileData) {
+				let fileData = fs.readFileSync(directoryPath + '/src/project.json')
 
-				console.log("project.json file exists - but is empty");
-				return dispatch(createNewStorytellerProjectFile(directoryPath));
+				if (!fileData) {
+
+					console.log("project.json file exists - but is empty");
+					return dispatch(createNewStorytellerProjectFile(directoryPath));
+				}
+				else {
+					return dispatch(openProjectSuccess(directoryPath, JSON.parse(fileData)));
+				}
 			}
 			else {
-				return dispatch(openProjectSuccess(directoryPath, JSON.parse(fileData)));
+				// TO DO: Show UI dialog that directory is not empty, ask user if it should be used for a new project
+				console.log("project.json file does not exist");
 			}
+		}
+		else {
+			console.log("project folder does not exist!")
 		}
     };
 }
@@ -201,18 +209,6 @@ export const deleteProject = (directoryPath) => {
 	};
 }
 
-function storytellerProjectFileExists(directoryPath) {
-
-	let fileNameExists = false;
-
-	fs.readdirSync(directoryPath).forEach(fileName => {
-		if (fileName == "project.json") fileNameExists = true;
-		// console.log(fileName, fileNameExists)
-	});
-
-	return fileNameExists;
-};
-
 export const changeCurrentRootRoute = (navbarTabId) => {
 
 	return (dispatch, getState) => {
@@ -238,3 +234,19 @@ export const changeCurrentScriptRoute = (navbarTabId) => {
 		dispatch(setRoute(route));
 	}
 }
+
+function projectFolderExists(directoryPath) {
+	return fs.existsSync(directoryPath);
+};
+
+function storytellerProjectFileExists(directoryPath) {
+
+	let fileNameExists = false;
+
+	fs.readdirSync(directoryPath).forEach(fileName => {
+		if (fileName == "project.json") fileNameExists = true;
+		// console.log(fileName, fileNameExists)
+	});
+
+	return fileNameExists;
+};

@@ -24,9 +24,6 @@ import {
 
 import { remote } from 'electron';
 
-const fs = require('fs');
-const { dialog } = require('electron').remote;
-
 export class TopNavBar extends React.Component {
 
     constructor(props) {

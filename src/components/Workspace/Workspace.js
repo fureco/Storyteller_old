@@ -26,6 +26,10 @@ export class Workspace extends React.Component {
 	constructor(props) {
 
 		super(props);
+
+		this.state = {
+			createIsOpen: false
+		}
 	}
 
 	render() {
@@ -49,7 +53,7 @@ export class Workspace extends React.Component {
 					project={project}
 					isCurrentlyOpen={project.isCurrentlyOpen}
 					onClick={() => { this.props.openProject(project.path) }}
-					onDelete={() => { this.props.deleteProject(project.path); this.readWorkspace(); }} />
+					onDelete={() => { this.props.deleteProject(project.path); this.props.loadProjects(); }} />
 			);
 
 			content = <div>
@@ -85,7 +89,7 @@ export class Workspace extends React.Component {
 							intent={Intent.SUCCESS}
 							onClick={this.handleCreateClick.bind(this)} />
 						}
-						{this.props.workspace.createIsOpen &&
+						{this.state.createIsOpen &&
 
 							<ButtonGroup>
 								<Button id="CreateProjectButton"
@@ -224,6 +228,7 @@ function mapStateToProps({ appState, workspace }) {
 function mapDispatchToProps(dispatch) {
 	return {
 		openWorkspace: (filePath) => { dispatch(workspaceActions.openWorkspace(filePath)) },
+		loadProjects: () => dispatch(workspaceActions.loadProjects()),
 		openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
 		createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
 		deleteProject: (filePath) => dispatch(projectActions.deleteProject(filePath)),

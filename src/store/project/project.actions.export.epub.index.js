@@ -42,7 +42,7 @@ export const exportAsEpub = () => {
 
 	return (dispatch, getState) => {
 
-		path_to_project = getState().appStateReducer.path;
+		path_to_project = getState().appState.path;
 		dist_folder = path_to_project + "/dist";
 		dist_folder_toc = dist_folder + "/meta-content/toc.ncx";
 		dist_folder_cover = dist_folder + "/cover";
@@ -60,12 +60,15 @@ export const exportAsEpub = () => {
 		}
 
 		// copy fonts
-		if (!fs.existsSync(dist_folder_fonts)) {
-			// create destination folder if it does not yet exist
-			fs.mkdirSync(dist_folder_fonts);
-		}
+		if (fs.existsSync(path_to_project + "/src/assets/fonts")) {
 
-		fs.copySync(path_to_project + "/src/assets/fonts", dist_folder_fonts);
+			if (!fs.existsSync(dist_folder_fonts)) {
+				// create destination folder if it does not yet exist
+				fs.mkdirSync(dist_folder_fonts);
+			}
+
+			fs.copySync(path_to_project + "/src/assets/fonts", dist_folder_fonts);
+		}
 
 		// copy styles
 		if (!fs.existsSync(dist_folder_styles)) {
