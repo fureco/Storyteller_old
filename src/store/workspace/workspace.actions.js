@@ -1,4 +1,5 @@
 const fs = require('fs-extra');
+const path = require('path');
 
 // ############ ACTION TYPES ##############
 export const WORKSPACE_SET_PATH = 'WORKSPACE_SET_PATH';
@@ -26,7 +27,7 @@ export const loadProjects = () => {
 			let directoryPath = getState().workspace.path;
 
 			fs.readdirSync(directoryPath).forEach(project => {
-				projects.push({ name: project, path: directoryPath + "\\" + project, isCurrentlyOpen: getState().appState.path === directoryPath + "\\" + project });
+				projects.push({ name: project, path: path.join(directoryPath, project), isCurrentlyOpen: getState().appState.path === path.join(directoryPath, project) });
 			});
 		}
 
