@@ -100,10 +100,10 @@ class Editor extends React.Component {
 	}
 }
 
-function mapStateToProps({ appStateReducer, projectReducer }) {
+function mapStateToProps({ appState, project }) {
 	return {
-		appState: appStateReducer,
-		project: projectReducer,
+		appState,
+		project
 	};
 }
 
