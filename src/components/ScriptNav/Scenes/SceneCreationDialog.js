@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { scenesActions } from "../../../store/actions";
+import * as scenesActions from "./../../../store/scenes/scenes.actions";
 // import { addScriptPartAction, save } from  "../../../../store/reducers/projectReducer";
 
 import {
@@ -71,9 +71,9 @@ function toggleDialog() {
     this.setState({ show: !this.state.show });
 }
 
-function mapStateToProps ({ scenesReducer }) {
+function mapStateToProps ({ scenes }) {
     return {
-        scenes: scenesReducer,
+        scenes
     };
 }
 

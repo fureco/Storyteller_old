@@ -8,7 +8,7 @@ import {
 	Icon,
 } from '@blueprintjs/core';
 
-export class WelcomeRoute extends React.Component {
+class WelcomeRoute extends React.Component {
 
     constructor(props) {
 

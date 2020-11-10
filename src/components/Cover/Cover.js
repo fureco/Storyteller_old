@@ -20,12 +20,12 @@ export class Cover extends React.Component {
 		super(props);
 
 		this.state = {
-			border: `1px solid ${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.GRAY5}`,
+			border: `1px solid ${props.appState && props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.GRAY5}`,
 			borderRadius: `3px`,
-			backgroundColor: `${props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY3 : Colors.LIGHT_GRAY5}`,
-			coverFolderPath: props.appState.path + "\\src\\assets\\cover\\",
+			backgroundColor: `${props.appState && props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY3 : Colors.LIGHT_GRAY5}`,
+			coverFolderPath: props.appState ? props.appState.path + "\\src\\assets\\cover\\": "",
 			fileName: "",
-			filePath: props.project.cover,
+			filePath: props.project ? props.project.cover: "",
 			hasSelection: false,
 			isHovering: false,
 		};

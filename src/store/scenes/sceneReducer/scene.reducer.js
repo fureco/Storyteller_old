@@ -1,5 +1,5 @@
-import { scenesActions as actions } from '../../../actions'
-import { initialState } from '../../../models/sceneModel'
+import * as actions from './../scenes.actions'
+import { initialState } from './../scene.model'
 
 const sceneReducer = (state = initialState, action) => {
 

@@ -1,4 +1,4 @@
-import storage from 'electron-json-storage';
+import sync_storage from 'electron-json-storage-sync';
 
 const fs = require('fs');
 
@@ -29,11 +29,12 @@ export const setSummary = (summary) => ({ type: SET_SUMMARY, summary });
 export const setText = (text) => ({ type: SET_TEXT, text });
 export const setDeletedAt = (scene, deleted_at) => ({ type: SET_DELETED_AT, scene, deleted_at });
 
-export const deleteScene = (id) => {
+export const deleteScene = (scene) => {
 
-	console.log("deleting scene...")
+	return (dispatch, getState) => {
 
-	dispatch(setDeletedAt(scene, new Date()));
+		dispatch(setDeletedAt(scene, new Date()));
+	}
 };
 
 export const save = () => {
@@ -42,23 +43,23 @@ export const save = () => {
 
 	return (dispatch, getState) => {
 
-		let content = JSON.stringify(getState().scenesReducer);
-		console.log("content: " + content);
+		let content = JSON.stringify(getState().scenes);
 
-		storage.get('storyteller', function (error, data) {
-			if (error) throw error;
-			console.log("current_project: " + data.path);
-			if (data.path) {
-				fs.writeFile(data.path + "/src/scenes.json", content, (err) => {
-					if (err) {
-						console.log("FAILURE: ", err)
-					}
-					else {
-						console.log("Saved!")
-					}
-				})
-			}
-		});
+		var result = sync_storage.get('storyteller');
+
+		console.log("result: " + JSON.stringify(result));
+
+		if (result.data.path) {
+
+			fs.writeFile(data.path + "/src/scenes.json", content, (err) => {
+				if (err) {
+					console.log("FAILURE: ", err)
+				}
+				else {
+					console.log("Saved!")
+				}
+			})
+		}
 	};
 };
 
@@ -67,21 +68,6 @@ export const load = (directoryPath) => {
 	console.log("load scenes from file: " + directoryPath);
 
 	return (dispatch, getState) => {
-
-		storage.get('storyteller', function (error, data) {
-			if (error) throw error;
-
-			if (data) {
-
-				var new_data = Object.assign({}, data, {
-					path: directoryPath
-				});
-
-				storage.set('storyteller', new_data, (error) => {
-					if (error) throw error;
-				});
-			}
-		});
 
 		if (!storytellerScenesFileExists(directoryPath + "/src")) {
 			// TO DO: Show UI dialog that directory is not empty, ask user if it should be used for a new project

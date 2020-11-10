@@ -1,8 +1,8 @@
-import * as appStateActions from '../appState/appState.actions';
+import * as appStateActions from './../appState/appState.actions';
 import * as chaptersActions from './../chapters/chapter.actions';
 import * as charactersActions from '../actions/characters/actions.characters.index';
 import * as partsActions from '../actions/parts/actions.parts.index';
-import * as scenesActions from '../actions/scenes/actions.scenes.index';
+import * as scenesActions from './../scenes/scenes.actions';
 import * as workspaceActions from '../workspace/workspace.actions';
 
 import * as sync_storage from 'electron-json-storage-sync';

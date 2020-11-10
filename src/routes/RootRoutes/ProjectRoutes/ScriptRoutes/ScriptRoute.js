@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { getBorderStyle } from './../../../../store/appState/appState.selectors';
 import ScriptNav from './../../../../components/ScriptNav/ScriptNav';
-import ScriptContent from './../../../../components/ScriptContent/ScriptContent';
+import ScriptRouteContent from './ScriptRouteContent';
 
 class ScriptRoute extends React.Component {
 
@@ -55,7 +55,7 @@ class ScriptRoute extends React.Component {
 						justifyContent: 'center',
 					}}
 				>
-					<ScriptContent />
+					<ScriptRouteContent />
 
 				</div>
 

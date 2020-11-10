@@ -6,7 +6,7 @@ import chapters from './chapters/chapters.reducer';
 import charactersReducer from './reducers/charactersReducer/reducer.characters.index';
 import partsReducer from './reducers/partsReducer/reducer.parts.index';
 import project from './project/project.reducer';
-import scenesReducer from './reducers/scenesReducer/reducer.scenes.index';
+import scenes from './scenes/scenes.reducer';
 import workspace from './workspace/workspace.reducer';
 
 const rootReducer = combineReducers({
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
 	routerReducer,
 	partsReducer,
 	project,
-	scenesReducer,
+	scenes,
 	workspace
 });
 

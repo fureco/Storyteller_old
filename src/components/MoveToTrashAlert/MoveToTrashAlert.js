@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as appStateActions from "./../../store/appState/appState.actions";
-import { scenesActions } from "./../../store/actions";
+import * as scenesActions from "./../../store/scenes/scenes.actions";
 
 import {
 	Alert,
@@ -85,7 +85,7 @@ function mapStateToProps({ appState }) {
 function mapDispatchToProps(dispatch) {
 	return {
 		hideMoveToTrashAlert: () => dispatch(appStateActions.hideMoveToTrashAlert()),
-		deleteScene: sceneID => dispatch(scenesActions.deleteSceneAction(sceneID)),
+		deleteScene: sceneID => dispatch(scenesActions.deleteScene(sceneID)),
 	};
 }
 

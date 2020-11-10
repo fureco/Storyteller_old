@@ -1,7 +1,7 @@
-import { scenesActions } from '../../actions'
-import { getNewID } from '../utils'
-import { initialState } from '../../models/sceneModel'
-import sceneReducer from './sceneReducer/reducer.scene.index'
+import * as scenesActions from './scenes.actions'
+import { getNewID } from './../reducers/utils'
+import { initialState } from './scene.model'
+import sceneReducer from './sceneReducer/scene.reducer'
 
 const scenesReducer = (state = [], action) => {
 

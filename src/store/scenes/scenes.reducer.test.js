@@ -1,6 +1,6 @@
-import reducer from './reducer.scenes.index'
-import { scenesActions as actions } from '../../actions'
-import { initialState as initialStateScene } from './../../models/sceneModel'
+import reducer from './scenes.reducer'
+import * as actions from './scenes.actions'
+import { initialState as initialStateScene } from './scene.model'
 
 const initialState = [];
 
@@ -59,5 +59,4 @@ describe('Scenes reducer', () => {
 			])
 		)
 	})
-
 })

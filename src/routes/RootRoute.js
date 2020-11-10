@@ -17,7 +17,7 @@ export class RootRoute extends React.Component {
 		super(props);
 
 		let result = sync_storage.get('storyteller');
-
+		console.log(result)
 		// console.log("storage-data: " + JSON.stringify(result));
 
 		if (!result.status) {
