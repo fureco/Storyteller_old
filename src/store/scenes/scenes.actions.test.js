@@ -8,7 +8,7 @@ import * as actions from './scenes.actions';
 jest.mock('fs');
 jest.mock('electron-json-storage-sync');
 
-describe('Project actions', () => {
+describe('Scenes actions', () => {
 
 	it('should dispatch ADD_SCENE action', () => {
 
@@ -43,7 +43,7 @@ describe('Project actions', () => {
 
 			expect(executed_actions[0].type).toEqual("SET_DELETED_AT")
 			expect(executed_actions[0].scene).toEqual("scene")
-			expect(executed_actions[0].deleted_at.toString().length).toEqual(64);
+			expect(executed_actions[0].deleted_at.toString().length).toBeGreaterThan(0);
 		})
 	})
 
