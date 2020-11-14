@@ -44,23 +44,23 @@ export class ScriptRouteContent extends React.Component {
 
 export function Content(props) {
 
-	if (props.route === "title_author") {
+	if (props.route === "/script/title_author") {
 		return (<TitleAndAuthor />);
 	}
 
-	if (props.route === "abstract") {
+	if (props.route === "/script/abstract") {
 		return (<Abstract />);
 	}
 
-	if (props.route === "dedication") {
+	if (props.route === "/script/dedication") {
 		return (<Dedication />);
 	}
 
-	if (props.route === "parts") {
+	if (props.route === "/script/parts") {
 		return (<Parts />);
 	}
 
-	if (props.route === "chapters") {
+	if (props.route === "/script/chapters") {
 		return (<Chapters />);
 	}
 

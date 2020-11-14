@@ -26,28 +26,28 @@ describe('ScriptRouteContent component', () => {
 
 	describe('Content', () => {
 
-		it('returns the TitleAndAuthor component if route is set to "title_author"', () => {
-			const wrapper = shallow(<Content route={"title_author"} />);
+		it('returns the TitleAndAuthor component if route is set to "/script/title_author"', () => {
+			const wrapper = shallow(<Content route={"/script/title_author"} />);
 			expect(wrapper.debug()).toEqual("<TitleAndAuthor />");
 		})
 
-		it('returns the Abstract component if route is set to "abstract"', () => {
-			const wrapper = shallow(<Content route={"abstract"} />);
+		it('returns the Abstract component if route is set to "/script/abstract"', () => {
+			const wrapper = shallow(<Content route={"/script/abstract"} />);
 			expect(wrapper.debug()).toEqual("<Abstract />");
 		})
 
-		it('returns the Dedication component if route is set to "dedication"', () => {
-			const wrapper = shallow(<Content route={"dedication"} />);
+		it('returns the Dedication component if route is set to "/script/dedication"', () => {
+			const wrapper = shallow(<Content route={"/script/dedication"} />);
 			expect(wrapper.debug()).toEqual("<Dedication />");
 		})
 
-		it('returns the Parts component if route is set to "parts"', () => {
-			const wrapper = shallow(<Content route={"parts"} />);
+		it('returns the Parts component if route is set to "/script/parts"', () => {
+			const wrapper = shallow(<Content route={"/script/parts"} />);
 			expect(wrapper.debug()).toEqual("<Parts />");
 		})
 
-		it('returns the Chapters component if route is set to "chapters"', () => {
-			const wrapper = shallow(<Content route={"chapters"} />);
+		it('returns the Chapters component if route is set to "/script/chapters"', () => {
+			const wrapper = shallow(<Content route={"/script/chapters"} />);
 			expect(wrapper.debug()).toEqual("<Chapters />");
 		})
 
