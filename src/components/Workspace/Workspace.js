@@ -55,7 +55,7 @@ export class Workspace extends React.Component {
 					key={project.name}
 					project={project}
 					isCurrentlyOpen={project.isCurrentlyOpen}
-					onClick={() => { this.props.openProject(project.path) }}
+					onClick={() => { this.props.openProject(project.path); this.props.changeCurrentRootRoute('script'); }}
 					onDelete={() => { this.props.deleteProject(project.path); }} />
 			);
 
@@ -234,6 +234,7 @@ function mapDispatchToProps(dispatch) {
 		openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
 		createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
 		deleteProject: (filePath) => dispatch(projectActions.deleteProject(filePath)),
+		changeCurrentRootRoute: (rootRoute) => dispatch(projectActions.changeCurrentRootRoute(rootRoute)),
 	};
 }
 
