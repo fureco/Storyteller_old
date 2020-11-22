@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+import { getBorderStyle, getColor } from './../../store/appState/appState.selectors';
 import * as projectActions from './../../store/project/project.actions';
 
 import {
@@ -20,19 +22,12 @@ export class Cover extends React.Component {
 		super(props);
 
 		this.state = {
-			border: `1px solid ${props.appState && props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.GRAY5}`,
 			borderRadius: `3px`,
-			backgroundColor: `${props.appState && props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY3 : Colors.LIGHT_GRAY5}`,
-			coverFolderPath: props.appState ? props.appState.path + "\\src\\assets\\cover\\": "",
+			backgroundColor: `${this.props.appState && this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY3 : Colors.LIGHT_GRAY5}`,
+			coverFolderPath: this.props.appState ? this.props.appState.path + "\\src\\assets\\cover\\": "",
 			fileName: "",
-			filePath: props.project ? props.project.cover: "",
-			hasSelection: false,
 			isHovering: false,
 		};
-
-		if (this.state.filePath && this.state.filePath.length > 0) {
-			this.state.hasSelection = true;
-		}
 	}
 
 	render() {
@@ -42,7 +37,7 @@ export class Cover extends React.Component {
 			<div id="cover-preview-empty">
 				<Icon icon="media" iconSize={100} style={{
 					alignSelf: `center`,
-					color: this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY5 : Colors.LIGHT_GRAY1
+					color: this.props.color
 				}} />
 				<Button
 					id="OpenProjectButton"
@@ -67,13 +62,13 @@ export class Cover extends React.Component {
 			</div>;
 
 		// with a cover
-		if (this.state.hasSelection) {
+		if (this.props.project.cover && this.props.project.cover.length > 0) {
 			content =
 				<div id="cover-preview-filled"
 					onMouseEnter={this.handleMouseHover.bind(this)}
 					onMouseLeave={this.handleMouseHover.bind(this)}
 				>
-					<img src={this.state.filePath} />
+					<img src={this.props.project.cover} />
 					{
 						this.state.isHovering &&
 
@@ -110,7 +105,7 @@ export class Cover extends React.Component {
 
 				<div className="page-preview" >
 					<div className="page-preview-content" style={{
-						border: `${this.state.border}`,
+						border: `${this.props.borderStyle}`,
 						borderRadius: `${this.state.borderRadius}`,
 						backgroundColor: `${this.state.backgroundColor}`,
 					}}>
@@ -177,7 +172,9 @@ function mapStateToProps({ appState, project }, ownProps) {
 
 	return {
 		appState,
-		project
+		project,
+		borderStyle: getBorderStyle(appState),
+		color: getColor(appState),
 	};
 }
 

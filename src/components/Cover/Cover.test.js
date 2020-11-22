@@ -1,20 +1,39 @@
 import React from 'react';
-import { Cover } from './Cover.js';
 import { shallow, mount, render } from 'enzyme';
 
-test('Cover - renders', () => {
+import { Cover } from './Cover.js';
 
-	const cover = shallow(
-		<Cover
-			appState={{
-				themeName: "bp3-body"
-			}}
-			project={{
+describe('Cover component', () => {
 
-			}}
-		/>
-	);
+	it('renders - without cover set', () => {
 
-	const result = cover.find('#Cover');
-	expect(result.length).toEqual(1);
+		const mockProps = Cover.getMappedProps({
+			project: {
+				cover: '',
+			}
+		});
+
+		const cover = shallow(
+			<Cover {...mockProps} />
+		);
+
+		const result = cover.find('#Cover');
+		expect(result.length).toEqual(1);
+	});
+
+	it('renders - with cover set', () => {
+
+		const mockProps = Cover.getMappedProps({
+			project: {
+				cover: 'path/to/cover.png',
+			}
+		});
+
+		const cover = shallow(
+			<Cover {...mockProps} />
+		);
+
+		const result = cover.find('#Cover');
+		expect(result.length).toEqual(1);
+	});
 });
