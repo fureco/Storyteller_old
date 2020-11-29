@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Nav from "./Nav/Nav";
-import Parts from "./Parts/Parts";
+/* import Parts from "./Parts/Parts"; */
 import Chapters from "./Chapters/ScriptNavChapters";
 import Chapter from "./Chapters/ScriptNavChapter";
 import Scenes from "./Scenes/Scenes";

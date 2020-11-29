@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as projectActions from '../../store/project/project.actions';
 
 import Chapter from "./../Chapter/Chapter";
-import ChapterCreationDialog from "./../ChapterCreationDialog";
+import ChapterCreationDialog from "./ChapterCreationDialog";
 
 import "./Chapters.css"
 
@@ -19,16 +19,22 @@ class Chapters extends React.Component {
 
 	render() {
 
+		const content = "Your project has no chapters yet. Start writing your book by creating the first chapter now."
+
+		if (this.props.chapters.length) {
+			content = this.props.chapters.sort(this.sortByPosition).map((chapter, index) => (
+				<Chapter key={chapter.id} chapter={chapter} />
+			))
+		}
+
 		return (
 			<div id="Chapters" style={{
 				width: `100%`,
 				height: `100%`,
 			}}>
-				{this.props.chapters.sort(this.sortByPosition).map((chapter, index) => (
-					<Chapter key={chapter.id} chapter={chapter} />
-				))}
+				{content}
 
-				{/* <div><ChapterCreationDialog /></div> */}
+				<div><ChapterCreationDialog /></div>
 			</div>
 		);
 	}

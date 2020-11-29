@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-import ChapterCreationDialog from "../../ChapterCreationDialog";
+import ChapterCreationDialog from "../../Chapters/ChapterCreationDialog";
 import ScriptNavChapter from "./ScriptNavChapter.js";
 
 import { setChapters, save, deleteChapter } from "../../../store/chapters/chapter.actions";
