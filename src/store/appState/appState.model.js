@@ -1,4 +1,4 @@
 export const initialState = {
 	path: "",
-	theme: "bp3-body"
+	theme: "bp3-dark"
 };

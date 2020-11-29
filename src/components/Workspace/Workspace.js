@@ -20,6 +20,7 @@ import {
 	Intent,
 	Pre,
 } from '@blueprintjs/core';
+import { save } from '../../store/chapters/chapter.actions';
 
 const { dialog } = require('electron').remote;
 const fs = require('fs-extra');
@@ -55,7 +56,7 @@ export class Workspace extends React.Component {
 					key={project.name}
 					project={project}
 					isCurrentlyOpen={project.isCurrentlyOpen}
-					onClick={() => { this.props.openProject(project.path); this.props.changeCurrentRootRoute('script'); }}
+					onClick={() => { this.props.openProject(project.path); this.props.changeCurrentRootRoute('script'); this.props.save(); }}
 					onDelete={() => { this.props.deleteProject(project.path); }} />
 			);
 
@@ -229,12 +230,15 @@ function mapStateToProps({ appState, workspace }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
+		// Workspace
 		openWorkspace: (filePath) => { dispatch(workspaceActions.openWorkspace(filePath)) },
 		loadProjects: () => dispatch(workspaceActions.loadProjects()),
+		// Project
 		openProject: (filePath) => dispatch(projectActions.openProjectAction(filePath)),
 		createProject: (filePath) => dispatch(projectActions.createProjectAction(filePath)),
 		deleteProject: (filePath) => dispatch(projectActions.deleteProject(filePath)),
 		changeCurrentRootRoute: (rootRoute) => dispatch(projectActions.changeCurrentRootRoute(rootRoute)),
+		save: () => dispatch(projectActions.save()),
 	};
 }
 
