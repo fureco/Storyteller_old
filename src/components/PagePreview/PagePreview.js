@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-	Colors,
-} from '@blueprintjs/core';
+import { getBorderStyle, getBorderRadius, getBgColor } from './../../store/appState/appState.selectors';
 
-class PagePreview extends React.Component {
+export class PagePreview extends React.Component {
 
 	constructor(props) {
 
@@ -19,11 +17,11 @@ class PagePreview extends React.Component {
 	render() {
 
 		return (
-			<div className="page-preview" >
+			<div id="PagePreview" className="page-preview" >
 				<div className="page-preview-content" style={{
-					border: `1px solid ${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY1 : Colors.GRAY5}`,
-					borderRadius: `3px`,
-					backgroundColor: `${this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY3 : Colors.LIGHT_GRAY5}`,
+					border: this.props.borderStyle,
+					borderRadius: this.props.borderRadius,
+					backgroundColor: this.props.bgColor,
 				}}>
 					<div style={{
 						display: `flex`,
@@ -44,6 +42,9 @@ function mapStateToProps({ appState }, ownProps) {
 
 	return {
 		appState,
+		borderStyle: getBorderStyle(appState),
+		borderRadius: getBorderRadius(),
+		bgColor: getBgColor(appState, "dark")
 	};
 }
 

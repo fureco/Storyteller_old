@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { PagePreview } from './../../components';
 import { getBorderStyle, getColor } from './../../store/appState/appState.selectors';
 import * as projectActions from './../../store/project/project.actions';
 
@@ -102,16 +103,7 @@ export class Cover extends React.Component {
 
 		return (
 			<div id="Cover">
-
-				<div className="page-preview" >
-					<div className="page-preview-content" style={{
-						border: `${this.props.borderStyle}`,
-						borderRadius: `${this.state.borderRadius}`,
-						backgroundColor: `${this.state.backgroundColor}`,
-					}}>
-						{content}
-					</div>
-				</div>
+				<PagePreview content={content} />
 			</div>
 		);
 	}
