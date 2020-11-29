@@ -19,12 +19,16 @@ class Chapters extends React.Component {
 
 	render() {
 
-		var content = <div style={{paddingBottom: '15px'}}>Your project has no chapters yet. Start writing your book by creating the first chapter now.</div>
+		var content =
+			<div>
+				<div style={{ paddingBottom: '15px' }}>
+					Your project has no chapters yet. Start writing your book by creating the first chapter now.
+				</div>
+				<div><ChapterCreationDialog /></div>
+			</div>
 
-		if (this.props.chapters.length) {
-			content = this.props.chapters.sort(this.sortByPosition).map((chapter, index) => (
-				<Chapter key={chapter.id} chapter={chapter} />
-			))
+		if (this.props.chapter) {
+			content = <Chapter key={this.props.chapter.id} chapter={this.props.chapter} />
 		}
 
 		return (
@@ -35,30 +39,16 @@ class Chapters extends React.Component {
 				width: `100%`,
 				height: `100%`,
 			}}>
-				<div>{content}</div>
-
-				<div><ChapterCreationDialog /></div>
+				{content}
 			</div>
 		);
-	}
-
-	sortByPosition(a, b) {
-		let comparison = 0;
-		if (a.position > b.position) {
-			comparison = 1;
-		} else if (a.position < b.position) {
-			comparison = -1;
-		}
-		return comparison;
 	}
 }
 
 function mapStateToProps({ project, chapters }) {
 	return {
 		project,
-		chapters: chapters.filter((chapter) => {
-			return chapter.deleted_at == null
-		}),
+		chapter: project.selectedChapter || chapters[0],
 	};
 }
 

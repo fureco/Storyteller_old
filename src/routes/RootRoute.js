@@ -59,7 +59,8 @@ export class RootRoute extends React.Component {
     }
 }
 
-function Content(props) {
+export function Content(props) {
+
 	if (props.appState.path) {
 		return <ProjectRoute project={props.project} />
 	}

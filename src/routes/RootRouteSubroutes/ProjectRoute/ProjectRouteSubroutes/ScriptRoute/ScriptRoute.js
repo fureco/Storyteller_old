@@ -5,7 +5,7 @@ import { getBorderStyle } from './../../../../../store/appState/appState.selecto
 import ScriptNav from './../../../../../components/ScriptNav/ScriptNav';
 import ScriptRouteContent from './ScriptRouteContent';
 
-class ScriptRoute extends React.Component {
+export class ScriptRoute extends React.Component {
 
     constructor(props) {
 
@@ -20,7 +20,14 @@ class ScriptRoute extends React.Component {
 
 		return (
 
-			<div id="ScriptRoute" style={{ display: 'flex', flexDirection: 'row', height: '100%', width: '100%', marginBottom: '10px' }}>
+			<div id="ScriptRoute"
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					height: '100%',
+					width: '100%',
+					marginBottom: '10px'
+				}}>
 
 				<div
 					id="TreeviewColumn"

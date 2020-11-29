@@ -1,31 +1,60 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 
-import { RootRoute } from './RootRoute.js';
+import { RootRoute, Content } from './RootRoute.js';
 import { mapStateToProps, mapDispatchToProps } from './RootRoute';
 
 jest.mock('electron-json-storage-sync');
 
 describe('RootRoute component', () => {
 
-/* 	it('renders', () => {
+	it('renders', () => {
 
-		require('sync_storage').set('storyteller', { status: '200', data: { theme: "bp3-body" } });
-		let storage = require('sync_storage').get('storyteller');
-		console.log(storage)
+		const mockProps = RootRoute.getMappedProps({});
 
-		const container = shallow(
-			<RootRoute />
+		const wrapper = shallow(
+			<RootRoute {...mockProps} />
 		);
 
-		const result = container.find('#RootRoute');
-		expect(result.length).toEqual(1);
-	}) */
+		const rootRoute = wrapper.find('#RootRoute');
+		expect(rootRoute.length).toEqual(1);
+	})
 
 	it('should set the theme', () => {
 		const dispatch = jest.fn();
 		mapDispatchToProps(dispatch).setTheme();
 		expect(dispatch.mock.calls[0][0]).toEqual({ type: 'SET_THEME' });
 	});
+
+	describe('Content component', () => {
+
+		it('renders the WelcomeRoute if appState.path is not set', () => {
+
+			const appState = {
+				path: null
+			}
+
+			const wrapper = shallow(
+				<Content appState={appState} />
+			);
+
+			const result = wrapper.text();
+			expect(result).toEqual("<WelcomeRoute />");
+		})
+
+		it('renders the ProjectRoute if appState.path is set', () => {
+
+			const appState = {
+				path: 'path/to/test/project'
+			}
+
+			const wrapper = shallow(
+				<Content appState={appState} />
+			);
+
+			const result = wrapper.text();
+			expect(result).toEqual("<ProjectRoute />");
+		})
+	})
 
 })

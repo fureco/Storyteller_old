@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getRoute } from './../../../../store/project/project.selectors';
 
 import Workspace from './../../../../components/Workspace/Workspace';
-import ScriptRoute from './../ProjectRouteSubroutes/ScriptRoutes/ScriptRoute';
+import ScriptRoute from './../ProjectRouteSubroutes/ScriptRoute/ScriptRoute';
 import CharactersRoute from './../ProjectRouteSubroutes/CharactersRoutes/CharactersRoute';
 import PreviewRoute from '../ProjectRouteSubroutes/PreviewRoute/PreviewRoute';
 

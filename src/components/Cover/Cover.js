@@ -23,8 +23,6 @@ export class Cover extends React.Component {
 		super(props);
 
 		this.state = {
-			borderRadius: `3px`,
-			backgroundColor: `${this.props.appState && this.props.appState.theme == 'bp3-dark' ? Colors.DARK_GRAY3 : Colors.LIGHT_GRAY5}`,
 			coverFolderPath: this.props.appState ? this.props.appState.path + "\\src\\assets\\cover\\": "",
 			fileName: "",
 			isHovering: false,
@@ -102,7 +100,13 @@ export class Cover extends React.Component {
 		}
 
 		return (
-			<div id="Cover">
+			<div id="Cover" style={{
+				width: '100%',
+				height: '100%',
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center'
+			}}>
 				<PagePreview content={content} />
 			</div>
 		);

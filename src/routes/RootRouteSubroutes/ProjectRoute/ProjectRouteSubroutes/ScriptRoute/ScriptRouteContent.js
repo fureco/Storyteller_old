@@ -27,14 +27,8 @@ export class ScriptRouteContent extends React.Component {
 			<div
 				id="ScriptRouteContent"
 				style={{
-					overflow: 'auto',
-					resize: 'none',
-					outline: 'none',
-					padding: '10px',
-					flex: '1',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
+					width: '100%',
+					height: '100%'
 				}}>
 				<Content id="Content" route={this.props.route} />
 			</div>
