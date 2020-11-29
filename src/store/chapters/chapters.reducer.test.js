@@ -23,19 +23,6 @@ describe('Chapters reducer', () => {
 		)
 	})
 
-	it('should handle CREATE', () => {
-		expect(
-			reducer(initialState, {
-				type: actions.CREATE,
-				chapter: initialStateChapter
-			})
-		).toEqual(
-			Object.assign([], initialState, [
-				initialStateChapter
-			])
-		)
-	})
-
     it('should handle SET_CHAPTERS', () => {
 		expect(
 			reducer(initialState, {

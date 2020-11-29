@@ -1,4 +1,7 @@
 export function getRoute(state) {
+
+	if (!state) return;
+
 	return getSubRoute(state.route);
 }
 

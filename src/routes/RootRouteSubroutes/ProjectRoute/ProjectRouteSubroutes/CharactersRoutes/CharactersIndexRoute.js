@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Trash from '../../../../components/Trash/Trash.index.js'
+import Trash from './../../../../../components/Trash/Trash.index.js'
 
 import {
 	Button,

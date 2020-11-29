@@ -7,7 +7,7 @@ import WelcomeRoute from './WelcomeRoute.js';
 import configureStore from 'redux-mock-store'
 const mockStore = configureStore()
 
-import * as appState from './../../store/appState/appState.model'
+import * as appState from '../../../store/appState/appState.model'
 import { Provider } from 'react-redux';
 
 describe('WelcomeRoute component', () => {

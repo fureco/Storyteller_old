@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as chapterActions from '../../store/chapters/chapter.actions';
+import * as chapterActions from './../../../store/chapters/chapter.actions';
 
-import TextInput from "./../TextInput/TextInput";
+import TextInput from "./../../TextInput/TextInput";
 
-import Editor from '../Editor/Editor';
+import Editor from './../../Editor/Editor';
 
 class Chapter extends React.Component {
 

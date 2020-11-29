@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { charactersActions } from "../../../../store/actions";
+import { charactersActions } from "./../../../../../store/actions";
 
 import {
 	Button,

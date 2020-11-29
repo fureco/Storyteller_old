@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as projectActions from '../../store/project/project.actions';
 
-import Chapter from "./../Chapter/Chapter";
+import Chapter from "./Chapter/Chapter";
 import ChapterCreationDialog from "./ChapterCreationDialog";
 
 import "./Chapters.css"
@@ -19,7 +19,7 @@ class Chapters extends React.Component {
 
 	render() {
 
-		const content = "Your project has no chapters yet. Start writing your book by creating the first chapter now."
+		var content = <div style={{paddingBottom: '15px'}}>Your project has no chapters yet. Start writing your book by creating the first chapter now.</div>
 
 		if (this.props.chapters.length) {
 			content = this.props.chapters.sort(this.sortByPosition).map((chapter, index) => (
@@ -29,10 +29,13 @@ class Chapters extends React.Component {
 
 		return (
 			<div id="Chapters" style={{
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
 				width: `100%`,
 				height: `100%`,
 			}}>
-				{content}
+				<div>{content}</div>
 
 				<div><ChapterCreationDialog /></div>
 			</div>

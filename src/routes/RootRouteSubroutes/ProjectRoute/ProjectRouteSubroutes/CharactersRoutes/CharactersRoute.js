@@ -12,7 +12,7 @@ import {
 
 import {
 	Character
-} from '../../../../components';
+} from './../../../../../components';
 
 
 class CharactersRoute extends React.Component {

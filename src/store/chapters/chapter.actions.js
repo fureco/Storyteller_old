@@ -1,5 +1,8 @@
 const fs = require('fs');
 
+import { getNewID } from '../reducers/utils'
+import { initialState } from './chapter.model'
+
 // ############ ACTION TYPES ##############
 export const ADD = 'ADD';
 export const CREATE = 'CREATE';
@@ -12,11 +15,43 @@ export const SET_DELETED_AT = 'SET_DELETED_AT';
 
 // ############## ACTIONS #################
 export const add = (chapter) => ({ type: ADD, chapter });
-export const create = (chapter) => ({ type: CREATE, chapter });
 export const setChapters = (chapters) => ({ type: SET_CHAPTERS, chapters });
 
 export const setTitle = (chapter, title) => ({ type: SET_TITLE, chapter, title });
 export const setDeletedAt = (chapter, deleted_at) => ({ type: SET_DELETED_AT, chapter, deleted_at });
+
+// create a new chapter and save it to a new JSON file
+export const create = (chapter) => {
+
+	return (dispatch, getState) => {
+
+		let directoryPath = getState().appState.path;
+		let pos_of_new_chapter = getState().chapters.length + 1;
+
+		if (!fs.existsSync(directoryPath + "/src/script/")) {
+			// create script folder if it does not yet exist
+			fs.mkdirSync(directoryPath + "/src/script/");
+		}
+
+		let data = {
+			title: chapter.title,
+			text: ""
+		};
+
+		fs.writeFile(directoryPath + "/src/script/" + pos_of_new_chapter + "_" + chapter.title.replace(/ /g, "_") + ".json", JSON.stringify(data), (err) => {
+			if (err) {
+				console.log("FAILURE: ", err)
+			}
+			else {
+				console.log("Saved!")
+
+				const new_chapter = Object.assign(initialState, chapter, { id: getNewID(getState().chapters), position: pos_of_new_chapter });
+
+				dispatch(add(new_chapter));
+			}
+		})
+	};
+};
 
 // create a new chapter and save it to a new JSON file
 export const save = (chapter) => {

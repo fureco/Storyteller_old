@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {
 	Cover
-} from '../../../../components';
+} from './../../../../../components';
 
 import {
 	Button,

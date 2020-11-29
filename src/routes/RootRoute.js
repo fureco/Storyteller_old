@@ -7,8 +7,8 @@ import * as appStateActions from "./../store/appState/appState.actions";
 import * as workspaceActions from "./../store/workspace/workspace.actions";
 import * as projectActions from "./../store/project/project.actions";
 
-import WelcomeRoute from './RootRoutes/WelcomeRoute';
-import ProjectRoute from './RootRoutes/ProjectRoute';
+import WelcomeRoute from './RootRouteSubroutes/WelcomeRoute/WelcomeRoute';
+import ProjectRoute from './RootRouteSubroutes/ProjectRoute/ProjectRoute';
 
 export class RootRoute extends React.Component {
 

@@ -6,10 +6,10 @@ import {
 	TitleAndAuthor,
 	Abstract,
 	Parts
-} from '../../../../components';
+} from '../../../../../components';
 
-import Chapters from './../../../../components/Chapters/Chapters';
-import Dedication from './../../../../components/Dedication/Dedication';
+import Chapters from '../../../../../components/Chapters/Chapters';
+import Dedication from '../../../../../components/Dedication/Dedication';
 
 export class ScriptRouteContent extends React.Component {
 
@@ -67,7 +67,7 @@ export function Content(props) {
 	return (<Cover />);
 }
 
-import { getRoute } from './../../../../store/project/project.selectors';
+import { getRoute } from '../../../../../store/project/project.selectors';
 
 function mapStateToProps({ project }) {
 	return {

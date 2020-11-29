@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getBorderStyle } from './../../../../store/appState/appState.selectors';
-import ScriptNav from './../../../../components/ScriptNav/ScriptNav';
+import { getBorderStyle } from './../../../../../store/appState/appState.selectors';
+import ScriptNav from './../../../../../components/ScriptNav/ScriptNav';
 import ScriptRouteContent from './ScriptRouteContent';
 
 class ScriptRoute extends React.Component {

@@ -61,7 +61,7 @@ class ChapterCreationDialog extends React.Component {
     }
 
 	create(title) {
-		this.props.create({title});
+		this.props.create({ title });
 		this.toggleDialog();
 	}
 
