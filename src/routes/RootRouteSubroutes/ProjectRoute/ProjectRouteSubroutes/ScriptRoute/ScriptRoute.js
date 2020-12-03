@@ -25,13 +25,14 @@ export class ScriptRoute extends React.Component {
 					display: 'flex',
 					flexDirection: 'row',
 					height: '100%',
-					width: '100%',
-					marginBottom: '10px'
+					width: '100%'
 				}}>
 
 				<div
 					id="TreeviewColumn"
 					style={{
+						width: '250px',
+						minWidth: '250px',
 						maxWidth: '400px',
 						overflow: 'auto',
 						border: this.props.borderStyle,
