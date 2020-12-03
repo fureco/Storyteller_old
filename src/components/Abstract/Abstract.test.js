@@ -6,16 +6,21 @@ describe('Abstract component', () => {
 
 	it('renders', () => {
 
-		const project = {
-			abstract: 'test abstract'
-		}
+		const mockProps = Abstract.getMappedProps({
+			project: {
+				abstract: 'test abstract'
+			}
+		});
 
 		const abstract = shallow(
-			<Abstract project={project} />
+			<Abstract {...mockProps} />
 		);
 
-		const result = abstract.find('#Abstract');
-		expect(result.length).toEqual(1);
+		const wrapper = abstract.find('#Abstract');
+		expect(wrapper.length).toEqual(1);
+
+		const result = wrapper.text();
+		expect(result).toEqual("<PagePreview />");
 	})
 
 })
