@@ -46,6 +46,23 @@ A writing application build with Electron, React, PostCSS and Webpack.
 ```
 git clone https://github.com/laniley/Storyteller.git
 ```
+#### Install Node.js and npm
+
+https://nodejs.org/en/download/
+
+Check with
+---
+node -v
+npm -v
+---
+
+#### Install Yarn
+
+---
+npm install --global yarn
+---
+
+Reopen editor
 
 #### Install dependencies
 
